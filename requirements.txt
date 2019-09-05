@@ -1,0 +1,4 @@
+# TODO learn and make this in proper pip format
+
+pytest
+pytest-interactive
