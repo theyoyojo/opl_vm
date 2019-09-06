@@ -13,7 +13,7 @@ class Atom:
         self.value = value
 
     def repr(self):
-        return value
+        return self.value
 
     def pp(self):
         print("\n" + self.repr() + "\n")
