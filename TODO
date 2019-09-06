@@ -1,4 +1,3 @@
-(HL) Implement a big-step interpreter for J0.
 (HL) Define a data structure to represent Sexprs.
 (HL) Convert your J0 test-suite into Sexprs.
 (HL) Implement a desugar function that converts Sexprs into J0.

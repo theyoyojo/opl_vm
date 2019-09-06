@@ -6,4 +6,7 @@ class Number():
         return str(self.number)
 
     def pp(self):
-        print(self.repr())
+        print("\n" + self.repr() + "\n")
+
+    def ibig(self):
+        return Number(self.number)

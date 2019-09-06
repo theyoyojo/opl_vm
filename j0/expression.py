@@ -1,5 +1,4 @@
-#def binary_init(obj, left, right)
-#def binary_pp
+import j0.value as v
 
 class Mult:
     def __init__(self, left, right):
@@ -12,6 +11,9 @@ class Mult:
     def pp(self):
         print("\n" + self.repr() + "\n")
 
+    def ibig(self):
+        return v.Number(self.left.ibig().number * self.right.ibig().number)
+
 class Add:
     def __init__(self, left, right):
         self.left = left
@@ -22,4 +24,6 @@ class Add:
 
     def pp(self):
         print("\n" + self.repr() + "\n")
-     
+
+    def ibig(self):
+        return v.Number(self.left.ibig().number + self.right.ibig().number)
