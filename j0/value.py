@@ -5,5 +5,5 @@ class Number():
     def repr(self):
         return str(self.number)
 
-    def pretty_print(self):
+    def pp(self):
         print(self.repr())

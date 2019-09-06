@@ -9,7 +9,7 @@ class Mult:
     def repr(self):
         return "(* " + self.left.repr() + " " + self.right.repr() + ")"
 
-    def pretty_print(self):
+    def pp(self):
         print("\n" + self.repr() + "\n")
 
 class Add:
@@ -20,6 +20,6 @@ class Add:
     def repr(self):
         return "(+ " + self.left.repr() + " " + self.right.repr() + ")"
 
-    def pretty_print(self):
+    def pp(self):
         print("\n" + self.repr() + "\n")
      

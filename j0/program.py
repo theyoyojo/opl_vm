@@ -3,6 +3,6 @@ class J0:
         self.program = program
         self.objects = []
 
-    def pretty_print(self):
+    def pp(self):
         for obj in objects:
-            objects.pretty_print()
+            objects.pp()
