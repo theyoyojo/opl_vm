@@ -1,5 +1,3 @@
-(HL) Convert your J0 test-suite into Sexprs.
-(HL) Implement a desugar function that converts Sexprs into J0.
 (HL) Define data structures to represent J1 programs, with pretty printers.
 (HL) Write a test-suite of a dozen J1 programs.
 (HL) Extend desugar to emit J1 programs.

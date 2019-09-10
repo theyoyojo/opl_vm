@@ -99,9 +99,6 @@ def test_mult_mult_mult_balanced():
     assert z.number == 280
 
 def test_add_mult_add_left_sag():
-#     x = e.Add(e.Mult(e.Add( \
-#             v.Number(4), v.Number(7)), \
-#             v.Number(5)), v.Number(2))
     x = s.Cons(s.Atom("+"),s.Cons(s.Cons(s.Atom("*"),s.Cons(
         s.Cons(s.Atom("+"),s.Cons(s.Atom("4"),s.Cons(s.Atom("7"),s.Nil()))),
         s.Cons(s.Atom("5"),s.Nil()))),s.Cons(s.Atom("2"),s.Nil())))
@@ -127,8 +124,22 @@ def test_add_add_add_add_left_sag():
             s.Cons(s.Atom("5"),s.Nil()))),s.Cons(s.Atom("2"),s.Nil()))),
             s.Cons(s.Atom("6"),s.Nil())))
     x.pp()
-    x.pp()
     y = x.desu()
     y.pp()
     z = y.ibig()
     assert z.number == 24
+
+def test_subtraction():
+    x = s.Cons(s.Atom("-"), s.Cons(s.Atom("4"), s.Cons(s.Atom("7"), s.Nil())))
+    y = x.desu()
+    y.pp()
+    z = y.ibig()
+    assert z.number == -3
+
+# def test_subtraction_unary():
+#     x = s.Cons(s.Atom("+"),s.Cons(s.Atom("4"),
+#             s.Cons(s.Atom("-"), s.Cons(s.Atom("7"),s.Nil()))))
+#     y = x.desu()
+#     y.pp()
+#     z = y.ibig()
+#     assert z.number == -3

@@ -69,8 +69,13 @@ class Cons:
 
         if self.left.value == "+":
             return e.Add(self.right.left.desu(),self.right.right.desu())
-        if self.left.value == "*":
+        elif self.left.value == "*":
             return e.Mult(self.right.left.desu(),self.right.right.desu())
+        elif self.left.value == "-":
+            # UNARY spaghetti
+            # if self.right.right.repr() == "()" or not is_number(self.right.right.value):
+            #     return
+            return e.Add(e.Mult(self.right.right.desu(),v.Number(-1)),self.right.left.desu())
         else:
             raise SaltySyntax("Something went wrong :)")
 
