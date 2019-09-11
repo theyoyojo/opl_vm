@@ -1,3 +1,4 @@
+(HL) rewrite that desugar function, current implementation is trash
 (HL) Define data structures to represent J1 programs, with pretty printers.
 (HL) Write a test-suite of a dozen J1 programs.
 (HL) Extend desugar to emit J1 programs.
