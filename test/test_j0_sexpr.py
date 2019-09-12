@@ -58,8 +58,8 @@ def test_add_mult_number_left_sag():
 
 def test_add_mult_number_right_sag():
     x = s.Cons(s.Atom("+"),s.Cons(s.Atom("4"),
-        s.Cons(s.Atom("*"),s.Cons(s.Atom("7"),
-        s.Cons(s.Atom("5"),s.Nil())))))
+        s.Cons(s.Cons(s.Atom("*"),s.Cons(s.Atom("7"),
+        s.Cons(s.Atom("5"),s.Nil()))),s.Nil())))
     dp_ip_aeq(x, 39)
 
 def test_mult_add_number_left_sag():
@@ -71,24 +71,24 @@ def test_mult_add_number_left_sag():
 
 def test_mult_add_number_right_sag():
     x = s.Cons(s.Atom("*"),s.Cons(s.Atom("4"),
-        s.Cons(s.Atom("+"),s.Cons(s.Atom("7"),
-            s.Cons(s.Atom("5"),s.Nil())))))
+        s.Cons(s.Cons(s.Atom("+"),s.Cons(s.Atom("7"),
+        s.Cons(s.Atom("5"),s.Nil()))),s.Nil())))
     dp_ip_aeq(x, 48)
 
 def test_add_add_add_balanced():
     x = s.Cons(s.Atom("+"),s.Cons(s.Cons(
         s.Atom("+"),s.Cons(s.Atom("4"),
         s.Cons(s.Atom("7"),s.Nil()))),
-        s.Cons(s.Atom("+"),s.Cons(s.Atom("5"),
-            s.Cons(s.Atom("2"),s.Nil())))))
+        s.Cons(s.Cons(s.Atom("+"),s.Cons(s.Atom("5"),
+            s.Cons(s.Atom("2"),s.Nil()))), s.Nil())))
     dp_ip_aeq(x, 18)
 
 def test_mult_mult_mult_balanced():
     x = s.Cons(s.Atom("*"),s.Cons(s.Cons(
         s.Atom("*"),s.Cons(s.Atom("4"),
         s.Cons(s.Atom("7"),s.Nil()))),
-        s.Cons(s.Atom("*"),s.Cons(s.Atom("5"),
-        s.Cons(s.Atom("2"),s.Nil())))))
+        s.Cons(s.Cons(s.Atom("*"),s.Cons(s.Atom("5"),
+            s.Cons(s.Atom("2"),s.Nil()))), s.Nil())))
     dp_ip_aeq(x, 280)
 
 def test_add_mult_add_left_sag():
@@ -114,10 +114,6 @@ def test_subtraction():
     x = s.Cons(s.Atom("-"), s.Cons(s.Atom("4"), s.Cons(s.Atom("7"), s.Nil())))
     dp_ip_aeq(x, -3)
 
-
-def test_add_unary():
-    x = s.Cons(s.Atom("+"), s.Cons(s.Atom("4"), s.Nil()))
-    dp_ip_aeq(x, 4)
 
 def test_add_add_add_sugar():
     x = s.Cons(s.Atom("+"), s.Cons(s.Atom("4"), s.Cons(s.Atom("7"),

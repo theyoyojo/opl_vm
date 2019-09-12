@@ -80,31 +80,6 @@ class Cons(Sexpr):
     def pp(self):
         print("\n" + self.repr() + "\n")
 
-    # def desu(self):
-    #     # What do we have on the right?
-    #     # if it's another cons, recursively simplify that thing to an atom
-    #     # Actually, assume it can never be non-atom, because that would make no sense
-
-    #     if self.left.repr() == "()":
-    #         return
-         
-    #     if is_number(self.left.value):
-    #         if self.right.repr() == "()":
-    #             return v.Number(float(self.left.value))
-
-    #     if self.left.value == "+":
-    #         return e.Add(self.right.left.desu(),self.right.right.desu())
-    #     elif self.left.value == "*":
-    #         return e.Mult(self.right.left.desu(),self.right.right.desu())
-    #     elif self.left.value == "-":
-    #         # UNARY spaghetti
-    #         # if self.right.right.repr() == "()" or not is_number(self.right.right.value):
-    #         #     return
-    #         return e.Add(e.Mult(self.right.right.desu(),v.Number(-1)),self.right.left.desu())
-    #     else:
-    #         raise SaltySyntax("Something went wrong :)")
-
-
 def desugar_minus(sexpr):
     # Unary case
     if sexpr.length() == 1:
@@ -114,16 +89,16 @@ def desugar_minus(sexpr):
         return e.Add(sexpr.first().desu(),
             e.Mult(v.Number(-1), sexpr.second().desu()))
     else:
-        raise SaltySyntax("- function expects 1 or two arguments, got " + 
+        raise SaltySyntax("- function expects 1 or 2 arguments, got " + 
                 sexpr.length() + " instead")
 
 def desugar_plus(sexpr):
     # Base case
-    if sexpr.length() == 1:
-        return sexpr.first().desu()
+    if sexpr.length() == 2:
+        return e.Add(sexpr.first().desu(), sexpr.second().desu())
     # Recursive case
-    elif sexpr.length() > 1:
-        return e.Add(sexpr.first().desu(), sexpr.rest().desu())
+    elif sexpr.length() > 2:
+        return e.Add(sexpr.first().desu(), Cons(Atom("+"), sexpr.rest()).desu())
     else:
         raise SaltySyntax("unknown error. Negative length?")
     
@@ -131,11 +106,11 @@ def desugar_plus(sexpr):
 
 def desugar_mult(sexpr):
     # Base case
-    if sexpr.length() == 1:
-        return sexpr.first().desu()
+    if sexpr.length() == 2:
+        return e.Mult(sexpr.first().desu(), sexpr.second().desu())
     # Recursive case
-    elif sexpr.length() > 1:
-        return e.Mult(sexpr.first().desu(), sexpr.rest().desu())
+    elif sexpr.length() > 2:
+        return e.Mult(sexpr.first().desu(), Cons(Atom("*"), sexpr.rest()).desu())
     # Error case (basement case)
     else:
         raise SaltySyntax("* function expects more than 0 arguments")
@@ -163,7 +138,7 @@ def desugar_atom(sexpr):
 
 def desugar(sexpr):
     #print("sexpr length: " + str(sexpr.length())
-    sexpr.pp()
+    # sexpr.pp()
     if isinstance(sexpr, Cons):
         return desugar_cons(sexpr)
     elif isinstance(sexpr, Atom):
