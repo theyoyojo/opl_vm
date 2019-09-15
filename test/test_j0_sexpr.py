@@ -5,7 +5,6 @@ import pytest
 # Desugar -> print -> interpret -> print -> assert value equals x
 def dp_ip_aeq(sexpr,value):
     sexpr.pp()
-    sexpr.desu()
     program = sexpr.desu()
     program.pp()
     program_value = program.ibig()

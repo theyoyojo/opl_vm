@@ -1,44 +1,135 @@
 import j1.value as v
+from j1.error import *
 
 class Expression:
+    def __init__(self, args):
+        # First, validate argument count
+        if len(args) != self.attrs["args_expected"]:
+            raise  BadArgumentsCount(self.attrs["args_expected"], len(args))
+        # Now, we can safely validate the content
+        self.validate_operands(args)
+
     def pp(self):
         print(self.repr())
 
-class Mult(Expression):
-    def __init__(self, left, right):
-        
-        self.left = left
-        self.right = right
+class BinaryExpression(Expression):
+    attrs = {
+            "args_expected": 2
+            }
+    def __init__(self, args):
+        super().__init__(args)
+        self.left = args[0]
+        self.right = args[1]
+
+    def validate_operands(self, args):
+        if not isinstance(args[0], v.Number) and not issubclass(type(args[0]), Expression):
+            raise BadArgumentsContent("Number",args[0])
+        if not isinstance(args[1], v.Number) and not issubclass(type(args[1]), Expression):
+            raise BadArgumentsContent("Number",args[1])
+
+class Mult(BinaryExpression):
+    def __init__(self, *args):
+        super().__init__(args)
 
     def repr(self):
         return "(* " + self.left.repr() + " " + self.right.repr() + ")"
 
-    def ibig(self):
-        return v.Number(self.left.ibig().number * self.right.ibig().number)
+    def binterp(self):
+        return v.Number(self.left.binterp().value * self.right.binterp().value)
 
-class Add(Expression):
-    def __init__(self, left, right):
-        self.left = left
-        self.right = right
+class Add(BinaryExpression):
+    def __init__(self, *args):
+        super().__init__(args)
 
     def repr(self):
         return "(+ " + self.left.repr() + " " + self.right.repr() + ")"
 
-    def ibig(self):
-        return v.Number(self.left.ibig().number + self.right.ibig().number)
+    def binterp(self):
+        return v.Number(self.left.binterp().value + self.right.binterp().value)
+
+class Div(BinaryExpression):
+    def __init__(self, *args):
+        super().__init__(args)
+        if self.right == 0:
+            raise ValueError("Undefined behavior: divison by zero")
+
+    def repr(self):
+        return "(+ " + self.left.repr() + " " + self.right.repr() + ")"
+
+    def binterp(self):
+        return v.Number(self.left.binterp().value / self.right.binterp().value)
+
+class LessThan(BinaryExpression):
+    def __init__(self, *args):
+        super().__init__(args)
+
+    def repr(self):
+        return "(< " + self.left.repr() + " " + self.right.repr() + ")"
+
+    def binterp(self):
+        return v.Bool(self.left.binterp().value < self.right.binterp().value)
+
+class LessThanOrEqualTo(BinaryExpression):
+    def __init__(self, *args):
+        super().__init__(args)
+
+    def repr(self):
+        return "(<= " + self.left.repr() + " " + self.right.repr() + ")"
+
+    def binterp(self):
+        return v.Bool(self.left.binterp().value <= self.right.binterp().value)
+
+class GreaterThan(BinaryExpression):
+    def __init__(self, *args):
+        super().__init__(args)
+
+    def repr(self):
+        return "(> " + self.left.repr() + " " + self.right.repr() + ")"
+
+    def binterp(self):
+        return v.Bool(self.left.binterp().value > self.right.binterp().value)
+
+class GreaterThanOrEqualTo(BinaryExpression):
+    def __init__(self, *args):
+        super().__init__(args)
+
+    def repr(self):
+        return "(>= " + self.left.repr() + " " + self.right.repr() + ")"
+
+    def binterp(self):
+        return v.Bool(self.left.binterp().value >= self.right.binterp().value)
+
+class EqualTo(BinaryExpression):
+    def __init__(self, *args):
+        super().__init__(args)
+
+    def repr(self):
+        return "(= " + self.left.repr() + " " + self.right.repr() + ")"
+
+    def binterp(self):
+        return v.Bool(self.left.binterp().value == self.right.binterp().value)
+
 
 class Cond(Expression):
-    def __init__(self, pred, true, false):
-        self.pred = pred
-        self.true = true
-        self.false = false
+    attrs = {
+            "args_expected": 3
+            }
+
+    def validate_operands(self, args):
+        pass
+
+    def __init__(self, *args):
+        super().__init__(args)
+        self.pred = args[0]
+        self.true = args[1]
+        self.false = args[2]
 
     def repr(self):
         return "(if " + self.pred.repr() + " then " + self.true.repr() + \
                 " else " + self.false.repr() + ")"
 
-    def ibig(self):
-        if v.Bool(pred.ibig()).value:
-            return true.ibig()
+    def binterp(self):
+        if self.pred.binterp().value:
+            return self.true.binterp()
         else:
-            return false.ibig()
+            return self.false.binterp()
