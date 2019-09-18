@@ -2,8 +2,9 @@ from .context import j1
 import j1.value as v
 import j1.expression as e
 import j1.sexpr as s
-import j1.undefined as u
 from j1.desugar import desugar
+from j1.big_interp import big_interp
+from j1.error import *
 import pytest
 
 # Desugar -> print -> interpret -> print -> assert value equals x
@@ -11,10 +12,9 @@ def dp_ip_aeq(sexpr, value):
     sexpr.pp()
     program = desugar(sexpr)
     program.pp()
-    program_value = program.binterp()
+    program_value = big_interp(program)
     program_value.pp()
     assert program_value.value == value
-
 
 def test_less_than_true():
     x = s.Cons(s.Atom("<"),s.Cons(s.Atom("4"),
@@ -22,18 +22,18 @@ def test_less_than_true():
     dp_ip_aeq(x,True)
 
 def test_less_than_whack():
-    with pytest.raises(u.BadArgumentsContent):
+    with pytest.raises(BadArgumentsCount):
         x = s.Cons(s.Atom("<"),s.Cons(s.Atom("4"),
             s.Cons(s.Atom("7"),s.Cons(s.Atom("2"),s.Nil()))))
-        dp_ip_aeq(x,True)
+        big_interp(desugar(x))
 
 def test_minus_ternary():
     # Basically, this error is triggered by the remaining sexpr
     # being passed to add, but maybe it should be detected elsewhere?
-    with pytest.raises(u.BadArgumentsContent):
+    with pytest.raises(j1.big_interp.QuestionablyInterpretableExpressionException):
         x = s.Cons(s.Atom("-"),s.Cons(s.Atom("4"),
             s.Cons(s.Atom("7"),s.Cons(s.Atom("2"),s.Nil()))))
-        dp_ip_aeq(x,True)
+        big_interp(desugar(x))
 
 def test_if_cond_then_else_true():
     pred = s.Cons(s.Atom("<"),s.Cons(s.Atom("4"),
@@ -80,6 +80,11 @@ def test_if_cond_equal_false():
                       s.Cons(true,false)))
 
     dp_ip_aeq(x,4)
+
+def test_cond_equal_true():
+    pred = s.Cons(s.Atom("="),s.Cons(s.Atom("4"),
+        s.Cons(s.Atom("4"),s.Nil())))
+    dp_ip_aeq(pred,True)
 
 def test_compound_math():
     math = s.Cons(s.Atom("*"), s.Cons(s.Atom("2"),s.Cons(

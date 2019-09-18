@@ -2,7 +2,6 @@ from .context import j1
 import j1.value as v
 import j1.expression as e
 import j1.sexpr as s
-import j1.undefined as u
 import j1.context as c
 from j1.desugar import desugar
 import pytest

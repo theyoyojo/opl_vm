@@ -1,23 +1,18 @@
 from j1.error import *
+import j1.expression as e
 
-class Value():
+class Value(e.Expression):
     def __init__(self, args):
-        # First, validate argument count
-        if len(args) != self.attrs["args_expected"]:
-            raise  BadArgumentsCount(self.attrs["args_expected"], len(args))
+        super().__init__(args)
         # Now, we can safely validate the content
-        self.validate_value(args)
-
-    def pp(self):
-        print(self.repr())
-
+        #self.validate_operands(args)
 
 class Number(Value):
     attrs = {
             "args_expected": 1
             }
 
-    def validate_value(self, args):
+    def validate_operands(self, args):
         try:
             float(args[0])
         except ValueError:
@@ -43,7 +38,7 @@ class Bool(Value):
             "args_expected": 1
             }
 
-    def validate_value(self, args):
+    def validate_operands(self, args):
         # anything can be converted to a bool for now
         pass
 
@@ -57,15 +52,14 @@ class Bool(Value):
     def binterp(self):
         return Bool(self.value)
 
-Prims = [ "+", "*", "/", "-", "<=", "<" "=", ">", ">=" ]
+Prims = [ "+", "*", "/", "-", "<=", "<", "=", ">", ">=" ]
 
-# This is never actually used...
 class Primitive(Value):
     attrs = {
             "args_expected": 1
             }
 
-    def validate_value(self, args):
+    def validate_operands(self, args):
         if args[0] not in Prims:
             raise BadArgumentsContent(type(self).__name__, args[0])
 
@@ -74,4 +68,4 @@ class Primitive(Value):
         self.value = args[0]
 
     def repr(self):
-        return self.symbol
+        return self.value

@@ -1,17 +1,72 @@
 import j1.expression as e
 import j1.value as v
-class Hole:
+
+def BadErrorException(Exception):
+    pass
+
+def get_mad():
+    raise BadErrorException("Something went wrong >:(")
+
+class Context:
+    expressions = []
+    def __init__(self, *args):
+       for expression in args:
+           expressions.append(expression)
+
     def repr(self):
-        return "[HOLE]"
+        if issubclass(self, EContext):
+            context_label = "E"
+        else:
+            context_label = "C"
+        return context_label + "[" + ' '.join(exp.repr() for exp in expressions) + "]"
+
     def pp(self):
         print(self.repr())
 
-class Context:
-   expressions = []
+class EContext:
+    pass
 
-   def __init__(self, *args):
-       for expression in args:
-           expressions.append(expression)
+class Hole(Context, EContext):
+    def repr(self):
+        return "[HOLE]"
+
+class IfContext(Context):
+    def __init__(self, pred, true, false):
+        super().__init__(pred, true, false)
+
+
+class IfContext0(IfContext, EContext):
+    def __init__(self, pred, true, false):
+        if not isinstance(pred, Context):
+            get_mad()
+        super().__init__(pred, true, false)
+
+
+class IfContext1(IfContext):
+    def __init__(self, pred, true, false):
+        if not isinstance(true, Context):
+            get_mad()
+        super().__init__(pred, true, false)
+
+class IfContext2(IfContext):
+    def __init__(self, pred, true, false):
+        if not isinstance(false, Context):
+            get_mad()
+        super().__init__(pred, true, false)
+
+class AppContextGeneral(Context):
+    def __init__(self, *args):
+        have_seen_context = False
+        for item in args:
+            if isinstance(item, Context):
+                have_seen_context = True
+        if not have_seen_context:
+            raise BadErrorException("AppContextGeneral must contain one context")
+        super().__init__(self, *args)
+            
+class AppContext(Context, EContext):
+    pass
+    # Need vs before hole, es after
 
 def plug(program, context):
     i = 0
@@ -22,7 +77,6 @@ def plug(program, context):
             context.__dict__[e] = program 
             return context
         i = i + 1
-
     return context
 
 def find_redex(program):
