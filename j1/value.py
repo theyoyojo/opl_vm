@@ -1,11 +1,14 @@
 from j1.error import *
 import j1.expression as e
+import j1.context as c
 
 class Value(e.Expression):
     def __init__(self, args):
         super().__init__(args)
         # Now, we can safely validate the content
         #self.validate_operands(args)
+    def find_redex(self):
+        return self, c.Hole()
 
 class Number(Value):
     attrs = {
@@ -24,9 +27,6 @@ class Number(Value):
 
     def repr(self):
         return str(self.value)
-
-    def binterp(self):
-        return Number(self.value)
 
 BoolReps = \
 {
@@ -48,9 +48,6 @@ class Bool(Value):
 
     def repr(self):
         return BoolReps[self.value]
-
-    def binterp(self):
-        return Bool(self.value)
 
 Prims = [ "+", "*", "/", "-", "<=", "<", "=", ">", ">=" ]
 

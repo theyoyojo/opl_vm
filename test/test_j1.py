@@ -3,7 +3,8 @@ import j1.value as v
 import j1.expression as e
 import j1.sexpr as s
 from j1.desugar import desugar
-from j1.big_interp import big_interp
+from j1.interp import big_interp
+from j1.interp import small_interp 
 from j1.error import *
 import pytest
 
@@ -13,7 +14,9 @@ def dp_ip_aeq(sexpr, value):
     program = desugar(sexpr)
     program.pp()
     program_value = big_interp(program)
+    program_value_alt = small_interp(program)
     program_value.pp()
+    assert program_value.repr() == program_value_alt.repr()
     assert program_value.value == value
 
 def test_less_than_true():
@@ -30,7 +33,7 @@ def test_less_than_whack():
 def test_minus_ternary():
     # Basically, this error is triggered by the remaining sexpr
     # being passed to add, but maybe it should be detected elsewhere?
-    with pytest.raises(j1.big_interp.QuestionablyInterpretableExpressionException):
+    with pytest.raises(j1.interp.QuestionablyInterpretableExpressionException):
         x = s.Cons(s.Atom("-"),s.Cons(s.Atom("4"),
             s.Cons(s.Atom("7"),s.Cons(s.Atom("2"),s.Nil()))))
         big_interp(desugar(x))
@@ -142,3 +145,17 @@ def test_division():
     math = s.Cons(s.Atom("/"),s.Cons(s.Atom("3"),s.Cons(s.Atom("8"), s.Nil())))
 
     dp_ip_aeq(math, 0.375)
+
+def test_weird_stuff():
+    math = s.Cons(s.Atom("/"),s.Cons(s.Atom("3"),s.Cons(s.Atom("8"), s.Nil())))
+
+    cond = s.Cons(s.Atom(">"), s.Cons(math,
+        s.Cons(s.Atom("0.4"),
+            s.Nil())))
+
+    false = s.Cons(s.Atom("+"),s.Nil())
+    true = s.Nil()
+
+    sexpr = s.Cons(s.Atom("if"), s.Cons(cond, s.Cons(true,s.Cons(false,s.Nil()))))
+
+    dp_ip_aeq(sexpr, 0)

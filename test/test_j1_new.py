@@ -4,7 +4,7 @@ import j1.expression as e
 import j1.sexpr as s
 import j1.context as c
 from j1.desugar import desugar
-from j1.big_interp import big_interp
+from j1.interp import big_interp
 import pytest
 
 
