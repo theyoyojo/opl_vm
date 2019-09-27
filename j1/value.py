@@ -8,7 +8,7 @@ class Value(e.Expression):
         # Now, we can safely validate the content
         #self.validate_operands(args)
     def find_redex(self):
-        return self, c.Hole()
+        return c.Hole(), self
 
 class Number(Value):
     attrs = {

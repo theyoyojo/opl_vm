@@ -5,6 +5,7 @@ import j1.sexpr as s
 from j1.desugar import desugar
 from j1.interp import big_interp
 from j1.interp import small_interp 
+from j1.interp import CC0
 from j1.error import *
 import pytest
 
@@ -15,8 +16,10 @@ def dp_ip_aeq(sexpr, value):
     program.pp()
     program_value = big_interp(program)
     program_value_alt = small_interp(program)
+    program_value_alt_alt = CC0(program)
     program_value.pp()
     assert program_value.repr() == program_value_alt.repr()
+    assert program_value.repr() == program_value_alt_alt.repr()
     assert program_value.value == value
 
 def test_less_than_true():

@@ -70,7 +70,10 @@ def sexpr_to_tuple(sexpr):
         # print(sexpr.first().value, sexpr.rest())
         datalist.append(desugar(sexpr.first()))
         sexpr = sexpr.rest()
-    # print("datalist: ", datalist)
+    print("datalist: ")
+    for jv in datalist:
+        print(jv.repr())
+        
     return tuple(datalist)
 
 def desugar_generic_app(sexpr):

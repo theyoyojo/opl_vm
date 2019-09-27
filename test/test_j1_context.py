@@ -3,9 +3,7 @@ import j1.value as v
 import j1.expression as e
 import j1.sexpr as s
 import j1.context as c
-from j1.interp import big_interp
-from j1.interp import small_interp
-from j1.interp import CC0
+from j1.interp import *
 from j1.desugar import desugar
 import pytest
 
@@ -81,115 +79,87 @@ def test_small_if_false():
     assert z.value == 2
 
 
-# def test_small_interp_style_math():
+def test_lowcon():
+    pred = s.Cons(s.Atom(">"),s.Cons(s.Atom("4"),
+        s.Cons(s.Atom("7"),s.Nil())))
 
-#     math = s.Cons(s.Atom("*"), s.Cons(s.Atom("2"),s.Cons(
-#         s.Cons(s.Atom("+"),s.Cons(s.Atom("3"),s.Cons(s.Atom("5"),s.Nil()))),s.Nil() )))
+    true = s.Cons(s.Atom("*"),s.Cons(s.Atom("3"), s.Cons(s.Atom("8"),s.Nil())))
+        
+    false = s.Cons(s.Atom("2"), s.Nil())
 
-#     y = desugar(math)
-#     y.pp()
-#     redex, context = (c.find_redex(y))
+    x = s.Cons(s.Atom("if"),
+               s.Cons(pred,
+                      s.Cons(true,false)))
+    prog = desugar(x)
 
-#     redex.pp()
-#     interp_redex = redex.binterp()
-#     context.pp()
+    res = CC0(prog)
 
-#     new_context = c.plug(interp_redex, context)
-#     new_context.pp()
-
-#     z = new_context.binterp()
-#     z.pp()
-
-#     # print(c.find_redex(y))
-#     # print(c.find_redex(y))
-
-# def test_plug_hole():
-#     hole = c.Hole()
-
-#     x = v.Number(4)
-
-#     program = c.plug(x, hole)
-
-#     program.pp()
-
-# def test_find_redex_identity():
+    assert res.value == 2
 
 
-#     x = v.Number(4)
+def test_small_interp_math_cond_true():
+    math = s.Cons(s.Atom("*"), s.Cons(s.Atom("2"),s.Cons(
+        s.Cons(s.Atom("+"),s.Cons(s.Atom("3"),s.Cons(s.Atom("5"),s.Nil()))),s.Nil() )))
 
-#     redex, context = c.find_redex(x)
+    pred = s.Cons(s.Atom(">="),s.Cons(math,
+        s.Cons(s.Cons(s.Atom("7"),s.Nil()), s.Nil())))
 
-#     redex.pp()
-#     context.pp()
+    true = s.Cons(s.Atom("-"),s.Cons(s.Atom("3"), s.Cons(s.Atom("8"),s.Nil())))
+    math = s.Cons(s.Atom("-"),s.Cons(s.Atom("3"),s.Cons(s.Atom("8"), s.Nil())))
 
-# def test_find_redex_identity_math():
-#     x = s.Cons(s.Atom("-"),s.Cons(s.Atom("3"),s.Cons(s.Atom("8"), s.Nil())))
+    # hmm
+    false = s.Cons(s.Atom("4"), s.Nil())
 
+    x = s.Cons(s.Atom("if"),
+               s.Cons(pred,
+                      s.Cons(true,false)))
 
-#     redex, context = c.find_redex(x)
+    z = desugar(x)
 
-#     redex.pp()
-#     context.pp()
+    x = CC0(z)
+    x.pp()
 
-# def test_small_interp():
-#     y = s.Cons(s.Atom("-"),s.Cons(s.Atom("3"),s.Cons(s.Atom("8"), s.Nil())))
+    y = small_interp(z)
 
-#     z = desugar(y)
+    a = big_interp(z)
 
-#     x = c.sinterp(z)
-#     x.pp()
+    assert x.value == -5 == y.value == a.value
 
-    
-# def test_small_interp_math():
-#     math = s.Cons(s.Atom("*"), s.Cons(s.Atom("2"),s.Cons(
-#         s.Cons(s.Atom("+"),s.Cons(s.Atom("3"),s.Cons(s.Atom("5"),s.Nil()))),s.Nil() )))
+def test_small_interp_math_cond_false():
+    math = s.Cons(s.Atom("*"), s.Cons(s.Atom("2"),s.Cons(
+        s.Cons(s.Atom("+"),s.Cons(s.Atom("3"),s.Cons(s.Atom("5"),s.Nil()))),s.Nil() )))
 
-#     z = desugar(math)
+    pred = s.Cons(s.Atom("<"),s.Cons(math,
+        s.Cons(s.Cons(s.Atom("7"),s.Nil()), s.Nil())))
 
-#     x = c.sinterp(z)
-#     x.pp()
+    true = s.Cons(s.Atom("-"),s.Cons(s.Atom("3"), s.Cons(s.Atom("8"),s.Nil())))
+    math = s.Cons(s.Atom("-"),s.Cons(s.Atom("3"),s.Cons(s.Atom("8"), s.Nil())))
 
-# def test_small_interp_math_cond_true():
-#     math = s.Cons(s.Atom("*"), s.Cons(s.Atom("2"),s.Cons(
-#         s.Cons(s.Atom("+"),s.Cons(s.Atom("3"),s.Cons(s.Atom("5"),s.Nil()))),s.Nil() )))
+    # hmm
+    false = s.Cons(s.Atom("*"),s.Cons(s.Atom("3"), s.Cons(s.Atom("8"),s.Nil())))
 
-#     pred = s.Cons(s.Atom(">="),s.Cons(math,
-#         s.Cons(s.Cons(s.Atom("7"),s.Nil()), s.Nil())))
+    x = s.Cons(s.Atom("if"),
+               s.Cons(pred,
+                      s.Cons(true,s.Cons(false,s.Nil()))))
 
-#     true = s.Cons(s.Atom("-"),s.Cons(s.Atom("3"), s.Cons(s.Atom("8"),s.Nil())))
-#     math = s.Cons(s.Atom("-"),s.Cons(s.Atom("3"),s.Cons(s.Atom("8"), s.Nil())))
+    z = desugar(x)
 
-#     # hmm
-#     false = s.Cons(s.Atom("4"), s.Nil())
+    x = CC0(z)
+    print("cc0 res: ", x.value)
+    z.pp()
+    y = big_interp(z)
+    print("big res: ", y.value)
 
-#     x = s.Cons(s.Atom("if"),
-#                s.Cons(pred,
-#                       s.Cons(true,false)))
+    context, redex = z.find_redex()
+    context.pp()
+    redex.pp()
 
-#     z = desugar(x)
+    subc, subr = redex.find_redex()
+    subc.pp()
+    subr.pp()
 
-#     x = c.sinterp(z)
-#     x.pp()
+    a = small_interp(z)
+    a.pp()
 
-# def test_small_interp_math_cond_false():
-#     math = s.Cons(s.Atom("*"), s.Cons(s.Atom("2"),s.Cons(
-#         s.Cons(s.Atom("+"),s.Cons(s.Atom("3"),s.Cons(s.Atom("5"),s.Nil()))),s.Nil() )))
+    assert x.value == y.value == a.value
 
-#     pred = s.Cons(s.Atom("<"),s.Cons(math,
-#         s.Cons(s.Cons(s.Atom("7"),s.Nil()), s.Nil())))
-
-#     true = s.Cons(s.Atom("-"),s.Cons(s.Atom("3"), s.Cons(s.Atom("8"),s.Nil())))
-#     math = s.Cons(s.Atom("-"),s.Cons(s.Atom("3"),s.Cons(s.Atom("8"), s.Nil())))
-
-#     # hmm
-#     false = s.Cons(s.Atom("*"),s.Cons(s.Atom("3"), s.Cons(s.Atom("8"),s.Nil())))
-
-#     x = s.Cons(s.Atom("if"),
-#                s.Cons(pred,
-#                       s.Cons(true,false)))
-
-#     z = desugar(x)
-
-#     print("AAAAAAAAAAAAAAAAAAAAAAAAAAA")
-#     x = c.sinterp(z)
-#     x.pp()
