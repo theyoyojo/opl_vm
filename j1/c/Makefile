@@ -4,7 +4,7 @@
 
 CC 	= gcc
 CFLAGS  = -g -Wall -std=gnu11
-OBJECTS = test_list.o olist.o types.o
+OBJECTS = test_list.o olist.o types.o delta.o
 BIN	= test
 
 all: $(OBJECTS)
