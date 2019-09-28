@@ -1,9 +1,7 @@
 #include "types.h"
 #include <string.h>
 
-#define ALLOC_OR_RETNULL(id, type) type * id = (type *)malloc(sizeof(type)) ; \
-					if(!id) return NULL
-app_t * C_app(size_t count, ...) {
+obj_t * C_app(size_t count, ...) {
 	ALLOC_OR_RETNULL(new, app_t) ;
 
 	va_list arglist ;
@@ -16,7 +14,7 @@ app_t * C_app(size_t count, ...) {
 	}
 	va_end(arglist) ;
 
-	return new ;
+	return (obj_t *)new ;
 
 }
 void D_app(obj_t ** app_ptr) {
@@ -25,10 +23,10 @@ void D_app(obj_t ** app_ptr) {
 	*app_ptr = NULL ;
 }
 
-if_t * C_if(obj_t * e_pred, obj_t * e_true, obj_t * e_false) {
+obj_t * C_if(obj_t * e_pred, obj_t * e_true, obj_t * e_false) {
 	ALLOC_OR_RETNULL(new, if_t) ;
 	*new = IF_INIT(e_pred, e_true, e_false) ;
-	return new ;
+	return (obj_t *)new ;
 }
 
 void D_if(obj_t ** if_ptr) {
@@ -73,20 +71,20 @@ char * prim_vtos(prim_val_t prim_val) {
 	}
 }
 
-prim_t * C_prim(char * prim) {
+obj_t * C_prim(char * prim) {
 	ALLOC_OR_RETNULL(new, prim_t) ;
 	*new = PRIM_INIT(prim) ;
-	return new ;
+	return (obj_t *)new ;
 }
 void D_prim(obj_t ** prim_ptr) {
 	free(*prim_ptr) ;
 	*prim_ptr = NULL ;
 }
 
-bool_t * C_bool(bool value) {
+obj_t * C_bool(bool value) {
 	ALLOC_OR_RETNULL(new, bool_t) ;
 	*new = BOOL_INIT(value) ;
-	return new ;
+	return (obj_t *)new ;
 }
 
 void D_bool(obj_t ** bool_ptr) {
@@ -94,10 +92,10 @@ void D_bool(obj_t ** bool_ptr) {
 	*bool_ptr = NULL ;
 }
 
-num_t * C_num(double value) {
+obj_t * C_num(double value) {
 	ALLOC_OR_RETNULL(new, num_t) ;
 	*new = NUM_INIT(value) ;
-	return new ;
+	return (obj_t *)new;
 }
 
 void D_num(obj_t ** num_ptr) {

@@ -33,7 +33,7 @@ typedef struct _app {
 	olist_t * expr_list ;
 } app_t ;
 
-app_t * C_app(size_t count, ...) ;
+obj_t * C_app(size_t count, ...) ;
 void D_app(obj_t ** app) ;
 
 typedef struct _if {
@@ -49,7 +49,7 @@ typedef struct _if {
 	.expr_true = (obj_t *)e_true, \
 	.expr_false = (obj_t *)e_false }
 
-if_t * C_if(obj_t * e_pred, obj_t * e_true, obj_t * e_false) ;
+obj_t * C_if(obj_t * e_pred, obj_t * e_true, obj_t * e_false) ;
 void D_if(obj_t ** if_ptr) ;
 
 typedef struct _val {
@@ -68,7 +68,7 @@ typedef struct _prim {
 char * prim_vtos(prim_val_t prim_val) ;
 prim_val_t prim_stov(char * prim) ;
 
-prim_t * C_prim(char * prim) ;
+obj_t * C_prim(char * prim) ;
 void D_prim(obj_t ** prim_ptr) ;
 
 typedef struct _bool {
@@ -80,7 +80,7 @@ typedef struct _bool {
 	.head = HEADER_INIT(T_BOOL, D_bool), \
 	.value = _boolean } \
 
-bool_t * C_bool(bool value) ;
+obj_t * C_bool(bool value) ;
 void D_bool(obj_t ** bool_ptr) ;
 
 typedef struct _num {
@@ -92,7 +92,7 @@ typedef struct _num {
 	.head = HEADER_INIT(T_NUM, D_num), \
 	.value = _number } \
 
-num_t * C_num(double value) ;
+obj_t * C_num(double value) ;
 void D_num(obj_t ** num_ptr) ;
 
 

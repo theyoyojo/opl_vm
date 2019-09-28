@@ -3,8 +3,6 @@
 #include <stdalign.h>
 #include "obj.h"
 
-#define ALLOC_OR_RETNULL(id, type) type * id = (type *)malloc(sizeof(type)) ; \
-					if(!id) return NULL
 
 enum dummy { DONT_CARE } ;
 
@@ -12,6 +10,23 @@ enum dummy { DONT_CARE } ;
 olist_t * olist_init(void) {
 	ALLOC_OR_RETNULL(new, olist_t) ;
 	*new = OLIST_INIT ;
+	return new ;
+}
+
+/* not sure if there is a use case for this */
+olist_t * olist_init_data(size_t count, ...) {
+	ALLOC_OR_RETNULL(new, olist_t) ;
+	*new = OLIST_INIT ;
+
+	va_list arglist ;
+	size_t i ;
+	
+	va_start(arglist, count) ;
+	for (i = 0; i < count; ++i) {
+		olist_append(new, va_arg(arglist, obj_t *)) ;
+	}
+	va_end(arglist) ;
+
 	return new ;
 }
 
@@ -33,12 +48,6 @@ void free_olist_node(olist_node_t ** node_ptr, bool free_obj, bool free_next) {
 	assert(*node_ptr) ;
 	olist_node_t * node = *node_ptr ;
 	if (free_obj) {
-		/* This is a hack to get around not knowing the layout of obj_t in olist context */
-		/* i.e. in memory at obj address:
-		 * | type_t  | 	     | <D_func>
-		 * 0        4        8 <- aligned to word boundary
-		 */
-		/* (*(void (**)(obj_t **))(((void *)node->obj)+8))(&node->obj) ; */
 		node->obj->head.D_func(&node->obj) ;
 	}
 	if (free_next) {

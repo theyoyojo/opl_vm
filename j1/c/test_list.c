@@ -175,46 +175,67 @@
 
 TEST_SET(simple_exprs,
 		TEST_CASE(simple_number,
-			num_t * x = C_num(4) ;
-			ASSERT(x->value == 4) ;
+			obj_t * x = C_num(4) ;
+			ASSERT(((num_t *)x)->value == 4) ;
 			D_num(&x) ;
 		) ;
 		TEST_CASE(simple_bool,
-			bool_t * x = C_bool(true);
-			ASSERT(x->value == true) ;
+			obj_t * x = C_bool(true);
+			ASSERT(((bool_t *)x)->value == true) ;
 			D_bool(&x) ;
 		) ;
 		
 		TEST_CASE(simple_prim,
-			prim_t * x = C_prim(">=");
-			ASSERT(x->value == PRIM_GTEQ) ;
-			ASSERT(x->value != PRIM_LT) ;
+			obj_t * x = C_prim(">=");
+			ASSERT(((prim_t *)x)->value == PRIM_GTEQ) ;
+			ASSERT(((prim_t *)x)->value != PRIM_LT) ;
 			D_prim(&x) ;
 		) ;
 		TEST_CASE(simple_if,
-			bool_t * x = C_bool(true);
-			num_t * y = C_num(4);
-			prim_t * z = C_prim("+");
+			obj_t * x = C_bool(true);
+			obj_t * y = C_num(4);
+			obj_t * z = C_prim("+");
 
-			if_t * a = C_if(x,y,z) ;
+			obj_t * a = C_if(x,y,z) ;
 
 			D_if(&a) ;
 		) ;
 		TEST_CASE(number_in_list,
 			olist_t * list = olist_init() ;
-			num_t * x = C_num(4) ;
+			obj_t * x = C_num(4) ;
 			olist_append(list, x) ;
 			olist_free(&list) ;
 		) ;
 		TEST_CASE(simple_app,	
-			bool_t * x = C_bool(true);
-			num_t * y = C_num(4);
-			prim_t * z = C_prim("+");
-			app_t * a = C_app(3, x,y,z) ;
+			obj_t * x = C_bool(true);
+			obj_t * y = C_num(4);
+			obj_t * z = C_prim("+");
+			obj_t * a = C_app(3, x,y,z) ;
 
 			D_app(&a) ;
 		) ;
-) ;
+		TEST_CASE(app_list,
+			obj_t * x = C_bool(true);
+			obj_t * y = C_num(4);
+			obj_t * z = C_prim("+");
+			obj_t * a = C_app(3, x,y,z) ;
 
+			obj_t * p = C_bool(true);
+			obj_t * q = C_num(4);
+			obj_t * r = C_prim("+");
+			obj_t * b = C_app(3, p,q,r) ;
+
+			olist_t * list = olist_init() ;
+			olist_append(list, a) ;
+			olist_append(list, b) ;
+
+			olist_free(&list) ;
+		) ;
+		TEST_CASE(olist_pop_empty_is_null,
+			olist_t * list = olist_init() ;
+			ASSERT(!olist_pop(list)) ;
+			olist_free(&list) ;
+		) ;
+) ;
 
 TEST_MAIN();

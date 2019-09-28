@@ -5,6 +5,7 @@
 #include <stdio.h>
 #include <stdbool.h>
 #include <assert.h>
+#include <stdarg.h>
 
 typedef struct _obj obj_t ;
 
@@ -33,6 +34,8 @@ typedef struct _olist {
 /* Can fail */
 olist_t * olist_init(void) ;
 
+olist_t * olist_init_data(size_t count, ...) ;
+
 bool olist_empty(olist_t * list) ;
 
 /* Can fail */
@@ -40,6 +43,7 @@ bool olist_append(olist_t * list, obj_t * new) ;
 
 /* Can fail */
 bool olist_insert(olist_t * list, obj_t * new, size_t index) ;
+
 
 obj_t * olist_pop_index(olist_t * list, size_t index) ;
 

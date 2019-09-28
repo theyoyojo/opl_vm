@@ -1,6 +1,8 @@
 #ifndef OBJ_H
 #define OBJ_H
 
+#define ALLOC_OR_RETNULL(id, type) type * id = (type *)malloc(sizeof(type)) ; \
+					if(!id) return NULL
 
 typedef enum _type {
 	T_EXP,
