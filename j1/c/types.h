@@ -8,6 +8,7 @@
 #include <stdarg.h>
 
 #include "olist.h"
+#include "obj.h"
 
 typedef enum {
 	PRIM_PLUS = 0,
@@ -21,29 +22,6 @@ typedef enum {
 	PRIM_GTEQ,
 	PRIM_INVALID = 99
 } prim_val_t ;
-
-typedef enum _type {
-	T_EXP,
-	T_APP,
-	T_IF,
-	T_VAL,
-	T_BOOL,
-	T_PRIM,
-	T_NUM
-} type_t ;
-
-typedef struct _header {
-	type_t type;	
-	void (*D_func)(obj_t **) ;
-} header_t ;
-
-#define HEADER_INIT(_type, dtor_id) (header_t) { \
-	.type = _type,  \
-	.D_func = dtor_id }
-
-typedef struct _obj {
-	header_t head ;
-} obj_t ;
 
 
 typedef struct _expr {

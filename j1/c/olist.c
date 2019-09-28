@@ -1,6 +1,7 @@
 #include "olist.h"
 
 #include <stdalign.h>
+#include "obj.h"
 
 #define ALLOC_OR_RETNULL(id, type) type * id = (type *)malloc(sizeof(type)) ; \
 					if(!id) return NULL
@@ -37,7 +38,8 @@ void free_olist_node(olist_node_t ** node_ptr, bool free_obj, bool free_next) {
 		 * | type_t  | 	     | <D_func>
 		 * 0        4        8 <- aligned to word boundary
 		 */
-		(*(void (**)(obj_t **))(((void *)node->obj)+8))(&node->obj) ;
+		/* (*(void (**)(obj_t **))(((void *)node->obj)+8))(&node->obj) ; */
+		node->obj->head.D_func(&node->obj) ;
 	}
 	if (free_next) {
 		free(node->next) ;
