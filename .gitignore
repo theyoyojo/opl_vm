@@ -124,3 +124,8 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# Secton added for c stuff
+*.o
+vgcore.*
+cscope.out
