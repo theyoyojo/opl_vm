@@ -34,6 +34,7 @@ typedef struct _app {
 } app_t ;
 
 obj_t * C_app(size_t count, ...) ;
+obj_t * C_app_copy(obj_t * old) ;
 void D_app(obj_t ** app) ;
 
 typedef struct _if {
@@ -44,12 +45,13 @@ typedef struct _if {
 } if_t  ;
 
 #define IF_INIT(e_pred, e_true, e_false) (if_t) { \
-	.head = HEADER_INIT(T_IF, D_if), \
+	.head = HEADER_INIT(T_IF, D_if, C_if_copy), \
 	.expr_pred = (obj_t *)e_pred, \
 	.expr_true = (obj_t *)e_true, \
 	.expr_false = (obj_t *)e_false }
 
 obj_t * C_if(obj_t * e_pred, obj_t * e_true, obj_t * e_false) ;
+obj_t * C_if_copy(obj_t * old) ;
 void D_if(obj_t ** if_ptr) ;
 
 typedef struct _val {
@@ -62,13 +64,14 @@ typedef struct _prim {
 } prim_t ;
 
 #define PRIM_INIT(_primitive) (prim_t) { \
-	.head = HEADER_INIT(T_PRIM, D_prim), \
+	.head = HEADER_INIT(T_PRIM, D_prim, C_prim_copy), \
 	.value = prim_stov(_primitive)} \
 	
 char * prim_vtos(prim_val_t prim_val) ;
 prim_val_t prim_stov(char * prim) ;
 
 obj_t * C_prim(char * prim) ;
+obj_t * C_prim_copy(obj_t * old) ;
 void D_prim(obj_t ** prim_ptr) ;
 
 typedef struct _bool {
@@ -77,10 +80,11 @@ typedef struct _bool {
 } bool_t ;
 
 #define BOOL_INIT(_boolean) (bool_t) { \
-	.head = HEADER_INIT(T_BOOL, D_bool), \
+	.head = HEADER_INIT(T_BOOL, D_bool, C_bool_copy), \
 	.value = _boolean } \
 
 obj_t * C_bool(bool value) ;
+obj_t * C_bool_copy(obj_t * old) ;
 void D_bool(obj_t ** bool_ptr) ;
 
 typedef struct _num {
@@ -89,13 +93,12 @@ typedef struct _num {
 } num_t ;
 
 #define NUM_INIT(_number) (num_t) { \
-	.head = HEADER_INIT(T_NUM, D_num), \
+	.head = HEADER_INIT(T_NUM, D_num, C_num_copy), \
 	.value = _number } \
 
 obj_t * C_num(double value) ;
+obj_t * C_num_copy(obj_t * old) ;
 void D_num(obj_t ** num_ptr) ;
 
-
-type_t obj_typeof(obj_t * obj) ;
 
 #endif /* !TYPES_H */

@@ -48,7 +48,7 @@ void free_olist_node(olist_node_t ** node_ptr, bool free_obj, bool free_next) {
 	assert(*node_ptr) ;
 	olist_node_t * node = *node_ptr ;
 	if (free_obj) {
-		node->obj->head.D_func(&node->obj) ;
+		D_obj(node->obj)(&node->obj) ;
 	}
 	if (free_next) {
 		free(node->next) ;

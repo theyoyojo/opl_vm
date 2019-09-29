@@ -1,4 +1,3 @@
-
 class AngryE(Exception):
     pass
 

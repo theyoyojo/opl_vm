@@ -1,6 +1,8 @@
 #ifndef OBJ_H
 #define OBJ_H
 
+#include <stdbool.h>
+
 #define ALLOC_OR_RETNULL(id, type) type * id = (type *)malloc(sizeof(type)) ; \
 					if(!id) return NULL
 
@@ -11,21 +13,35 @@ typedef enum _type {
 	T_VAL,
 	T_BOOL,
 	T_PRIM,
-	T_NUM
+	T_NUM,
+	T_STACK,
+	/* T_FRRET,  Don't think I will need this one */
+	T_FRIF,
+	T_FRAPP,
 } type_t ;
 
 struct _obj ;
 typedef struct _header {
 	type_t type;	
-	void (*D_func)(struct _obj **) ;
+	void (*D_obj)(struct _obj **) ;
+	struct _obj * (*C_obj_copy)(struct _obj *) ;
 } header_t ;
 
-#define HEADER_INIT(_type, dtor_id) (header_t) { \
+#define HEADER_INIT(_type, dtor_id, ctor_copy_id) (header_t) { \
 	.type = _type,  \
-	.D_func = dtor_id }
+	.D_obj = dtor_id, \
+	.C_obj_copy = ctor_copy_id }
 
 typedef struct _obj {
 	header_t head ;
 } obj_t ;
+
+type_t obj_typeof(obj_t * obj) ;
+
+bool obj_isvalue(obj_t * obj) ;
+
+void (*D_obj(obj_t * obj))(obj_t **) ;
+
+obj_t * C_obj_copy(obj_t * obj) ;
 
 #endif /* !OBJ_H */
