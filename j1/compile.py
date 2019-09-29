@@ -17,22 +17,23 @@ usage: compile.py <input_file>
 OUTPUT_HEADER = \
 """#include <stdio.h>
 #include <types.h>
+#include <interp.h>
 
 int main(void) {
 """
 
 OUTPUT_FOOTER = \
-"""        printf("Hello, world!\\n");
-        return 0 ;
+"""        return 0 ;
 }
 """
 
 OUTPUT_INTERPRET = \
 """
-        printf("This will be replaced with a call to the interpreter\\n");"""
+        obj_t * result = interpret(_o1) ;"""
 
 OUTPUT_PRINT_VALUE = \
-"""        printf("This will be replaced the program value\\n");
+"""        printf("%lg\\n", ((num_t *)result)->value) ;
+        D_OBJ(result) ;
 """
 
 OUTPUT_LONGTAB = "       "
@@ -91,7 +92,7 @@ def emit_c(program):
     emit_statement(top_id, type(program), arglist)
     print(OUTPUT_INTERPRET)
     print(OUTPUT_PRINT_VALUE)
-    print(OUTPUT_LONGTAB, top_id + "->head.D_func(&" + top_id + ") ;")
+    print(OUTPUT_LONGTAB, "D_OBJ(" + top_id + ") ;")
 
 
 def id_generator():

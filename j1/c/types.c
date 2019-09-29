@@ -31,14 +31,18 @@ obj_t * C_app_copy(obj_t * old) {
 	ALLOC_OR_RETNULL(new, app_t) ;
 
 	new->head = HEADER_INIT(T_APP, D_app, C_app_copy) ;
-	new->expr_list = olist_init() ;
 
-	olist_t * old_expr_list = ((app_t *)old)->expr_list ;
-	obj_t * current ;
-	for (size_t i = 0; i < olist_length(old_expr_list); ++i) {
-		current = olist_get(old_expr_list, i) ;
-		olist_append(new->expr_list, C_obj_copy(current)) ;
-	}
+	/* new->expr_list = olist_init() ; */
+
+	/* olist_t * old_expr_list = ((app_t *)old)->expr_list ; */
+	/* obj_t * current ; */
+	/* for (size_t i = 0; i < olist_length(old_expr_list); ++i) { */
+	/* 	current = olist_get(old_expr_list, i) ; */
+	/* 	olist_append(new->expr_list, C_obj_copy(current)) ; */
+	/* } */
+	
+	new->expr_list = olist_init_copy(((app_t *)old)->expr_list) ;
+
 	return (obj_t *)new ;
 }
 
@@ -46,6 +50,11 @@ void D_app(obj_t ** app_ptr) {
 	olist_free(&(*(app_t **)app_ptr)->expr_list) ;
 	free(*app_ptr) ;
 	*app_ptr = NULL ;
+}
+
+obj_t * app_copy_first(obj_t * app) {
+	assert(obj_typeof(app) == T_APP) ;
+	return C_obj_copy(olist_get(((app_t *)app)->expr_list, 0)) ;
 }
 
 obj_t * C_if(obj_t * e_pred, obj_t * e_true, obj_t * e_false) {
@@ -66,11 +75,16 @@ obj_t * C_if_copy(obj_t * old) {
 
 void D_if(obj_t ** if_ptr) {
 	if_t * ifexpr = *(if_t **)if_ptr ;
-	D_obj(ifexpr->expr_pred)(&ifexpr->expr_pred) ;
-	D_obj(ifexpr->expr_true)(&ifexpr->expr_true) ;
-	D_obj(ifexpr->expr_false)(&ifexpr->expr_false) ;
+	D_OBJ(ifexpr->expr_pred) ;
+	D_OBJ(ifexpr->expr_true) ;
+	D_OBJ(ifexpr->expr_false) ;
 	free(ifexpr) ;
 	*if_ptr = NULL ;
+}
+
+obj_t * if_copy_pred(obj_t * ifexpr) {
+	assert(obj_typeof(ifexpr) == T_IF) ;
+	return C_obj_copy(((if_t *)ifexpr)->expr_pred) ;
 }
 
 char * prim_syms[] = {

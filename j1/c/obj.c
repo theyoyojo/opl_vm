@@ -12,6 +12,12 @@ bool obj_isvalue(obj_t * obj) {
 		obj_typeof(obj) == T_PRIM ;
 }
 
+bool obj_isframe(obj_t * obj) {
+	assert(obj) ;
+	return obj_typeof(obj) == T_FRIF ||
+		obj_typeof(obj) == T_FRAPP ;
+}
+
 void (*D_obj(obj_t * obj))(obj_t **) {
 	assert(obj) ;
 	return obj->head.D_obj ;

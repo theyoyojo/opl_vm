@@ -37,6 +37,8 @@ obj_t * C_app(size_t count, ...) ;
 obj_t * C_app_copy(obj_t * old) ;
 void D_app(obj_t ** app) ;
 
+obj_t * app_copy_first(obj_t * app) ;
+
 typedef struct _if {
 	header_t head ;
 	obj_t * expr_pred,
@@ -53,6 +55,8 @@ typedef struct _if {
 obj_t * C_if(obj_t * e_pred, obj_t * e_true, obj_t * e_false) ;
 obj_t * C_if_copy(obj_t * old) ;
 void D_if(obj_t ** if_ptr) ;
+
+obj_t * if_copy_pred(obj_t * ifexpr) ;
 
 typedef struct _val {
 	header_t head ;

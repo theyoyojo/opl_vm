@@ -13,6 +13,17 @@ olist_t * olist_init(void) {
 	return new ;
 }
 
+olist_t * olist_init_copy(olist_t * old) {
+	olist_t * new = olist_init() ;
+	obj_t * current ;
+	for (size_t i = 0; i < olist_length(old); ++i) {
+		current = olist_get(old, i) ;
+		olist_append(new, C_obj_copy(current)) ;
+	}
+
+	return new ;
+}
+
 /* not sure if there is a use case for this */
 olist_t * olist_init_data(size_t count, ...) {
 	ALLOC_OR_RETNULL(new, olist_t) ;
@@ -48,7 +59,7 @@ void free_olist_node(olist_node_t ** node_ptr, bool free_obj, bool free_next) {
 	assert(*node_ptr) ;
 	olist_node_t * node = *node_ptr ;
 	if (free_obj) {
-		D_obj(node->obj)(&node->obj) ;
+		D_OBJ(node->obj) ;
 	}
 	if (free_next) {
 		free(node->next) ;
@@ -116,6 +127,14 @@ bool olist_insert(olist_t * list, obj_t * new, size_t index) {
 		if (!new_tmp) {
 			/* alloc fail, the whole thing is cancelled */
 			return false ;
+		}
+		/* case: push_front */
+		if (index == 0) {
+			next_tmp = list->head ;
+			list->head = new_tmp ;
+			list->head->next = next_tmp ;
+			list->length_cache++ ;
+			return true ;
 		}
 		for (i = 0, iter = list->head; i < index; iter = iter->next, ++i) ;
 		next_tmp = iter->next ;

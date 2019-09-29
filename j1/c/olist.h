@@ -36,6 +36,8 @@ olist_t * olist_init(void) ;
 
 olist_t * olist_init_data(size_t count, ...) ;
 
+olist_t * olist_init_copy(olist_t * old) ;
+
 bool olist_empty(olist_t * list) ;
 
 /* Can fail */

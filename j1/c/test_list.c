@@ -2,6 +2,7 @@
 #include "olist.h"
 #include "types.h"
 #include "delta.h"
+#include "interp.h"
 
 #define ALLOC_OR_FAIL(id, type) type * id = (type *)malloc(sizeof(type)) ;\
 					    ASSERT(id)
@@ -207,9 +208,11 @@ TEST_SET(copy,
 		obj_t * a = C_if(x,y,z) ;
 		obj_t * b = C_obj_copy(a) ;
 
-		ASSERT(((num_t *)((if_t *)b)->expr_true)->value == 4) ;
-
 		D_obj(a)(&a) ;
+		ASSERT(((num_t *)((if_t *)b)->expr_true)->value == 4) ;
+		ASSERT(((prim_t *)((if_t *)b)->expr_false)->value == PRIM_PLUS) ;
+		ASSERT(((bool_t *)((if_t *)b)->expr_pred)->value == true) ;
+
 		D_obj(b)(&b) ;
 	) ;
 	TEST_CASE(copy_app,	
@@ -224,6 +227,69 @@ TEST_SET(copy,
 		D_obj(a)(&a) ;
 		D_obj(b)(&b) ;
 	) ;
+) ;
+
+TEST_SET(interpretation,
+	TEST_CASE(degenerate,
+		obj_t * x = C_num(4);
+		obj_t * y = interpret(x) ;
+		printf("result: %lg\n", ((num_t *)y)->value) ;	
+		D_OBJ(x) ;
+		D_OBJ(y) ;
+	) ;
+
+	TEST_CASE(add,
+		obj_t * w = C_prim("+");
+		obj_t * x = C_num(4);
+		obj_t * y = C_num(7);
+		obj_t * a = C_app(3,w,x,y) ;
+		obj_t * z = interpret(a) ;
+		printf("result: %lg\n", ((num_t *)z)->value) ;	
+		D_OBJ(a) ;
+		D_OBJ(z) ;
+	) ;
+
+	TEST_CASE(if_true,
+		obj_t * x = C_bool(true);
+		obj_t * y = C_num(7);
+		obj_t * w = C_num(4);
+		obj_t * a = C_if(x,y,w) ;
+		obj_t * z = interpret(a) ;
+		printf("result: %lf\n", ((num_t *)z)->value) ;	
+		D_OBJ(a) ;
+		D_OBJ(z) ;
+	) ;
+
+	TEST_CASE(generated,
+		obj_t * _o2 = C_num(1.0) ;
+		obj_t * _o3 = C_num(7.0) ;
+		obj_t * _o4 = C_num(4.0) ;
+		obj_t * _o1 = C_if(_o2, _o3, _o4) ;
+
+		obj_t * result = interpret(_o1) ;
+		printf("%lg\n", ((num_t *)result)->value) ;
+		D_OBJ(result) ;
+		D_OBJ(_o1) ;
+	) ;
+	TEST_CASE(generated2,
+		obj_t * _o2 = C_num(1.0) ;
+		obj_t * _o4 = C_prim("+") ;
+		obj_t * _o5 = C_num(3.0) ;
+		obj_t * _o7 = C_prim("*") ;
+		obj_t * _o8 = C_num(-1.0) ;
+		obj_t * _o9 = C_num(8.0) ;
+		obj_t * _o6 = C_app(3, _o7, _o8, _o9) ;
+		obj_t * _o3 = C_app(3, _o4, _o5, _o6) ;
+		obj_t * _o10 = C_num(4.0) ;
+		obj_t * _o1 = C_if(_o2, _o3, _o10) ;
+
+		obj_t * result = interpret(_o1) ;
+		printf("%lg\n", ((num_t *)result)->value) ;
+		D_OBJ(result) ;
+
+		D_OBJ(_o1) ;
+	) ;
+
 ) ;
 
 

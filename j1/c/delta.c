@@ -84,3 +84,35 @@ obj_t * delta(obj_t * obj) {
 	
 	return dtable_binary_num_num[prim->value](first, second) ;
 }
+
+obj_t * delta_frapp(obj_t * obj) {
+	frapp_t * frapp ;
+	/* All j1 deltas are binary operations on the 
+	 * second and third _value_ elements of applicaiton lists 
+	 * reprsented as frapps with empty expr lists */
+	if (obj->head.type != T_FRAPP) {
+		return NULL ;
+	}
+
+	frapp = (frapp_t *)obj ;
+	if (olist_length(frapp->vals) != 3) {
+		return NULL ;
+	}
+	/*  Additonally, the first better be a prim and the latter two nums */
+	else if (olist_get(frapp->vals,0)->head.type != T_PRIM ||
+		 olist_get(frapp->vals,1)->head.type != T_NUM  ||
+		 olist_get(frapp->vals,2)->head.type != T_NUM) {
+		return NULL ;
+	}
+	/* Final validation: the prim must not be invalid */
+	else if (((prim_t *)olist_get(frapp->vals,0))->value == PRIM_INVALID) {
+		return NULL ;
+	}
+
+	/* now at last, we can lookup the specific delta function and call it */
+	prim_t * prim = (prim_t *)olist_get(frapp->vals,0) ;
+	num_t * first = (num_t *)olist_get(frapp->vals,1) ;
+	num_t * second = (num_t *)olist_get(frapp->vals,2) ;
+	
+	return dtable_binary_num_num[prim->value](first, second) ;
+}

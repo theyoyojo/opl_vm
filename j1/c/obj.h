@@ -15,7 +15,6 @@ typedef enum _type {
 	T_PRIM,
 	T_NUM,
 	T_STACK,
-	/* T_FRRET,  Don't think I will need this one */
 	T_FRIF,
 	T_FRAPP,
 } type_t ;
@@ -40,7 +39,10 @@ type_t obj_typeof(obj_t * obj) ;
 
 bool obj_isvalue(obj_t * obj) ;
 
+bool obj_isframe(obj_t * obj) ;
+
 void (*D_obj(obj_t * obj))(obj_t **) ;
+#define D_OBJ(obj) D_obj(obj)(&obj) 
 
 obj_t * C_obj_copy(obj_t * obj) ;
 

@@ -33,7 +33,7 @@ EOF
 
 (cd $J1_PATH/c && make)
 
-OBJS="$J1_PATH/c/types.o $J1_PATH/c/olist.o $J1_PATH/c/delta.o"
+OBJS="$J1_PATH/c/types.o $J1_PATH/c/olist.o $J1_PATH/c/delta.o $J1_PATH/c/interp.o $J1_PATH/c/obj.o $J1_PATH/c/stack.o"
 
 "$J1_PATH/compile.py" /tmp/"$INFILE".tmp | gcc -c -x c -o "/tmp/"$OUTFILE".o" - -I$J1_PATH/c
 gcc /tmp/"$OUTFILE".o $OBJS -o $OUTFILE
