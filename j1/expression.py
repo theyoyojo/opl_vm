@@ -1,6 +1,5 @@
 from j1.error import *
 import j1.context as c
-import j1.value as v
 import copy
 
 # perhaps turn validate_operands function into work done in
@@ -9,11 +8,12 @@ import copy
 class Expression:
     def __init__(self, *args):
         # First, validate argument count
-        if "args_exppected" in self.attrs:
-            if len(args) != self.attrs["args_expected"]:
-                raise  BadArgumentsCount(self.attrs["args_expected"], len(args))
-        # Now, we can safely validate the content
-        self.validate_operands(*args)
+        # if "args_exppected" in self.attrs:
+        #     if len(args) != self.attrs["args_expected"]:
+        #         raise  BadArgumentsCount(self.attrs["args_expected"], len(args))
+        # # Now, we can safely validate the content
+        # self.validate_operands(*args)
+        pass
 
     def pp(self):
         print(self.repr())
@@ -22,6 +22,9 @@ class Expression:
         ecopy = copy.deepcopy(self.expressions)
         ecopy[redex_index] = c.Hole()
         return self.attrs["context"](*tuple(ecopy))
+
+    def isvalue(self):
+        return False
 
 
 class Application(Expression):
@@ -45,7 +48,7 @@ class Application(Expression):
     def find_redex(self):
         i = 0
         for exp in self.expressions:
-            if not isinstance(exp, v.Value):
+            if not exp.isvalue():
                 print("subpiece: ", exp.repr())
                 context = self.make_context(i)
                 subcontext, redex = exp.find_redex()
@@ -81,7 +84,7 @@ class If(Expression):
         return self.expressions[2]
 
     def find_redex(self):
-        if not isinstance(self.pred(), v.Value):
+        if not self.pred().isvalue():
             print("subpiece: ", self.pred().repr())
             context = self.make_context(0)
             subcontext, redex = self.pred().find_redex()

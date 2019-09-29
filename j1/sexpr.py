@@ -1,5 +1,3 @@
-import j1.expression as e
-import j1.value as v
 
 class AngryE(Exception):
     pass

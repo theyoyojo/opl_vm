@@ -2,13 +2,23 @@ from j1.error import *
 import j1.expression as e
 import j1.context as c
 
-class Value(e.Expression):
-    def __init__(self, args):
-        super().__init__(args)
-        # Now, we can safely validate the content
-        #self.validate_operands(args)
+class Value:
+    def __init__(self, *args):
+        pass
+        # First, validate argument count
+        # if "args_exppected" in self.attrs:
+        #     if len(args) != self.attrs["args_expected"]:
+        #         raise  BadArgumentsCount(self.attrs["args_expected"], len(args))
+        # # Now, we can safely validate the content
+        # self.validate_operands(*args)
     def find_redex(self):
         return c.Hole(), self
+
+    def pp(self):
+        print(self.repr())
+
+    def isvalue(self):
+        return True
 
 class Number(Value):
     attrs = {
