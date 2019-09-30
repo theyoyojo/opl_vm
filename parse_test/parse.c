@@ -9,6 +9,8 @@
 
 FILE * infile ;
 FILE * outfile ;
+int retcode = 0 ;
+int no_tokens = 1 ;
 
 #define BUFSZ 256
 char buf[BUFSZ] ;
@@ -59,9 +61,13 @@ enum error {
 	E_PAR_NOMATCH,
 	E_THICC_CONS,
 	E_THIN_CONS,
+	E_LONELY_TOK,
+	E_NO_INPUT,
+	E_MANY_TOPFS,
 } err = E_NO_ERR ;
 
 void pr_err(void) {
+	retcode = 1 ;
 	switch (err) {
 		case E_NO_ERR:
 			fprintf(stderr, "There is no error...\n") ;
@@ -84,6 +90,15 @@ void pr_err(void) {
 		case E_THIN_CONS:
 			fprintf(stderr, "Error: Cons cannot have less than two elements.\n") ;
 			break ;
+		case E_LONELY_TOK:
+			fprintf(stderr, "Error: Non-cons element outside of top-level cons.\n") ;
+			break ;
+		case E_NO_INPUT:
+			fprintf(stderr, "Error: There is no input.\n") ;
+			break ;
+		case E_MANY_TOPFS:
+			fprintf(stderr, "Error: There can only be one topform in J1\n") ;
+			break ;
 	}
 	fprintf(stderr, "token buffer: %s, 1stchar=[%d]\n", buf, *buf) ;
 }
@@ -96,9 +111,11 @@ inline int ismetachar(char c) {
 }
 
 /* returns 1 if it got the last token, else returns 0 */
+/* the lexer */
 tok_t get_next_token(FILE * infile) {
 	memset(buf, 0, BUFSZ) ;
 	bufflen = 0 ;
+	int retcode = 0 ;
 	char c ;
 	char * bufp = buf ;
 	/* ingnore leading whitespace */
@@ -139,6 +156,8 @@ tok_t get_next_token(FILE * infile) {
 			bufflen++ ;
 		}
 	}
+	/* once we see the first token, we know that there will be more than zero tokens */
+	no_tokens = 0 ;
 	*bufp++ = '\0' ;
 
 	/* check if tok is number */
@@ -180,33 +199,40 @@ int main(int argc, char * argv[]) {
 
 	int cons_depth = 0 ;
 	int cons_elcnt[MAX_DEPTH] ;
+	int topform_count = 0 ;
 	memset(cons_elcnt, 0, MAX_DEPTH) ;
 
 	tok_t next_token ;
 	tok_t prev_token ;
 	fprintf(outfile, "main = ") ;
+
+/* the parser */
 scan:
 	next_token = get_next_token(infile) ;
 	if(err) {
 		pr_err() ;
 		goto done ;
 	}
-	/* printf("tok:%s type: %d\n",buf, next_token) ; */
 
 	switch(next_token) {
-		case T_NUM:
-			/* if (prev_token == T_RPAR) { */
-			/* 	putchar(','), putchar(' ') ; */
-			/* } */
-			/* fprintf(outfile, "Atom(%g)", value) ; */
-			/* goto insert_comma_maybe ; */
+		case T_NUM: /* yeah these are the same, I made a mistake keeping them seperate */
 		case T_PRIM:
+			if (cons_depth == 0) {
+				err = E_LONELY_TOK ;
+				pr_err() ;
+				goto done ;
+			}
 			if (prev_token == T_RPAR) {
 				putchar(','), putchar(' ') ;
 			}
 			fprintf(outfile, "Atom(\"%s\")", buf) ;
 			goto insert_comma_maybe ;
 		case T_NULL:
+			if (cons_depth == 0) {
+				err = E_LONELY_TOK ;
+				pr_err() ;
+				goto done ;
+			}
 			if (prev_token == T_RPAR) {
 				putchar(','), putchar(' ') ;
 			}
@@ -219,6 +245,15 @@ scan:
 			}
 			break ;
 		case T_LPAR:
+			if (prev_token == T_RPAR) {
+				putchar(','), putchar(' ') ;
+			}
+			/* If we already have a complete topform, we can't have another */
+			if (topform_count > 0) {
+				err = E_MANY_TOPFS ;
+				pr_err() ;
+				goto done ;
+			}
 			fprintf(outfile, "Cons(") ;
 			cons_depth++ ;
 			break ;
@@ -240,7 +275,10 @@ scan:
 			}
 			fprintf(outfile, ")") ;
 			cons_elcnt[cons_depth--] = 0 ; /* pop elcnt off "stack" */
-
+			/* if we reach depth 0, we have parsed an entire topfom */
+			if (cons_depth == 0) {
+				++topform_count ;
+			}
 			cons_elcnt[cons_depth]++ ;
 			break ;
 		case T_EOF:
@@ -260,5 +298,9 @@ scan:
 	if (!islasttok) goto scan ;
 done:
 	fputc('\n', outfile) ;
-	return 0 ;
+	if (no_tokens) {
+		err = E_NO_INPUT ;
+		pr_err() ;
+	}
+	return retcode ;
 }
