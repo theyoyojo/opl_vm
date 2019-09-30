@@ -115,7 +115,7 @@ inline int ismetachar(char c) {
 tok_t get_next_token(FILE * infile) {
 	memset(buf, 0, BUFSZ) ;
 	bufflen = 0 ;
-	int retcode = 0 ;
+	retcode = 0 ;
 	char c ;
 	char * bufp = buf ;
 	/* ingnore leading whitespace */
@@ -200,7 +200,7 @@ int main(int argc, char * argv[]) {
 	int cons_depth = 0 ;
 	int cons_elcnt[MAX_DEPTH] ;
 	int topform_count = 0 ;
-	memset(cons_elcnt, 0, MAX_DEPTH) ;
+	memset(cons_elcnt, 0, MAX_DEPTH * sizeof(int)) ;
 
 	tok_t next_token ;
 	tok_t prev_token ;
