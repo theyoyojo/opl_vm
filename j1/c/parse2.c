@@ -44,6 +44,7 @@ char * prim_tab[] = {
 
 #define PRIM_TABSZ sizeof(prim_tab)/8
 
+/* this could be binary search */
 int isprim(char * token) {
 	for(size_t i = 0; i < PRIM_TABSZ; ++i) {
 		if (!strcmp(token, prim_tab[i])) {
@@ -82,7 +83,7 @@ void pr_err(void) {
 			fprintf(stderr, "Error: Cons depth exceeds max.\n") ;
 			break ;
 		case E_PAR_NOMATCH:
-			fprintf(stderr, "Error: Found ) with no mathing ).\n") ;
+			fprintf(stderr, "Error: Found ) with no mathing (.\n") ;
 			break ;
 		case E_THICC_CONS:
 			fprintf(stderr, "Error: Cons cannot have more than two elements.\n") ;
@@ -197,14 +198,13 @@ int main(int argc, char * argv[]) {
 	outfile = stdout ;
 	islasttok = 0 ;
 
-	int cons_depth = 0 ;
-	int cons_elcnt[MAX_DEPTH] ;
+	int list_depth = 0 ;
+	int list_elcnt[MAX_DEPTH] ;
 	int topform_count = 0 ;
-	memset(cons_elcnt, 0, MAX_DEPTH * sizeof(int)) ;
+	memset(list_elcnt, 0, MAX_DEPTH * sizeof(int)) ;
 
 	tok_t next_token ;
-	tok_t prev_token ;
-	fprintf(outfile, "main = ") ;
+	/* tok_t prev_token ; */
 
 /* the parser */
 scan:
@@ -217,69 +217,85 @@ scan:
 	switch(next_token) {
 		case T_NUM: /* yeah these are the same, I made a mistake keeping them seperate */
 		case T_PRIM:
-			if (cons_depth == 0) {
+			if (list_depth == 0) {
 				err = E_LONELY_TOK ;
 				pr_err() ;
 				goto done ;
 			}
-			if (prev_token == T_RPAR) {
-				putchar(','), putchar(' ') ;
+			/* if (prev_token == T_RPAR) { */
+			/* 	putchar(','), putchar(' ') ; */
+			/* } */
+			if (list_elcnt[list_depth] > 0) {
+				fprintf(outfile, " (") ;
 			}
-			fprintf(outfile, "Atom(\"%s\")", buf) ;
-			goto insert_comma_maybe ;
+			fprintf(outfile, "%s", buf) ;
+			list_elcnt[list_depth]++;
+			/* goto insert_comma_maybe ; */
+			break ;
 		case T_NULL:
-			if (cons_depth == 0) {
+			if (list_depth == 0) {
 				err = E_LONELY_TOK ;
 				pr_err() ;
 				goto done ;
 			}
-			if (prev_token == T_RPAR) {
-				putchar(','), putchar(' ') ;
-			}
-			fprintf(outfile, "Nil()") ;
-			goto insert_comma_maybe ;
-		insert_comma_maybe:
-			cons_elcnt[cons_depth]++ ;
-			if (cons_elcnt[cons_depth] == 1) {
-				putchar(','), putchar(' ') ;
-			}
+			/* if (prev_token == T_RPAR) { */
+			/* 	putchar(','), putchar(' ') ; */
+			/* } */
+			fprintf(outfile, ";") ; /* FIXME: should I allow this? */
+			/* goto insert_comma_maybe ; */
+		/* insert_comma_maybe: */
+		/* 	cons_elcnt[cons_depth]++ ; */
+		/* 	if (cons_elcnt[cons_depth] == 1) { */
+		/* 		putchar(','), putchar(' ') ; */
+		/* 	} */
 			break ;
 		case T_LPAR:
-			if (prev_token == T_RPAR) {
-				putchar(','), putchar(' ') ;
-			}
+			/* if (prev_token == T_RPAR) { */
+			/* 	putchar(','), putchar(' ') ; */
+			/* } */
 			/* If we already have a complete topform, we can't have another */
 			if (topform_count > 0) {
 				err = E_MANY_TOPFS ;
 				pr_err() ;
 				goto done ;
 			}
-			fprintf(outfile, "Cons(") ;
-			cons_depth++ ;
+			if (list_depth > 0) {
+				fprintf(outfile, "(") ;
+			}
+			fprintf(outfile, "(") ;
+			/* list_elcnt[list_depth]++ ; */
+			list_depth++ ;
 			break ;
 		case T_RPAR:
-			if (cons_depth == 0) {
+			if (list_depth == 0) {
 				err = E_PAR_NOMATCH ;
 				pr_err() ;
 				goto done ;
 			}
-			if (cons_elcnt[cons_depth] < 2) {
-				err = E_THIN_CONS;
-				pr_err() ;
-				goto done ;
+			/* if (cons_elcnt[cons_depth] < 2) { */
+			/* 	err = E_THIN_CONS; */
+			/* 	pr_err() ; */
+			/* 	goto done ; */
+			/* } */
+			/* if (cons_elcnt[cons_depth] > 2) { */
+			/* 	err = E_THICC_CONS; */
+			/* 	pr_err() ; */
+			/* 	goto done ; */
+			/* } */
+			fprintf(outfile, " ;") ;
+			/* printf("\nLIST_DEPTH: %d\n", list_elcnt[list_depth]) ; */
+			while(list_elcnt[list_depth] > 0) {
+				fprintf(outfile, ")") ;
+				--list_elcnt[list_depth] ;
 			}
-			if (cons_elcnt[cons_depth] > 2) {
-				err = E_THICC_CONS;
-				pr_err() ;
-				goto done ;
-			}
-			fprintf(outfile, ")") ;
-			cons_elcnt[cons_depth--] = 0 ; /* pop elcnt off "stack" */
+			/* fprintf(outfile, ")") ; */
+			list_elcnt[list_depth--] = 0 ; /* pop elcnt off "stack" */
 			/* if we reach depth 0, we have parsed an entire topfom */
-			if (cons_depth == 0) {
+			if (list_depth == 0) {
 				++topform_count ;
 			}
-			cons_elcnt[cons_depth]++ ;
+			list_elcnt[list_depth]++ ;
+			/* printf("\nLIST_DEPTH: %d\n", list_elcnt[list_depth]) ; */
 			break ;
 		case T_EOF:
 		case T_MYSTERY:
@@ -287,14 +303,14 @@ scan:
 			break ;
 
 	}
-	if (cons_depth >= MAX_DEPTH) {
+	if (list_depth >= MAX_DEPTH) {
 		err = E_TOO_DEEP ;
 		pr_err() ;
 		goto done ;
 	}
 	
 	/* save last token for next parse */
-	prev_token = next_token ;
+	/* prev_token = next_token ; */
 	if (!islasttok) goto scan ;
 done:
 	fputc('\n', outfile) ;

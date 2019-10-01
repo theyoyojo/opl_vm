@@ -7,11 +7,14 @@ CFLAGS  = -g -Wall -Werror -std=gnu11
 OBJECTS = test_list.o olist.o types.o delta.o obj.o stack.o interp.o
 BIN	= test
 
-all: $(OBJECTS) parser
+all: $(OBJECTS) parser parser2
 	$(CC) $(CFLAGS) $(OBJECTS) -o $(BIN)
 
 parser: parse.o
-	$(CC) $(CFLAGS) parse.o -o parser
+	$(CC) $(CFLAGS)  $^ -o $@
+
+parser2: parse2.o
+	$(CC) $(CFLAGS)  $^ -o $@
 
 %.o: %.c
 	$(CC) $(CFLAGS) -c $^ -o $@
@@ -19,4 +22,4 @@ parser: parse.o
 
 .PHONEY: clean
 clean:
-	rm -rf $(BIN) $(OBJECTS) parser
+	rm -rf $(BIN) $(OBJECTS) parser parser2

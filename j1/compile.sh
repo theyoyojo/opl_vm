@@ -32,11 +32,21 @@ mkdir $TMPDIR
 
 (cd $J1_PATH/c && make)
 
-$J1_PATH/c/parser < $INFILE > $TMPDIR/$INFILE.pyraw
+"$J1_PATH/c/parser2" < $INFILE > "$TMPDIR/$INFILE.j1.sexpr"
 
-if [ ! $? ]
+if [ "$?" = "1" ]
+then
+	echo "Parse2 error"
+	rm -rf $TMPDIR
+	exit $E_PARSE
+fi
+
+"$J1_PATH/c/parser" < "$TMPDIR/$INFILE.j1.sexpr" $> "$TMPDIR/$INFILE.pyraw"
+
+if [ "$?" = "1" ]
 then
 	echo "Parse error"
+	rm -rf $TMPDIR
 	exit $E_PARSE
 fi
 
@@ -53,9 +63,10 @@ OBJS="$J1_PATH/c/types.o $J1_PATH/c/olist.o $J1_PATH/c/delta.o $J1_PATH/c/interp
 # Translate python to c "bytecode"
 "$J1_PATH/compile.py" "$TMPDIR/$INFILE.pyready" > "$TMPDIR/$INFILE.byte.c"
 
-if [ ! $? ]
+if [ "$?" = "1" ]
 then
 	echo "Translation error"
+	rm -rf $TMPDIR
 	exit $E_TRANSLATION
 fi
 
@@ -65,9 +76,10 @@ gcc -c -o "$TMPDIR/$INFILE.o" "$TMPDIR/$INFILE.byte.c" -I$J1_PATH/c
 # Link the bytecode with the J1 virtual machine interpreter, produce the executable
 gcc "$TMPDIR/$INFILE.o" $OBJS -o $OUTFILE
 
-if [ ! $? ]
+if [ "$?" = "1" ]
 then
 	echo "Compilation error"
+	rm -rf $TMPDIR
 	exit $E_COMPILATION
 fi
 
