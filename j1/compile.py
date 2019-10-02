@@ -2,7 +2,7 @@
 import importlib.machinery
 import sys
 import os
-sys.path.append(os.environ["J1_PATH"] + "..")
+sys.path.append(os.environ["J1_PATH"] + "/..")
 from j1.sexpr import *
 from j1.desugar import desugar
 import j1.expression as e
