@@ -8,12 +8,19 @@ usage: quickinterp.py <input_file>
 import importlib.machinery
 import sys
 import os
-sys.path.append(os.environ["J1_PATH"] + "/..")
+
+# J1 importability check
+if not "J1_PATH" in os.environ:
+    print("Error: J1_PATH environment variable is not set. Please set it.")
+    sys.exit(-1)
+else:
+    sys.path.append(os.environ["J1_PATH"] + "/..")
 from j1.sexpr import *
 from j1.desugar import desugar
 import j1.expression as e
 import j1.value as v
 from j1.interp import big_interp
+
 
 def main():
     if len(sys.argv) != 2:

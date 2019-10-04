@@ -13,6 +13,16 @@ then
 	exit $E_NO_PATH
 fi
 
+while getopts "p" OPTION; do
+	case $OPTION in
+		p)
+			PRESERVE=yes
+			;;
+		*)
+			echo "Unknown option $OPTION, ignoring"
+			;;
+	esac
+done
 
 DIR=$(dirname ${BASH_SOURCE[0]})
 DIR=`dirname $(readlink -f $0)`
@@ -20,8 +30,12 @@ DIR=`dirname $(readlink -f $0)`
 # DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
 cd $DIR
+mkdir tmp
 
 TESTS=`find . | grep "test_[A-Za-z]*\.j1$"`
+
+TESTS=$(echo $TESTS | tr ' ' '\n')
+# echo FIRST: "$TESTS"
 
 passed=0
 total=0
@@ -30,33 +44,51 @@ OUTPUTS=""
 read <<<"$TESTS" next_test
 while [ ! -z "$next_test" ]
 do
-	echo TESTS LEFT: $TESTS
+	next_test=`basename $next_test`
+	# echo "TESTS LEFT: $TESTS"
 	total=$[$total + 1]
 	# echo $next_test
 	
 	# $J1_PATH/c/parser2 < "$next_test" | $J1_PATH/c/parser
 
-	$J1_PATH/compile.sh `basename "$next_test"` "$next_test.exe" >/dev/null
-	OUTPUTS="$OUTPUTS $next_test.out"
-
-	echo "$next_test"
+	# Get compiled value
+	$J1_PATH/compile.sh "$next_test" "tmp/$next_test.exe" >/dev/null
 	expected_v=`cat "$next_test.v"`
-	vm_v=`./$next_test.exe`
+	vm_v=`tmp/$next_test.exe`
+
+	# Get interpreted value
+	$J1_PATH/c/parser2 < "$next_test" | $J1_PATH/c/parser > "tmp/$next_test.pyraw"
+	$J1_PATH/cathead.sh "tmp/$next_test.pyraw" > "tmp/$next_test.py"
+	rm "tmp/$next_test.pyraw"
+	py_v=`$J1_PATH/quickinterp.py tmp/$next_test.py`
+	# echo $py_v
+
 	# TODO interpreted assertion
-	if [[ $expected_v == $vm_v ]]
+	# echo "Testing if $expected_v == $vm_v"
+	if [[ "0" != `bc <<<"$expected_v - $vm_v"` ]]
 	then
-		passed=$[$passed + 1]
+		echo "Test case \"$next_test\" failed for VM!"
+		echo "	expected: $expected_v, got: $vm_v"
+	elif [[ "0" != `bc <<<"$expected_v - $py_v"` ]]
+	then
+		echo "Test case \"$next_test\" failed for Python!"
+		echo "	expected: $expected_v, got: $py_v"
 	else
-		# cat "$next_test.v"
-		echo "Test case \"$next_test\" failed!"
-		# echo "	expected: $expected_v, got: $vm_v"
+		echo "PASS $next_test"
+		passed=$[$passed + 1]
 	fi
 
-	TESTS=$(echo $TESTS | awk '{for (i=2; i<=NF; i++) printf "%s ", ($i)}')
+	# echo "TESTS before mod: $TESTS"
+	TESTS=$(echo "$TESTS" | awk 'NR > 1 { print($0) }')
+	# echo "TESTS after mod: $TESTS"
 	read <<<"$TESTS" next_test
+	# echo "AGAIN: $next_test"
 done
 
 echo "Test results: $passed/$total passed"
 
-# rm $OUTPUTS
+if [ -z "$PRESERVE" ]
+then
+	rm -rf tmp
+fi
 exit $SUCCESS

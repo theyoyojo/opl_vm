@@ -32,6 +32,8 @@ mkdir $TMPDIR
 
 (cd $J1_PATH/c && make)
 
+echo "INPUT: $INFILE"
+
 "$J1_PATH/c/parser2" < $INFILE > "$TMPDIR/$INFILE.j1.sexpr"
 
 if [ "$?" = "1" ]
