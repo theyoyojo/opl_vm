@@ -35,11 +35,11 @@ obj_t * delta_eq(num_t * first, num_t * second) {
 }
 
 obj_t * delta_gt(num_t * first, num_t * second) {
-	return C_bool(first->value >= second->value) ;
+	return C_bool(first->value > second->value) ;
 }
 
 obj_t * delta_gteq(num_t * first, num_t * second) {
-	return C_bool(first->value > second->value) ;
+	return C_bool(first->value >= second->value) ;
 }
 
 obj_t * (*dtable_binary_num_num[])(num_t *, num_t *) = {

@@ -13,10 +13,13 @@ then
 	exit $E_NO_PATH
 fi
 
-while getopts "p" OPTION; do
+while getopts "dp" OPTION; do
 	case $OPTION in
 		p)
 			PRESERVE=yes
+			;;
+		d)
+			DEBUG=yes
 			;;
 		*)
 			echo "Unknown option $OPTION, ignoring"
@@ -26,16 +29,17 @@ done
 
 DIR=$(dirname ${BASH_SOURCE[0]})
 DIR=`dirname $(readlink -f $0)`
-# echo $DIR
-# DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
 cd $DIR
 mkdir tmp
 
-TESTS=`find . | grep "test_[A-Za-z]*\.j1$"`
+TESTS=`find . | grep "test_[_A-Za-z]*\.j1$"`
 
 TESTS=$(echo $TESTS | tr ' ' '\n')
-# echo FIRST: "$TESTS"
+if [ ! -z "$DEBUG" ]
+then
+	printf "The following tests will be run:\n$TESTS\n========"
+fi
 
 passed=0
 total=0
