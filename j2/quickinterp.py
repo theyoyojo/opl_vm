@@ -1,4 +1,4 @@
-#!/bin/python
+#!/bin/python3
 def usage():
     print(
 """=== J2 python interpreter==
@@ -6,6 +6,7 @@ usage: quickinterp.py <input_file>
     """)
 
 import importlib.machinery
+import importlib.util
 import sys
 import os
 
