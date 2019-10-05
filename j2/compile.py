@@ -1,5 +1,6 @@
-#!/bin/python
+#!/bin/python3
 import importlib.machinery
+import importlib.util
 import sys
 import os
 if not "J2_PATH" in os.environ:
