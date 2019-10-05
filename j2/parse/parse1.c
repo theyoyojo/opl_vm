@@ -20,10 +20,10 @@ double value ;
 typedef enum token {
 	T_NUM,
 	T_PRIM,
-	T_NULL,
 	T_RPAR,
 	T_LPAR,
 	T_EOF,
+	T_ID,
 	T_MYSTERY = 99,
 } tok_t ;
 
@@ -98,7 +98,7 @@ void pr_err(void) {
 			fprintf(stderr, "Error: There is no input.\n") ;
 			break ;
 		case E_MANY_TOPFS:
-			fprintf(stderr, "Error: There can only be one topform in J1\n") ;
+			fprintf(stderr, "Error: There can only be one topform in J2\n") ;
 			break ;
 	}
 	fprintf(stderr, "token buffer: %s, 1stchar=[%d]\n", buf, *buf) ;
@@ -176,17 +176,14 @@ tok_t get_next_token(FILE * infile) {
 				return T_LPAR ;
 			case ')':
 				return T_RPAR ;
-			case ';':
-				return T_NULL ;
 		}
 	}
 	else if (isprim(buf)) {
 		return T_PRIM ;
 	}
 	
-	/* no matching token? err time :) */
-	err = E_MYSTERY_TOK ;
-	return T_MYSTERY ;
+	/* no matching token? Must be an id then */
+	return T_ID;
 }
 
 #define MAX_DEPTH 1024
@@ -207,6 +204,8 @@ int main(int argc, char * argv[]) {
 	/* tok_t prev_token ; */
 
 /* the parser */
+	/* The top level is wrapped in a list to parse topforms */
+	/* fprintf(outfile, "(") ; */
 scan:
 	next_token = get_next_token(infile) ;
 	if(err) {
@@ -216,52 +215,30 @@ scan:
 
 	switch(next_token) {
 		case T_NUM: /* yeah these are the same, I made a mistake keeping them seperate */
+		case T_ID:
 		case T_PRIM:
+			/* lonely tokens are  now topforms in J2 */
 			if (list_depth == 0) {
-				err = E_LONELY_TOK ;
-				pr_err() ;
-				goto done ;
+				++topform_count ;
 			}
-			/* if (prev_token == T_RPAR) { */
-			/* 	putchar(','), putchar(' ') ; */
-			/* } */
-			if (list_elcnt[list_depth] > 0) {
+			if (list_elcnt[list_depth] > 0 || list_depth == 0) {
 				fprintf(outfile, " (") ;
 			}
 			fprintf(outfile, "%s", buf) ;
 			list_elcnt[list_depth]++;
 			/* goto insert_comma_maybe ; */
 			break ;
-		case T_NULL:
-			if (list_depth == 0) {
-				err = E_LONELY_TOK ;
-				pr_err() ;
-				goto done ;
-			}
-			/* if (prev_token == T_RPAR) { */
-			/* 	putchar(','), putchar(' ') ; */
-			/* } */
-			fprintf(outfile, ";") ; /* FIXME: should I allow this? */
-			/* goto insert_comma_maybe ; */
-		/* insert_comma_maybe: */
-		/* 	cons_elcnt[cons_depth]++ ; */
-		/* 	if (cons_elcnt[cons_depth] == 1) { */
-		/* 		putchar(','), putchar(' ') ; */
-		/* 	} */
-			break ;
 		case T_LPAR:
-			/* if (prev_token == T_RPAR) { */
-			/* 	putchar(','), putchar(' ') ; */
-			/* } */
 			/* If we already have a complete topform, we can't have another */
-			if (topform_count > 0) {
-				err = E_MANY_TOPFS ;
-				pr_err() ;
-				goto done ;
+			if (list_depth == 0 && topform_count > 0) {
+				/* err = E_MANY_TOPFS ; */
+				/* pr_err() ; */
+				/* goto done ; */
+				/* fprintf(outfile, "(") ; */
 			}
-			if (list_depth > 0) {
+			/* if (list_depth == 0) { */
 				fprintf(outfile, "(") ;
-			}
+			/* } */
 			fprintf(outfile, "(") ;
 			/* list_elcnt[list_depth]++ ; */
 			list_depth++ ;
@@ -272,16 +249,6 @@ scan:
 				pr_err() ;
 				goto done ;
 			}
-			/* if (cons_elcnt[cons_depth] < 2) { */
-			/* 	err = E_THIN_CONS; */
-			/* 	pr_err() ; */
-			/* 	goto done ; */
-			/* } */
-			/* if (cons_elcnt[cons_depth] > 2) { */
-			/* 	err = E_THICC_CONS; */
-			/* 	pr_err() ; */
-			/* 	goto done ; */
-			/* } */
 			fprintf(outfile, " ;") ;
 			/* printf("\nLIST_DEPTH: %d\n", list_elcnt[list_depth]) ; */
 			while(list_elcnt[list_depth] > 0) {
@@ -313,7 +280,13 @@ scan:
 	/* prev_token = next_token ; */
 	if (!islasttok) goto scan ;
 done:
-	fputc('\n', outfile) ;
+
+	fprintf(outfile, ";") ;
+	for (int i = 0; i < topform_count; ++i) {
+		fprintf(outfile, ")") ;
+	}
+	/* close the original opening ( at the top */
+	fprintf(outfile, "\n") ;
 	if (no_tokens) {
 		err = E_NO_INPUT ;
 		pr_err() ;

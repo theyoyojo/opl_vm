@@ -45,7 +45,7 @@ class Nil(Sexpr):
         pass
 
     def repr(self):
-        return "()"
+        return ";"
 
     def pp(self):
         print("\nSexpr:" + self.repr() + "\n")
@@ -58,7 +58,7 @@ class Atom(Sexpr):
         return self.value
 
     def pp(self):
-        print("\n" + self.repr() + "\n")
+        print("\nSexpr:" + self.repr() + "\n")
 
 class Cons(Sexpr):
     def __init__(self, left, right):
@@ -69,4 +69,4 @@ class Cons(Sexpr):
         return "(" + self.left.repr() + " " + self.right.repr() + ")"
 
     def pp(self):
-        print("\n" + self.repr() + "\n")
+        print("\nSexpr:" + self.repr() + "\n")

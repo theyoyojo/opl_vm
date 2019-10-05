@@ -3,20 +3,15 @@ from j2.core.error import *
 class Value:
     def __init__(self, *args):
         pass
-        # First, validate argument count
-        # if "args_exppected" in self.attrs:
-        #     if len(args) != self.attrs["args_expected"]:
-        #         raise  BadArgumentsCount(self.attrs["args_expected"], len(args))
-        # # Now, we can safely validate the content
-        # self.validate_operands(*args)
-    def find_redex(self):
-        return c.Hole(), self
 
     def pp(self):
         print(self.repr())
 
     def isvalue(self):
         return True
+
+    def subst(self, ident, value):
+        return self
 
 class Number(Value):
     attrs = {
@@ -74,3 +69,20 @@ class Primitive(Value):
 
     def repr(self):
         return self.value
+
+class ID(Value):
+    attrs = {
+            "args_expected": 1
+            }
+    def __init__(self, *args):
+        super().__init__(args)
+        self.value = args[0]
+
+    def repr(self):
+        return "ID:" + self.value
+
+    def subst(self, ident, value):
+        if ident.value == self.value:
+            return value
+        else:
+            return self

@@ -17,7 +17,7 @@ if not "J2_PATH" in os.environ:
 else:
     sys.path.append(os.environ["J2_PATH"] + "/..")
 from j2.interp.interp import big_interp
-from j2.core.desugar import desugar
+from j2.core.desugar import desugar_top
 
 
 def main():
@@ -33,7 +33,8 @@ def main():
         input_module = importlib.util.module_from_spec(input_spec)
         input_loader.exec_module(input_module)
         try:
-            program = desugar(input_module.main)
+            input_module.main.pp()
+            program = desugar_top(input_module.main)
         except AttributeError:
             print("        printf(\"Error: input file does contain main attribute.\\n\") ;")
             parsable = False
@@ -41,6 +42,10 @@ def main():
         print("        printf(\"Error: input file does not exist.\\n\") ;")
         parsable = False
     if parsable:
+        program.pp()
+        # program.exprs[0].pp()
+        # program.exprs[1].pp()
+        print("BEGIN")
         result = big_interp(program)
         print(result.value)
 

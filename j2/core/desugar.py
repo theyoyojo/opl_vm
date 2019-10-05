@@ -1,6 +1,7 @@
 import j2.core.expression as e
 import j2.core.value as v
 import j2.core.sexpr as s
+import j2.core.top as t
 
 
 class NotSugar(Exception):
@@ -84,17 +85,30 @@ def desugar_generic_app(sexpr):
 def desugar_if(sexpr):
     return e.If(*sexpr_to_tuple(sexpr.rest()))
 
+def desugar_binding(sexpr):
+    siter = sexpr
+    args = []
+    while not isinstance(siter, s.Nil):
+        args.append(desugar(siter.first()))
+        siter = siter.rest()
+    return args
+    
+
+def desugar_define(sexpr):
+    sexpr = sexpr.rest()
+    # print("AAA")
+    # sexpr.first().pp()
+    # sexpr.rest().pp()
+    # first->bindings, rest->def
+    return t.Define(desugar_binding(sexpr.first()),desugar(sexpr.rest()))
+
 antirecipies = { \
         "-": desugar_minus,
         "+": desugar_plus,
         "*": desugar_mult,
         "/": desugar_div,
-        "<": desugar_generic_app,
-        "<=": desugar_generic_app,
-        ">": desugar_generic_app,
-        ">=": desugar_generic_app,
-        "=": desugar_generic_app,
-        "if": desugar_if
+        "if": desugar_if,
+        "define": desugar_define
         }
 
 
@@ -103,8 +117,9 @@ def desugar_atom(sexpr):
         return v.Number(float(sexpr.repr()))
     elif sexpr.repr() in v.Prims:
         return v.Primitive(sexpr.repr())
+    # Must be an id then
     else:
-        return e.Application(sexpr.repr())
+        return v.ID(sexpr.repr())
 
 
 def desugar_cons(sexpr):
@@ -113,8 +128,9 @@ def desugar_cons(sexpr):
         return antirecipies[action](sexpr)
     elif sexpr.length() == 1:
         return desugar(sexpr.first())
+    # Might be function call or something
     else:
-        return e.Application(sexpr.repr())
+        return e.Application(*sexpr_to_tuple(sexpr))
 
 def desugar(sexpr):
     if isinstance(sexpr, s.Cons):
@@ -126,3 +142,11 @@ def desugar(sexpr):
     else:
         salt()
 
+
+def desugar_top(sexpr):
+    exprs = []
+    siter = sexpr 
+    while not isinstance(siter, s.Nil):
+        exprs.append(desugar(siter.first()))
+        siter = siter.rest()
+    return t.Program(*tuple(exprs))

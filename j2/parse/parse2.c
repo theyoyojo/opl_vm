@@ -1,5 +1,5 @@
 /*
- * J1 raw sexpr -> python compiler component
+ * J2 raw sexpr -> python compiler component
  * It's a lexer and a parser
  */
 #include <stdio.h>
@@ -20,6 +20,7 @@ double value ;
 typedef enum token {
 	T_NUM,
 	T_PRIM,
+	T_ID,
 	T_NULL,
 	T_RPAR,
 	T_LPAR,
@@ -183,9 +184,8 @@ tok_t get_next_token(FILE * infile) {
 		return T_PRIM ;
 	}
 	
-	/* no matching token? err time :) */
-	err = E_MYSTERY_TOK ;
-	return T_MYSTERY ;
+	/* no matching token? must be an id */
+	return T_ID ;
 }
 
 #define MAX_DEPTH 1024
@@ -216,6 +216,7 @@ scan:
 
 	switch(next_token) {
 		case T_NUM: /* yeah these are the same, I made a mistake keeping them seperate */
+		case T_ID:
 		case T_PRIM:
 			if (cons_depth == 0) {
 				err = E_LONELY_TOK ;

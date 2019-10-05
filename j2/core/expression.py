@@ -1,9 +1,6 @@
 from j2.core.error import *
 import copy
 
-# perhaps turn validate_operands function into work done in
-# Expression.__init__() via argspec key/[] pair in attrs (but this is very unnecessary)
-
 class Expression:
     def __init__(self, *args):
         pass
@@ -14,6 +11,13 @@ class Expression:
     def isvalue(self):
         return False
 
+    def subst(self, ident, value):
+        for index in range(len(self.expressions)):
+            # print(ident.value, index, value.value)
+            # print("INTO:",self.expressions[index].repr())
+            self.expressions[index] = self.expressions[index].subst(ident, value)
+            # self.pp()
+        return self
 
 class Application(Expression):
 
@@ -52,16 +56,6 @@ class If(Expression):
 
     def false(self):
         return self.expressions[2]
-
-    def find_redex(self):
-        if not self.pred().isvalue():
-            print("subpiece: ", self.pred().repr())
-            context = self.make_context(0)
-            subcontext, redex = self.pred().find_redex()
-            context.holeswap(subcontext)
-            return context, redex
-        else:
-            return c.Hole(), self
 
     def __init__(self, *args):
         super().__init__(args)

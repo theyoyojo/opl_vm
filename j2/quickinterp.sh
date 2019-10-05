@@ -27,7 +27,10 @@ INFILE=$1
 
 $J2_PATH/parse/parse1 < "$INFILE" | $J2_PATH/parse/parse2 > "/tmp/$INFILE.pyraw"
 
+
 $J2_PATH/cathead.sh "/tmp/$INFILE.pyraw" > "/tmp/$INFILE.pyready"
+
+# cat "/tmp/$INFILE.pyready"
 
 $J2_PATH/quickinterp.py "/tmp/$INFILE.pyready"
 rm "/tmp/$INFILE.pyready"
