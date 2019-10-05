@@ -13,6 +13,19 @@ usage() {
 	exit $E_BAD_USAGE
 }
 
+while getopts "e" OPTION; do
+	case $OPTION in
+		e)
+			EMIT=yes
+			shift
+			;;
+		*)
+			echo "Unknown option $OPTION, ignoring"
+			shift
+			;;
+	esac
+done
+
 if [ -z "$J2_PATH" ]
 then
 	echo "Error: J2_PATH environment variable is empty. Please set it to the location of J2"
@@ -30,7 +43,7 @@ OUTFILE="$2"
 TMPDIR="/tmp/j2compile_tmp_$INFILE"
 mkdir $TMPDIR
 
-(cd $J2_PATH && make)
+(cd $J2_PATH && make) >/dev/null
 
 "$J2_PATH/parse/parse1" < $INFILE > "$TMPDIR/$INFILE.sexpr"
 
@@ -63,6 +76,15 @@ then
 	rm -rf $TMPDIR
 	exit $E_TRANSLATION
 fi
+
+# -e option will emit c and exit
+if [ ! -z "$EMIT" ]
+then
+	cat "$TMPDIR/$INFILE.byte.c"
+	rm -rf "$TMPDIR"
+	exit $SUCCESS
+fi
+
 
 # Compile the bytecode
 gcc -c -o "$TMPDIR/$INFILE.o" "$TMPDIR/$INFILE.byte.c" -I$J2_PATH/vm

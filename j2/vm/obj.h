@@ -37,6 +37,8 @@ typedef struct _obj {
 
 type_t obj_typeof(obj_t * obj) ;
 
+void obj_repr(obj_t * obj, char * buf, int buflen) ;
+
 bool obj_isvalue(obj_t * obj) ;
 
 bool obj_isframe(obj_t * obj) ;

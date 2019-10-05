@@ -23,7 +23,11 @@ fi
 
 INFILE=$1
 
-$J2_PATH/cathead.sh "$INFILE" > "/tmp/$INFILE.pyready"
+(cd $J2_PATH && make) >/dev/null
+
+$J2_PATH/parse/parse1 < "$INFILE" | $J2_PATH/parse/parse2 > "/tmp/$INFILE.pyraw"
+
+$J2_PATH/cathead.sh "/tmp/$INFILE.pyraw" > "/tmp/$INFILE.pyready"
 
 $J2_PATH/quickinterp.py "/tmp/$INFILE.pyready"
 rm "/tmp/$INFILE.pyready"

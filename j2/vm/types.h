@@ -85,7 +85,7 @@ typedef struct _bool {
 
 #define BOOL_INIT(_boolean) (bool_t) { \
 	.head = HEADER_INIT(T_BOOL, D_bool, C_bool_copy), \
-	.value = !!_boolean } \
+	.value = (!!_boolean) } \
 
 obj_t * C_bool(bool value) ;
 obj_t * C_bool_copy(obj_t * old) ;
