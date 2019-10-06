@@ -9,7 +9,8 @@ bool obj_isvalue(obj_t * obj) {
 	assert(obj) ;
 	return obj_typeof(obj) == T_NUM ||
 		obj_typeof(obj) == T_BOOL ||
-		obj_typeof(obj) == T_PRIM ;
+		obj_typeof(obj) == T_PRIM ||
+		obj_typeof(obj) == T_IDENT ;
 }
 
 bool obj_isframe(obj_t * obj) {

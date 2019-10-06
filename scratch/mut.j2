@@ -1,0 +1,8 @@
+(define (1? n) (if (= n 1) 1 0))
+(define (-- n) (- n 1))
+(define (sum-n n) (if (1? n) 1 (+ n (sum-n (-- n)))))
+
+(define (addsums n) (if (1? n) 1
+			(+ (sum-n n) (addsums (-- n)))))
+
+(addsums 3)

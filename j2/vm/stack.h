@@ -45,6 +45,8 @@ void D_frapp(obj_t ** frapp_ptr) ;
 obj_t * frapp_pop_expr(obj_t * frapp) ;
 void frapp_push_value(obj_t * frapp, obj_t * obj) ;
 bool frapp_has_more_exprs(obj_t * frapp) ;
+olist_t * frapp_get_vals(obj_t * frapp) ;
+obj_t * frapp_get_first_value(obj_t * frapp) ;
 
 
 #endif /* !STACK_H */

@@ -132,3 +132,11 @@ bool frapp_has_more_exprs(obj_t * frapp) {
 	assert(obj_typeof(frapp) == T_FRAPP) ;
 	return !olist_empty(((frapp_t *)frapp)->exprs) ;
 }
+
+olist_t * frapp_get_vals(obj_t * frapp) {
+	return ((frapp_t *)frapp)->vals ;
+}
+
+obj_t * frapp_get_first_value(obj_t * frapp) {
+	return olist_get(frapp_get_vals(frapp),0) ;
+}

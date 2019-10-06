@@ -12,7 +12,7 @@ import os
 
 # J2 importability check
 if not "J2_PATH" in os.environ:
-    print("Error: 21_PATH environment variable is not set. Please set it.")
+    print("Error: J1_PATH environment variable is not set. Please set it.")
     sys.exit(-1)
 else:
     sys.path.append(os.environ["J2_PATH"] + "/..")
@@ -33,7 +33,7 @@ def main():
         input_module = importlib.util.module_from_spec(input_spec)
         input_loader.exec_module(input_module)
         try:
-            input_module.main.pp()
+            # input_module.main.pp()
             program = desugar_top(input_module.main)
         except AttributeError:
             print("        printf(\"Error: input file does contain main attribute.\\n\") ;")
@@ -42,10 +42,10 @@ def main():
         print("        printf(\"Error: input file does not exist.\\n\") ;")
         parsable = False
     if parsable:
-        program.pp()
+        # program.pp()
         # program.exprs[0].pp()
         # program.exprs[1].pp()
-        print("BEGIN")
+        # print("BEGIN")
         result = big_interp(program)
         print(result.value)
 

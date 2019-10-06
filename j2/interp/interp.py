@@ -21,13 +21,10 @@ def big_interp(code):
         # Interpret contents first pass
         for index in range(len(ex.expressions)):
             ex.expressions[index] = big_interp(ex.expressions[index])
-        if isinstance(ex.expressions[0], v.Value):
-            while ex.expressions[0].value in big_interp.sigma.keys():
-                ex = big_interp.sigma[ex.expressions[0].value].subst(ex.expressions)
-                # Interpret contents 1 + call_count th pass
-                # for index in range(len(ex.expressions)):
-                #     ex.expressions[index] = big_interp(ex.expressions[index])
-                return big_interp(ex)
+        if isinstance(ex.expressions[0], v.Value) and ex.expressions[0].value in big_interp.sigma.keys():
+            ex = big_interp.sigma[ex.expressions[0].value].subst(ex.expressions)
+            # ex.pp()
+            return big_interp(ex)
         return generate_delta(ex.expressions)()
     elif isinstance(ex, t.Program):
         # Interpret all top level exprs in program but return the last one only

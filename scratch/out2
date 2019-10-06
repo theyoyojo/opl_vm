@@ -1,0 +1,5 @@
+import sys
+import os
+sys.path.append(os.environ["J2_PATH"] + "..")
+from j2.core.sexpr import *
+main = Cons(Cons(Atom("define"), Cons(Cons(Atom("++"), Cons(Atom("n"), Nil())), Cons(Cons(Atom("+"), Cons(Atom("n"), Cons(Atom("1"), Nil()))), Nil()))), Cons(Cons(Atom("define"), Cons(Cons(Atom("+7"), Cons(Atom("n"), Nil())), Cons(Cons(Atom("+"), Cons(Atom("n"), Cons(Atom("7"), Nil()))), Nil()))), Cons(Cons(Atom("define"), Cons(Cons(Atom("op"), Cons(Atom("func"), Cons(Atom("n"), Nil()))), Cons(Cons(Atom("func"), Cons(Atom("n"), Nil())), Nil()))), Cons(Cons(Atom("op"), Cons(Atom("+7"), Cons(Atom("1"), Nil()))), Nil()))))

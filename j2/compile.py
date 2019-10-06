@@ -9,9 +9,11 @@ if not "J2_PATH" in os.environ:
 else:
     sys.path.append(os.environ["J2_PATH"] + "/..")
 from j2.core.sexpr import *
-from j2.core.desugar import desugar
+from j2.core.desugar import desugar_top
+from j2.core.desugar import is_number
 import j2.core.expression as e
 import j2.core.value as v
+import j2.core.top as t
 
 def usage():
     print(
@@ -47,10 +49,10 @@ def arglist_to_csv(idlist):
     csv = ""
     i = 0
     for ident in idlist:
-        if ident in v.Prims:
-            csv += "\"" + ident + "\""
-        else:
+        if is_number(ident) or ident[0] == "_":
             csv += ident 
+        else:
+            csv += "\"" + ident + "\""
         if i != len(idlist) - 1:
             csv += ", "
         i += 1
@@ -61,8 +63,10 @@ Cs_from_type = {
         v.Number: "C_num",
         v.Bool: "C_bool",
         v.Primitive: "C_prim",
+        v.ID: "C_ident",
         e.Application: "C_app",
         e.If: "C_if",
+        t.Define: "C_func",
         }
 
 def create_C_call(typeof, arglist):
@@ -89,12 +93,36 @@ def emit_subprograms(program):
 
     return arglist
 
+def emit_define(program):
+    arglist = []
+    olist_id = id_generator()
+    olist_args = []
+    arglist.append(olist_id)
+    olist_len = 0
+    for ident in program.binding:
+        olist_args.append(id_generator())
+        emit_statement(olist_args[-1], v.ID, [ident.value])
+        olist_len += 1
+    print(OLIST_PREFIX,olist_id,"= olist_init_data(" + str(olist_len) + ", " + arglist_to_csv(olist_args) + ") ;")
+    arglist.append(id_generator())
+    subarglist = emit_subprograms(program.expr)
+    emit_statement(arglist[-1], type(program.expr), subarglist)
+    return arglist
+
 
 def emit_c(program):
     top_id = id_generator()
-    arglist = emit_subprograms(program)
-    
-    emit_statement(top_id, type(program), arglist)
+    print(OBJ_PREFIX, top_id, "= C_prog() ;")
+    for topform in program.exprs:
+        next_id = id_generator()
+        if isinstance(topform, t.Define):
+            arglist = emit_define(topform)
+            emit_statement(next_id, t.Define, arglist) 
+        else:
+            arglist = emit_subprograms(topform)
+            emit_statement(next_id,type(topform), arglist) 
+        print(OUTPUT_LONGTAB, "prog_append(" + top_id + ",", next_id + ") ;")
+    # emit_statement(top_id, type(program), arglist)
     print(OUTPUT_INTERPRET)
     print(OUTPUT_PRINT_VALUE)
     print(OUTPUT_LONGTAB, "D_OBJ(" + top_id + ") ;")
@@ -106,6 +134,7 @@ def id_generator():
 id_generator.counter = 0
 
 OBJ_PREFIX="        obj_t * "
+OLIST_PREFIX="        olist_t * "
 
 def main():
     if len(sys.argv) != 2:
@@ -121,7 +150,7 @@ def main():
         input_module = importlib.util.module_from_spec(input_spec)
         input_loader.exec_module(input_module)
         try:
-            program = desugar(input_module.main)
+            program = desugar_top(input_module.main)
         except AttributeError:
             print("        printf(\"Error: input file does contain main attribute.\\n\") ;")
             parsable = False

@@ -1,0 +1,9 @@
+(define (equal? a b) (if (= a b) 1 0))
+(define (-1 x) (- x 1))
+(define (-2 x) (- x 2))
+(define (fib n)
+	(if (equal? n 0) 0
+		(if (equal? n 1) 1
+			(+ (fib (-1 n)) (fib (-2 n))))))
+
+(fib 10)

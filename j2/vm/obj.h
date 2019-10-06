@@ -14,9 +14,12 @@ typedef enum _type {
 	T_BOOL,
 	T_PRIM,
 	T_NUM,
+	T_IDENT,
+	T_FUNC,
 	T_STACK,
 	T_FRIF,
 	T_FRAPP,
+	T_PROG,
 } type_t ;
 
 struct _obj ;
