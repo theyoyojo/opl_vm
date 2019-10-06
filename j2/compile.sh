@@ -40,7 +40,7 @@ fi
 INFILE="$1"
 OUTFILE="$2"
 
-TMPDIR="/tmp/j2compile_tmp_$INFILE"
+TMPDIR="/tmp/j2compile_tmp_`basename $INFILE`"
 mkdir $TMPDIR
 
 (cd $J2_PATH && make) >/dev/null
