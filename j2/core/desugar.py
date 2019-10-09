@@ -96,9 +96,6 @@ def desugar_binding(sexpr):
 
 def desugar_define(sexpr):
     sexpr = sexpr.rest()
-    # print("AAA")
-    # sexpr.first().pp()
-    # sexpr.rest().pp()
     # first->bindings, rest->def
     return t.Define(desugar_binding(sexpr.first()),desugar(sexpr.rest()))
 

@@ -13,10 +13,18 @@ usage() {
 	exit $E_BAD_USAGE
 }
 
-while getopts "e" OPTION; do
+while getopts "e12" OPTION; do
 	case $OPTION in
 		e)
 			EMIT=yes
+			shift
+			;;
+		1)
+			PARSE1=yes
+			shift
+			;;
+		2)
+			PARSE2=yes
 			shift
 			;;
 		*)
@@ -54,6 +62,13 @@ then
 	exit $E_PARSE
 fi
 
+if [ ! -z "$PARSE1" ]
+then
+	cat "$TMPDIR/$INFILE.sexpr"
+	rm -rf $TMPDIR
+	exit $SUCCESS
+fi
+
 "$J2_PATH/parse/parse2" < "$TMPDIR/$INFILE.sexpr" > "$TMPDIR/$INFILE.pyraw"
 
 if [ "$?" = "1" ]
@@ -61,6 +76,13 @@ then
 	echo "Parse2 error"
 	rm -rf $TMPDIR
 	exit $E_PARSE
+fi
+
+if [ ! -z "$PARSE2" ]
+then
+	cat "$TMPDIR/$INFILE.pyraw"
+	rm -rf $TMPDIR
+	exit $SUCCESS
 fi
 
 "$J2_PATH/cathead.sh" "$TMPDIR/$INFILE.pyraw"  > "$TMPDIR/$INFILE.py"

@@ -18,7 +18,6 @@ def big_interp(code):
         else:
             return big_interp(ex.false())
     elif isinstance(ex, e.Application):
-        # Interpret contents first pass
         for index in range(len(ex.expressions)):
             ex.expressions[index] = big_interp(ex.expressions[index])
         if isinstance(ex.expressions[0], v.Value) and ex.expressions[0].value in big_interp.sigma.keys():
