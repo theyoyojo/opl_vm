@@ -38,7 +38,6 @@ void stack_chop(obj_t * stack) {
 	}
 	else {
 		olist_del(_stack->data, 0) ;
-		/* printf("olist del: new size=%lu\n", olist_length(_stack->data)) ; */
 	}
 }
 
@@ -139,4 +138,84 @@ olist_t * frapp_get_vals(obj_t * frapp) {
 
 obj_t * frapp_get_first_value(obj_t * frapp) {
 	return olist_get(frapp_get_vals(frapp),0) ;
+}
+
+obj_t * C_env(void) {
+	ALLOC_OR_RETNULL(new, env_t) ;
+	*new = ENV_INIT() ;
+	return (obj_t *)new ;
+
+}
+
+obj_t * C_env_copy(obj_t * old) {
+	env_t * old_env = (env_t *)old ;
+	ALLOC_OR_RETNULL(new, env_t) ;
+	new->head = HEADER_INIT(T_ENV, D_env, C_env_copy) ;
+	new->idents = olist_init_copy(old_env->idents) ;
+	new->vals = olist_init_copy(old_env->vals) ;
+	return (obj_t *)new ;
+}
+
+void D_env(obj_t ** env_ptr) {
+	assert(env_ptr) ;
+	assert(*env_ptr) ;
+	env_t * env = *(env_t **)env_ptr ;
+	olist_free(&env->idents) ;
+	olist_free(&env->vals) ;
+	free(env) ;
+	*env_ptr = NULL ;
+}
+/* can fail by arity mismatch */
+int env_bind(obj_t * env, olist_t * binding, olist_t * vals) {
+	assert(env) ;
+	size_t bindlen = olist_length(binding) ;
+	size_t vallen = olist_length(vals) ;
+	env_t * env_ = (env_t *)env ;
+	/* Arity mismatch */
+	if (bindlen != vallen) {
+		printf("Exception: arrity mismatch in call to %s\n"
+				"\t Expected: %lu, Got: %lu\n",
+				func_get_name(olist_get(binding, 1)),
+				bindlen, vallen) ;
+		return 1 ;
+	}
+	/* Include function name for possible usage later as env name*/
+	for (size_t i = 0; i < bindlen; ++i) {
+		olist_append(env_->idents, C_obj_copy(olist_get(binding, i))) ;
+		olist_append(env_->vals, C_obj_copy(olist_get(vals, i))) ;
+	}
+	return 0 ;
+}
+/* check if an environment maps a variable to a value */
+bool env_maps(obj_t * env, obj_t * ident) {
+	assert(env) ;
+	env_t * env_ = (env_t *)env ;
+	ident_t * tmp ;
+	/* start at one because zero is the func name */
+	for (size_t i = 1; i < olist_length(env_->idents); ++i) {
+		tmp = (ident_t *)olist_get(env_->idents, i) ;	
+		if (!ident_cmp(ident, (obj_t *)tmp)) {
+			return true ;
+		}
+	}
+	return false ;
+}
+/* Do the substitution, consume the identifier, return a copy of the mapped value */
+obj_t * env_subst(obj_t * env, obj_t * ident) {
+	assert(env) ;
+	env_t * env_ = (env_t *)env ;
+	ident_t * tmp ;
+	/* start at one because zero is the func name */
+	for (size_t i = 1; i < olist_length(env_->idents); ++i) {
+		tmp = (ident_t *)olist_get(env_->idents, i) ;	
+		if (!ident_cmp(ident, (obj_t *)tmp)) {
+			/* if we found it, return the corresponding value */
+			D_OBJ(ident) ;
+			return C_obj_copy(olist_get(env_->vals, i)) ;
+		}
+	}
+	/* yeah idk the caller is going to have to figure this one out */
+	/* or I could return the ident... */
+	D_OBJ(ident) ;
+	return NULL ;
 }

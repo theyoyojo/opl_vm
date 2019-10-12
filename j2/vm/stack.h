@@ -48,5 +48,27 @@ bool frapp_has_more_exprs(obj_t * frapp) ;
 olist_t * frapp_get_vals(obj_t * frapp) ;
 obj_t * frapp_get_first_value(obj_t * frapp) ;
 
+/* an enviromemnt for lazy variable substitution */
+typedef struct _env {
+	header_t head ;
+	olist_t * idents ;
+	olist_t * vals ;
+} env_t ;
+
+#define ENV_INIT() (env_t) { \
+	.head = HEADER_INIT(T_ENV, D_env, C_env_copy), \
+	.idents = olist_init(), \
+	.vals = olist_init() }
+
+obj_t * C_env(void) ;
+obj_t * C_env_copy(obj_t * old) ;
+void D_env(obj_t ** env_ptr) ;
+/* can fail by arity mismatch */
+/* does NOT consume the lists passed to it */
+int env_bind(obj_t * env, olist_t * binding, olist_t * vals) ;
+/* check if an environment maps a variable to a value */
+bool env_maps(obj_t * env, obj_t * ident) ;
+/* Do the substitution, consume the identifier, return a copy of the mapped value */
+obj_t * env_subst(obj_t * env, obj_t * ident) ;
 
 #endif /* !STACK_H */

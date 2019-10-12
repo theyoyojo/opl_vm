@@ -20,6 +20,7 @@ typedef enum _type {
 	T_FRIF,
 	T_FRAPP,
 	T_PROG,
+	T_ENV,
 } type_t ;
 
 struct _obj ;

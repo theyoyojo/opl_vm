@@ -132,6 +132,32 @@ TEST_SET(simple_exprs,
 		D_OBJ(top) ;
 
 	 ) ;
+
+	 TEST_CASE(env,
+		obj_t * env = C_env() ;
+		obj_t * f = C_ident("f") ;
+		obj_t * x = C_ident("x") ;
+		olist_t * binding = olist_init_data(2, f, x) ;
+		obj_t * one = C_num(1) ;
+		olist_t * call = olist_init_data(2, C_obj_copy(f), one) ;
+		/* bind does NOT consume the data passed to it */
+		env_bind(env, binding, call) ;
+		olist_free(&binding) ;
+		olist_free(&call) ;
+		
+		obj_t * one2 = env_subst(env, C_ident("x")) ;
+		ASSERT(((num_t *)one2)->value == 1) ;
+
+		obj_t * env2 = C_obj_copy(env) ;
+		obj_t * one3 = env_subst(env2, C_ident("x")) ;
+		ASSERT(((num_t *)one3)->value == 1) ;
+
+		D_OBJ(one2) ;
+		D_OBJ(one3) ;
+		
+		D_OBJ(env) ;
+		D_OBJ(env2) ;
+	) ;
 ) ;
 
 TEST_SET(deltas,
@@ -474,6 +500,7 @@ TEST_SET(interpretation,
 		D_OBJ(res) ;
 		D_OBJ(top) ;
 	 ) ;
+
 
 ) ;
 
