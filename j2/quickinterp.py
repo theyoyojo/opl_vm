@@ -16,7 +16,7 @@ if not "J2_PATH" in os.environ:
     sys.exit(-1)
 else:
     sys.path.append(os.environ["J2_PATH"] + "/..")
-from j2.interp.interp import big_interp
+from j2.interp.interp import big_interp, Env
 from j2.core.desugar import desugar_top
 
 
@@ -46,7 +46,7 @@ def main():
         # program.exprs[0].pp()
         # program.exprs[1].pp()
         # print("BEGIN")
-        result = big_interp(program)
+        result = big_interp(program, Env())
         print(result.value)
 
 if __name__ == "__main__":
