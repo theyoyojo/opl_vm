@@ -80,6 +80,8 @@ obj_t * C_app_list(olist_t * expr_list) ;
 void D_app(obj_t ** app_ptr) ;
 olist_t * app_get_expr_list(obj_t * app) ;
 
+void app_print(obj_t * app) ;
+
 typedef struct _if {
 	header_t head ;
 	obj_t * expr_pred,
@@ -148,5 +150,8 @@ obj_t * C_num(double value) ;
 obj_t * C_num_copy(obj_t * old) ;
 void D_num(obj_t ** num_ptr) ;
 
+
+void value_print(obj_t * value) ;
+void expr_print(obj_t * value) ;
 
 #endif /* !TYPES_H */

@@ -17,16 +17,20 @@ void stack_push(obj_t * stack, obj_t * frame) ;
 void  stack_chop(obj_t * stack) ;
 bool stack_empty(obj_t * stack) ;
 obj_t * stack_top(obj_t * stack) ;
+void stack_trace(obj_t * stack) ;
+size_t stack_height(obj_t * stack) ;
+obj_t * stack_top_env(obj_t * stack) ;
 
 /* frame for an if */
 typedef struct _frif {
 	header_t head ;
 	obj_t * e_true,
 	      * e_false ;
+	obj_t * env ;
 } frif_t ;
 
 
-obj_t * C_frif(obj_t * ifexpr) ;
+obj_t * C_frif(obj_t * ifexpr, obj_t * env) ;
 obj_t * C_frif_copy(obj_t * old) ;
 void D_frif(obj_t ** frif_ptr) ;
 obj_t * frif_copy_true(obj_t * frif) ;
@@ -37,9 +41,10 @@ typedef struct _frapp {
 	header_t head ;
 	olist_t * vals,
 		* exprs ;
+	obj_t * env ;
 } frapp_t ;
 
-obj_t * C_frapp(obj_t * app) ;
+obj_t * C_frapp(obj_t * app, obj_t * env) ;
 obj_t * C_frapp_copy(obj_t * old) ;
 void D_frapp(obj_t ** frapp_ptr) ;
 obj_t * frapp_pop_expr(obj_t * frapp) ;
@@ -48,17 +53,29 @@ bool frapp_has_more_exprs(obj_t * frapp) ;
 olist_t * frapp_get_vals(obj_t * frapp) ;
 obj_t * frapp_get_first_value(obj_t * frapp) ;
 
+/* frame for a ret, needed for env handling */
+typedef struct _frret {
+	header_t head ;
+	obj_t * env ;
+} frret_t ;
+
+obj_t * C_frret(obj_t * env) ;
+obj_t * C_frret_copy(obj_t * old) ;
+void D_frret(obj_t ** frret_ptr) ;
+
 /* an enviromemnt for lazy variable substitution */
 typedef struct _env {
 	header_t head ;
 	olist_t * idents ;
 	olist_t * vals ;
+	int refcnt ;
 } env_t ;
 
 #define ENV_INIT() (env_t) { \
-	.head = HEADER_INIT(T_ENV, D_env, C_env_copy), \
+	.head = HEADER_INIT(T_ENV, env_dec_ref, C_env_copy), \
 	.idents = olist_init(), \
-	.vals = olist_init() }
+	.vals = olist_init(), \
+	.refcnt = 1 } \
 
 obj_t * C_env(void) ;
 obj_t * C_env_copy(obj_t * old) ;
@@ -70,5 +87,21 @@ int env_bind(obj_t * env, olist_t * binding, olist_t * vals) ;
 bool env_maps(obj_t * env, obj_t * ident) ;
 /* Do the substitution, consume the identifier, return a copy of the mapped value */
 obj_t * env_subst(obj_t * env, obj_t * ident) ;
+
+bool env_empty(obj_t * env) ;
+char * env_get_name(obj_t * env) ;
+
+/* envs need to be reference counted because they have multiple valid pointers! ahhh! */
+/* inc_ref MUST be used for every non-constructor assignment to an env! */
+obj_t * env_inc_ref(obj_t * env) ;
+void env_dec_ref(obj_t ** env_ptr) ;
+int env_get_ref(obj_t * env) ;
+
+void env_print(obj_t * env) ;
+
+/* frame accessor functions for examining that stack */
+char * frame_get_name(obj_t * frame) ;
+char * frame_get_env_name(obj_t * frame) ;
+void frame_print(obj_t * frame) ;
 
 #endif /* !STACK_H */

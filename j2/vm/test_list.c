@@ -125,7 +125,7 @@ TEST_SET(simple_exprs,
 		prog_append(top, func) ;
 		prog_append(top, app2) ;
 
-		obj_t * res = interpret(top) ;
+		obj_t * res = exec(top) ;
 		printf("%lg\n", ((num_t *)res)->value) ;
 
 		D_OBJ(res) ;
@@ -142,7 +142,6 @@ TEST_SET(simple_exprs,
 		olist_t * call = olist_init_data(2, C_obj_copy(f), one) ;
 		/* bind does NOT consume the data passed to it */
 		env_bind(env, binding, call) ;
-		olist_free(&binding) ;
 		olist_free(&call) ;
 		
 		obj_t * one2 = env_subst(env, C_ident("x")) ;
@@ -152,9 +151,26 @@ TEST_SET(simple_exprs,
 		obj_t * one3 = env_subst(env2, C_ident("x")) ;
 		ASSERT(((num_t *)one3)->value == 1) ;
 
+		olist_t * bad_call = olist_init_data(1, C_ident("f")) ;
+
+		obj_t * env_bad = C_env() ;
+	 	int nonzero = env_bind(env_bad, binding, bad_call) ;
+
+		ASSERT(nonzero > 0) ;
+
+		olist_free(&bad_call) ;
+		olist_free(&binding) ;
 		D_OBJ(one2) ;
-		D_OBJ(one3) ;
+		D_OBJ(one3);
 		
+		D_OBJ(env) ;
+		D_OBJ(env2) ;
+		D_OBJ(env_bad) ;
+	) ;
+
+	TEST_CASE(env_refcnt,
+		obj_t * env = C_env() ;
+		obj_t * env2 = env_inc_ref(env) ;
 		D_OBJ(env) ;
 		D_OBJ(env2) ;
 	) ;
@@ -317,10 +333,10 @@ TEST_SET(copy,
 	) ;
 ) ;
 
-TEST_SET(interpretation,
+TEST_SET(execation,
 	TEST_CASE(degenerate,
 		obj_t * x = C_num(4);
-		obj_t * y = interpret(x) ;
+		obj_t * y = exec(x) ;
 		printf("result: %lg\n", ((num_t *)y)->value) ;	
 		D_OBJ(x) ;
 		D_OBJ(y) ;
@@ -331,7 +347,7 @@ TEST_SET(interpretation,
 		obj_t * x = C_num(4);
 		obj_t * y = C_num(7);
 		obj_t * a = C_app(3,w,x,y) ;
-		obj_t * z = interpret(a) ;
+		obj_t * z = exec(a) ;
 		printf("result: %lg\n", ((num_t *)z)->value) ;	
 		D_OBJ(a) ;
 		D_OBJ(z) ;
@@ -342,7 +358,7 @@ TEST_SET(interpretation,
 		obj_t * y = C_num(7);
 		obj_t * w = C_num(4);
 		obj_t * a = C_if(x,y,w) ;
-		obj_t * z = interpret(a) ;
+		obj_t * z = exec(a) ;
 		printf("result: %lf\n", ((num_t *)z)->value) ;	
 		D_OBJ(a) ;
 		D_OBJ(z) ;
@@ -354,7 +370,7 @@ TEST_SET(interpretation,
 		obj_t * _o4 = C_num(4.0) ;
 		obj_t * _o1 = C_if(_o2, _o3, _o4) ;
 
-		obj_t * result = interpret(_o1) ;
+		obj_t * result = exec(_o1) ;
 		printf("%lg\n", ((num_t *)result)->value) ;
 		D_OBJ(result) ;
 		D_OBJ(_o1) ;
@@ -371,7 +387,7 @@ TEST_SET(interpretation,
 		obj_t * _o10 = C_num(4.0) ;
 		obj_t * _o1 = C_if(_o2, _o3, _o10) ;
 
-		obj_t * result = interpret(_o1) ;
+		obj_t * result = exec(_o1) ;
 		printf("%lg\n", ((num_t *)result)->value) ;
 		D_OBJ(result) ;
 
@@ -395,7 +411,7 @@ TEST_SET(interpretation,
 		prog_append(top, func) ;
 		prog_append(top, app2) ;
 
-		obj_t * res = interpret(top) ;
+		obj_t * res = exec(top) ;
 		printf("%lg\n", ((num_t *)res)->value) ;
 
 		D_OBJ(res) ;
@@ -420,7 +436,7 @@ TEST_SET(interpretation,
 		prog_append(top, func) ;
 		prog_append(top, app2) ;
 
-		obj_t * res = interpret(top) ;
+		obj_t * res = exec(top) ;
 		printf("%lg\n", ((num_t *)res)->value) ;
 
 		D_OBJ(res) ;
@@ -449,7 +465,7 @@ TEST_SET(interpretation,
 		prog_append(top, func) ;
 		prog_append(top, app2) ;
 
-		obj_t * res = interpret(top) ;
+		obj_t * res = exec(top) ;
 		printf("%lg\n", ((num_t *)res)->value) ;
 
 		D_OBJ(res) ;
@@ -493,7 +509,7 @@ TEST_SET(interpretation,
 		prog_append(top, func) ;
 		prog_append(top, call) ;
 
-		obj_t * res = interpret(top) ;
+		obj_t * res = exec(top) ;
 		printf("%lg\n", ((num_t *)res)->value) ;
 		ASSERT(((num_t *)res)->value == 5050) ;
 

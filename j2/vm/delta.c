@@ -13,6 +13,7 @@ obj_t * delta_div(num_t * first, num_t * second) {
 	/* Divison by zero is undefined */
 	if (second->value == 0) {
 		/* TODO: maybe some better error handling? */
+		printf("Exception: Division by zero is undefined\n") ;
 		return NULL ;
 	}
 	return C_num(first->value / second->value) ;

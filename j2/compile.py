@@ -36,7 +36,7 @@ OUTPUT_FOOTER = \
 
 OUTPUT_INTERPRET = \
 """
-        obj_t * result = interpret(_o1) ;"""
+        obj_t * result = exec(_o1) ;"""
 
 OUTPUT_PRINT_VALUE = \
 """        printf("%lg\\n", ((num_t *)result)->value) ;

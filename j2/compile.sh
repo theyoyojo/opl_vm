@@ -13,7 +13,7 @@ usage() {
 	exit $E_BAD_USAGE
 }
 
-while getopts "e12" OPTION; do
+while getopts "ed12" OPTION; do
 	case $OPTION in
 		e)
 			EMIT=yes
@@ -25,6 +25,10 @@ while getopts "e12" OPTION; do
 			;;
 		2)
 			PARSE2=yes
+			shift
+			;;
+		d)
+			DEBUG=yes
 			shift
 			;;
 		*)
@@ -50,6 +54,14 @@ OUTFILE="$2"
 
 TMPDIR="/tmp/j2compile_tmp_`basename $INFILE`"
 mkdir $TMPDIR
+
+FLAGS=
+# -d option will define debug symbol to one in preprocessor
+# this needs to be passed to earlier make
+if [ ! -z "$DEBUG" ]
+then
+	export EXTRA_CFLAGS="-D DEBUG"
+fi
 
 (cd $J2_PATH && make) >/dev/null
 
@@ -106,8 +118,7 @@ then
 	rm -rf "$TMPDIR"
 	exit $SUCCESS
 fi
-
-
+	
 # Compile the bytecode
 gcc -c -o "$TMPDIR/$INFILE.o" "$TMPDIR/$INFILE.byte.c" -I$J2_PATH/vm
 
@@ -120,6 +131,8 @@ then
 	rm -rf $TMPDIR
 	exit $E_COMPILATION
 fi
+
+echo "===[Compilation Success]==="
 
 # clean up
 rm -rf $TMPDIR

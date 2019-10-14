@@ -16,26 +16,9 @@ bool obj_isvalue(obj_t * obj) {
 bool obj_isframe(obj_t * obj) {
 	assert(obj) ;
 	return obj_typeof(obj) == T_FRIF ||
-		obj_typeof(obj) == T_FRAPP ;
+		obj_typeof(obj) == T_FRAPP ||
+		obj_typeof(obj) == T_FRRET ;
 }
-
-/* void obj_repr(obj_t * obj, char * buf, int buflen) { */
-/* 	assert(buf) ; */
-/* 	switch(obj_typeof(obj)) { */
-/* 		case T_NUM: */
-/* 			sprintf(buf, "%g", ((num_t *)obj)->value) ; */
-/* 			break ; */
-/* 		case T_BOOL: */
-/* 			if (((bool_t *)obj)->value) { */
-/* 				sprintf(buf, "True") ; */
-/* 			} */
-/* 			else { */
-/* 				sprintf(buf, "False") ; */
-/* 			} */
-/* 			break ; */
-			
-/* 	} */
-/* } */
 
 void (*D_obj(obj_t * obj))(obj_t **) {
 	assert(obj) ;

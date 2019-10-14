@@ -46,17 +46,94 @@ bool stack_empty(obj_t * stack) {
 	return olist_empty(((stack_t *)stack)->data) ;
 }
 
-obj_t * stack_top(obj_t * stack) {
+size_t stack_height(obj_t * stack) {
 	assert(obj_typeof(stack) == T_STACK) ;
-	return olist_get(((stack_t *)stack)->data, 0) ;
+	return olist_length(((stack_t *)stack)->data) ;	
 }
 
-obj_t * C_frif(obj_t * ifexpr) {
+obj_t * stack_top(obj_t * stack) {
+	assert(obj_typeof(stack) == T_STACK) ;
+	if (stack_empty(stack)) {
+		return NULL ;
+	} else {
+		return olist_get(((stack_t *)stack)->data, 0) ;
+	}
+}
+
+/* This function does not return */
+void stack_trace(obj_t * stack) {
+	assert(obj_typeof(stack) == T_STACK) ;
+	stack_t * stack_ = (stack_t *)stack ;
+		
+	obj_t * tmp ;
+	printf("Stack trace of aborted future plans:\n") ;
+
+	for (size_t i = 0; i < olist_length(stack_->data); ++i) {
+		tmp = stack_top(stack) ;
+		printf("\t%s %p: frame: %s env: %s\n",
+			i == 0 ? "at" : "by",
+			tmp, frame_get_name(tmp), frame_get_env_name(tmp)) ;
+		frame_print(tmp) ;
+		stack_chop(stack) ;
+	}
+
+	printf("===[TERMINATION IMMINENT]===\n") ;
+
+	/* I could clean the main function's memory with a callback here... */
+	exit(1) ;
+}
+
+/* does NOT increase refcnt for an env, will transfer "ownership" of a ref */
+
+/* actually, this function should definitely get a new reference, 
+ * I had this idea of some frames storing multiple references to be distributed
+ * for each needed use, but I think that was misguided */
+obj_t * stack_top_env(obj_t * stack) {
+	assert(stack) ;
+	assert(!stack_empty(stack)) ;
+
+	obj_t ** env_ptr ;
+	/* obj_t * tmp ; */
+
+	switch(obj_typeof(stack_top(stack))) {
+	case T_FRAPP:
+		env_ptr = &((frapp_t *)stack_top(stack))->env ;
+		break ;
+	case T_FRIF:
+		env_ptr = &((frif_t *)stack_top(stack))->env ;
+		break ;
+	case T_FRRET:
+		env_ptr = &((frret_t *)stack_top(stack))->env ;
+		break ;
+	default:
+		env_ptr = NULL ;
+		printf("Exception: non frame object in stack\n") ;
+		stack_trace(stack) ;
+	}
+	
+	/* This is disabled because we increment the refcnt now */
+	/* if we want to transfer an env with only one ref, object it's being
+	 * taken from should no longer know about the object after we take it away
+	 */
+	/* if (env_get_ref(*env_ptr) == 1) { */
+	/* 	/1* copy env handle *1/ */
+	/* 	tmp = *env_ptr ; */	
+	/* 	/1* remove old reference to handle *1/ */
+	/* 	*env_ptr = NULL ; */
+	/* 	env_ptr = &tmp ; */
+	/* } */
+
+	return env_inc_ref(*env_ptr) ;
+	
+}
+
+obj_t * C_frif(obj_t * ifexpr, obj_t * env) {
 	assert(obj_typeof(ifexpr) == T_IF) ;
 	ALLOC_OR_RETNULL(new, frif_t) ;
 	new->head = HEADER_INIT(T_FRIF, D_frif, C_frif_copy) ;
 	new->e_true = C_obj_copy(((if_t *)ifexpr)->expr_true) ;
 	new->e_false = C_obj_copy(((if_t *)ifexpr)->expr_false) ;
+	new->env = env_inc_ref(env) ;
 	return (obj_t *)new ;
 }
 
@@ -65,6 +142,7 @@ obj_t * C_frif_copy(obj_t * old) {
 	new->head = HEADER_INIT(T_FRIF, D_frif, C_frif_copy) ;
 	new->e_true = C_obj_copy(((frif_t *)old)->e_true) ;
 	new->e_false = C_obj_copy(((frif_t *)old)->e_false) ;
+	new->env = env_inc_ref(((frif_t *)old)->env) ;
 	return (obj_t *)new ;
 }
 
@@ -74,6 +152,7 @@ void D_frif(obj_t ** frif_ptr) {
 	frif_t * frif = *(frif_t **)frif_ptr ;
 	D_obj(frif->e_true)(&frif->e_true) ;
 	D_obj(frif->e_false)(&frif->e_false) ;
+	D_OBJ(frif->env) ;
 	free(frif) ;
 	*frif_ptr = NULL ;
 }
@@ -88,12 +167,16 @@ obj_t * frif_copy_false(obj_t * frif) {
 	return C_obj_copy(((frif_t *)frif)->e_false) ;
 }
 
-obj_t * C_frapp(obj_t * app) {
+obj_t * C_frapp(obj_t * app, obj_t * env) {
 	assert(obj_typeof(app) == T_APP) ;
 	ALLOC_OR_RETNULL(new, frapp_t) ;
 	new->head = HEADER_INIT(T_FRAPP, D_frapp, C_frapp_copy) ;
 	new->vals = olist_init() ;
 	new->exprs = olist_init_copy(((app_t *)app)->expr_list) ;
+	/* the frapp should have an env ref available for each expr NOTE: this was a bad idea */
+	/* for (size_t i = 0; i < olist_length(new->exprs); ++i) { */
+	new->env = env_inc_ref(env) ;
+	/* } */
 	return (obj_t *)new ;
 }
 obj_t * C_frapp_copy(obj_t * old) {
@@ -101,6 +184,9 @@ obj_t * C_frapp_copy(obj_t * old) {
 	new->head = HEADER_INIT(T_FRAPP, D_frapp, C_frapp_copy) ;
 	new->vals = olist_init_copy(((frapp_t *)old)->vals) ;
 	new->exprs = olist_init_copy(((frapp_t *)old)->exprs) ;
+	/* for (size_t i = 0; i < olist_length(new->exprs); ++i) { */
+	new->env = env_inc_ref(((frapp_t *)old)->env) ;
+	/* } */
 	return (obj_t *)new ;
 }
 void D_frapp(obj_t ** frapp_ptr) {
@@ -109,6 +195,7 @@ void D_frapp(obj_t ** frapp_ptr) {
 	frapp_t * frapp = *(frapp_t **)frapp_ptr ;
 	olist_free(&frapp->vals) ;
 	olist_free(&frapp->exprs) ;
+	D_OBJ(frapp->env) ;
 	free(frapp) ;
 	*frapp_ptr = NULL ;
 }
@@ -138,6 +225,27 @@ olist_t * frapp_get_vals(obj_t * frapp) {
 
 obj_t * frapp_get_first_value(obj_t * frapp) {
 	return olist_get(frapp_get_vals(frapp),0) ;
+}
+
+obj_t * C_frret(obj_t * env) {
+	ALLOC_OR_RETNULL(new, frret_t) ;
+	new->head = HEADER_INIT(T_FRRET, D_frret, C_frret_copy) ;
+	new->env = env_inc_ref(env) ;
+	return (obj_t *)new ;
+}
+
+obj_t * C_frret_copy(obj_t * old) {
+	ALLOC_OR_RETNULL(new, frret_t) ;
+	new->head = HEADER_INIT(T_FRRET, D_frret, C_frret_copy) ;
+	new->env = env_inc_ref(((frret_t *)old)->env) ;
+	return (obj_t *)new ;
+}
+void D_frret(obj_t ** frret_ptr) {
+	assert(frret_ptr) ;
+	assert(*frret_ptr) ;
+	D_OBJ(((frret_t*)*frret_ptr)->env) ;
+	free(*frret_ptr) ;
+	*frret_ptr = NULL ;
 }
 
 obj_t * C_env(void) {
@@ -173,10 +281,10 @@ int env_bind(obj_t * env, olist_t * binding, olist_t * vals) {
 	env_t * env_ = (env_t *)env ;
 	/* Arity mismatch */
 	if (bindlen != vallen) {
-		printf("Exception: arrity mismatch in call to %s\n"
+		printf("Exception: arity mismatch in call to %s\n"
 				"\t Expected: %lu, Got: %lu\n",
-				func_get_name(olist_get(binding, 1)),
-				bindlen, vallen) ;
+				ident_get_name(olist_get(binding, 0)),
+				bindlen - 1, vallen - 1) ;
 		return 1 ;
 	}
 	/* Include function name for possible usage later as env name*/
@@ -188,7 +296,14 @@ int env_bind(obj_t * env, olist_t * binding, olist_t * vals) {
 }
 /* check if an environment maps a variable to a value */
 bool env_maps(obj_t * env, obj_t * ident) {
+	/* if (!env) { */
+	/* 	return false ; */
+	/* } */	
 	assert(env) ;
+	if (env_empty(env)) { /* shortcut */
+		return false ;
+	}
+
 	env_t * env_ = (env_t *)env ;
 	ident_t * tmp ;
 	/* start at one because zero is the func name */
@@ -218,4 +333,108 @@ obj_t * env_subst(obj_t * env, obj_t * ident) {
 	/* or I could return the ident... */
 	D_OBJ(ident) ;
 	return NULL ;
+}
+
+obj_t * env_inc_ref(obj_t * env) {
+	assert(obj_typeof(env) == T_ENV) ;
+	++((env_t *)env)->refcnt ;
+	return env ;
+}
+
+void env_dec_ref(obj_t ** env_ptr) {
+	assert(env_ptr) ;
+	assert(obj_typeof(*env_ptr) == T_ENV) ;
+	if (--(*(env_t **)env_ptr)->refcnt <= 0) {
+		D_env(env_ptr) ;
+	}
+}
+
+int env_get_ref(obj_t * env)  {
+	assert(obj_typeof(env) == T_ENV) ;
+	return ((env_t *)env)->refcnt ;
+}
+
+bool env_empty(obj_t * env) {
+	assert(obj_typeof(env) == T_ENV) ;
+	return olist_length(((env_t *)env)->idents) <= 0 ;
+}
+
+char * env_get_name(obj_t * env) {
+	if (!env || env_empty(env)) {
+		return "(none)" ;
+	}
+	else {
+		return ident_get_name(olist_get(((env_t *)env)->idents, 0)) ;
+	}
+}
+
+void env_print(obj_t * env) {
+	printf("Env: %s\n", env_get_name(env)) ;
+	if (!env || env_empty(env)) {
+		printf("| (empty)\n") ;
+		return ;
+	}
+	for (size_t i = 0; i < olist_length(((env_t *)env)->idents); ++i) {
+		printf("| env(%s) \t= ", ((ident_t *)olist_get(((env_t *)env)->idents, i))->value) ;
+		value_print(olist_get(((env_t *)env)->vals,i)) ;
+		printf("\n") ;
+	}
+}
+
+char * frame_get_name(obj_t * frame) {
+	assert(obj_isframe(frame)) ;
+	switch(obj_typeof(frame)) {
+	case T_FRRET:
+		return "return" ;
+	case T_FRAPP:
+		return "application" ;
+	case T_FRIF:
+		return "ifexpr" ;
+	default:
+		return "Big Error! this should not be returned!!!!!" ;
+	}
+}
+char * frame_get_env_name(obj_t * frame) {
+	assert(obj_isframe(frame)) ;
+	switch(obj_typeof(frame)) {
+	case T_FRRET:
+		return env_get_name(((frret_t *)frame)->env) ;
+	case T_FRAPP:
+		return env_get_name(((frapp_t *)frame)->env) ;
+	case T_FRIF:
+		return env_get_name(((frif_t *)frame)->env) ;
+	default:
+		return "Big Error! this should not be returned!!!!!" ;
+	}
+}
+
+void frame_print(obj_t * frame) {
+	assert(frame) ;
+	assert(obj_isframe(frame)) ;
+	printf("Frame: %s\n", frame_get_name(frame)) ;
+	switch(obj_typeof(frame)) {
+	case T_FRAPP:
+		printf("| vals: ") ;
+		for (size_t i = 0; i < olist_length(((frapp_t *)frame)->vals); ++i) {
+			value_print(olist_get(((frapp_t*)frame)->vals, i)) ;
+			putchar(' ') ;
+		}
+		printf("\n| exprs: ") ;
+		for (size_t i = 0; i < olist_length(((frapp_t *)frame)->exprs); ++i) {
+			expr_print(olist_get(((frapp_t*)frame)->exprs, i)) ;
+			putchar(' ') ;
+		}
+		break ;
+	case T_FRIF:
+		printf("| e_true: ") ;
+		expr_print(((frif_t*)frame)->e_true) ;
+		printf("\n| e_false: ") ;
+		expr_print(((frif_t*)frame)->e_false) ;
+	case T_FRRET: /* printing name is all we do for a frret */
+		break ;
+	default:
+		printf("Big Error! this should not be seen!!!!") ;
+	}
+
+	printf("\n") ;
 }

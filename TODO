@@ -1,4 +1,3 @@
-(LL) Modify your CK1 machine into the CEK0 machine.
 (LL) Write test cases that verify your CEK0 machine does NOT have dynamic scope.
 (LL) Make a tweak to the CEK0 machine to give it dynamic scope, commit that, then revert it.
 (HL) Remove your big-step interpreter from the HL.

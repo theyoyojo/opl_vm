@@ -12,7 +12,7 @@ all: $(OBJECTS)
 
 
 %.o: %.c
-	$(CC) $(CFLAGS) -c $^ -o $@
+	$(CC) $(CFLAGS) -c $^ -o $@ $(EXTRA_CFLAGS)
 
 
 .PHONEY: clean

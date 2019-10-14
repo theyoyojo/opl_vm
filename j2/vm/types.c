@@ -173,6 +173,7 @@ olist_t * app_get_expr_list(obj_t * app) {
 	return ((app_t *)app)->expr_list ;
 }
 
+
 obj_t * C_if(obj_t * e_pred, obj_t * e_true, obj_t * e_false) {
 	ALLOC_OR_RETNULL(new, if_t) ;
 	*new = IF_INIT(e_pred, e_true, e_false) ;
@@ -305,3 +306,54 @@ void D_num(obj_t ** num_ptr) {
 	*num_ptr = NULL ;
 }
 
+
+void value_print(obj_t * value) {
+	assert(obj_isvalue(value)) ;
+
+	switch (obj_typeof(value)) {
+	case T_NUM:
+		printf("%g", ((num_t *)value)->value) ;
+		break ;
+	case T_BOOL:
+		printf("%s", ((bool_t *)value)->value ? "True" : "False") ;
+		break ;
+	case T_PRIM:
+		printf("%s", prim_vtos(((prim_t *)value)->value)) ;
+		break ;
+	case T_IDENT:
+		printf("%s", ((ident_t *)value)->value) ;
+		break ;
+	default:
+		printf("SOMETHING WENT terribly WRONG IN value_print()") ;
+	}
+}
+void expr_print(obj_t * expr) {
+	if (obj_isvalue(expr)) {
+		value_print(expr) ;
+		return ;
+	}
+	switch (obj_typeof(expr)) {
+	case T_APP:
+		printf("App[") ;
+		for (size_t i = 0; i < olist_length(app_get_expr_list(expr)); ++i) {
+			expr_print(olist_get(app_get_expr_list(expr), i)) ;
+			putchar(' ') ;
+		}
+		printf("]") ;
+		break ;
+	case T_IF:
+		printf("If[") ;
+		expr_print(if_get_pred(expr)) ;
+		putchar(' ') ;
+		expr_print(if_get_true(expr)) ;
+		putchar(' ') ;
+		expr_print(if_get_false(expr)) ;
+		printf("]") ;
+		break ;
+	case T_PROG:
+		printf("Program[%lu]", olist_length(((prog_t *)expr)->topforms)) ;
+		break ;
+	default:
+		printf("SOMETHING WENT terribly WRONG IN expr_print()") ;
+	}
+}

@@ -19,6 +19,7 @@ typedef enum _type {
 	T_STACK,
 	T_FRIF,
 	T_FRAPP,
+	T_FRRET,
 	T_PROG,
 	T_ENV,
 } type_t ;
@@ -48,7 +49,7 @@ bool obj_isvalue(obj_t * obj) ;
 bool obj_isframe(obj_t * obj) ;
 
 void (*D_obj(obj_t * obj))(obj_t **) ;
-#define D_OBJ(obj) D_obj(obj)(&obj) 
+#define D_OBJ(obj) ({ if(obj) { D_obj(obj)(&obj) ; } })
 
 obj_t * C_obj_copy(obj_t * obj) ;
 
