@@ -44,9 +44,6 @@ obj_t * exec(obj_t * program) {
 	      * tmp1 	= NULL ;		/* 0 machine */
 	olist_t * sigma = olist_init() ;
 	size_t cycle_count = 0 ;
-	
-	/* we need another tmp for dynamic scope */
-	obj_t * tmp2 = NULL ;
 
 	stack_push(stack, C_frret(env)) ;
 
@@ -109,11 +106,6 @@ obj_t * exec(obj_t * program) {
 					/* create a new environment for the function call */
 					env = C_env() ;
 					env_bind(env, func_get_binding(tmp1), frapp_get_vals(stack_top(stack))) ;
-					/* for dynamic scope, I copy the caller's environment */
-					tmp2 = stack_top_env(stack) ;	/* new ref */
-					env_bind(env, ((env_t *)tmp2)->idents, ((env_t *)tmp2)->vals) ;
-					D_OBJ(tmp2) ; /* delete tmp1's ref */
-
 					/* set the code to point to the function expression object */
 					code = C_obj_copy(func_get_expr(tmp1)) ;
 					stack_chop(stack) ;
