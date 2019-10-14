@@ -1,0 +1,48 @@
+This program fails when there is no dynamic scope:
+
+(define (g y) (x))
+(define (f x) (g 30))
+
+(f 10)
+
+The binary emits the following to stdout:
+
+Exception: unbound identifier x
+Stack trace of aborted future plans:
+	at 0x1968c00: frame: return env: (none)
+Frame: return
+
+===[TERMINATION IMMINENT]===
+
+This patch on top of commit bdb2af19ab69d8b833bfed58d1adbc1629a2c8af enables dynamic scope:
+
+diff --git a/j2/vm/interp.c b/j2/vm/interp.c
+index fb793b6..3700229 100644
+--- a/j2/vm/interp.c
++++ b/j2/vm/interp.c
+@@ -44,6 +44,9 @@ obj_t * exec(obj_t * program) {
+              * tmp1    = NULL ;                /* 0 machine */
+        olist_t * sigma = olist_init() ;
+        size_t cycle_count = 0 ;
++
++       /* we need another tmp for dynamic scope */
++       obj_t * tmp2 = NULL ;
+
+        stack_push(stack, C_frret(env)) ;
+
+@@ -106,6 +109,11 @@ obj_t * exec(obj_t * program) {
+                                        /* create a new environment for the function call */
+                                        env = C_env() ;
+                                        env_bind(env, func_get_binding(tmp1), frapp_get_vals(stack_top(stack))) ;
++                                       /* for dynamic scope, I copy the caller's environment */
++                                       tmp2 = stack_top_env(stack) ;   /* new ref */
++                                       env_bind(env, ((env_t *)tmp2)->idents, ((env_t *)tmp2)->vals) ;
++                                       D_OBJ(tmp2) ; /* delete tmp1's ref */
++
+                                        /* set the code to point to the function expression object */
+                                        code = C_obj_copy(func_get_expr(tmp1)) ;
+                                        stack_chop(stack) ;
+
+I simply append the old environment onto the new one so the new bindings take priority.
+
+With this patch applied, the above program returns 10.
