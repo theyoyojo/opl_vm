@@ -1,0 +1,5 @@
+(define (foo x y) 3)
+(define (bar x) (foo x))
+(define (baz x) (bar (+ x 1)))
+
+(baz 10)

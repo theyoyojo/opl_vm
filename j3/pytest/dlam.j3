@@ -1,0 +1,1 @@
+(lambda (x) (lambda (y) (+ y x)) 7) 6
