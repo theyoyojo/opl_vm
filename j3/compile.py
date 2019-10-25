@@ -3,11 +3,11 @@ import importlib.machinery
 import importlib.util
 import sys
 import os
-if not "J2_PATH" in os.environ:
-    print("Error: 21_PATH environment variable is not set. Please set it.")
+if not "J3_PATH" in os.environ:
+    print("Error: J3_PATH environment variable is not set. Please set it.")
     sys.exit(-1)
 else:
-    sys.path.append(os.environ["J2_PATH"] + "/..")
+    sys.path.append(os.environ["J3_PATH"] + "/..")
 from j3.core.sexpr import *
 from j3.core.desugar import desugar_top
 from j3.core.desugar import is_number
@@ -17,7 +17,7 @@ import j3.core.top as t
 
 def usage():
     print(
-"""=== J2 python->c compiler component ==
+"""=== J3 python->c compiler component ==
 usage: compile.py <input_file> 
     """)
 

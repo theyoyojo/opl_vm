@@ -7,8 +7,11 @@ E_PARSE=3
 E_TRANSLATION=4
 E_COMPILATION=5
 
+JV="3"
+
+
 usage() {
-	echo "=== The J3 Compiler Script =="
+	echo "=== The J$JV Compiler Script =="
 	echo "Usage: compile.sh <input_file> <output_file>"
 	exit $E_BAD_USAGE
 }
@@ -52,7 +55,7 @@ fi
 INFILE="$1"
 OUTFILE="$2"
 
-TMPDIR="/tmp/j2compile_tmp_`basename $INFILE`"
+TMPDIR="/tmp/j3compile_tmp_`basename $INFILE`"
 mkdir $TMPDIR
 
 FLAGS=

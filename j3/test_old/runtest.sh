@@ -1,15 +1,15 @@
 #!/bin/bash
 
 # Pseudocode synopsis:
-# for test=test_*.j2 in .:
+# for test=test_*.j3 in .:
 # 	assert compiled_value(test) == interpreted_value(test) == expected_value(test)
 
 SUCCESS=0
 E_NO_PATH=1
 
-if [ -z "$J2_PATH" ]
+if [ -z "$J3_PATH" ]
 then
-	echo "Error: J2_PATH environment variable is empty. Please set it to the location of J2"
+	echo "Error: J3_PATH environment variable is empty. Please set it to the location of J3"
 	exit $E_NO_PATH
 fi
 
@@ -33,7 +33,7 @@ DIR=`dirname $(readlink -f $0)`
 cd $DIR
 mkdir tmp
 
-TESTS=`find . | grep "test_[_A-Za-z]*\.j2$"`
+TESTS=`find . | grep "test_[_A-Za-z]*\.j3$"`
 
 TESTS=$(echo $TESTS | tr ' ' '\n')
 if [ ! -z "$DEBUG" ]
@@ -53,14 +53,14 @@ do
 	
 
 	# Get compiled value
-	$J2_PATH/compile.sh "$next_test" "tmp/$next_test.exe" >/dev/null
+	$J3_PATH/compile.sh "$next_test" "tmp/$next_test.exe" >/dev/null
 	expected_v=`cat "$next_test.v"`
 	vm_v=`tmp/$next_test.exe`
 
 	# Get interpreted value
-	$J2_PATH/parse/parse1 < "$next_test" | $J2_PATH/parse/parse2 > "tmp/$next_test.pyraw"
-	$J2_PATH/cathead.sh "tmp/$next_test.pyraw" > "tmp/$next_test.py"
-	py_v=`$J2_PATH/quickinterp.py tmp/$next_test.py`
+	$J3_PATH/parse/parse1 < "$next_test" | $J3_PATH/parse/parse2 > "tmp/$next_test.pyraw"
+	$J3_PATH/cathead.sh "tmp/$next_test.pyraw" > "tmp/$next_test.py"
+	py_v=`$J3_PATH/quickinterp.py tmp/$next_test.py`
 	# echo $py_v
 
 	# TODO interpreted assertion
