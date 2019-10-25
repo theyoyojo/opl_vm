@@ -102,7 +102,6 @@ def desugar_lambda(sexpr):
 def desugar_let(sexpr):
     sexpr = sexpr.rest()
     binditer = sexpr.first()
-    binditer.pp()
     binding = []
     call = []
     while not isinstance(binditer, s.Nil):

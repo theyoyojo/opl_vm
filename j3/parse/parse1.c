@@ -68,9 +68,6 @@ enum error {
 	E_SUPRISE_EOF,
 	E_TOO_DEEP,
 	E_PAR_NOMATCH,
-	E_THICC_CONS,
-	E_THIN_CONS,
-	E_LONELY_TOK,
 	E_NO_INPUT,
 	E_MANY_TOPFS,
 } err = E_NO_ERR ;
@@ -93,15 +90,6 @@ void pr_err(void) {
 		case E_PAR_NOMATCH:
 			fprintf(stderr, "Error: Found ) with no mathing (.\n") ;
 			break ;
-		case E_THICC_CONS:
-			fprintf(stderr, "Error: Cons cannot have more than two elements.\n") ;
-			break ;
-		case E_THIN_CONS:
-			fprintf(stderr, "Error: Cons cannot have less than two elements.\n") ;
-			break ;
-		case E_LONELY_TOK:
-			fprintf(stderr, "Error: Non-cons element outside of top-level cons.\n") ;
-			break ;
 		case E_NO_INPUT:
 			fprintf(stderr, "Error: There is no input.\n") ;
 			break ;
@@ -116,6 +104,8 @@ int ismetachar(char c) ;
 inline int ismetachar(char c) {
 	return c == '(' ||
 		c == ')' ||
+		c == '[' ||
+		c == ']' ||
 		c == ';' ;
 }
 
@@ -181,8 +171,10 @@ tok_t get_next_token(FILE * infile) {
 	else if (ismetachar(*buf)) {
 		switch(*buf) {
 			case '(':
+			case '[':
 				return T_LPAR ;
 			case ')':
+			case ']':
 				return T_RPAR ;
 		}
 	}
