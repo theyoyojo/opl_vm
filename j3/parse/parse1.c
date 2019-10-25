@@ -205,7 +205,7 @@ int main(int argc, char * argv[]) {
 
 	int list_depth = 0 ;
 	int list_elcnt[MAX_DEPTH] ;
-	int topform_count = 0 ;
+	/* int topform_count = 0 ; */
 	memset(list_elcnt, 0, MAX_DEPTH * sizeof(int)) ;
 
 	tok_t next_token ;
@@ -223,18 +223,16 @@ scan:
 		case T_NUM: /* yeah these are the same, I made a mistake keeping them seperate */
 		case T_ID:
 		case T_PRIM:
-			if (list_depth == 0) {
-				++topform_count ;
-			}
-			if (list_elcnt[list_depth] > 0 || list_depth == 0) {
+			if (list_elcnt[list_depth]++ > 0) {
 				fprintf(outfile, " (") ;
 			}
 			fprintf(outfile, "%s", buf) ;
-			list_elcnt[list_depth]++;
-			/* goto insert_comma_maybe ; */
 			break ;
 		case T_LPAR:
-			fprintf(outfile, "((") ;
+			fprintf(outfile, "(") ;
+			if (list_elcnt[list_depth]++ > 0) {
+				fprintf(outfile, "(") ;
+			}
 			list_depth++ ;
 			Printf("\nLIST_DEPTH: %d\n", list_depth) ;
 			break ;
@@ -249,14 +247,7 @@ scan:
 				fprintf(outfile, ")") ;
 				--list_elcnt[list_depth] ;
 			}
-			/* fprintf(outfile, ")") ; */
 			list_elcnt[list_depth--] = 0 ; /* pop elcnt off "stack" */
-			/* if we reach depth 0, we have parsed an entire topfom */
-			if (list_depth == 0) {
-				++topform_count ;
-			}
-			list_elcnt[list_depth]++ ;
-			/* printf("\nLIST_DEPTH: %d\n", list_elcnt[list_depth]) ; */
 			Printf("\nLIST_DEPTH: %d\n", list_depth) ;
 			break ;
 		case T_EOF:
@@ -275,13 +266,6 @@ scan:
 	/* prev_token = next_token ; */
 	if (!islasttok) goto scan ;
 done:
-
-	fprintf(outfile, ";") ;
-	/* printf("final depth: %d\n", list_depth) ; */
-	for (int i = 0; i < topform_count; ++i) {
-		fprintf(outfile, ")") ;
-	}
-	/* close the original opening ( at the top */
 	fprintf(outfile, "\n") ;
 	if (no_tokens) {
 		err = E_NO_INPUT ;
