@@ -3,6 +3,7 @@ import j3.core.value as v
 import j3.core.sexpr as s
 import j3.core.top as t
 
+import sys
 
 class NotSugar(Exception):
     pass
@@ -100,11 +101,16 @@ def desugar_lambda(sexpr):
 
 def desugar_let(sexpr):
     sexpr = sexpr.rest()
-    bindlist = sexpr.first()
-    bindlist.pp()
-    print("THIS DONT USE THIS YET!!")
-    pass
-    # return e.Application(v.Lambda(
+    binditer = sexpr.first()
+    binditer.pp()
+    binding = []
+    call = []
+    while not isinstance(binditer, s.Nil):
+        binding.append(desugar(binditer.first().first()))
+        call.append(desugar(binditer.first().second()))
+        binditer = binditer.rest()
+
+    return e.Application(v.Lambda(binding, desugar(sexpr.rest())), *call)
 
 antirecipies = { \
         "-": desugar_minus,
@@ -122,6 +128,11 @@ def desugar_atom(sexpr):
         return v.Number(float(sexpr.repr()))
     elif sexpr.repr() in v.Prims:
         return v.Primitive(sexpr.repr())
+    # Sugarbools
+    elif sexpr.repr() == "#t":
+        return v.Bool(1)
+    elif sexpr.repr() == "#f":
+        return v.Bool(0)
     # Must be an id then
     else:
         return v.ID(sexpr.repr())
