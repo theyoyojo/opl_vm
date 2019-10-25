@@ -83,8 +83,6 @@ void stack_trace(obj_t * stack) {
 	exit(1) ;
 }
 
-/* does NOT increase refcnt for an env, will transfer "ownership" of a ref */
-
 /* actually, this function should definitely get a new reference, 
  * I had this idea of some frames storing multiple references to be distributed
  * for each needed use, but I think that was misguided */
@@ -110,18 +108,6 @@ obj_t * stack_top_env(obj_t * stack) {
 		printf("Exception: non frame object in stack\n") ;
 		stack_trace(stack) ;
 	}
-	
-	/* This is disabled because we increment the refcnt now */
-	/* if we want to transfer an env with only one ref, object it's being
-	 * taken from should no longer know about the object after we take it away
-	 */
-	/* if (env_get_ref(*env_ptr) == 1) { */
-	/* 	/1* copy env handle *1/ */
-	/* 	tmp = *env_ptr ; */	
-	/* 	/1* remove old reference to handle *1/ */
-	/* 	*env_ptr = NULL ; */
-	/* 	env_ptr = &tmp ; */
-	/* } */
 
 	return env_inc_ref(*env_ptr) ;
 	
@@ -211,7 +197,7 @@ obj_t * frapp_pop_expr(obj_t * frapp) {
 
 void frapp_push_value(obj_t * frapp, obj_t * obj) {
 	assert(obj_typeof(frapp) == T_FRAPP) ;
-	olist_append(((frapp_t *)frapp)->vals,C_obj_copy(obj)) ;
+	olist_append(((frapp_t *)frapp)->vals, C_obj_copy(obj)) ;
 }
 
 bool frapp_has_more_exprs(obj_t * frapp) {
@@ -255,12 +241,15 @@ obj_t * C_env(void) {
 
 }
 
+/* Perhaps one should not make copies of the env... */
+/* or maybe the copy should just be a reference ...  */
 obj_t * C_env_copy(obj_t * old) {
 	env_t * old_env = (env_t *)old ;
 	ALLOC_OR_RETNULL(new, env_t) ;
-	new->head = HEADER_INIT(T_ENV, D_env, C_env_copy) ;
+	new->head = HEADER_INIT(T_ENV, env_dec_ref, C_env_copy) ;
 	new->idents = olist_init_copy(old_env->idents) ;
 	new->vals = olist_init_copy(old_env->vals) ;
+	new->refcnt = 1 ;
 	return (obj_t *)new ;
 }
 
@@ -306,8 +295,7 @@ bool env_maps(obj_t * env, obj_t * ident) {
 
 	env_t * env_ = (env_t *)env ;
 	ident_t * tmp ;
-	/* start at one because zero is the func name */
-	for (size_t i = 1; i < olist_length(env_->idents); ++i) {
+	for (size_t i = 0; i < olist_length(env_->idents); ++i) {
 		tmp = (ident_t *)olist_get(env_->idents, i) ;	
 		if (!ident_cmp(ident, (obj_t *)tmp)) {
 			return true ;
@@ -321,7 +309,7 @@ obj_t * env_subst(obj_t * env, obj_t * ident) {
 	env_t * env_ = (env_t *)env ;
 	ident_t * tmp ;
 	/* start at one because zero is the func name */
-	for (size_t i = 1; i < olist_length(env_->idents); ++i) {
+	for (size_t i = 0; i < olist_length(env_->idents); ++i) {
 		tmp = (ident_t *)olist_get(env_->idents, i) ;	
 		if (!ident_cmp(ident, (obj_t *)tmp)) {
 			/* if we found it, return the corresponding value */
@@ -383,7 +371,7 @@ void env_print(obj_t * env) {
 
 obj_t * C_clo(obj_t * lam, obj_t * env) {
 	ALLOC_OR_RETNULL(new, clo_t) ;
-	*new = CLO_INIT(lam, env) ;
+	*new = CLO_INIT(lam, env_inc_ref(env)) ;
 	return (obj_t *)new ;
 }
 

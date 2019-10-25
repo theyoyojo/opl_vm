@@ -108,7 +108,7 @@ typedef struct _clo {
 #define CLO_INIT(_lam, _env) (clo_t) { \
 	.head = HEADER_INIT(T_CLO, D_clo, C_clo_copy), \
 	.lam =  _lam, \
-	.env = env_inc_ref(_env) }
+	.env = _env }
 
 obj_t * C_clo(obj_t * lam, obj_t * env) ;
 obj_t * C_clo_copy(obj_t * old) ;

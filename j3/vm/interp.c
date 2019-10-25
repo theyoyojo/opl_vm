@@ -35,7 +35,7 @@ obj_t * exec(obj_t * program) {
 
 	endlessly_repeat {			
 		if (!code) goto panic ;
-#ifdef DEBUG
+#ifndef DEBUG
 		printf("===[C E K]===\n") ;
 		printf("Cycle:\t%ld\n", cycle_count) ;
 		env_print(env) ;
@@ -91,13 +91,13 @@ obj_t * exec(obj_t * program) {
 					code = C_obj_copy(lam_get_expr(clo_get_lam(tmp1))) ;
 					/* get the list of values in frapp */
 					tmplist = olist_init_copy(frapp_get_vals(stack_top(stack))) ;
-					/* remove the closure from the value list */
+					/* remove the closure itself from the value list */
 					olist_del(tmplist, 0) ;
 					/* extend the enviroment (this may need backend work)
 					 * I don't overwrite old values, i just append I think */
 					env_bind(env, lam_get_binding(clo_get_lam(tmp1)), tmplist) ;
 					
-					/* list is coipied so we remove this one */
+					/* list is coipied so we remove the local instance */
 					olist_free(&tmplist) ;
 					/* we don't free the closure because it is free'd in stack_chop */
 					stack_chop(stack) ;

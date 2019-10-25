@@ -275,6 +275,9 @@ void value_print(obj_t * value) {
 	case T_LAM:
 		printf("LAM[TODO]") ;
 		break ;
+	case T_CLO:
+		printf("CLO[TODO]") ;
+		break ;
 	default:
 		printf("SOMETHING WENT terribly WRONG IN value_print()") ;
 	}

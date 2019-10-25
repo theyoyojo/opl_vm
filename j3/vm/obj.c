@@ -10,7 +10,8 @@ bool obj_isvalue(obj_t * obj) {
 	return obj_typeof(obj) == T_NUM ||
 		obj_typeof(obj) == T_BOOL ||
 		obj_typeof(obj) == T_PRIM ||
-		obj_typeof(obj) == T_LAM ;
+		obj_typeof(obj) == T_LAM ||
+		obj_typeof(obj) == T_CLO ; /* I suppose a closure is a value */
 }
 
 bool obj_isexpr(obj_t * obj) {
