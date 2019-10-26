@@ -1,4 +1,5 @@
 #include "types.h"
+#include "stack.h"
 #include <string.h>
 
 obj_t * C_lam(olist_t * binding, obj_t * expr) {
@@ -273,10 +274,14 @@ void value_print(obj_t * value) {
 		printf("%s", prim_vtos(((prim_t *)value)->value)) ;
 		break ;
 	case T_LAM:
-		printf("LAM[TODO]") ;
+		printf("LAM[") ;
+		expr_print(lam_get_expr(value)) ;
+		printf("]") ;
 		break ;
 	case T_CLO:
-		printf("CLO[TODO]") ;
+		printf("CLO[") ;
+		expr_print(lam_get_expr(clo_get_lam(value))) ;
+		printf("]") ;
 		break ;
 	default:
 		printf("SOMETHING WENT terribly WRONG IN value_print()") ;

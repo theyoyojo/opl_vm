@@ -43,6 +43,7 @@ obj_t * exec(obj_t * program) {
 		frame_print(stack_top(stack)) ;
 		printf("=============\n") ;
 #endif 
+		if (stack_height(stack) > 100) stack_trace(stack) ;
 		switch(obj_typeof(code)) {
 		case T_IDENT:
 			if (env_maps(env, code)) {

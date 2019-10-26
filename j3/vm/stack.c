@@ -273,7 +273,7 @@ int env_bind(obj_t * env, olist_t * binding, olist_t * vals) {
 		printf("Exception: arity mismatch in call to %s\n"
 				"\t Expected: %lu, Got: %lu\n",
 				ident_get_name(olist_get(binding, 0)),
-				bindlen - 1, vallen - 1) ;
+				bindlen, vallen) ;
 		return 1 ;
 	}
 	/* Include function name for possible usage later as env name*/
