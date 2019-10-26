@@ -1,0 +1,16 @@
+(let(
+	[true ($ (x) ($ (y) (x)))]
+	[false ($ (x) ($ (y) (y)))])
+
+(let(
+	[not ($ (bool) ((bool false) true))]
+	[and ($ (a) ($ (b) ((a b) false)))]
+	[or ($ (a) ($ (b) ((a true) b)))])
+(let(
+	[xor  ($ (a) ($ (b) ((a (not b)) b)))]
+	[nor ($ (a) ($ (b) ((a false) (not b))))]
+	[xnor ($ (a) ($ (b) ((a b) (not b))))]
+	[lamif ($ (cond) ($ (e_true) ($ (e_false) ((cond e_true) e_false))))])
+	
+(((lamif false) 2) 3))))
+
