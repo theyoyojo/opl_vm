@@ -118,6 +118,7 @@ antirecipies = { \
         "/": desugar_div,
         "if": desugar_if,
         "lambda": desugar_lambda,
+        "$": desugar_lambda, # Lambdas are money
         "let": desugar_let
         }
 

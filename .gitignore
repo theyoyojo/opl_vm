@@ -129,3 +129,5 @@ dmypy.json
 *.o
 vgcore.*
 cscope.out
+
+.*
