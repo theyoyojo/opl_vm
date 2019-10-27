@@ -96,6 +96,8 @@ def emit_subprograms(program):
         arglist.append(id_generator())
         subarglist = emit_subprograms(program.expr)
         emit_statement(arglist[-1], type(program.expr), subarglist)
+    elif isinstance(program, v.Bool):
+        arglist.append(str(1 if program.value else 0))
     elif issubclass(type(program), v.Value):
         arglist.append(str(program.value))
     else:
