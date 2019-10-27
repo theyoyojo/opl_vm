@@ -1,7 +1,7 @@
 #!/bin/python3
 def usage():
     print(
-"""=== J3 python interpreter==
+"""=== J4 python interpreter==
 usage: quickinterp.py <input_file> 
     """)
 
@@ -10,14 +10,14 @@ import importlib.util
 import sys
 import os
 
-# J3 importability check
-if not "J3_PATH" in os.environ:
-    print("Error: J3_PATH environment variable is not set. Please set it.")
+# J4 importability check
+if not "J4_PATH" in os.environ:
+    print("Error: J4_PATH environment variable is not set. Please set it.")
     sys.exit(-1)
 else:
-    sys.path.append(os.environ["J3_PATH"] + "/..")
-from j3.interp.interp import big_interp, Env
-from j3.core.desugar import desugar
+    sys.path.append(os.environ["J4_PATH"] + "/..")
+from j4.interp.interp import big_interp, Env
+from j4.core.desugar import desugar
 
 
 def main():
@@ -28,7 +28,7 @@ def main():
     parsable = True
 
     try:
-        input_loader = importlib.machinery.SourceFileLoader("j3_exe", sys.argv[1])
+        input_loader = importlib.machinery.SourceFileLoader("j4_exe", sys.argv[1])
         input_spec = importlib.util.spec_from_loader(input_loader.name, input_loader)
         input_module = importlib.util.module_from_spec(input_spec)
         input_loader.exec_module(input_module)

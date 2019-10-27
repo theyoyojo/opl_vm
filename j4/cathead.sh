@@ -4,8 +4,8 @@ SUCCESS=0
 E_NO_ARG=1
 
 usage() {
-	echo "=== cathead.sh J3 compiler component ==="
-	echo "usage: cathead <j3_python>"
+	echo "=== cathead.sh J4 compiler component ==="
+	echo "usage: cathead <j4_python>"
 }
 
 if [ $# -ne "1" ]
@@ -19,8 +19,8 @@ INFILE=$1
 cat - "$INFILE" <<'EOF'
 import sys
 import os
-sys.path.append(os.environ["J3_PATH"] + "..")
-from j3.core.sexpr import *
+sys.path.append(os.environ["J4_PATH"] + "..")
+from j4.core.sexpr import *
 EOF
 
 exit $SUCCESS

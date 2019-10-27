@@ -7,7 +7,7 @@ E_PARSE=3
 E_TRANSLATION=4
 E_COMPILATION=5
 
-JV="3"
+JV="4"
 
 
 usage() {
@@ -16,10 +16,14 @@ usage() {
 	exit $E_BAD_USAGE
 }
 
-while getopts "ed12" OPTION; do
+while getopts "ed012" OPTION; do
 	case $OPTION in
 		e)
 			EMIT=yes
+			shift
+			;;
+		0)
+			PARSE0=yes
 			shift
 			;;
 		1)
@@ -41,9 +45,9 @@ while getopts "ed12" OPTION; do
 	esac
 done
 
-if [ -z "$J3_PATH" ]
+if [ -z "$J4_PATH" ]
 then
-	echo "Error: J3_PATH environment variable is empty. Please set it to the location of J3"
+	echo "Error: J4_PATH environment variable is empty. Please set it to the location of J4"
 	exit $E_NO_PATH
 fi
 
@@ -55,7 +59,7 @@ fi
 INFILE="$1"
 OUTFILE="$2"
 
-TMPDIR="/tmp/j3compile_tmp_`basename $INFILE`"
+TMPDIR="/tmp/j4compile_tmp_`basename $INFILE`"
 mkdir $TMPDIR
 
 FLAGS=
@@ -66,9 +70,25 @@ then
 	export EXTRA_CFLAGS="-D DEBUG"
 fi
 
-(cd $J3_PATH && make) >/dev/null
+(cd $J4_PATH && make) >/dev/null
 
-"$J3_PATH/parse/parse1" < $INFILE > "$TMPDIR/$INFILE.sexpr"
+"$J4_PATH/parse/parse0" < $INFILE > "$TMPDIR/$INFILE.jpp"
+
+if [ "$?" = "1" ]
+then
+	echo "Parse0 error"
+	rm -rf $TMPDIR
+	exit $E_PARSE
+fi
+
+if [ ! -z "$PARSE0" ]
+then
+	cat "$TMPDIR/$INFILE.jpp"
+	rm -rf $TMPDIR
+	exit $SUCCESS
+fi
+
+"$J4_PATH/parse/parse1" < "$TMPDIR/$INFILE.jpp" > "$TMPDIR/$INFILE.sexpr"
 
 if [ "$?" = "1" ]
 then
@@ -84,7 +104,7 @@ then
 	exit $SUCCESS
 fi
 
-"$J3_PATH/parse/parse2" < "$TMPDIR/$INFILE.sexpr" > "$TMPDIR/$INFILE.pyraw"
+"$J4_PATH/parse/parse2" < "$TMPDIR/$INFILE.sexpr" > "$TMPDIR/$INFILE.pyraw"
 
 if [ "$?" = "1" ]
 then
@@ -100,12 +120,12 @@ then
 	exit $SUCCESS
 fi
 
-"$J3_PATH/cathead.sh" "$TMPDIR/$INFILE.pyraw"  > "$TMPDIR/$INFILE.py"
+"$J4_PATH/cathead.sh" "$TMPDIR/$INFILE.pyraw"  > "$TMPDIR/$INFILE.py"
 
-OBJS="$J3_PATH/vm/types.o $J3_PATH/vm/olist.o $J3_PATH/vm/delta.o $J3_PATH/vm/interp.o $J3_PATH/vm/obj.o $J3_PATH/vm/stack.o"
+OBJS="$J4_PATH/vm/types.o $J4_PATH/vm/olist.o $J4_PATH/vm/delta.o $J4_PATH/vm/interp.o $J4_PATH/vm/obj.o $J4_PATH/vm/stack.o"
 
 # Translate python to c "bytecode"
-"$J3_PATH/compile.py" "$TMPDIR/$INFILE.py" > "$TMPDIR/$INFILE.byte.c"
+"$J4_PATH/compile.py" "$TMPDIR/$INFILE.py" > "$TMPDIR/$INFILE.byte.c"
 
 if [ "$?" = "1" ]
 then
@@ -123,9 +143,9 @@ then
 fi
 	
 # Compile the bytecode
-gcc -c -o "$TMPDIR/$INFILE.o" "$TMPDIR/$INFILE.byte.c" -I$J3_PATH/vm
+gcc -c -o "$TMPDIR/$INFILE.o" "$TMPDIR/$INFILE.byte.c" -I$J4_PATH/vm
 
-# Link the bytecode with the J3 virtual machine interpreter, produce the executable
+# Link the bytecode with the J4 virtual machine interpreter, produce the executable
 gcc "$TMPDIR/$INFILE.o" $OBJS -o $OUTFILE
 
 if [ "$?" = "1" ]

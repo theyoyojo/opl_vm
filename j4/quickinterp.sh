@@ -10,9 +10,9 @@ usage() {
 	exit $E_BAD_USAGE
 }
 
-if [ -z "$J3_PATH" ]
+if [ -z "$J4_PATH" ]
 then
-	echo "Error: J3_PATH environment variable is empty. Please set it to the location of J3"
+	echo "Error: J4_PATH environment variable is empty. Please set it to the location of J4"
 	exit $E_NO_PATH
 fi
 
@@ -23,14 +23,14 @@ fi
 
 INFILE=$1
 
-(cd $J3_PATH && make) >/dev/null
+(cd $J4_PATH && make) >/dev/null
 
-$J3_PATH/parse/parse1 < "$INFILE" | $J3_PATH/parse/parse2 > "/tmp/$INFILE.pyraw"
+$J4_PATH/parse/parse1 < "$INFILE" | $J4_PATH/parse/parse2 > "/tmp/$INFILE.pyraw"
 
 
-$J3_PATH/cathead.sh "/tmp/$INFILE.pyraw" > "/tmp/$INFILE.pyready"
+$J4_PATH/cathead.sh "/tmp/$INFILE.pyraw" > "/tmp/$INFILE.pyready"
 
 # cat "/tmp/$INFILE.pyready"
 
-$J3_PATH/quickinterp.py "/tmp/$INFILE.pyready"
+$J4_PATH/quickinterp.py "/tmp/$INFILE.pyready"
 rm "/tmp/$INFILE.pyready"

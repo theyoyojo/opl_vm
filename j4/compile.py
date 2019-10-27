@@ -3,20 +3,20 @@ import importlib.machinery
 import importlib.util
 import sys
 import os
-if not "J3_PATH" in os.environ:
-    print("Error: J3_PATH environment variable is not set. Please set it.")
+if not "J4_PATH" in os.environ:
+    print("Error: J4_PATH environment variable is not set. Please set it.")
     sys.exit(-1)
 else:
-    sys.path.append(os.environ["J3_PATH"] + "/..")
-from j3.core.sexpr import *
-from j3.core.desugar import desugar
-from j3.core.desugar import is_number
-import j3.core.expression as e
-import j3.core.value as v
+    sys.path.append(os.environ["J4_PATH"] + "/..")
+from j4.core.sexpr import *
+from j4.core.desugar import desugar
+from j4.core.desugar import is_number
+import j4.core.expression as e
+import j4.core.value as v
 
 def usage():
     print(
-"""=== J3 python->c compiler component ==
+"""=== J4 python->c compiler component ==
 usage: compile.py <input_file> 
     """)
 
@@ -132,7 +132,7 @@ def main():
 
     print(OUTPUT_HEADER)
     try:
-        input_loader = importlib.machinery.SourceFileLoader("j3_exe", sys.argv[1])
+        input_loader = importlib.machinery.SourceFileLoader("j4_exe", sys.argv[1])
         input_spec = importlib.util.spec_from_loader(input_loader.name, input_loader)
         input_module = importlib.util.module_from_spec(input_spec)
         input_loader.exec_module(input_module)

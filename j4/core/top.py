@@ -1,4 +1,4 @@
-from j3.core.error import *
+from j4.core.error import *
 import copy
 
 # program := expression

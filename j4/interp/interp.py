@@ -1,8 +1,8 @@
-from j3.core.error import *
-import j3.core.value as v
-import j3.core.expression as e
-from j3.core.delta import generate_delta
-import j3.core.top as t
+from j4.core.error import *
+import j4.core.value as v
+import j4.core.expression as e
+from j4.core.delta import generate_delta
+import j4.core.top as t
 import copy
 
 class QuestionablyInterpretableExpressionException(Exception):

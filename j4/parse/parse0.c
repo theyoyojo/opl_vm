@@ -1,12 +1,25 @@
 /*
  * J4 raw sexpr -> python compiler component
- * It's a parser
+ * It's a preprocessor
+ *
+ * This is the first parse layer in J4
+ *
+ * comment := "%.*\n" | "%%.*%%"
+ *
+ * directive := "@.*\n" & ( given | search)
+ *
+ * search := "@search<dir>"
+ *
+ * given := "@given<lib>"
+ * 
  */
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
+#include <stdbool.h>
 #include "lex.h"
+#include "directive.h"
 
 FILE * infile ;
 FILE * outfile ;
@@ -21,6 +34,7 @@ enum error {
 	E_PAR_NOMATCH,
 	E_NO_INPUT,
 	E_MANY_TOPFS,
+	E_DIRECTIVE,
 } err = E_NO_ERR ;
 
 void pr_err(void) {
@@ -47,10 +61,23 @@ void pr_err(void) {
 		case E_MANY_TOPFS:
 			fprintf(stderr, "Error: There can only be one topform in J4\n") ;
 			break ;
+		case E_DIRECTIVE:
+			fprintf(stderr, "Error: Directve Error (in parse context).\n") ;
+			break ;
 	}
 	fprintf(stderr, "token buffer: %s, 1stchar=[%d]\n", buf, *buf) ;
 }
-#define MAX_DEPTH 1024
+
+#define LINE_WRAP 80
+
+void maybe_wrap(size_t * accum, size_t extra) ;
+inline void maybe_wrap(size_t * accum, size_t extra) {
+
+	if (*accum + extra > LINE_WRAP) {
+		*accum = 0 ;
+		fputc('\n', outfile) ;
+	}
+}
 
 int main(int argc, char * argv[]) {
 	(void)argc, (void)argv ;
@@ -58,58 +85,47 @@ int main(int argc, char * argv[]) {
 	infile = stdin ;
 	outfile = stdout ;
 	islasttok = 0 ;
-
-	int list_depth = 0 ;
-	int list_elcnt[MAX_DEPTH] ;
-	memset(list_elcnt, 0, MAX_DEPTH * sizeof(int)) ;
+	
+	bool iscomment = false ;
+	size_t bufaccum  = 0 ;
+	long appendages = 0 ;
+	long directive_ret ;
 
 	tok_t next_token ;
 
+	directive_start() ;
 
 /* the parser */
 scan:
-	next_token = get_next_token(infile, LEX_DEFAULT | LEX_T_STR) ;
+	next_token = get_next_token(infile, LEX_DEFAULT | LEX_COMMENT | LEX_DIRECTIVE) ;
 	if(err) {
 		pr_err() ;
 		goto done ;
 	}
+	maybe_wrap(&bufaccum, buflen) ;
+	bufaccum += buflen + 1 ;
 
 	switch(next_token) {
-		case T_NUM: /* yeah these are the same, I made a mistake keeping them seperate */
+		case T_NUM:
 		case T_ID:
 		case T_PRIM:
-		case T_STR:
-			if (list_elcnt[list_depth]++ > 0) {
-				fprintf(outfile, " (") ;
-			}
-			if (next_token == T_STR) {
-				fprintf(outfile, "\\%s\\\"", buf) ;
+		case T_LPAR:
+		case T_RPAR:
+			if (iscomment) break ;
+			fprintf(outfile, "%s ", buf) ;
+			break ;
+		case T_COMMENT:
+			iscomment = !iscomment ;
+			break ;
+		case T_DIRECTIVE:
+			directive_ret = directive_exec(buf, buflen, outfile) ;
+			if (directive_ret < 0) {
+				err = E_DIRECTIVE ;
+				pr_err() ;
 			}
 			else {
-				fprintf(outfile, "%s", buf) ;
+				appendages += directive_ret ;
 			}
-			break ;
-		case T_LPAR:
-			fprintf(outfile, "(") ;
-			if (list_elcnt[list_depth]++ > 0) {
-				fprintf(outfile, "(") ;
-			}
-			list_depth++ ;
-			Printf("\nLIST_DEPTH: %d\n", list_depth) ;
-			break ;
-		case T_RPAR:
-			if (list_depth == 0) {
-				err = E_PAR_NOMATCH ;
-				pr_err() ;
-				goto done ;
-			}
-			fprintf(outfile, " ;") ;
-			while(list_elcnt[list_depth] > 0) {
-				fprintf(outfile, ")") ;
-				--list_elcnt[list_depth] ;
-			}
-			list_elcnt[list_depth--] = 0 ; /* pop elcnt off "stack" */
-			Printf("\nLIST_DEPTH: %d\n", list_depth) ;
 			break ;
 		case T_EOF:
 		case T_MYSTERY:
@@ -117,20 +133,19 @@ scan:
 			break ;
 
 	}
-	if (list_depth >= MAX_DEPTH) {
-		err = E_TOO_DEEP ;
-		pr_err() ;
-		goto done ;
-	}
-	
 	/* save last token for next parse */
 	/* prev_token = next_token ; */
 	if (!islasttok) goto scan ;
 done:
 	fprintf(outfile, "\n") ;
+	for (int i = 0; i < appendages; ++i) {
+		fputc(')', outfile) ;
+	}
+	fprintf(outfile, "\n") ;
 	if (no_tokens) {
 		err = E_NO_INPUT ;
 		pr_err() ;
 	}
+	directive_end() ;
 	return retcode ;
 }
