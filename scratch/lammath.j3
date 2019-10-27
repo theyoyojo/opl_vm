@@ -28,4 +28,4 @@
 (let(
 	[mkfac ($ (fac) ($ (n) (((lamif (zero? n)) one) ((mult n) (fac (sub1 n))))))])
 
-((zcomb mkfac) zero) )))))))
+(zcomb mkfac) )))))))
