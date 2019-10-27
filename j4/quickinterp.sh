@@ -25,7 +25,7 @@ INFILE=$1
 
 (cd $J4_PATH && make) >/dev/null
 
-$J4_PATH/parse/parse1 < "$INFILE" | $J4_PATH/parse/parse2 > "/tmp/$INFILE.pyraw"
+$J4_PATH/parse/parse0 < "$INFILE" | $J4_PATH/parse/parse1 | $J4_PATH/parse/parse2 > "/tmp/$INFILE.pyraw"
 
 
 $J4_PATH/cathead.sh "/tmp/$INFILE.pyraw" > "/tmp/$INFILE.pyready"
