@@ -274,12 +274,26 @@ void value_print(obj_t * value) {
 		printf("%s", prim_vtos(((prim_t *)value)->value)) ;
 		break ;
 	case T_LAM:
-		printf("LAM[") ;
+		printf("LAM[$(") ;
+		for (size_t i = 0; i < olist_length(lam_get_binding(value)); ++i) {
+			expr_print(olist_get(lam_get_binding(value),i)) ;
+			if (i != olist_length(lam_get_binding(value)) - 1) {
+				printf(", ") ;
+			}
+		}
+		printf(") ") ;
 		expr_print(lam_get_expr(value)) ;
 		printf("]") ;
 		break ;
 	case T_CLO:
-		printf("CLO[") ;
+		printf("CLO[$(") ;
+		for (size_t i = 0; i < olist_length(lam_get_binding(clo_get_lam(value))); ++i) {
+			expr_print(olist_get(lam_get_binding(clo_get_lam(value)),i)) ;
+			if (i != olist_length(lam_get_binding(clo_get_lam(value))) - 1) {
+				printf(", ") ;
+			}
+		}
+		printf(") ") ;
 		expr_print(lam_get_expr(clo_get_lam(value))) ;
 		printf("]") ;
 		break ;
