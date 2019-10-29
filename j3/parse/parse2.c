@@ -98,7 +98,7 @@ void pr_err(void) {
 			fprintf(stderr, "Error: There is no input.\n") ;
 			break ;
 		case E_MANY_TOPFS:
-			fprintf(stderr, "Error: There can only be one topform in J1\n") ;
+			fprintf(stderr, "Error: There can only be one topform in J3\n") ;
 			break ;
 	}
 	fprintf(stderr, "token buffer: %s, 1stchar=[%d]\n", buf, *buf) ;
