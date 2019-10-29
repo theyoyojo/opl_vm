@@ -79,7 +79,8 @@ class ID(Value):
         return "ID:" + self.value
 
 class Lambda(Value):
-    def __init__(self, binding, expr):
+    def __init__(self, binding, expr, rec="rec"):
+        self.rec = rec
         self.binding = binding
         self.expr = expr
 

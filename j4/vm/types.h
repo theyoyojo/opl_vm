@@ -23,24 +23,27 @@ typedef enum {
 	PRIM_INVALID = 99
 } prim_val_t ;
 
+
 typedef struct _lam {
 	header_t head ;
+	obj_t * recname ;
 	olist_t * binding ;
 	obj_t * expr ;
 } lam_t ;
 
-#define LAM_INIT(_binding, _expr) (lam_t) { \
+#define LAM_INIT(_recname, _binding, _expr) (lam_t) { \
 	.head = HEADER_INIT(T_LAM, D_lam, C_lam_copy), \
+	.recname = _recname, \
 	.binding = _binding, \
 	.expr = _expr }
 
-obj_t * C_lam(olist_t * binding, obj_t * expr) ;
+obj_t * C_lam(obj_t * recname, olist_t * binding, obj_t * expr) ;
 obj_t * C_lam_copy(obj_t * old) ;
 void D_lam(obj_t ** lam_ptr) ;
 olist_t * lam_get_binding(obj_t * lam) ;
 obj_t * lam_get_expr(obj_t * lam) ;
 
-typedef struct _iden {
+typedef struct _ident {
 	header_t head ;
 	char * value ;
 	size_t length ;

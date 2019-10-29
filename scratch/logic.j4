@@ -1,0 +1,4 @@
+@given<logic>
+(let(
+	[foo ($ (x y) (if (and x y) 4 10))])
+(foo #f 3))

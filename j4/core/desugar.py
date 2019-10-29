@@ -96,6 +96,10 @@ def desugar_binding(sexpr):
     
 def desugar_lambda(sexpr):
     sexpr = sexpr.rest()
+    if sexpr.length() > 2:
+        recname = desugar(sexpr.first())
+        sexpr = sexpr.rest()
+        return v.Lambda(desugar_binding(sexpr.first()),desugar(sexpr.rest()), recname)
     # first->bindings, rest->def
     return v.Lambda(desugar_binding(sexpr.first()),desugar(sexpr.rest()))
 

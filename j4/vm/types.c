@@ -2,17 +2,18 @@
 #include "stack.h"
 #include <string.h>
 
-obj_t * C_lam(olist_t * binding, obj_t * expr) {
+obj_t * C_lam(obj_t * recname, olist_t * binding, obj_t * expr) {
 	assert(binding), assert(expr) ;
 	ALLOC_OR_RETNULL(new, lam_t) ;	
-	*new = LAM_INIT(binding, expr) ;
+	*new = LAM_INIT(recname, binding, expr) ;
 	return (obj_t *)new ;
 }
 
 obj_t * C_lam_copy(obj_t * old) {
 	assert(old) ;
 	ALLOC_OR_RETNULL(new, lam_t) ;	
-	*new = LAM_INIT(olist_init_copy(((lam_t *)old)->binding),
+	*new = LAM_INIT(C_obj_copy(((lam_t *)old)->recname),
+			olist_init_copy(((lam_t *)old)->binding),
 			C_obj_copy(((lam_t *)old)->expr)) ;
 	return (obj_t *)new ;
 }
@@ -30,6 +31,7 @@ obj_t * lam_get_expr(obj_t * lam) {
 void D_lam(obj_t ** lam_ptr) {
 	assert(lam_ptr) ;
 	assert(*lam_ptr) ;
+	D_OBJ(((lam_t *)*lam_ptr)->recname) ;
 	olist_free(&((lam_t *)*lam_ptr)->binding) ;
 	D_OBJ(((lam_t *)*lam_ptr)->expr) ;
 	free(*lam_ptr) ;
