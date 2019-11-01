@@ -42,8 +42,6 @@ tok_t get_next_token(FILE * infile, lex_flags_t flags) ;
 #define PRIM_TABSZ sizeof(prim_tab)/8
 
 
-#undef DEBUG
-
 #ifdef DEBUG
 #define Printf(...) printf(__VA_ARGS__)
 #else

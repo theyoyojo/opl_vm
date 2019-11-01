@@ -7,11 +7,8 @@ E_PARSE=3
 E_TRANSLATION=4
 E_COMPILATION=5
 
-JV="4"
-
-
 usage() {
-	echo "=== The J$JV Compiler Script =="
+	echo "=== The J4 Compiler Script =="
 	echo "Usage: compile.sh <input_file> <output_file>"
 	exit $E_BAD_USAGE
 }

@@ -104,6 +104,10 @@ scan:
 				goto done ;
 			}
 			fprintf(outfile, " ;") ;
+			if (list_elcnt[list_depth] == 0) {
+				/* empty list () -> (;;) I guess */
+				fprintf(outfile, ";)") ;
+			}
 			while(list_elcnt[list_depth] > 0) {
 				fprintf(outfile, ")") ;
 				--list_elcnt[list_depth] ;

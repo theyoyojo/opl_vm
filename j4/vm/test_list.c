@@ -264,19 +264,19 @@
 /* 	) ; */
 /* ) ; */
 
-TEST_SET(execution,
-	TEST_CASE(simple,
-		olist_t * binding = olist_init_data(2, C_ident("x"), C_ident("y")) ;
-		obj_t * expr = C_app(3, C_prim("+"), C_ident("x"), C_ident("y")) ;
-		obj_t * lam = C_lam(binding, expr) ;
-		obj_t * app = C_app(3, lam, C_num(4), C_num(7)) ;
+/* TEST_SET(execution, */
+/* 	TEST_CASE(simple, */
+/* 		olist_t * binding = olist_init_data(2, C_ident("x"), C_ident("y")) ; */
+/* 		obj_t * expr = C_app(3, C_prim("+"), C_ident("x"), C_ident("y")) ; */
+/* 		obj_t * lam = C_lam(binding, expr) ; */
+/* 		obj_t * app = C_app(3, lam, C_num(4), C_num(7)) ; */
 
-		obj_t * res  = exec(app) ;
-		value_print(res) ;
+/* 		obj_t * res  = exec(app) ; */
+/* 		value_print(res) ; */
 		
-		D_OBJ(app) ;
-		D_OBJ(res) ;
-	) ;
+/* 		D_OBJ(app) ; */
+/* 		D_OBJ(res) ; */
+	/* ) ; */
 	/* TEST_CASE(degenerate, */
 	/* 	obj_t * x = C_num(4); */
 	/* 	obj_t * y = exec(x) ; */
@@ -338,7 +338,7 @@ TEST_SET(execution,
 	/* ) ; */
 
 
-) ;
+/* ) ; */
 
 
 TEST_MAIN();

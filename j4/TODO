@@ -1,0 +1,8 @@
+Finish recname LL and translation (40)
+Fix 0ary lambda desugaring
+fix 0ary calls and their parse semantics
+Finish module system (search all of libpath)
+Write some stdlib stuff
+Write a bunch of tests (41)
+Re-investigate factorial
+merge to master ;)
