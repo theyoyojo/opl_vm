@@ -27,6 +27,11 @@ obj_t * lam_get_expr(obj_t * lam) {
 	assert(obj_typeof(lam) == T_LAM) ;
 	return ((lam_t *)lam)->expr;
 }
+
+obj_t * lam_get_recname(obj_t * lam) {
+	assert(obj_typeof(lam) == T_LAM) ;
+	return ((lam_t *)lam)->recname ;
+}
 	
 void D_lam(obj_t ** lam_ptr) {
 	assert(lam_ptr) ;
@@ -89,7 +94,6 @@ obj_t * C_app(size_t count, ...) {
 	va_end(arglist) ;
 
 	return (obj_t *)new ;
-
 }
 
 /* construct an app from an expr list */

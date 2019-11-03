@@ -21,6 +21,7 @@ static inline void boolify_if_not_already_bool(obj_t ** code, obj_t ** tmp) {
 
 
 #define endlessly_repeat while (++cycle_count || 1)
+#define ARBITRARY_STACK_HEIGHT_LIMIT 1000
 
 /* the cool uncle of interpret */
 obj_t * exec(obj_t * program) {
@@ -43,7 +44,7 @@ obj_t * exec(obj_t * program) {
 		frame_print(stack_top(stack)) ;
 		printf("=============\n") ;
 #endif 
-		if (stack_height(stack) > 100) stack_trace(stack) ;
+		if (stack_height(stack) > ARBITRARY_STACK_HEIGHT_LIMIT) stack_trace(stack) ;
 		switch(obj_typeof(code)) {
 		case T_IDENT:
 			if (env_maps(env, code)) {
@@ -79,15 +80,21 @@ obj_t * exec(obj_t * program) {
 			case T_FRAPP:
 			/* <v, 0, Kapp((v' ...), env, (e e'...), K> => <e, env, Kapp((v' v ...), env, (e' ...), K> */
 				frapp_push_value(stack_top(stack), code) ;
-				D_OBJ(code) ;
+				/* D_OBJ(code) ; */
 				D_OBJ(env) ;
 				if (frapp_has_more_exprs(stack_top(stack))) {
 					code = frapp_pop_expr(stack_top(stack)) ;
 					env = stack_top_env(stack) ; /* get a new ref to the env */
 				} else if (obj_typeof(tmp1 = frapp_get_first_value(stack_top(stack))) == T_CLO) {
 					/* the business section */
-					/* restore the closure's environment */
-					env = clo_get_env(tmp1) ;
+					/* restore the closure's environment and copy it 
+					 * if I were to simply get a new reference to it,
+					 * I would have dynamic scope. */
+					env = C_obj_copy(clo_get_env_noref(tmp1)) ;
+					/* copying an env will copy each element,
+					 * including the closure, which increments the refnt
+					 * of the original env */
+
 					/* the code continues in the lambda's expr */
 					code = C_obj_copy(lam_get_expr(clo_get_lam(tmp1))) ;
 					/* get the list of values in frapp */
@@ -95,11 +102,14 @@ obj_t * exec(obj_t * program) {
 					/* remove the closure itself from the value list */
 					olist_del(tmplist, 0) ;
 					/* extend the enviroment (this may need backend work)
-					 * I don't overwrite old values, i just append I think */
+					 * I don't overwrite old values, I just append I think */
+					/* this has been fixed, but not for single */
 					env_bind(env, lam_get_binding(clo_get_lam(tmp1)), tmplist) ;
 					
 					/* list is coipied so we remove the local instance */
 					olist_free(&tmplist) ;
+					/* tmp1 = clo_get_env_noref(tmp1) ; */
+					/* D_OBJ(tmp1) ; */
 					/* we don't free the closure because it is free'd in stack_chop */
 					stack_chop(stack) ;
 
@@ -122,7 +132,8 @@ obj_t * exec(obj_t * program) {
 			}
 			/* <e e' ..., env, K> => <e, env, Kapp((), env, (e' ...), K> */
 		case T_LAM:
-			tmp1 = C_clo(C_obj_copy(code), env) ;
+			/* env freeze at closure creation time */
+			tmp1 = C_clo(code, env) ;
 			D_OBJ(code) ;
 			code = tmp1 ;
 			continue ;

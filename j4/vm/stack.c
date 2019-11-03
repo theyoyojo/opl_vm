@@ -1,5 +1,6 @@
 #include "stack.h"
 #include "types.h"
+#include <string.h>
 
 obj_t * C_stack() {
 	ALLOC_OR_RETNULL(new, stack_t) ;
@@ -189,15 +190,15 @@ void D_frapp(obj_t ** frapp_ptr) {
 
 obj_t * frapp_pop_expr(obj_t * frapp) {
 	assert(obj_typeof(frapp) == T_FRAPP) ;
-	obj_t * tmp ;
-	tmp = C_obj_copy(olist_get(((frapp_t *)frapp)->exprs, 0)) ;
-	olist_del(((frapp_t *)frapp)->exprs, 0) ;
-	return tmp ;
+	/* obj_t * tmp ; */
+	return olist_pop_index(((frapp_t *)frapp)->exprs, 0) ;
+	/* olist_del(((frapp_t *)frapp)->exprs, 0) ; */
+	/* return tmp ; */
 }
 
 void frapp_push_value(obj_t * frapp, obj_t * obj) {
 	assert(obj_typeof(frapp) == T_FRAPP) ;
-	olist_append(((frapp_t *)frapp)->vals, C_obj_copy(obj)) ;
+	olist_append(((frapp_t *)frapp)->vals, obj) ;
 }
 
 bool frapp_has_more_exprs(obj_t * frapp) {
@@ -262,27 +263,75 @@ void D_env(obj_t ** env_ptr) {
 	free(env) ;
 	*env_ptr = NULL ;
 }
+
+/* maximum number identifiers that can be bound at once */
+#define MAX_BIND_AT_ONCE 256UL
 /* can fail by arity mismatch */
 int env_bind(obj_t * env, olist_t * binding, olist_t * vals) {
 	assert(env) ;
 	size_t bindlen = olist_length(binding) ;
 	size_t vallen = olist_length(vals) ;
+	static unsigned char index_memo[MAX_BIND_AT_ONCE] ;
+	memset(index_memo, 0, MAX_BIND_AT_ONCE) ;
 	env_t * env_ = (env_t *)env ;
-	/* Arity mismatch */
+
+	if (bindlen > MAX_BIND_AT_ONCE) {
+		printf("Exception: Binding too long to handle in one go\n"
+				"\tlength: %lu, max: %lu\n",
+				bindlen, MAX_BIND_AT_ONCE) ;
+		return 1 ;
+	}
 	if (bindlen != vallen) {
-		printf("Exception: arity mismatch in call to %s\n"
-				"\t Expected: %lu, Got: %lu\n",
-				ident_get_name(olist_get(binding, 0)),
+		printf("Exception: Invalid environment binding: \n"
+				"\tident count: %lu, differes from value count: %lu\n",
 				bindlen, vallen) ;
 		return 1 ;
 	}
-	/* Include function name for possible usage later as env name*/
-	for (size_t i = 0; i < bindlen; ++i) {
+
+	/* FIXME wrong: Include function name for possible usage later as env name */
+
+	/* first iterate through existing identifiers and replace matching */
+	/* keep trace of indexes in arglists that ovewrite, these wont be appended */
+
+	size_t i, j;
+	for (i = 0; i < bindlen; ++i) {
+		for (j = 0; j < olist_length(env_->idents); ++j) {
+			if (!ident_cmp(olist_get(env_->idents, j),
+						olist_get(binding, i))) {
+				/* delete and reinsert */
+				olist_del(env_->vals, j);
+				olist_insert(env_->vals,
+						C_obj_copy(olist_get(vals, i)),j) ;
+				index_memo[i] = 1 ;
+				break ;
+			}
+		}
+		if (index_memo[i]) continue ; /* skip overwritten */
+
 		olist_append(env_->idents, C_obj_copy(olist_get(binding, i))) ;
 		olist_append(env_->vals, C_obj_copy(olist_get(vals, i))) ;
 	}
 	return 0 ;
 }
+
+int env_bind_single(obj_t * env, obj_t * ident, obj_t * value) {
+	assert(obj_typeof(env) == T_ENV) ;
+
+	env_t * env_ = (env_t *)env ;
+
+	if (!olist_append(env_->idents, C_obj_copy(ident))) {
+		return 1 ;
+	}
+
+	obj_t * tmp = C_obj_copy(value) ;
+
+	if (!olist_append(env_->vals, tmp)) {
+		return 1 ;
+	}
+
+	return 0 ;
+}
+
 /* check if an environment maps a variable to a value */
 bool env_maps(obj_t * env, obj_t * ident) {
 	/* if (!env) { */
@@ -335,6 +384,15 @@ void env_dec_ref(obj_t ** env_ptr) {
 	if (--(*(env_t **)env_ptr)->refcnt <= 0) {
 		D_env(env_ptr) ;
 	}
+	
+	/* obj_t * tmp ; */
+	/* for (size_t i = 0; i < olist_length((*(env_t**)env_ptr)->vals); ++i) { */
+	/* 	tmp = olist_get((*(env_t**)env_ptr)->vals, i) ; */
+	/* 	if (obj_typeof(tmp) == T_ENV) { */
+	/* 		env_dec_ref(&tmp) ; */
+	/* 	} */
+	/* } */
+
 }
 
 int env_get_ref(obj_t * env)  {
@@ -371,14 +429,18 @@ void env_print(obj_t * env) {
 
 obj_t * C_clo(obj_t * lam, obj_t * env) {
 	ALLOC_OR_RETNULL(new, clo_t) ;
-	*new = CLO_INIT(lam, env_inc_ref(env)) ;
+	*new = CLO_INIT(C_obj_copy(lam), C_obj_copy(env)) ;
+	/* self-bondage */
+	env_bind_single(new->env, lam_get_recname(lam), (obj_t *)new) ;
+	new->refcnt++ ;
+	/* env_dec_ref((obj_t **)&new->env) ; */
 	return (obj_t *)new ;
 }
 
 obj_t * C_clo_copy(obj_t * old) {
 	clo_t * old_ = (clo_t *)old ;
 	ALLOC_OR_RETNULL(new, clo_t) ;
-	*new = CLO_INIT(C_obj_copy(old_->lam), C_obj_copy(old_->env)) ;
+	*new = CLO_INIT(C_obj_copy(old_->lam), env_inc_ref(old_->env)) ;
 	return (obj_t *)new ;
 }
 
@@ -391,12 +453,44 @@ obj_t * clo_get_env(obj_t * clo) {
 	return env_inc_ref(((clo_t *)clo)->env) ;
 }
 
+obj_t * clo_get_env_noref(obj_t * clo) {
+	assert(obj_typeof(clo) == T_CLO) ;
+	return ((clo_t *)clo)->env ;
+}
+
+obj_t * clo_inc_ref(obj_t * clo) {
+	assert(obj_typeof(clo) == T_CLO) ;
+	++((clo_t *)clo)->refcnt ;
+	return clo ;
+}
+
+void clo_dec_ref(obj_t ** clo_ptr) {
+	assert(clo_ptr) ;
+	assert(obj_typeof(*clo_ptr) == T_CLO) ;
+	if (--(*(clo_t **)clo_ptr)->refcnt <= 0) {
+		D_clo(clo_ptr) ;
+	}
+}
+
+int clo_get_ref(obj_t * clo) {
+	assert(obj_typeof(clo) == T_CLO) ;
+	return ((clo_t *)clo)->refcnt ;
+}
+
 void D_clo(obj_t ** clo_ptr) {
 	assert(clo_ptr) ;
 	assert(*clo_ptr) ;
 	clo_t * clo = *(clo_t **)clo_ptr ;
 	D_OBJ(clo->lam) ;
 	D_OBJ(clo->env) ;
+	/* obj_t * tmp ; */
+	/* if (env_get_ref(clo->env) == 1) { /1* unhook the self-reference *1/ */
+	/* 	tmp = env_get_val(clo->env, 0) ; */
+	/* 	D_OBJ(((clo_t*)tmp)->lam) ; */
+	/* 	((clo_t*)tmp)->env = NULL ; */	
+	/* 	D_OBJ(clo->env) ; */
+	/* 	/1* this is a disgusting hack that doesn't even work *1/ */
+	/* } */
 	free(clo) ;
 	*clo_ptr = NULL ;
 }
@@ -459,4 +553,54 @@ void frame_print(obj_t * frame) {
 	printf("\n") ;
 }
 
+/* idents in env */
+size_t env_length(obj_t * env) {
+	return olist_length(((env_t*)env)->idents) ;
+}
 
+/* vals in env */
+size_t env_girth(obj_t * env) {
+	return olist_length(((env_t*)env)->vals) ;
+}
+
+/* INVARIANT: idents are of type indent */
+ident_t * env_get_ident(obj_t * env, size_t index) {
+	if (index >= olist_length(((env_t *)env)->idents)) {
+		return NULL ;
+	}
+	else {
+		return (ident_t *)olist_get(((env_t *)env)->idents, index) ;
+	}
+}
+obj_t * env_get_val(obj_t * env, size_t index) {
+	if (index >= olist_length(((env_t *)env)->vals)) {
+		return NULL ;
+	}
+	else {
+		return olist_get(((env_t *)env)->vals, index) ;
+	}
+}
+
+obj_t * C_clorf(obj_t * clo) {
+	ALLOC_OR_RETNULL(new, clorf_t) ;
+	*new = CLORF_INIT((clo_t*)clo_inc_ref(clo)) ;
+	return (obj_t *)new ;
+}
+
+obj_t * C_clorf_copy(obj_t * old) {
+	ALLOC_OR_RETNULL(new, clorf_t) ;
+	*new = CLORF_INIT((clo_t*)clo_inc_ref(clorf_deref(old))) ;
+	return (obj_t *)new ;
+}
+
+void D_clorf(obj_t ** clorf_ptr) {
+	assert(clorf_ptr) ;
+	assert(*clorf_ptr) ;
+	clo_dec_ref((obj_t **)&((clorf_t *)*clorf_ptr)->ref) ;
+	free(*clorf_ptr) ;
+	*clorf_ptr = NULL ;
+}
+
+obj_t * clorf_deref(obj_t * clorf) {
+	return clo_inc_ref((obj_t *)((clorf_t *)clorf)->ref) ;
+}

@@ -22,6 +22,7 @@ typedef enum _type {
 	T_FRRET,
 	T_ENV,
 	T_CLO,
+	T_CLORF,
 } type_t ;
 
 struct _obj ;

@@ -3,6 +3,7 @@
 
 #include "obj.h"
 #include "olist.h"
+#include "types.h"
 
 typedef struct _stack {
 	header_t head ;
@@ -80,9 +81,9 @@ typedef struct _env {
 obj_t * C_env(void) ;
 obj_t * C_env_copy(obj_t * old) ;
 void D_env(obj_t ** env_ptr) ;
-/* can fail by arity mismatch */
 /* does NOT consume the lists passed to it */
 int env_bind(obj_t * env, olist_t * binding, olist_t * vals) ;
+int env_bind_single(obj_t * env, obj_t * ident, obj_t * value) ;
 /* check if an environment maps a variable to a value */
 bool env_maps(obj_t * env, obj_t * ident) ;
 /* Do the substitution, consume the identifier, return a copy of the mapped value */
@@ -90,6 +91,12 @@ obj_t * env_subst(obj_t * env, obj_t * ident) ;
 
 bool env_empty(obj_t * env) ;
 char * env_get_name(obj_t * env) ;
+
+ident_t * env_get_ident(obj_t * env, size_t index) ;
+obj_t * env_get_val(obj_t * env, size_t index) ;
+
+size_t env_length(obj_t * env) ;
+size_t env_girth(obj_t * env) ;
 
 /* envs need to be reference counted because they have multiple valid pointers! ahhh! */
 /* inc_ref MUST be used for every non-constructor assignment to an env! */
@@ -103,19 +110,40 @@ typedef struct _clo {
 	header_t head ;
 	obj_t * lam ;
 	obj_t * env ;
+	int refcnt ;
 } clo_t ;
 
 #define CLO_INIT(_lam, _env) (clo_t) { \
 	.head = HEADER_INIT(T_CLO, D_clo, C_clo_copy), \
 	.lam =  _lam, \
-	.env = _env }
+	.env = _env, \
+	.refcnt = 1 }
 
 obj_t * C_clo(obj_t * lam, obj_t * env) ;
 obj_t * C_clo_copy(obj_t * old) ;
 void D_clo(obj_t ** clo_ptr) ;
 
+obj_t * clo_inc_ref(obj_t * clo) ;
+void clo_dec_ref(obj_t ** clo_ptr) ;
+int clo_get_ref(obj_t * clo) ;
+
 obj_t * clo_get_lam(obj_t * clo) ;
 obj_t * clo_get_env(obj_t * clo) ;
+obj_t * clo_get_env_noref(obj_t * clo) ;
+
+/* time to get self-referential */
+typedef struct _clorf {
+	header_t head ;
+	clo_t * ref ;
+} clorf_t ;
+#define CLORF_INIT(_ref) (clorf_t) { \
+	.head = HEADER_INIT(T_CLORF, D_clorf, C_clorf_copy), \
+	.ref = _ref }
+
+obj_t * C_clorf(obj_t * clo) ;
+obj_t * C_clorf_copy(obj_t * old) ;
+void D_clorf(obj_t ** clorf_ptr) ;
+obj_t * clorf_deref(obj_t * clorf) ;
 
 /* frame accessor functions for examining that stack */
 char * frame_get_name(obj_t * frame) ;

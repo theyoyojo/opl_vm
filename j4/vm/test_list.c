@@ -99,7 +99,7 @@
 /* 		env_bind(env, binding, vals) ; */
 
 /* 		obj_t * expr = C_app(3, C_prim("+"), C_ident("x"), C_ident("y")) ; */
-/* 		obj_t * lam = C_lam(binding, expr) ; */
+/* 		obj_t * lam = C_lam(C_ident("rec"), binding, expr) ; */
 /* 		obj_t * clo = C_clo(lam, env) ; */
 		
 /* 		D_OBJ(clo) ; */
@@ -264,11 +264,11 @@
 /* 	) ; */
 /* ) ; */
 
-/* TEST_SET(execution, */
+TEST_SET(execution,
 /* 	TEST_CASE(simple, */
 /* 		olist_t * binding = olist_init_data(2, C_ident("x"), C_ident("y")) ; */
 /* 		obj_t * expr = C_app(3, C_prim("+"), C_ident("x"), C_ident("y")) ; */
-/* 		obj_t * lam = C_lam(binding, expr) ; */
+/* 		obj_t * lam = C_lam(C_ident("rec"), binding, expr) ; */
 /* 		obj_t * app = C_app(3, lam, C_num(4), C_num(7)) ; */
 
 /* 		obj_t * res  = exec(app) ; */
@@ -276,7 +276,28 @@
 		
 /* 		D_OBJ(app) ; */
 /* 		D_OBJ(res) ; */
-	/* ) ; */
+/* 	) ; */
+	TEST_CASE(recursive,
+		olist_t * binding = olist_init_data(1, C_ident("x")) ;
+
+		obj_t * expr = C_app(3, C_prim("+"), C_ident("x"), C_app(2, C_ident("rec"),
+				C_app(3, C_prim("-"), C_ident("x"), C_num(1)))) ;
+
+		obj_t * cond = C_app(3, C_prim("="), C_ident("x"), C_num(1)) ;
+
+		obj_t * ifexp = C_if(cond,C_ident("x"),expr) ;
+
+		obj_t * lam = C_lam(C_ident("rec"), binding, ifexp) ;
+
+		obj_t * app = C_app(2, lam, C_num(1)) ;
+
+		obj_t * res  = exec(app) ;
+		value_print(res) ;
+		putchar('\n') ;
+		
+		D_OBJ(app) ;
+		D_OBJ(res) ;
+	) ;
 	/* TEST_CASE(degenerate, */
 	/* 	obj_t * x = C_num(4); */
 	/* 	obj_t * y = exec(x) ; */
@@ -338,7 +359,7 @@
 	/* ) ; */
 
 
-/* ) ; */
+) ;
 
 
 TEST_MAIN();

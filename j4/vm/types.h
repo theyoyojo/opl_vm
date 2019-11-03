@@ -42,6 +42,7 @@ obj_t * C_lam_copy(obj_t * old) ;
 void D_lam(obj_t ** lam_ptr) ;
 olist_t * lam_get_binding(obj_t * lam) ;
 obj_t * lam_get_expr(obj_t * lam) ;
+obj_t * lam_get_recname(obj_t * lam) ;
 
 typedef struct _ident {
 	header_t head ;
