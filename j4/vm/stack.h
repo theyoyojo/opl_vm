@@ -83,7 +83,7 @@ obj_t * C_env_copy(obj_t * old) ;
 void D_env(obj_t ** env_ptr) ;
 /* does NOT consume the lists passed to it */
 int env_bind(obj_t * env, olist_t * binding, olist_t * vals) ;
-int env_bind_single(obj_t * env, obj_t * ident, obj_t * value) ;
+int env_bind_direct(obj_t * env, obj_t * ident, obj_t * value) ;
 /* check if an environment maps a variable to a value */
 bool env_maps(obj_t * env, obj_t * ident) ;
 /* Do the substitution, consume the identifier, return a copy of the mapped value */
@@ -110,6 +110,7 @@ typedef struct _clo {
 	header_t head ;
 	obj_t * lam ;
 	obj_t * env ;
+	obj_t * env_orig ;
 	int refcnt ;
 } clo_t ;
 
@@ -117,9 +118,10 @@ typedef struct _clo {
 	.head = HEADER_INIT(T_CLO, D_clo, C_clo_copy), \
 	.lam =  _lam, \
 	.env = _env, \
+	.env_orig = _env, \
 	.refcnt = 1 }
 
-obj_t * C_clo(obj_t * lam, obj_t * env) ;
+obj_t * C_clo(obj_t * lam, obj_t * env, bool self_bind) ;
 obj_t * C_clo_copy(obj_t * old) ;
 void D_clo(obj_t ** clo_ptr) ;
 

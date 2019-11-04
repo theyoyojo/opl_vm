@@ -314,16 +314,16 @@ int env_bind(obj_t * env, olist_t * binding, olist_t * vals) {
 	return 0 ;
 }
 
-int env_bind_single(obj_t * env, obj_t * ident, obj_t * value) {
+int env_bind_direct(obj_t * env, obj_t * ident, obj_t * value) {
 	assert(obj_typeof(env) == T_ENV) ;
 
 	env_t * env_ = (env_t *)env ;
 
-	if (!olist_append(env_->idents, C_obj_copy(ident))) {
+	if (!olist_append(env_->idents, ident)) {
 		return 1 ;
 	}
 
-	obj_t * tmp = C_obj_copy(value) ;
+	obj_t * tmp = value ;
 
 	if (!olist_append(env_->vals, tmp)) {
 		return 1 ;
@@ -427,11 +427,13 @@ void env_print(obj_t * env) {
 	}
 }
 
-obj_t * C_clo(obj_t * lam, obj_t * env) {
+obj_t * C_clo(obj_t * lam, obj_t * env, bool self_bind) {
 	ALLOC_OR_RETNULL(new, clo_t) ;
 	*new = CLO_INIT(C_obj_copy(lam), C_obj_copy(env)) ;
 	/* self-bondage */
-	env_bind_single(new->env, lam_get_recname(lam), (obj_t *)new) ;
+	if (self_bind) {
+		env_bind_direct(new->env, C_obj_copy(lam_get_recname(lam)), C_clo(lam, env, false)) ;
+	}
 	new->refcnt++ ;
 	/* env_dec_ref((obj_t **)&new->env) ; */
 	return (obj_t *)new ;
@@ -440,7 +442,8 @@ obj_t * C_clo(obj_t * lam, obj_t * env) {
 obj_t * C_clo_copy(obj_t * old) {
 	clo_t * old_ = (clo_t *)old ;
 	ALLOC_OR_RETNULL(new, clo_t) ;
-	*new = CLO_INIT(C_obj_copy(old_->lam), env_inc_ref(old_->env)) ;
+	*new = CLO_INIT(C_obj_copy(old_->lam), C_obj_copy(old_->env_orig)) ;
+	env_bind_direct(new->env, C_obj_copy(lam_get_recname(new->lam)), C_clo(new->lam, new->env, false)) ;
 	return (obj_t *)new ;
 }
 
@@ -483,6 +486,7 @@ void D_clo(obj_t ** clo_ptr) {
 	clo_t * clo = *(clo_t **)clo_ptr ;
 	D_OBJ(clo->lam) ;
 	D_OBJ(clo->env) ;
+	D_OBJ(clo->env_orig) ;
 	/* obj_t * tmp ; */
 	/* if (env_get_ref(clo->env) == 1) { /1* unhook the self-reference *1/ */
 	/* 	tmp = env_get_val(clo->env, 0) ; */
