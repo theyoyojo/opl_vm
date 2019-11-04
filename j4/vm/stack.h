@@ -133,20 +133,6 @@ obj_t * clo_get_lam(obj_t * clo) ;
 obj_t * clo_get_env(obj_t * clo) ;
 obj_t * clo_get_env_noref(obj_t * clo) ;
 
-/* time to get self-referential */
-typedef struct _clorf {
-	header_t head ;
-	clo_t * ref ;
-} clorf_t ;
-#define CLORF_INIT(_ref) (clorf_t) { \
-	.head = HEADER_INIT(T_CLORF, D_clorf, C_clorf_copy), \
-	.ref = _ref }
-
-obj_t * C_clorf(obj_t * clo) ;
-obj_t * C_clorf_copy(obj_t * old) ;
-void D_clorf(obj_t ** clorf_ptr) ;
-obj_t * clorf_deref(obj_t * clorf) ;
-
 /* frame accessor functions for examining that stack */
 char * frame_get_name(obj_t * frame) ;
 char * frame_get_env_name(obj_t * frame) ;

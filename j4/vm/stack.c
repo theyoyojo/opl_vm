@@ -384,15 +384,6 @@ void env_dec_ref(obj_t ** env_ptr) {
 	if (--(*(env_t **)env_ptr)->refcnt <= 0) {
 		D_env(env_ptr) ;
 	}
-	
-	/* obj_t * tmp ; */
-	/* for (size_t i = 0; i < olist_length((*(env_t**)env_ptr)->vals); ++i) { */
-	/* 	tmp = olist_get((*(env_t**)env_ptr)->vals, i) ; */
-	/* 	if (obj_typeof(tmp) == T_ENV) { */
-	/* 		env_dec_ref(&tmp) ; */
-	/* 	} */
-	/* } */
-
 }
 
 int env_get_ref(obj_t * env)  {
@@ -434,8 +425,6 @@ obj_t * C_clo(obj_t * lam, obj_t * env, bool self_bind) {
 	if (self_bind) {
 		env_bind_direct(new->env, C_obj_copy(lam_get_recname(lam)), C_clo(lam, env, false)) ;
 	}
-	new->refcnt++ ;
-	/* env_dec_ref((obj_t **)&new->env) ; */
 	return (obj_t *)new ;
 }
 
@@ -461,25 +450,6 @@ obj_t * clo_get_env_noref(obj_t * clo) {
 	return ((clo_t *)clo)->env ;
 }
 
-obj_t * clo_inc_ref(obj_t * clo) {
-	assert(obj_typeof(clo) == T_CLO) ;
-	++((clo_t *)clo)->refcnt ;
-	return clo ;
-}
-
-void clo_dec_ref(obj_t ** clo_ptr) {
-	assert(clo_ptr) ;
-	assert(obj_typeof(*clo_ptr) == T_CLO) ;
-	if (--(*(clo_t **)clo_ptr)->refcnt <= 0) {
-		D_clo(clo_ptr) ;
-	}
-}
-
-int clo_get_ref(obj_t * clo) {
-	assert(obj_typeof(clo) == T_CLO) ;
-	return ((clo_t *)clo)->refcnt ;
-}
-
 void D_clo(obj_t ** clo_ptr) {
 	assert(clo_ptr) ;
 	assert(*clo_ptr) ;
@@ -487,14 +457,6 @@ void D_clo(obj_t ** clo_ptr) {
 	D_OBJ(clo->lam) ;
 	D_OBJ(clo->env) ;
 	D_OBJ(clo->env_orig) ;
-	/* obj_t * tmp ; */
-	/* if (env_get_ref(clo->env) == 1) { /1* unhook the self-reference *1/ */
-	/* 	tmp = env_get_val(clo->env, 0) ; */
-	/* 	D_OBJ(((clo_t*)tmp)->lam) ; */
-	/* 	((clo_t*)tmp)->env = NULL ; */	
-	/* 	D_OBJ(clo->env) ; */
-	/* 	/1* this is a disgusting hack that doesn't even work *1/ */
-	/* } */
 	free(clo) ;
 	*clo_ptr = NULL ;
 }
@@ -583,28 +545,4 @@ obj_t * env_get_val(obj_t * env, size_t index) {
 	else {
 		return olist_get(((env_t *)env)->vals, index) ;
 	}
-}
-
-obj_t * C_clorf(obj_t * clo) {
-	ALLOC_OR_RETNULL(new, clorf_t) ;
-	*new = CLORF_INIT((clo_t*)clo_inc_ref(clo)) ;
-	return (obj_t *)new ;
-}
-
-obj_t * C_clorf_copy(obj_t * old) {
-	ALLOC_OR_RETNULL(new, clorf_t) ;
-	*new = CLORF_INIT((clo_t*)clo_inc_ref(clorf_deref(old))) ;
-	return (obj_t *)new ;
-}
-
-void D_clorf(obj_t ** clorf_ptr) {
-	assert(clorf_ptr) ;
-	assert(*clorf_ptr) ;
-	clo_dec_ref((obj_t **)&((clorf_t *)*clorf_ptr)->ref) ;
-	free(*clorf_ptr) ;
-	*clorf_ptr = NULL ;
-}
-
-obj_t * clorf_deref(obj_t * clorf) {
-	return clo_inc_ref((obj_t *)((clorf_t *)clorf)->ref) ;
 }
