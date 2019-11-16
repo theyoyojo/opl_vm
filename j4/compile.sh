@@ -8,17 +8,31 @@ E_TRANSLATION=4
 E_COMPILATION=5
 
 usage() {
-	echo "=== The J4 Compiler Script =="
-	echo "Usage: compile.sh <input_file> <output_file>"
+	echo "	========== The J4 Compiler Script =========="
+	echo "	Usage: compile.sh <input_file> <output_file>"
+	echo ""
+	echo "	Valid flags:"
+	echo "		0) emit parse0 output and quit"
+	echo "		1) emit parse1 output and quit"
+	echo "		2) emit parse2 output and quit"
+	echo "		e) emit C ctors and quit"
+	echo "		d) enable debug output in binary"
+	echo ""
+	echo "	Combination of flags may will produce the"
+	echo "	behavior of the flag listed higher on the"
+	echo "	list above, with all other flags ignored."
 	exit $E_BAD_USAGE
 }
 
+REQUIRED_ARGC=2
+PARSE0=""
+PARSE1=""
+PARSE2=""
+EMIT=""
+DEBUG=""
+
 while getopts "ed012" OPTION; do
 	case $OPTION in
-		e)
-			EMIT=yes
-			shift
-			;;
 		0)
 			PARSE0=yes
 			shift
@@ -29,6 +43,10 @@ while getopts "ed012" OPTION; do
 			;;
 		2)
 			PARSE2=yes
+			shift
+			;;
+		e)
+			EMIT=yes
 			shift
 			;;
 		d)
@@ -48,7 +66,12 @@ then
 	exit $E_NO_PATH
 fi
 
-if [ $# -ne "2" ]
+if [ ! -z "$PARSE0$PARSE1$PARSE2$EMIT" ]
+then
+	REQUIRED_ARGC=1
+fi
+
+if [ $# -ne "$REQUIRED_ARGC" ]
 then
 	usage
 fi

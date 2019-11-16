@@ -1,0 +1,6 @@
+source aliaskit.sh to get:
+	jcc as an alias for the compiler script
+	mall to clean rebuild
+	... and more
+
+

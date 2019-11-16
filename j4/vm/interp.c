@@ -36,7 +36,7 @@ obj_t * exec(obj_t * program) {
 
 	endlessly_repeat {			
 		if (!code) goto panic ;
-#ifndef DEBUG
+#ifdef DEBUG
 		printf("===[C E K]===\n") ;
 		printf("Cycle:\t%ld\n", cycle_count) ;
 		env_print(env) ;

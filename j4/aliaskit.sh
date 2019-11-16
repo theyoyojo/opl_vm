@@ -7,7 +7,7 @@ else
 	alias mall="(cd $J4_PATH; make clean; make)"
 	alias mp="(cd $J4_PATH/parse; make clean; make)"
 	alias mvm="(cd $J4_PATH/vm; make clean; make)"
-	alias cmp="$J4_PATH/compile.sh"
+	alias jcc="$J4_PATH/compile.sh"
 	qkrn() {
 		if [ ! -z "$1" ] ; then
 			dummy=longnamedoesntmatter	
