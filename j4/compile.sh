@@ -87,10 +87,11 @@ FLAGS=
 # this needs to be passed to earlier make
 if [ ! -z "$DEBUG" ]
 then
-	export EXTRA_CFLAGS="-D DEBUG"
+	echo "=====[DEBUG OUTPUT ON]====="
+	export EXTRA_CFLAGS="-DDEBUG"
 fi
 
-(cd $J4_PATH && make) >/dev/null
+(cd $J4_PATH && make clean &&  make) >/dev/null
 
 "$J4_PATH/parse/parse0" < $INFILE > "$TMPDIR/$INFILE.jpp"
 
