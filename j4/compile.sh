@@ -15,12 +15,19 @@ usage() {
 	echo "		0) emit parse0 output and quit"
 	echo "		1) emit parse1 output and quit"
 	echo "		2) emit parse2 output and quit"
-	echo "		e) emit C ctors and quit"
+	echo "		s) emit S-expr output and quit"
+	echo "		a) emit formatted ast and quit"
+	echo "		c) emit the C listing and quit"
 	echo "		d) enable debug output in binary"
+	echo "		h) display this message"
 	echo ""
 	echo "	Combination of flags may will produce the"
 	echo "	behavior of the flag listed higher on the"
 	echo "	list above, with all other flags ignored."
+	echo ""
+	echo "	If any flag but -d or -h  is specified, the"
+	echo "	<output_filename> argument is not required"
+	echo "	and will trigger a usage error"
 	exit $E_BAD_USAGE
 }
 
@@ -28,10 +35,12 @@ REQUIRED_ARGC=2
 PARSE0=""
 PARSE1=""
 PARSE2=""
-EMIT=""
+export SEMIT=""		# Exported to trigger behavior in compile.py
+export ASTEMIT=""
+CEMIT=""
 DEBUG=""
 
-while getopts "ed012" OPTION; do
+while getopts "012sacdh" OPTION; do
 	case $OPTION in
 		0)
 			PARSE0=yes
@@ -45,13 +54,24 @@ while getopts "ed012" OPTION; do
 			PARSE2=yes
 			shift
 			;;
-		e)
-			EMIT=yes
+		s)
+			SEMIT=yes
+			shift
+			;;
+		a)
+			ASTEMIT=yes
+			shift
+			;;
+		c)
+			CEMIT=yes
 			shift
 			;;
 		d)
 			DEBUG=yes
 			shift
+			;;
+		h)
+			usage
 			;;
 		*)
 			echo "Unknown option $OPTION, ignoring"
@@ -66,7 +86,8 @@ then
 	exit $E_NO_PATH
 fi
 
-if [ ! -z "$PARSE0$PARSE1$PARSE2$EMIT" ]
+# If any of these flags were specifiied, don't require an output filename
+if [ ! -z "$PARSE0$PARSE1$PARSE2$SEMIT$ASTEMIT$CEMIT" ]
 then
 	REQUIRED_ARGC=1
 fi
@@ -155,8 +176,14 @@ then
 	exit $E_TRANSLATION
 fi
 
-# -e option will emit c and exit
-if [ ! -z "$EMIT" ]
+if [ ! -z "$SEMIT$ASTEMIT" ]
+then
+	rm -rf $TMPDIR
+	exit $SUCCESS
+fi
+
+# -c option will emit c and exit
+if [ ! -z "$CEMIT" ]
 then
 	cat "$TMPDIR/$INFILE.byte.c"
 	rm -rf "$TMPDIR"

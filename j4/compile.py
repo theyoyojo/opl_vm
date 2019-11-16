@@ -128,6 +128,8 @@ id_generator.counter = 0
 OBJ_PREFIX="        obj_t * "
 OLIST_PREFIX="        olist_t * "
 
+
+
 def main():
     if len(sys.argv) != 2:
         usage()
@@ -135,21 +137,29 @@ def main():
 
     parsable = True
 
-    print(OUTPUT_HEADER)
     try:
         input_loader = importlib.machinery.SourceFileLoader("j4_exe", sys.argv[1])
         input_spec = importlib.util.spec_from_loader(input_loader.name, input_loader)
         input_module = importlib.util.module_from_spec(input_spec)
         input_loader.exec_module(input_module)
         try:
+            if os.environ["SEMIT"] == "yes":
+                input_module.main.pp()
+                return
             program = desugar(input_module.main)
+            if os.environ["ASTEMIT"] == "yes":
+                program.pp()
+                return
         except AttributeError:
+            print(OUTPUT_HEADER)
             print("        printf(\"Error: input file does contain main attribute.\\n\") ;")
             parsable = False
     except FileNotFoundError:
+        print(OUTPUT_HEADER)
         print("        printf(\"Error: input file does not exist.\\n\") ;")
         parsable = False
     if parsable:
+        print(OUTPUT_HEADER)
         emit_c(program)
     print(OUTPUT_FOOTER)
 
