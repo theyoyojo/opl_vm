@@ -28,6 +28,8 @@ usage() {
 	echo "	If any flag but -d or -h  is specified, the"
 	echo "	<output_filename> argument is not required"
 	echo "	and will trigger a usage error"
+	echo ""
+	echo "	Unknown flags will be aknowledged and ignored"
 	exit $E_BAD_USAGE
 }
 
@@ -103,16 +105,26 @@ OUTFILE="$2"
 TMPDIR="/tmp/j4compile_tmp_`basename $INFILE`"
 mkdir $TMPDIR
 
-FLAGS=
+REMAKE=""
 # -d option will define debug symbol to one in preprocessor
 # this needs to be passed to earlier make
 if [ ! -z "$DEBUG" ]
 then
 	echo "=====[DEBUG OUTPUT ON]====="
 	export EXTRA_CFLAGS="-DDEBUG"
+	if [ ! -f "$J4_PATH/DEBUG_BINARY" ]
+	then
+		REMAKE="make clean"
+	fi
+	touch "$J4_PATH/DEBUG_BINARY"
+else
+	if [ -f "$J4_PATH/DEBUG_BINARY" ]
+	then
+		REMAKE="make clean"
+		rm "$J4_PATH/DEBUG_BINARY"
+	fi
 fi
-
-(cd $J4_PATH && make clean &&  make) >/dev/null
+(cd $J4_PATH ; $REMAKE ; make) >/dev/null
 
 "$J4_PATH/parse/parse0" < $INFILE > "$TMPDIR/$INFILE.jpp"
 
@@ -167,7 +179,13 @@ fi
 OBJS="$J4_PATH/vm/types.o $J4_PATH/vm/olist.o $J4_PATH/vm/delta.o $J4_PATH/vm/interp.o $J4_PATH/vm/obj.o $J4_PATH/vm/stack.o"
 
 # Translate python to c "bytecode"
-"$J4_PATH/compile.py" "$TMPDIR/$INFILE.py" > "$TMPDIR/$INFILE.byte.c"
+# We don't want to save the output if we are just printing an intermediate form
+if [ ! -z "$SEMIT$ASTEMIT" ]
+then
+	"$J4_PATH/compile.py" "$TMPDIR/$INFILE.py"
+else
+	"$J4_PATH/compile.py" "$TMPDIR/$INFILE.py" > "$TMPDIR/$INFILE.byte.c"
+fi
 
 if [ "$?" = "1" ]
 then

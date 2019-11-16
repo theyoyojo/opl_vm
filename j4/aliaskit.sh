@@ -11,7 +11,7 @@ else
 	qkrn() {
 		if [ ! -z "$1" ] ; then
 			dummy=longnamedoesntmatter	
-			cmp "$1" $dummy
+			jcc "$1" $dummy
 			res=$?
 			if [ $res ] ; then
 				./$dummy
