@@ -27,9 +27,9 @@ usage() {
 	echo ""
 	echo "	If any flag but -d or -h  is specified, the"
 	echo "	<output_filename> argument is not required"
-	echo "	and will trigger a usage error"
+	echo "	and will trigger a usage error."
 	echo ""
-	echo "	Unknown flags will be aknowledged and ignored"
+	echo "	Unknown flags will be acknowledged and ignored."
 	exit $E_BAD_USAGE
 }
 
