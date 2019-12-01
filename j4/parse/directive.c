@@ -124,7 +124,7 @@ int given_exec (int argc, char * argv[], FILE * outfile) {
 
 	fclose(given_file) ;
 
-	return 0 ;
+	return 1 ;
 }
 
 typedef enum _command {
