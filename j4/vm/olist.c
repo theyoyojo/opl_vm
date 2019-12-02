@@ -43,8 +43,8 @@ olist_t * olist_init_data(size_t count, ...) {
 
 bool olist_empty(olist_t * list) {
 	/* no nonsense with null ptrs */
-	assert(list) ;
-	return list->head == NULL ;
+	/* assert(list) ; */
+	return !list || list->head == NULL ;
 }
 
 olist_node_t * make_olist_node(obj_t * obj) {
@@ -54,9 +54,11 @@ olist_node_t * make_olist_node(obj_t * obj) {
 	return new ;
 }
 
-void free_olist_node(olist_node_t ** node_ptr, bool free_obj, bool free_next) {
+olist_node_t * free_olist_node(olist_node_t ** node_ptr, bool free_obj, bool free_next) {
 	assert(node_ptr) ;
 	assert(*node_ptr) ;
+
+	olist_node_t * ret = NULL ;
 	olist_node_t * node = *node_ptr ;
 	if (free_obj) {
 		D_OBJ(node->obj) ;
@@ -64,8 +66,12 @@ void free_olist_node(olist_node_t ** node_ptr, bool free_obj, bool free_next) {
 	if (free_next) {
 		free(node->next) ;
 	}
+	else {
+		ret = node->next ;
+	}
 	free(node) ;
 	*node_ptr = NULL ;
+	return ret ;
 }
 
 /* Can fail */
@@ -208,8 +214,7 @@ void olist_del(olist_t * list, size_t index) {
 
 	/* case: del first */
 	if (index == 0) {
-		next_tmp = list->head->next ;
-		free_olist_node(&list->head, true, false) ;
+		next_tmp = free_olist_node(&list->head, true, false) ;
 		list->head = next_tmp ;
 		list->length_cache-- ;
 	}	
@@ -219,8 +224,8 @@ void olist_del(olist_t * list, size_t index) {
 		olist_node_t * iter = list->head ;
 		/* go to one before the deleted to do the deleting */
 		for (i = 0, iter = list->head; i < index - 1; iter = iter->next, ++i) ;
-		next_tmp = iter->next->next ;
-		free_olist_node(&iter->next, true, false) ;
+		/* next_tmp = iter->next->next ; */
+		next_tmp = free_olist_node(&iter->next, true, false) ;
 		iter->next = next_tmp ;
 		list->length_cache-- ;
 	}

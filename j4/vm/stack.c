@@ -270,7 +270,7 @@ void D_env(obj_t ** env_ptr) {
 int env_bind(obj_t * env, olist_t * binding, olist_t * vals) {
 	assert(env) ;
 	size_t bindlen = olist_length(binding) ;
-	size_t vallen = olist_length(vals) ;
+	size_t vallen = olist_length(vals) - 1;
 	static unsigned char index_memo[MAX_BIND_AT_ONCE] ;
 	memset(index_memo, 0, MAX_BIND_AT_ONCE) ;
 	env_t * env_ = (env_t *)env ;
@@ -301,7 +301,7 @@ int env_bind(obj_t * env, olist_t * binding, olist_t * vals) {
 				/* delete and reinsert */
 				olist_del(env_->vals, j);
 				olist_insert(env_->vals,
-						C_obj_copy(olist_get(vals, i)),j) ;
+						C_obj_copy(olist_get(vals, i + 1)),j) ;
 				index_memo[i] = 1 ;
 				break ;
 			}
@@ -309,7 +309,7 @@ int env_bind(obj_t * env, olist_t * binding, olist_t * vals) {
 		if (index_memo[i]) continue ; /* skip overwritten */
 
 		olist_append(env_->idents, C_obj_copy(olist_get(binding, i))) ;
-		olist_append(env_->vals, C_obj_copy(olist_get(vals, i))) ;
+		olist_append(env_->vals, C_obj_copy(olist_get(vals, i + 1))) ;
 	}
 	return 0 ;
 }

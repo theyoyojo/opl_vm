@@ -29,7 +29,7 @@ obj_t * exec(obj_t * program) {
 	      * env 	= C_env(),  		/* E */
   	      * stack 	= C_stack(),   		/* K */
 	      * tmp1 	= NULL ;		/* 0 machine */
-	olist_t * tmplist = NULL ;
+	/* olist_t * tmplist = NULL ; */
 	size_t cycle_count = 0 ;
 
 	stack_push(stack, C_frret(env)) ;
@@ -98,16 +98,17 @@ obj_t * exec(obj_t * program) {
 					/* the code continues in the lambda's expr */
 					code = C_obj_copy(lam_get_expr(clo_get_lam(tmp1))) ;
 					/* get the list of values in frapp */
-					tmplist = olist_init_copy(frapp_get_vals(stack_top(stack))) ;
+					/* tmplist = olist_init_copy(frapp_get_vals(stack_top(stack))) ; */
 					/* remove the closure itself from the value list */
-					olist_del(tmplist, 0) ;
+					/* olist_del(tmplist, 0) ; */
 					/* extend the enviroment (this may need backend work)
 					 * I don't overwrite old values, I just append I think */
 					/* this has been fixed, but not for single */
-					env_bind(env, lam_get_binding(clo_get_lam(tmp1)), tmplist) ;
+					env_bind(env, lam_get_binding(clo_get_lam(tmp1)),
+							frapp_get_vals(stack_top(stack))) ;
 					
 					/* list is coipied so we remove the local instance */
-					olist_free(&tmplist) ;
+					/* olist_free(&tmplist) ; */
 					/* tmp1 = clo_get_env_noref(tmp1) ; */
 					/* D_OBJ(tmp1) ; */
 					/* we don't free the closure because it is free'd in stack_chop */
