@@ -251,6 +251,7 @@ obj_t * C_env_copy(obj_t * old) {
 	new->idents = olist_init_copy(old_env->idents) ;
 	new->vals = olist_init_copy(old_env->vals) ;
 	new->refcnt = 1 ;
+	printf("env copy") ;
 	return (obj_t *)new ;
 }
 
