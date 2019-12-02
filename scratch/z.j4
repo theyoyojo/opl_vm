@@ -1,6 +1,6 @@
 (let(
-	[true ($ (x) ($ (y) (x)))]
-	[false ($ (x) ($ (y) (y)))]
+	[true ($ (x) ($ (y) x))]
+	[false ($ (x) ($ (y) y))]
 	[lamif ($ (cond) ($ (e_true) ($ (e_false) ((cond e_true) e_false))))])
 (let(
 	[++ ($ (x) (+ x 1))]
@@ -26,5 +26,5 @@
 (let(
 	[zcomb ($ (f) (($ (x) (f ($ (v) ((x x) v)))) ($ (x) (f ($ (v) ((x x) v))))))])
 (let(
-	[mkfoo ($ (f) ($ (x) (x)))])
+	[mkfoo ($ (f) ($ (x) x))])
 ((zcomb mkfoo) 3))))))))

@@ -115,7 +115,7 @@ int given_exec (int argc, char * argv[], FILE * outfile) {
 		return -1 ;
 	}
 
-	fprintf(outfile, "(let(\n") ;
+	fprintf(outfile, "(let*(\n") ;
 	char c ;
 	while ((c = fgetc(given_file)) != EOF) {
 		fputc(c, outfile) ;

@@ -283,7 +283,7 @@ int env_bind(obj_t * env, olist_t * binding, olist_t * vals) {
 	}
 	if (bindlen != vallen) {
 		printf("Exception: Invalid environment binding: \n"
-				"\tident count: %lu, differes from value count: %lu\n",
+				"\tident count: %lu, differs from value count: %lu\n",
 				bindlen, vallen) ;
 		return 1 ;
 	}
@@ -529,7 +529,7 @@ size_t env_girth(obj_t * env) {
 	return olist_length(((env_t*)env)->vals) ;
 }
 
-/* INVARIANT: idents are of type indent */
+/* INVARIANT: idents are of type ident */
 ident_t * env_get_ident(obj_t * env, size_t index) {
 	if (index >= olist_length(((env_t *)env)->idents)) {
 		return NULL ;

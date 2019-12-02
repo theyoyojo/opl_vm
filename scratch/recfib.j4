@@ -1,8 +1,8 @@
 (let(
-	[fib ($ (n) (if
+	[fib ($ fib (n) (if
 		(= n 0)
 		1
 		(if (= n 1)
 			1
-			(+ (rec (- n 1)) (rec (- n 2))))))])
-(fib 8))
+			(+ (fib (- n 1)) (fib (- n 2))))))])
+(fib 10))

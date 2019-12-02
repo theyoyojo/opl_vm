@@ -79,11 +79,11 @@ class ID(Value):
         return "ID:" + self.value
 
 class Lambda(Value):
-    def __init__(self, binding, expr, rec="rec"):
+    def __init__(self, binding, expr, rec=ID("rec")):
         self.rec = rec
         self.binding = binding
         self.expr = expr
 
     def repr(self):
-        return "(lambda (" + ' '.join(ident.repr() for ident in self.binding[:]) + ")[" + self.expr.repr() + "])"
+        return "(lambda/" + self.rec.value + "(" + ' '.join(ident.repr() for ident in self.binding[:]) + ")[" + self.expr.repr() + "])"
 

@@ -92,12 +92,15 @@ def emit_subprograms(program):
             olist_args.append(id_generator())
             emit_statement(olist_args[-1], v.ID, [ident.value])
             olist_len += 1
-        print(OLIST_PREFIX,olist_id,"= olist_init_data(" + str(olist_len) + ", " + arglist_to_csv(olist_args) + ") ;")
+        if olist_len == 0:
+            print(OLIST_PREFIX, olist_id, "= olist_init() ;")
+        else:
+            print(OLIST_PREFIX,olist_id,"= olist_init_data(" + str(olist_len) + ", " + arglist_to_csv(olist_args) + ") ;")
         arglist.append(id_generator())
         subarglist = emit_subprograms(program.expr)
         emit_statement(arglist[-1], type(program.expr), subarglist)
         arglist.append(id_generator())
-        emit_statement(arglist[-1], v.ID, ["rec"])
+        emit_statement(arglist[-1], v.ID, [program.rec.value])
         arglist.insert(0, arglist.pop())
     elif isinstance(program, v.Bool):
         arglist.append(str(1 if program.value else 0))
@@ -127,8 +130,6 @@ id_generator.counter = 0
 
 OBJ_PREFIX="        obj_t * "
 OLIST_PREFIX="        olist_t * "
-
-
 
 def main():
     if len(sys.argv) != 2:
