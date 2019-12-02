@@ -46,11 +46,26 @@ void D_lam(obj_t ** lam_ptr) {
 obj_t * C_ident(char * name) {
 	assert(name) ;
 	ALLOC_OR_RETNULL(new, ident_t) ;
-	new->head = HEADER_INIT(T_IDENT, D_ident, C_ident_copy) ;
+	new->head = HEADER_INIT(T_IDENT, ident_dec_ref, ident_inc_ref) ;
 	new->length = sizeof(name) ;
 	new->value = (char *)malloc(new->length * sizeof(char)) ;
 	strncpy(new->value, name, new->length) ;
+	new->refcnt = 1 ;
 	return (obj_t *) new ;
+}
+
+obj_t * ident_inc_ref(obj_t * ident) {
+	assert(ident) ;
+	++((ident_t *)ident)->refcnt ;
+	return ident ;
+}
+
+void ident_dec_ref(obj_t ** ident_ptr) {
+	assert(ident_ptr) ;
+	assert(obj_typeof(*ident_ptr) == T_IDENT) ;
+	if (--(*(ident_t **)ident_ptr)->refcnt <= 0) {
+		D_ident(ident_ptr) ;
+	}
 }
 
 obj_t * C_ident_copy(obj_t * old) {

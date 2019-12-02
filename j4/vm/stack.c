@@ -251,7 +251,6 @@ obj_t * C_env_copy(obj_t * old) {
 	new->idents = olist_init_copy(old_env->idents) ;
 	new->vals = olist_init_copy(old_env->vals) ;
 	new->refcnt = 1 ;
-	printf("env copy") ;
 	return (obj_t *)new ;
 }
 
@@ -427,6 +426,7 @@ obj_t * C_clo(obj_t * lam, obj_t * env, bool self_bind) {
 	*new = CLO_INIT(C_obj_copy(lam), C_obj_copy(env)) ;
 	/* self-bondage */
 	if (self_bind) {
+		/* note: this overwrites the first item in the lis if it exists */
 		env_bind_direct(new->env, C_obj_copy(lam_get_recname(lam)), C_clo(lam, env, false)) ;
 	}
 	return (obj_t *)new ;

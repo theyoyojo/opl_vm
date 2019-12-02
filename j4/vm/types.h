@@ -48,6 +48,7 @@ typedef struct _ident {
 	header_t head ;
 	char * value ;
 	size_t length ;
+	int refcnt ;
 } ident_t ;
 
 obj_t * C_ident(char * name) ;
@@ -55,6 +56,9 @@ obj_t * C_ident_copy(obj_t * old) ;
 void D_ident(obj_t ** ident_ptr) ;
 char * ident_get_name(obj_t * ident) ;
 int ident_cmp(obj_t * first, obj_t * second) ;
+
+obj_t * ident_inc_ref(obj_t * ident) ;
+void ident_dec_ref(obj_t ** ident_ptr) ;
 
 typedef struct _app {
 	header_t head ;
