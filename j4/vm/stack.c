@@ -319,13 +319,16 @@ int env_bind_direct(obj_t * env, obj_t * ident, obj_t * value) {
 
 	env_t * env_ = (env_t *)env ;
 
-	if (!olist_append(env_->idents, ident)) {
+	olist_del(env_->idents, 0) ;
+	olist_del(env_->vals, 0) ;
+
+	if (!olist_insert(env_->idents, ident, 0)) {
 		return 1 ;
 	}
 
 	obj_t * tmp = value ;
 
-	if (!olist_append(env_->vals, tmp)) {
+	if (!olist_insert(env_->vals, tmp, 0)) {
 		return 1 ;
 	}
 

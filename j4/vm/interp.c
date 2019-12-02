@@ -92,7 +92,7 @@ obj_t * exec(obj_t * program) {
 					 * I would have dynamic scope. */
 					env = C_obj_copy(clo_get_env_noref(tmp1)) ;
 					/* copying an env will copy each element,
-					 * including the closure, which increments the refnt
+					 * including the closure, which increments the recfnt
 					 * of the original env */
 
 					/* the code continues in the lambda's expr */
