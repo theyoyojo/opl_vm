@@ -1,0 +1,2 @@
+@given<logic>
+(zero? 1)

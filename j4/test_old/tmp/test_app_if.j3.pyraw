@@ -1,0 +1,1 @@
+main = Cons(Atom("*"), Cons(Cons(Atom("if"), Cons(Cons(Atom("="), Cons(Atom("3"), Cons(Atom("3"), Nil()))), Cons(Atom("4"), Cons(Atom("3"), Nil())))), Cons(Atom("4"), Nil())))
