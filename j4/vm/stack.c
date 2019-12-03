@@ -28,7 +28,7 @@ void stack_push(obj_t * stack, obj_t * frame) {
 	assert(obj_typeof(stack) == T_STACK) ;
 	assert(obj_isframe(frame)) ;
 	
-	olist_insert(((stack_t *)stack)->data, frame, 0) ;
+	olist_insert(&((stack_t *)stack)->data, frame, 0) ;
 }
 
 void stack_chop(obj_t * stack) {
@@ -38,7 +38,7 @@ void stack_chop(obj_t * stack) {
 		return ;
 	}
 	else {
-		olist_del(_stack->data, 0) ;
+		olist_del(&_stack->data, 0) ;
 	}
 }
 
@@ -191,14 +191,14 @@ void D_frapp(obj_t ** frapp_ptr) {
 obj_t * frapp_pop_expr(obj_t * frapp) {
 	assert(obj_typeof(frapp) == T_FRAPP) ;
 	/* obj_t * tmp ; */
-	return olist_pop_index(((frapp_t *)frapp)->exprs, 0) ;
+	return olist_pop_index(&((frapp_t *)frapp)->exprs, 0) ;
 	/* olist_del(((frapp_t *)frapp)->exprs, 0) ; */
 	/* return tmp ; */
 }
 
 void frapp_push_value(obj_t * frapp, obj_t * obj) {
 	assert(obj_typeof(frapp) == T_FRAPP) ;
-	olist_append(((frapp_t *)frapp)->vals, obj) ;
+	olist_append(&((frapp_t *)frapp)->vals, obj) ;
 }
 
 bool frapp_has_more_exprs(obj_t * frapp) {
@@ -251,6 +251,7 @@ obj_t * C_env_copy(obj_t * old) {
 	new->idents = olist_init_copy(old_env->idents) ;
 	new->vals = olist_init_copy(old_env->vals) ;
 	new->refcnt = 1 ;
+	/* printf("env copy\n") ; */
 	return (obj_t *)new ;
 }
 
@@ -299,8 +300,8 @@ int env_bind(obj_t * env, olist_t * binding, olist_t * vals) {
 			if (!ident_cmp(olist_get(env_->idents, j),
 						olist_get(binding, i))) {
 				/* delete and reinsert */
-				olist_del(env_->vals, j);
-				olist_insert(env_->vals,
+				olist_del(&env_->vals, j);
+				olist_insert(&env_->vals,
 						C_obj_copy(olist_get(vals, i + 1)),j) ;
 				index_memo[i] = 1 ;
 				break ;
@@ -308,8 +309,8 @@ int env_bind(obj_t * env, olist_t * binding, olist_t * vals) {
 		}
 		if (index_memo[i]) continue ; /* skip overwritten */
 
-		olist_append(env_->idents, C_obj_copy(olist_get(binding, i))) ;
-		olist_append(env_->vals, C_obj_copy(olist_get(vals, i + 1))) ;
+		olist_append(&env_->idents, C_obj_copy(olist_get(binding, i))) ;
+		olist_append(&env_->vals, C_obj_copy(olist_get(vals, i + 1))) ;
 	}
 	return 0 ;
 }
@@ -319,16 +320,16 @@ int env_bind_direct(obj_t * env, obj_t * ident, obj_t * value) {
 
 	env_t * env_ = (env_t *)env ;
 
-	olist_del(env_->idents, 0) ;
-	olist_del(env_->vals, 0) ;
+	olist_del(&env_->idents, 0) ;
+	olist_del(&env_->vals, 0) ;
 
-	if (!olist_insert(env_->idents, ident, 0)) {
+	if (!olist_insert(&env_->idents, ident, 0)) {
 		return 1 ;
 	}
 
 	obj_t * tmp = value ;
 
-	if (!olist_insert(env_->vals, tmp, 0)) {
+	if (!olist_insert(&env_->vals, tmp, 0)) {
 		return 1 ;
 	}
 
