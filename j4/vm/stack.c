@@ -427,18 +427,29 @@ obj_t * C_clo(obj_t * lam, obj_t * env, bool self_bind) {
 	*new = CLO_INIT(C_obj_copy(lam), C_obj_copy(env)) ;
 	/* self-bondage */
 	if (self_bind) {
-		/* note: this overwrites the first item in the lis if it exists */
-		env_bind_direct(new->env, C_obj_copy(lam_get_recname(lam)), C_clo(lam, env, false)) ;
+		/* note: this overwrites the first item in the list if it exists */
+		env_bind_direct(new->env, C_obj_copy(lam_get_recname(lam)), (obj_t *)new) ;
 	}
 	return (obj_t *)new ;
 }
 
-obj_t * C_clo_copy(obj_t * old) {
-	clo_t * old_ = (clo_t *)old ;
-	ALLOC_OR_RETNULL(new, clo_t) ;
-	*new = CLO_INIT(C_obj_copy(old_->lam), C_obj_copy(old_->env_orig)) ;
-	env_bind_direct(new->env, C_obj_copy(lam_get_recname(new->lam)), C_clo(new->lam, new->env, false)) ;
-	return (obj_t *)new ;
+obj_t * clo_inc_ref(obj_t * clo) {
+	assert(obj_typeof(clo) == T_CLO) ;
+	++((clo_t *)clo)->refcnt ;
+	return clo ;
+}
+
+void clo_dec_ref(obj_t ** clo_ptr) {
+	assert(clo_ptr) ;
+	assert(obj_typeof(*clo_ptr) == T_CLO) ;
+	if (--(*(clo_t **)clo_ptr)->refcnt <= 0) {
+		D_clo(clo_ptr) ;
+	}
+}
+
+int clo_get_ref(obj_t * clo)  {
+	assert(obj_typeof(clo) == T_CLO) ;
+	return ((clo_t *)clo)->refcnt ;
 }
 
 obj_t * clo_get_lam(obj_t * clo) {
@@ -460,6 +471,8 @@ void D_clo(obj_t ** clo_ptr) {
 	assert(*clo_ptr) ;
 	clo_t * clo = *(clo_t **)clo_ptr ;
 	D_OBJ(clo->lam) ;
+	/* obj_t * tmp = env_get_val(clo->env, 0) ; */
+	olist_pop_index(&(((env_t *)clo->env)->vals), 0) ;
 	D_OBJ(clo->env) ;
 	D_OBJ(clo->env_orig) ;
 	free(clo) ;

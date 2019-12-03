@@ -1,30 +1,7 @@
-(let(
-	[true ($ (x) ($ (y) x))]
-	[false ($ (x) ($ (y) y))]
-	[lamif ($ (cond) ($ (e_true) ($ (e_false) ((cond e_true) e_false))))]
-	[++ ($ (x) (+ x 1))]
-	[zero ($ (f) ($ (x) x))]
-	[one ($ (f) ($ (x) (f x)))]
-	[two ($ (f) ($ (x) (f ( f x))))]
-	[three ($ (f) ($ (x) (f ( f (f x)))))])
-(let(
-	[pair ($ (a) ($ (b) ($ (c) (((lamif c) a) b))))]
-	[1st ($ (pair) (pair true))]
-	[2nd ($ (pair) (pair false))]
-	[zero? ($ (n) ((n ($ (x) false)) true))]
-	[add1 ($ (n) ($ (f) ($ (x) (f ((n f) x)))))]
-	[add ($ (n) ($ (m) ($ (f) ($ (x) ((n f ) ((m f) x))))))]
-	[mult ($ (n) ($ (m) ($ (f) ($ (x) ((n (m f)) x)))))])
-(let(
-	[four (add1 three)]
-	[five ((add two) three)]
-	[six ((add three) three)]
-	[sub1 ($ (n) (1st ((n ($ (p) ((pair (2nd p)) (add1 (2nd p))))) ((pair zero) zero))))])
-(let(
-	[zcomb ($ (f) (($ (x) (f ($ (v) ((x x) v)))) ($ (x) (f ($ (v) ((x x) v))))))]
-	[mkfac ($ (fac) ($ (n) (((lamif (zero? n)) one) ((mult n) (foo (sub1 n))))))])
+@given<lam>
 
-(zcomb mkfac)  ))))
+((zcomb mkfac) four)
+
 
 %%
 	[exp ($ (n) ($ (m) ($ (f) ($ (x) (((m (((mult n) n) ++)) x))))))]

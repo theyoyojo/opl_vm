@@ -44,7 +44,10 @@ obj_t * exec(obj_t * program) {
 		frame_print(stack_top(stack)) ;
 		printf("=============\n") ;
 #endif 
-		if (stack_height(stack) > ARBITRARY_STACK_HEIGHT_LIMIT) stack_trace(stack) ;
+		if (stack_height(stack) > ARBITRARY_STACK_HEIGHT_LIMIT) {
+			printf("Exception: stack overflow\n") ;	
+			stack_trace(stack) ;
+		}
 		switch(obj_typeof(code)) {
 		case T_IDENT:
 			if (env_maps(env, code)) {

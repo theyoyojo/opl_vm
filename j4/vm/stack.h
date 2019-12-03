@@ -115,14 +115,13 @@ typedef struct _clo {
 } clo_t ;
 
 #define CLO_INIT(_lam, _env) (clo_t) { \
-	.head = HEADER_INIT(T_CLO, D_clo, C_clo_copy), \
+	.head = HEADER_INIT(T_CLO, clo_dec_ref, clo_inc_ref), \
 	.lam =  _lam, \
 	.env = _env, \
 	.env_orig = _env, \
 	.refcnt = 1 }
 
 obj_t * C_clo(obj_t * lam, obj_t * env, bool self_bind) ;
-obj_t * C_clo_copy(obj_t * old) ;
 void D_clo(obj_t ** clo_ptr) ;
 
 obj_t * clo_inc_ref(obj_t * clo) ;

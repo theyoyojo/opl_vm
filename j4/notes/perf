@@ -88,3 +88,71 @@ sys	0m0.011s
 5: 104958
 6: 895427 (this is ~80% of the allocs above)
 7: 7639020
+
+Before and after patch to store olist_length in pointer:
+
+real	0m2.168s
+user	0m1.931s
+sys	0m0.231s
+[jsavitz@jsavitz scratch]$ time ./bar
+5
+
+real	0m2.188s
+user	0m1.965s
+sys	0m0.221s
+[jsavitz@jsavitz scratch]$ time ./bar
+5
+
+real	0m2.184s
+user	0m1.969s
+sys	0m0.208s
+[jsavitz@jsavitz scratch]$ git checkout j4
+Previous HEAD position was c4c126d Performance improvements
+Switched to branch 'j4'
+Your branch is up to date with 'origin/j4'.
+[jsavitz@jsavitz scratch]$ jcc 2lam.j4 bar
+===[Compilation Success]===
+[jsavitz@jsavitz scratch]$ time ./bar
+5
+
+real	0m0.349s
+user	0m0.297s
+sys	0m0.047s
+[jsavitz@jsavitz scratch]$
+[jsavitz@jsavitz scratch]$ time ./bar
+5
+
+real	0m0.429s
+user	0m0.369s
+sys	0m0.059s
+[jsavitz@jsavitz scratch]$ time ./bar
+5
+
+real	0m0.346s
+user	0m0.293s
+sys	0m0.051s
+
+
+3 December 2019
+
+I considered this problem in hazy detail while falling asleep last night, and I decided to try and refcnt the closures again.
+
+This time, I've figured it out.
+
+
+The following is with the _complete_ let* for all of the lambda calculus stuff:
+
+[jsavitz@jsavitz scratch]$ time ./bar
+5
+
+real	0m0.008s
+user	0m0.004s
+sys	0m0.004s
+
+
+No more exponential time!
+
+==23801==   total heap usage: 3,211 allocs, 3,211 frees, 62,016 bytes allocated
+
+Fantastic!
+
