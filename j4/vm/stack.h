@@ -121,7 +121,7 @@ typedef struct _clo {
 	.env_orig = _env, \
 	.refcnt = 1 }
 
-obj_t * C_clo(obj_t * lam, obj_t * env, bool self_bind) ;
+obj_t * C_clo(obj_t * lam, obj_t * env) ;
 void D_clo(obj_t ** clo_ptr) ;
 
 obj_t * clo_inc_ref(obj_t * clo) ;

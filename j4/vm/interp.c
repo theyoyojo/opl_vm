@@ -137,7 +137,7 @@ obj_t * exec(obj_t * program) {
 			/* <e e' ..., env, K> => <e, env, Kapp((), env, (e' ...), K> */
 		case T_LAM:
 			/* env freeze at closure creation time */
-			tmp1 = C_clo(code, env, true) ;
+			tmp1 = C_clo(code, env) ;
 			D_OBJ(code) ;
 			code = tmp1 ;
 			continue ;

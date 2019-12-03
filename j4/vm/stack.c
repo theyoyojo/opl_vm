@@ -422,14 +422,12 @@ void env_print(obj_t * env) {
 	}
 }
 
-obj_t * C_clo(obj_t * lam, obj_t * env, bool self_bind) {
+obj_t * C_clo(obj_t * lam, obj_t * env) {
 	ALLOC_OR_RETNULL(new, clo_t) ;
 	*new = CLO_INIT(C_obj_copy(lam), C_obj_copy(env)) ;
-	/* self-bondage */
-	if (self_bind) {
-		/* note: this overwrites the first item in the list if it exists */
-		env_bind_direct(new->env, C_obj_copy(lam_get_recname(lam)), (obj_t *)new) ;
-	}
+
+	/* note: this overwrites the first item in the list if it exists */
+	env_bind_direct(new->env, C_obj_copy(lam_get_recname(lam)), (obj_t *)new) ;
 	return (obj_t *)new ;
 }
 
@@ -471,7 +469,7 @@ void D_clo(obj_t ** clo_ptr) {
 	assert(*clo_ptr) ;
 	clo_t * clo = *(clo_t **)clo_ptr ;
 	D_OBJ(clo->lam) ;
-	/* obj_t * tmp = env_get_val(clo->env, 0) ; */
+	/* we remove the self-reference in the environment by removing it before freeing the env */
 	olist_pop_index(&(((env_t *)clo->env)->vals), 0) ;
 	D_OBJ(clo->env) ;
 	D_OBJ(clo->env_orig) ;
