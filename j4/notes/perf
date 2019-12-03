@@ -155,3 +155,5 @@ No more exponential time!
 ==23801==   total heap usage: 3,211 allocs, 3,211 frees, 62,016 bytes allocated
 
 Fantastic!
+
+Perf no longer reports malloc as the primary hotspot, instead it is olist_append...

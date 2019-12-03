@@ -1,4 +1,4 @@
 @given<lam>
 
 
-((((mult two) three) ++) 0)
+(((lamif true) ($ () 4) ) ($ () 5))

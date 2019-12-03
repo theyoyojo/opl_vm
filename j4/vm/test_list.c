@@ -100,7 +100,7 @@ TEST_SET(simple_exprs,
 
 		obj_t * expr = C_app(3, C_prim("+"), C_ident("x"), C_ident("y")) ;
 		obj_t * lam = C_lam(C_ident("rec"), binding, expr) ;
-		obj_t * clo = C_clo(lam, env, false) ;
+		obj_t * clo = C_clo(lam, env) ;
 		D_OBJ(env) ;
 		D_OBJ(lam) ;
 		
