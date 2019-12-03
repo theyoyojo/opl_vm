@@ -29,10 +29,11 @@ typedef struct _lam {
 	obj_t * recname ;
 	olist_t * binding ;
 	obj_t * expr ;
+	int refcnt ;
 } lam_t ;
 
 #define LAM_INIT(_recname, _binding, _expr) (lam_t) { \
-	.head = HEADER_INIT(T_LAM, D_lam, C_lam_copy), \
+	.head = HEADER_INIT(T_LAM, lam_dec_ref, lam_inc_ref), \
 	.recname = _recname, \
 	.binding = _binding, \
 	.expr = _expr }
@@ -43,6 +44,9 @@ void D_lam(obj_t ** lam_ptr) ;
 olist_t * lam_get_binding(obj_t * lam) ;
 obj_t * lam_get_expr(obj_t * lam) ;
 obj_t * lam_get_recname(obj_t * lam) ;
+
+obj_t * lam_inc_ref(obj_t * lam) ;
+void lam_dec_ref(obj_t ** lam_ptr) ;
 
 typedef struct _ident {
 	header_t head ;

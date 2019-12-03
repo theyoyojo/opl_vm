@@ -37,7 +37,7 @@ TEST_SET(simple_exprs,
 	TEST_CASE(number_in_list,
 		olist_t * list = olist_init() ;
 		obj_t * x = C_num(4) ;
-		olist_append(list, x) ;
+		olist_append(&list, x) ;
 		olist_free(&list) ;
 	) ;
 	TEST_CASE(simple_app,	
@@ -60,14 +60,14 @@ TEST_SET(simple_exprs,
 		obj_t * b = C_app(3, p,q,r) ;
 
 		olist_t * list = olist_init() ;
-		olist_append(list, a) ;
-		olist_append(list, b) ;
+		olist_append(&list, a) ;
+		olist_append(&list, b) ;
 
 		olist_free(&list) ;
 	) ;
 	TEST_CASE(olist_pop_empty_is_null,
 		olist_t * list = olist_init() ;
-		ASSERT(!olist_pop(list)) ;
+		ASSERT(!olist_pop(&list)) ;
 		olist_free(&list) ;
 	) ;
 	TEST_CASE(ident,

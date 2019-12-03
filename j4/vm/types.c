@@ -6,6 +6,7 @@ obj_t * C_lam(obj_t * recname, olist_t * binding, obj_t * expr) {
 	assert(binding), assert(expr) ;
 	ALLOC_OR_RETNULL(new, lam_t) ;	
 	*new = LAM_INIT(recname, binding, expr) ;
+	new->refcnt = 1 ;
 	return (obj_t *)new ;
 }
 
@@ -15,7 +16,22 @@ obj_t * C_lam_copy(obj_t * old) {
 	*new = LAM_INIT(C_obj_copy(((lam_t *)old)->recname),
 			olist_init_copy(((lam_t *)old)->binding),
 			C_obj_copy(((lam_t *)old)->expr)) ;
+	new->refcnt = 1 ;
 	return (obj_t *)new ;
+}
+
+obj_t * lam_inc_ref(obj_t * lam) {
+	assert(lam) ;
+	++((lam_t *)lam)->refcnt ;
+	return lam ;
+}
+
+void lam_dec_ref(obj_t ** lam_ptr) {
+	assert(lam_ptr) ;
+	assert(obj_typeof(*lam_ptr) == T_LAM) ;
+	if (--(*(lam_t **)lam_ptr)->refcnt <= 0) {
+		D_lam(lam_ptr) ;
+	}
 }
 
 olist_t * lam_get_binding(obj_t * lam) {
@@ -75,6 +91,7 @@ obj_t * C_ident_copy(obj_t * old) {
 	new->length = ((ident_t *)old)->length ;
 	new->value = (char *)malloc(new->length * sizeof(char)) ;
 	strncpy(new->value, ((ident_t *)old)->value, new->length) ;
+	new->refcnt = 1 ;
 	return (obj_t *)new ;
 }
 
@@ -104,7 +121,7 @@ obj_t * C_app(size_t count, ...) {
 	new->expr_list = olist_init() ;
 	va_start(arglist, count) ;
 	for (size_t i = 0; i < count; ++i) {
-		olist_append(new->expr_list, va_arg(arglist, obj_t *)) ;
+		olist_append(&new->expr_list, va_arg(arglist, obj_t *)) ;
 	}
 	va_end(arglist) ;
 
