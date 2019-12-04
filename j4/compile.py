@@ -60,13 +60,14 @@ def arglist_to_csv(idlist):
     return csv
 
 Cs_from_type = {
-        v.Number: "C_num",
-        v.Bool: "C_bool",
-        v.Primitive: "C_prim",
-        v.ID: "C_ident",
-        v.Lambda: "C_lam",
-        e.Application: "C_app",
-        e.If: "C_if",
+        v.Number:       "C_num",
+        v.Bool:         "C_bool",
+        v.Primitive:    "C_prim",
+        v.Pair:         "C_pair",
+        v.ID:           "C_ident",
+        v.Lambda:       "C_lam",
+        e.Application:  "C_app",
+        e.If:           "C_if",
         }
 
 def create_C_call(typeof, arglist):
@@ -104,6 +105,13 @@ def emit_subprograms(program):
         arglist.insert(0, arglist.pop())
     elif isinstance(program, v.Bool):
         arglist.append(str(1 if program.value else 0))
+    elif isinstance(program, v.Pair):
+        arglist.append(id_generator())
+        subarglist = emit_subprograms(program.first)
+        emit_statement(arglist[0], type(program.first), subarglist)
+        arglist.append(id_generator())
+        subarglist = emit_subprograms(program.second)
+        emit_statement(arglist[1], type(program.second), subarglist)
     elif issubclass(type(program), v.Value):
         arglist.append(str(program.value))
     else:

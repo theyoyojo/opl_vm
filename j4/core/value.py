@@ -49,7 +49,7 @@ class Bool(Value):
     def repr(self):
         return BoolReps[self.value]
 
-Prims = [ "+", "*", "/", "-", "<=", "<", "=", ">", ">=" ]
+Prims = [ "+", "*", "/", "-", "<=", "<", "=", ">", ">=", "pair", "fst", "snd", "inl", "inr" ]
 
 class Primitive(Value):
     attrs = {
@@ -87,3 +87,11 @@ class Lambda(Value):
     def repr(self):
         return "(lambda/" + self.rec.value + "(" + ' '.join(ident.repr() for ident in self.binding[:]) + ")[" + self.expr.repr() + "])"
 
+
+class Pair(Value):
+    def __init__(self, first, second):
+        self.second = second
+        self.first = first
+
+    def repr(self):
+        return "(%s,%s)".format(second.repr(), first.repr())

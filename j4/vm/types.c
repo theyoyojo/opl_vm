@@ -210,16 +210,51 @@ obj_t * if_copy_pred(obj_t * ifexpr) {
 	return C_obj_copy(((if_t *)ifexpr)->expr_pred) ;
 }
 
+obj_t * C_pair(obj_t * first, obj_t * second) {
+	ALLOC_OR_RETNULL(new, pair_t) ;
+	*new = PAIR_INIT(first, second) ;
+	return (obj_t *)new ;
+}
+
+obj_t * C_pair_copy(obj_t * old) {
+	ALLOC_OR_RETNULL(new, pair_t) ;
+	*new = PAIR_INIT(C_obj_copy(pair_first(old)), C_obj_copy(pair_second(old))) ;
+	return (obj_t *)new ;
+}
+
+void D_pair(obj_t ** pair_ptr) {
+	assert(pair_ptr) ;
+	assert(*pair_ptr) ;
+	D_OBJ(((pair_t *)*pair_ptr)->first) ;
+	D_OBJ(((pair_t *)*pair_ptr)->second) ;
+	free(*pair_ptr) ;
+	*pair_ptr = NULL ;
+}
+obj_t * pair_first(obj_t * pair) {
+	assert(obj_typeof(pair) == T_PAIR) ;
+	return ((pair_t *)pair)->first ;
+}
+
+obj_t * pair_second(obj_t * pair) {
+	assert(obj_typeof(pair) == T_PAIR) ;
+	return ((pair_t *)pair)->second ;
+}
+
 char * prim_syms[] = {
-	"+",
-	"*",
-	"/",
-	"-",
-	"<=",
-	"<",
-	"=",
-	">",
-	">="
+	[PRIM_INVALID]	= "[?]",
+	[PRIM_PLUS]	= "+",
+	[PRIM_MULT]	= "*",
+	[PRIM_DIV]	= "/",
+	[PRIM_SUB]	= "-",
+	[PRIM_LTEQ]	= "<=",
+	[PRIM_LT]	= "<",
+	[PRIM_EQ]	= "=",
+	[PRIM_GT]	= ">",
+	[PRIM_GTEQ]	= ">=",
+	[PRIM_PAIR]	= "pair",
+	[PRIM_FST]	= "fst",
+	[PRIM_SND]	= "snd",
+		
 };
 
 #define PRIM_SYMS_LENGTH sizeof(prim_syms)/8
@@ -235,12 +270,13 @@ prim_val_t prim_stov(char * prim) {
 }
 
 char * prim_vtos(prim_val_t prim_val) {
-	if (prim_val != PRIM_INVALID) {
-		return prim_syms[prim_val] ;
-	}
-	else {
-		return "[?]" ;
-	}
+	return prim_syms[prim_val] ;
+	/* if (prim_val != PRIM_INVALID) { */
+	/* 	return prim_syms[prim_val] ; */
+	/* } */
+	/* else { */
+	/* 	return "[?]" ; */
+	/* } */
 }
 
 obj_t * C_prim(char * prim) {
@@ -324,7 +360,7 @@ void value_print(obj_t * value) {
 		printf("]") ;
 		break ;
 	case T_CLO:
-		printf("CLO[$(") ;
+		printf("CLO{$(") ;
 		for (size_t i = 0; i < olist_length(lam_get_binding(clo_get_lam(value))); ++i) {
 			expr_print(olist_get(lam_get_binding(clo_get_lam(value)),i)) ;
 			if (i != olist_length(lam_get_binding(clo_get_lam(value))) - 1) {
@@ -333,7 +369,14 @@ void value_print(obj_t * value) {
 		}
 		printf(") ") ;
 		expr_print(lam_get_expr(clo_get_lam(value))) ;
-		printf("]") ;
+		printf("}") ;
+		break ;
+	case T_PAIR:
+		printf("<") ;
+		value_print(pair_first(value)) ;
+		printf(", ") ;
+		value_print(pair_second(value)) ;
+		printf(">") ;
 		break ;
 	default:
 		printf("SOMETHING WENT terribly WRONG IN value_print()") ;

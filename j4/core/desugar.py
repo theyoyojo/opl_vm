@@ -156,16 +156,22 @@ def desugar_let_star(sexpr):
         return desugar(s.Cons(s.Atom("let"), s.Cons(newbind, s.Cons( s.Cons(
             s.Atom("let*"), s.Cons(bind2, body)), s.Nil() ))))
 
+def desugar_pair(sexpr):
+    return v.Pair(desugar(sexpr.rest().first()), desugar(sexpr.rest().rest().first()))
+
 antirecipies = { \
-        "-": desugar_minus,
-        "+": desugar_plus,
-        "*": desugar_mult,
-        "/": desugar_div,
-        "if": desugar_if,
-        "lambda": desugar_lambda,
-        "$": desugar_lambda, # Lambdas are money
-        "let": desugar_let,
-        "let*": desugar_let_star,
+        "-":        desugar_minus,
+        "+":        desugar_plus,
+        "*":        desugar_mult,
+        "/":        desugar_div,
+        "if":       desugar_if,
+        "lambda":   desugar_lambda,
+        "$":        desugar_lambda, # Lambdas are money
+        "let":      desugar_let,
+        "let*":     desugar_let_star,
+        "pair":     desugar_pair,
+        # "fst":      desugar_fst,
+        # "snd":      desugar_snd,
         }
 
 

@@ -59,6 +59,7 @@ obj_t * exec(obj_t * program) {
 				stack_trace(stack) ;
 			}
 		case T_NUM:
+		case T_PAIR:
 		case T_BOOL:
 		case T_PRIM:
 		case T_CLO:

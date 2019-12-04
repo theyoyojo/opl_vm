@@ -11,7 +11,8 @@
 #include "obj.h"
 
 typedef enum {
-	PRIM_PLUS = 0,
+	PRIM_INVALID,
+	PRIM_PLUS,
 	PRIM_MULT,
 	PRIM_DIV,
 	PRIM_SUB,
@@ -20,7 +21,9 @@ typedef enum {
 	PRIM_EQ,
 	PRIM_GT,
 	PRIM_GTEQ,
-	PRIM_INVALID = 99
+	PRIM_PAIR,
+	PRIM_FST,
+	PRIM_SND,
 } prim_val_t ;
 
 
@@ -98,6 +101,23 @@ obj_t * if_copy_pred(obj_t * ifexpr) ;
 obj_t * if_get_pred(obj_t * ifexpr) ;
 obj_t * if_get_true(obj_t * ifexpr) ;
 obj_t * if_get_false(obj_t * ifexpr) ;
+
+typedef struct _pair {
+	header_t head ;
+	obj_t * first ;
+	obj_t * second ;
+} pair_t ;
+
+#define PAIR_INIT(_fst, _snd) (pair_t) { \
+	.head = HEADER_INIT(T_PAIR, D_pair, C_pair_copy), \
+	.first = _fst, \
+	.second = _snd, }
+
+obj_t * C_pair(obj_t * first, obj_t * second) ;
+obj_t * C_pair_copy(obj_t * old) ;
+void D_pair(obj_t ** pair_ptr) ;
+obj_t * pair_first(obj_t * pair) ;
+obj_t * pair_second(obj_t * pair) ;
 
 typedef struct _val {
 	header_t head ;
