@@ -20,6 +20,7 @@ typedef struct _olist_node {
 
 typedef struct _olist {
 	olist_node_t * head ;
+	olist_node_t * tail ;
 } olist_t ;
 
 /* Can fail */

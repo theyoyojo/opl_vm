@@ -9,6 +9,7 @@ enum dummy { DONT_CARE } ;
 #define OLIST_HANDLE_MASK	0xffffff0
 
 #define OLIST_HEAD(___handle) ((((olist_t *)((size_t)___handle & OLIST_HANDLE_MASK)))->head)
+#define OLIST_TAIL(___handle) ((((olist_t *)((size_t)___handle & OLIST_HANDLE_MASK)))->tail)
 
 
 
@@ -37,7 +38,7 @@ inline void olist_length_dec(olist_t *** list) {
 /* Can fail */
 olist_t * olist_init(void) {
 	ALLOC_OR_RETNULL(new, olist_t) ;
-	new->head = NULL ;
+	new->head = new->tail = NULL ; /* length is zero so ptr is raw and derefable */
 	return new ;
 }
 
@@ -105,33 +106,33 @@ bool olist_append(olist_t ** list, obj_t * new) {
 	/* object better be valid here */
 	assert(list), assert(new) ;
 
-	olist_node_t * iter = OLIST_HEAD(*list) ;
+	/* olist_node_t * iter = OLIST_HEAD(*list) ; */
 	/* case: empty list */
-	if (iter == NULL) {
+	if (OLIST_HEAD(*list) == NULL) {
 		OLIST_HEAD(*list) = make_olist_node(new) ;
 		if (!OLIST_HEAD(*list)) {
 			/* we have failed in node allocation */
 			return false ;
 		}
 		else {
+			OLIST_TAIL(*list) = OLIST_HEAD(*list) ;
 			olist_length_inc(&list) ;
 			return true ;
 		}
 	}
 	/* case: non-empty list */
-	while (iter->next != NULL) {
-		iter = iter->next ;
-	}
-	/* iter->next is now the end of the list */
-	iter->next = make_olist_node(new) ;
-	if (!iter->next) {
+	OLIST_TAIL(*list)->next = make_olist_node(new) ;
+	if (!OLIST_TAIL(*list)) {
 		/* we have failed in node allocation */
 		return false ;
 	}
 	else {
+		OLIST_TAIL(*list) = OLIST_TAIL(*list)->next ;
 		olist_length_inc(&list) ;
 		return true ;
 	}
+
+	
 }
 
 
@@ -199,6 +200,9 @@ obj_t * olist_pop_index(olist_t ** list, size_t index)  {
 		next_tmp = OLIST_HEAD(*list)->next ;
 		free_olist_node(&OLIST_HEAD(*list), false, false) ;
 		OLIST_HEAD(*list) = next_tmp ;
+		if (!next_tmp) {
+			OLIST_TAIL(*list)->next = NULL ;
+		}
 		olist_length_dec(&list) ;
 	}	
 	/* case: pop rest */
@@ -211,6 +215,9 @@ obj_t * olist_pop_index(olist_t ** list, size_t index)  {
 		get = iter->next->obj ;
 		free_olist_node(&iter->next, false, false) ;
 		iter->next = next_tmp ;
+		if (index == olist_length(*list) - 1) { /* last item popped or list now empty */
+			OLIST_TAIL(*list)->next = next_tmp ;
+		}
 		olist_length_dec(&list) ;
 	}
 
@@ -242,6 +249,9 @@ void olist_del(olist_t ** list, size_t index) {
 	if (index == 0) {
 		next_tmp = free_olist_node(&OLIST_HEAD(*list), true, false) ;
 		OLIST_HEAD(*list) = next_tmp ;
+		if (olist_length(*list) == 1) {
+			OLIST_TAIL(*list)->next = NULL ;
+		}
 		olist_length_dec(&list) ;
 	}	
 	/* case: del rest */
@@ -253,6 +263,9 @@ void olist_del(olist_t ** list, size_t index) {
 		/* next_tmp = iter->next->next ; */
 		next_tmp = free_olist_node(&iter->next, true, false) ;
 		iter->next = next_tmp ;
+		if (index == olist_length(*list) - 1) {
+			OLIST_TAIL(*list)->next = next_tmp ;
+		}
 		olist_length_dec(&list) ;
 	}
 
