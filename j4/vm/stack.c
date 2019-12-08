@@ -61,27 +61,21 @@ obj_t * stack_top(obj_t * stack) {
 	}
 }
 
-/* This function does not return */
+/* this function returns a new abortion */
 void stack_trace(obj_t * stack) {
 	assert(obj_typeof(stack) == T_STACK) ;
 	stack_t * stack_ = (stack_t *)stack ;
 		
 	obj_t * tmp ;
-	printf("Stack trace of aborted future plans:\n") ;
+	printf("Stack trace:\n") ;
 
 	for (size_t i = 0; i < olist_length(stack_->data); ++i) {
-		tmp = stack_top(stack) ;
+		tmp = olist_get(stack_->data, i) ;
 		printf("\t%s %p: frame: %s env: %s\n",
 			i == 0 ? "at" : "by",
 			tmp, frame_get_name(tmp), frame_get_env_name(tmp)) ;
 		frame_print(tmp) ;
-		stack_chop(stack) ;
 	}
-
-	printf("===[TERMINATION IMMINENT]===\n") ;
-
-	/* I could clean the main function's memory with a callback here... */
-	exit(1) ;
 }
 
 /* actually, this function should definitely get a new reference, 

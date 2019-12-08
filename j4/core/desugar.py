@@ -165,6 +165,11 @@ def desugar_atom(sexpr):
         return v.Bool(0)
     elif sexpr.repr() == "unit":
         return v.Unit()
+    # parser doesn't support spaces and I don't want to rearchitect it so this will do:
+    elif sexpr.repr() == "#S":
+        return v.String("\" \"")
+    elif  sexpr.repr()[0] == "\"" and sexpr.repr()[-1] == "\"":
+        return v.String(sexpr.repr())
     # Must be an id then
     else:
         return v.ID(sexpr.repr())

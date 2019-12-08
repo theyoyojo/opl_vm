@@ -17,6 +17,7 @@ bool obj_isvalue(obj_t * obj) {
 		obj_typeof(obj) == T_UNIT ||
 		obj_typeof(obj) == T_PAIR ||
 		obj_typeof(obj) == T_PTR ||
+		obj_typeof(obj) == T_STR ||
 		obj_typeof(obj) == T_LAM ||
 		obj_typeof(obj) == T_CLO ; /* I suppose a closure is a value */
 }

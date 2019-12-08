@@ -1,5 +1,7 @@
 #include "delta.h"
+
 #include "mem.h"
+#include <string.h>
 
 
 obj_t * delta_plus(num_t * first, num_t * second) {
@@ -72,19 +74,42 @@ obj_t * delta_unbox(obj_t * ptr) {
 	return mem_deref(ptr) ;
 }
 
+obj_t * delta_print(obj_t * obj) {
+	expr_print(obj) ;
+	putchar('\n') ;
+	return C_unit() ;
+}
+
 obj_t * (*dtable_unary[])(obj_t *) = {
-	[PRIM_FST]  = delta_fst,
-	[PRIM_SND]  = delta_snd,
+	[PRIM_FST]  	= delta_fst,
+	[PRIM_SND]  	= delta_snd,
 	[PRIM_BOX] 	= delta_box,
 	[PRIM_UNBOX] 	= delta_unbox,
+	[PRIM_PRINT]	= delta_print,
 } ;
 
 obj_t * delta_set_box(obj_t * ptr, obj_t * newval) {
 	return mem_set(ptr, newval) ;
 }
 
+obj_t * delta_strcat(obj_t * str1, obj_t * str2) {
+	if (obj_typeof(str1) != T_STR && obj_typeof(str2) != T_STR) {
+		return C_abort(C_str("Error: cannot concat non-str objects")) ;
+	}
+	else {
+		size_t newsize = str_size(str1) + str_size(str2) ;
+		char * newstr = (char *)malloc(newsize + 1) ;
+		strcpy(newstr, str_get(str1)) ;
+		strcat(newstr, str_get(str2)) ;
+		obj_t * new = C_str(newstr) ;
+		free(newstr) ;
+		return new ;
+	}
+}
+
 obj_t * (*dtable_binary[])(obj_t *, obj_t *) = {
 	[PRIM_SETBOX] 	= delta_set_box,
+	[PRIM_PLUS]	= delta_strcat,	/* no type validation here btw */
 } ;
 
 obj_t * delta_frapp(obj_t * obj) {

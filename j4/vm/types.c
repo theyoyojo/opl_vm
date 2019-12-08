@@ -64,7 +64,9 @@ obj_t * C_ident(char * name) {
 	ALLOC_OR_RETNULL(new, ident_t) ;
 	new->head = HEADER_INIT(T_IDENT, ident_t, ident_dec_ref, ident_inc_ref) ;
 	new->length = sizeof(name) ;
-	new->value = (char *)malloc(new->length * sizeof(char)) ;
+	if (!(new->value = (char *)malloc(new->length * sizeof(char)))) {
+		return NULL ;
+	}
 	strncpy(new->value, name, new->length) ;
 	new->refcnt = 1 ;
 	return (obj_t *) new ;
@@ -312,6 +314,7 @@ char * prim_syms[] = {
 	[PRIM_BOX]	= "box",
 	[PRIM_UNBOX]	= "unbox",
 	[PRIM_SETBOX]	= "set-box!",
+	[PRIM_PRINT]	= "print",
 };
 
 #define PRIM_SYMS_LENGTH sizeof(prim_syms)/8
@@ -387,6 +390,48 @@ obj_t * C_num_copy(obj_t * old) {
 void D_num(obj_t ** num_ptr) {
 	free(*num_ptr) ;
 	*num_ptr = NULL ;
+}
+
+obj_t * C_str(char * str) {
+	ALLOC_OR_RETNULL(new, str_t) ;
+	new->head = HEADER_INIT(T_STR, str_t, D_str, C_str_copy) ;
+	new->size = strlen(str) ;
+	if (!(new->value = (char *)malloc(new->size + 1))) {
+		return NULL ;
+	}
+	strncpy(new->value, str, new->size) ;
+	new->value[new->size] = '\0' ;
+	return (obj_t *)new ;
+}
+
+obj_t * C_str_copy(obj_t * old) {
+	ALLOC_OR_RETNULL(new, str_t) ;
+	new->head = HEADER_INIT(T_STR, str_t, D_str, C_str_copy) ;
+	new->size = str_size(old) ;
+	if (!(new->value = (char *)malloc(new->size + 1))) {
+		return NULL ;
+	}
+	strncpy(new->value, str_get(old), new->size) ;
+	new->value[new->size] = '\0' ;
+	return (obj_t *)new ;
+
+}
+void D_str(obj_t ** str_ptr) {
+	assert(str_ptr) ;
+	assert(*str_ptr) ;
+	free(((str_t *)*str_ptr)->value) ;
+	free(*str_ptr) ;
+	*str_ptr = NULL ;
+}
+
+char * str_get(obj_t * str) {
+	assert(obj_typeof(str) == T_STR) ;
+	return ((str_t *)str)->value ;
+}
+
+size_t str_size(obj_t *str) {
+	assert(obj_typeof(str) == T_STR) ;
+	return ((str_t *)str)->size ;
 }
 
 static int _unit_refcnt = 0 ;
@@ -479,6 +524,9 @@ void value_print(obj_t * value) {
 		break ;
 	case T_PTR:
 		printf("PTR/%zu[%p]", ptr_size(value), ptr_addr(value)) ;
+		break ;
+	case T_STR:
+		printf("\"%s\"", str_get(value)) ;
 		break ;
 	default:
 		printf("SOMETHING WENT terribly WRONG IN value_print()") ;

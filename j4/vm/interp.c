@@ -57,6 +57,13 @@ void exec_pair_resolve(obj_t * env, obj_t * pair, obj_t * stack) {
 	}
 }
 
+void exec_exception(obj_t ** code_ptr, obj_t * stack, obj_t * msg) {
+	printf("ERROR!\n") ;
+	stack_trace(stack) ;
+	D_OBJ(*code_ptr) ;
+	*code_ptr = C_abort(msg) ;
+}
+
 
 #define endlessly_repeat while (++cycle_count || 1)
 #define ARBITRARY_STACK_HEIGHT_LIMIT 1000
@@ -74,7 +81,9 @@ obj_t * exec(obj_t * program) {
 	stack_push(stack, C_frret(env)) ;
 
 	endlessly_repeat {			
-		if (!code) goto panic ;
+		if (!code) {
+			code = C_abort(C_str("Critical and Exceptional Error: the codes has gone missing")) ;
+		}
 #ifdef DEBUG
 		printf("===[C E K]===\n") ;
 		printf("Cycle:\t%ld\n", cycle_count) ;
@@ -84,19 +93,19 @@ obj_t * exec(obj_t * program) {
 		printf("=============\n") ;
 #endif 
 		if (stack_height(stack) > ARBITRARY_STACK_HEIGHT_LIMIT) {
-			printf("Exception: stack overflow\n") ;	
-			stack_trace(stack) ;
+			exec_exception(&code, stack, C_str("Exception: stack overflow")) ;
 		}
-		mem_gc() ; /* g a r b a g e  c o l l e c t i o n */
+		mem_gc() ; /* g a r b a g e  c o l l e c t i o n (soon) */
 		switch(obj_typeof(code)) {
 		case T_IDENT:
 			if (env_maps(env, code)) {
 				code = env_subst(env, code) ;
 				continue ;
 			} else {
-				printf("Exception: unbound identifier %s\n",
-						ident_get_name(code)) ;
-				stack_trace(stack) ;
+				exec_exception(&code, stack, C_app(3,
+					C_prim("+"), C_str("Exception: unbound identifier: "),
+					C_str(ident_get_name(code)))) ;
+				continue ;
 			}
 		case T_PAIR:
 			exec_pair_resolve(env, code, stack) ;
@@ -106,6 +115,7 @@ obj_t * exec(obj_t * program) {
 		case T_CLO:
 		case T_UNIT:
 		case T_PTR:
+		case T_STR:
 			switch (obj_typeof(stack_top(stack))) {
 			/* <v, 0, kret > => return v */
 			case T_FRRET:
@@ -167,16 +177,17 @@ obj_t * exec(obj_t * program) {
 					env = stack_top_env(stack) ; /* restore previous env */
 				} else {
 					/* failed delta function */
-					printf("Exception: undefined delta function \"") ;
-					value_print(frapp_get_first_value(stack_top(stack))) ;
-					printf("\"\n") ;
-					stack_trace(stack) ;
+					exec_exception(&code, stack, C_app(3, C_prim("+"), C_str("Exception: undefined delta function: "), C_str(" TODO: add stringification of values and expressions"))) ;
+					/* printf("Exception: undefined delta function \"") ; */
+					/* value_print(frapp_get_first_value(stack_top(stack))) ; */
+					/* printf("\"\n") ; */
+					/* stack_trace(stack) ; */
 							
 				}
 				continue ;
 			default:
-				printf("Exception: illegal stack object\n") ;
-				stack_trace(stack) ;
+				exec_exception(&code, stack, C_str("Excepton: illegal stack object")) ;
+				continue ;
 			}
 			/* <e e' ..., env, K> => <e, env, Kapp((), env, (e' ...), K> */
 		case T_LAM:
@@ -202,19 +213,18 @@ obj_t * exec(obj_t * program) {
 		case T_ABORT:
 			tmp1 = C_obj_copy(abort_expr(code)) ;
 			while (obj_typeof(stack_top(stack)) != T_FRRET) {
-				printf("asfd\n") ;
+				/* printf("asfd\n") ; */
 				stack_chop(stack) ;
 			}
 			D_OBJ(code) ;
 			code = tmp1 ;
+			continue ;
+		default:
+			exec_exception(&code, stack, C_str("Exception: unidentifiable code")) ;
 			break ;
-		default :
-			printf("Exception: mystery code\n") ;
-			stack_trace(stack) ;
 			
 		}
 	}
-
 
 success:
 	mem_system_free() ;
@@ -222,9 +232,5 @@ success:
 	D_OBJ	(stack) ;		/* K */
 	D_OBJ	(env) 	;		/* E */
 	return  (code) 	;		/* C */
-panic:
-	printf("Exception: the code has gone missing\n") ;
-	stack_trace(stack) ;
-	return NULL ; /* this line is never executed */
 }
 

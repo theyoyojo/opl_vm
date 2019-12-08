@@ -27,6 +27,7 @@ typedef enum {
 	PRIM_BOX,
 	PRIM_UNBOX,
 	PRIM_SETBOX,
+	PRIM_PRINT,
 } prim_val_t ;
 
 
@@ -205,6 +206,19 @@ typedef struct _num {
 obj_t * C_num(double value) ;
 obj_t * C_num_copy(obj_t * old) ;
 void D_num(obj_t ** num_ptr) ;
+
+typedef struct _str {
+	header_t head ;
+	char * value ;
+	size_t size ;
+} str_t ;
+
+obj_t * C_str(char * str) ;
+obj_t * C_str_copy(obj_t * old) ;
+void D_str(obj_t ** str_ptr) ;
+
+char * str_get(obj_t * str) ;
+size_t str_size(obj_t *str) ;
 
 /* There is actually just one constant unit object that is statically allocated */
 obj_t * C_unit() ;

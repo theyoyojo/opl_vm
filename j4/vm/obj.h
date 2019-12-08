@@ -19,6 +19,7 @@ typedef enum _type {
 	T_PAIR,
 	T_IDENT,
 	T_PTR,
+	T_STR,
 	T_LAM,
 	T_ABORT,
 	T_STACK,
@@ -33,6 +34,9 @@ struct _obj ;
 typedef struct _header {
 	type_t type;	
 	size_t size ;
+	char * repr ;
+	size_t repr_size ;
+	void (*repr_gen)(struct _obj *) ;
 	void (*D_obj)(struct _obj **) ;
 	struct _obj * (*C_obj_copy)(struct _obj *) ;
 } header_t ;
@@ -51,7 +55,8 @@ type_t obj_typeof(obj_t * obj) ;
 
 size_t obj_sizeof(obj_t * obj) ;
 
-void obj_repr(obj_t * obj, char * buf, int buflen) ;
+/* returns a null terminated character string on success and NULL on failure */
+char * obj_repr(obj_t * obj) ;
 
 bool obj_isvalue(obj_t * obj) ;
 
