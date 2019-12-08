@@ -56,15 +56,29 @@ def desugar_binding(sexpr):
         args.append(desugar(siter.first()))
         siter = siter.rest()
     return args
+
+def generate_garbage_ident():
+    generate_garbage_ident.count += 1
+    return "X__foobarbazwhocares" + str(generate_garbage_ident.count)
+
+generate_garbage_ident.count = 0
+
+def recursive_letify(sexpr):
+    if sexpr.length() == 1:
+        return sexpr.first()
+    else:
+        return s.Cons(s.Atom("let"), s.Cons(s.Cons(s.Cons(s.Atom(generate_garbage_ident()),
+            s.Cons(sexpr.first(), s.Nil())), s.Nil()) , s.Cons(recursive_letify(sexpr.rest()),s.Nil())))
     
 def desugar_lambda(sexpr):
     sexpr = sexpr.rest()
-    if sexpr.length() > 2:
+
+    if isinstance(sexpr.first(), s.Atom):
         recname = desugar(sexpr.first())
         sexpr = sexpr.rest()
-        return v.Lambda(desugar_binding(sexpr.first()),desugar(sexpr.rest().first()), recname)
-    # first->bindings, rest->def
-    return v.Lambda(desugar_binding(sexpr.first()),desugar(sexpr.rest().first()))
+    else:
+        recname = v.ID("rec")
+    return v.Lambda(desugar_binding(sexpr.first()),desugar(recursive_letify(sexpr.rest())), recname)
 
 def desugar_let(sexpr):
     sexpr = sexpr.rest()

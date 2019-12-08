@@ -49,7 +49,7 @@ class Bool(Value):
     def repr(self):
         return BoolReps[self.value]
 
-Prims = [ "+", "*", "/", "-", "<=", "<", "=", ">", ">=", "pair", "fst", "snd", "inl", "inr" ]
+Prims = [ "+", "*", "/", "-", "<=", "<", "=", ">", ">=", "pair", "fst", "snd", "box", "unbox", "set-box!" ]
 
 class Primitive(Value):
     attrs = {
