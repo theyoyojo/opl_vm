@@ -1,1 +1,0 @@
-main = Cons(Atom("-"), Cons(Atom("2"), Cons(Atom("3"), Nil())))
