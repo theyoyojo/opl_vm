@@ -66,6 +66,7 @@ Cs_from_type = {
         v.Pair:         "C_pair",
         v.ID:           "C_ident",
         v.Lambda:       "C_lam",
+        v.Unit:         "C_unit",
         e.Application:  "C_app",
         e.If:           "C_if",
         }
@@ -112,6 +113,8 @@ def emit_subprograms(program):
         arglist.append(id_generator())
         subarglist = emit_subprograms(program.second)
         emit_statement(arglist[1], type(program.second), subarglist)
+    elif isinstance(program, v.Unit):
+        pass
     elif issubclass(type(program), v.Value):
         arglist.append(str(program.value))
     else:

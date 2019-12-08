@@ -19,6 +19,43 @@ static inline void boolify_if_not_already_bool(obj_t ** code, obj_t ** tmp) {
 	}
 }
 
+void exec_pair_resolve(obj_t * env, obj_t * pair, obj_t * stack) {
+
+	obj_t * tmp ;		
+
+	switch(obj_typeof(pair_first(pair))) {
+	case T_IDENT:
+		if (env_maps(env, (tmp = pair_first(pair)))) {
+			pair_overwrite_first(pair, env_subst(env, tmp)) ;
+		} else {
+			printf("Exception: unbound identifier %s\n",
+					ident_get_name(tmp)) ;
+			stack_trace(stack) ;
+		}
+		break ;
+	case T_PAIR:
+		exec_pair_resolve(env, pair_first(pair), stack) ;
+	default:
+		break ;
+
+	}
+	switch(obj_typeof(pair_second(pair))) {
+	case T_IDENT:
+		if (env_maps(env, (tmp = pair_second(pair)))) {
+			pair_overwrite_second(pair, env_subst(env, tmp)) ;
+		} else {
+			printf("Exception: unbound identifier %s\n",
+					ident_get_name(tmp)) ;
+			stack_trace(stack) ;
+		}
+		break ;
+	case T_PAIR:
+		exec_pair_resolve(env, pair_second(pair), stack) ;
+	default:
+		break ;
+	}
+}
+
 
 #define endlessly_repeat while (++cycle_count || 1)
 #define ARBITRARY_STACK_HEIGHT_LIMIT 1000
@@ -58,11 +95,13 @@ obj_t * exec(obj_t * program) {
 						ident_get_name(code)) ;
 				stack_trace(stack) ;
 			}
-		case T_NUM:
 		case T_PAIR:
+			exec_pair_resolve(env, code, stack) ;
+		case T_NUM:
 		case T_BOOL:
 		case T_PRIM:
 		case T_CLO:
+		case T_UNIT:
 			switch (obj_typeof(stack_top(stack))) {
 			/* <v, 0, kret > => return v */
 			case T_FRRET:

@@ -14,6 +14,7 @@ typedef enum _type {
 	T_BOOL,
 	T_PRIM,
 	T_NUM,
+	T_UNIT,
 	T_PAIR,
 	T_IDENT,
 	T_LAM,

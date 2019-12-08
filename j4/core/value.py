@@ -90,8 +90,15 @@ class Lambda(Value):
 
 class Pair(Value):
     def __init__(self, first, second):
-        self.second = second
         self.first = first
+        self.second = second
 
     def repr(self):
-        return "(%s,%s)".format(second.repr(), first.repr())
+        return "<{}, {}>".format(self.first.repr(), self.second.repr())
+
+class Unit(Value):
+    def __init__(self):
+        pass
+
+    def repr(self):
+        return "{UNIT}"

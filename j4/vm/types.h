@@ -119,6 +119,9 @@ void D_pair(obj_t ** pair_ptr) ;
 obj_t * pair_first(obj_t * pair) ;
 obj_t * pair_second(obj_t * pair) ;
 
+void pair_overwrite_first(obj_t * pair, obj_t * new) ;
+void pair_overwrite_second(obj_t * pair, obj_t * new) ;
+
 typedef struct _val {
 	header_t head ;
 } val_t ;
@@ -164,6 +167,11 @@ typedef struct _num {
 obj_t * C_num(double value) ;
 obj_t * C_num_copy(obj_t * old) ;
 void D_num(obj_t ** num_ptr) ;
+
+/* There is actually just one constant unit object that is statically allocated */
+obj_t * C_unit() ;
+obj_t * C_unit_copy(obj_t * old) ;
+void D_unit(obj_t ** unit_ptr) ;
 
 
 void value_print(obj_t * value) ;

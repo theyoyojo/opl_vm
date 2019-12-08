@@ -230,6 +230,7 @@ void D_pair(obj_t ** pair_ptr) {
 	free(*pair_ptr) ;
 	*pair_ptr = NULL ;
 }
+
 obj_t * pair_first(obj_t * pair) {
 	assert(obj_typeof(pair) == T_PAIR) ;
 	return ((pair_t *)pair)->first ;
@@ -238,6 +239,16 @@ obj_t * pair_first(obj_t * pair) {
 obj_t * pair_second(obj_t * pair) {
 	assert(obj_typeof(pair) == T_PAIR) ;
 	return ((pair_t *)pair)->second ;
+}
+
+void pair_overwrite_first(obj_t * pair, obj_t * new) {
+	assert(obj_typeof(pair) == T_PAIR) ;
+	((pair_t *)pair)->first = new ;
+
+}
+void pair_overwrite_second(obj_t * pair, obj_t * new) {
+	assert(obj_typeof(pair) == T_PAIR) ;
+	((pair_t *)pair)->second = new ;
 }
 
 char * prim_syms[] = {
@@ -333,6 +344,47 @@ void D_num(obj_t ** num_ptr) {
 	*num_ptr = NULL ;
 }
 
+static int _unit_refcnt = 0 ;
+static obj_t * _unit_ptr = NULL ;
+
+obj_t * _unit_inc(void) {
+	if (_unit_refcnt <= 0) {
+		if (!(_unit_ptr = (obj_t *)malloc(sizeof(obj_t)))) {
+			return NULL ;
+		}
+
+		*_unit_ptr = (obj_t) {
+			.head = HEADER_INIT(T_UNIT, D_unit, C_unit_copy)
+		} ;
+		_unit_refcnt = 1 ;
+	} else {
+		++_unit_refcnt ;
+	}
+
+	return _unit_ptr ;
+}
+
+void _unit_dec(void) {
+	if (--_unit_refcnt <= 0) {
+		free(_unit_ptr) ;
+		_unit_ptr = NULL ;
+	}
+}
+
+obj_t * C_unit() {
+	return _unit_inc() ;
+}
+
+obj_t * C_unit_copy(obj_t * old) {
+	(void)old ;
+	return _unit_inc() ;
+}
+
+void D_unit(obj_t ** unit_ptr) {
+	(void)unit_ptr ;
+	_unit_dec() ;
+}
+
 
 void value_print(obj_t * value) {
 	assert(obj_isvalue(value)) ;
@@ -349,8 +401,7 @@ void value_print(obj_t * value) {
 		break ;
 	case T_LAM:
 		printf("LAM[$(") ;
-		for (size_t i = 0; i < olist_length(lam_get_binding(value)); ++i) {
-			expr_print(olist_get(lam_get_binding(value),i)) ;
+		for (size_t i = 0; i < olist_length(lam_get_binding(value)); ++i) { expr_print(olist_get(lam_get_binding(value),i)) ;
 			if (i != olist_length(lam_get_binding(value)) - 1) {
 				printf(", ") ;
 			}
@@ -373,10 +424,13 @@ void value_print(obj_t * value) {
 		break ;
 	case T_PAIR:
 		printf("<") ;
-		value_print(pair_first(value)) ;
+		expr_print(pair_first(value)) ;
 		printf(", ") ;
-		value_print(pair_second(value)) ;
+		expr_print(pair_second(value)) ;
 		printf(">") ;
+		break ;
+	case T_UNIT:
+		printf("{#UNIT#}") ;
 		break ;
 	default:
 		printf("SOMETHING WENT terribly WRONG IN value_print()") ;
