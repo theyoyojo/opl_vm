@@ -128,6 +128,30 @@ obj_t * C_app(size_t count, ...) {
 	return (obj_t *)new ;
 }
 
+obj_t * C_abort(obj_t * expr) {
+	ALLOC_OR_RETNULL(new, abort_t) ;
+	*new = ABORT_INIT(expr) ;
+	return (obj_t *)new ;
+}
+
+obj_t * C_abort_copy(obj_t * old) {
+	ALLOC_OR_RETNULL(new, abort_t) ;
+	*new = ABORT_INIT(C_obj_copy(abort_expr(old))) ;
+	return (obj_t *)new ;
+}
+void D_abort(obj_t ** abort_ptr) {
+	assert(abort_ptr) ;
+	assert(*abort_ptr) ;
+	D_OBJ(((abort_t *)*abort_ptr)->expr) ;
+	free(*abort_ptr) ;
+	*abort_ptr = NULL ;
+}
+
+obj_t * abort_expr(obj_t * abort) {
+	assert(obj_typeof(abort) == T_ABORT) ;
+	return ((abort_t *)abort)->expr ;
+}
+
 /* construct an app from an expr list */
 obj_t * C_app_list(olist_t * expr_list) {
 	ALLOC_OR_RETNULL(new, app_t) ;
@@ -461,6 +485,11 @@ void expr_print(obj_t * expr) {
 		break ;
 	case T_IDENT:
 		printf("%s", ((ident_t *)expr)->value) ;
+		break ;
+	case T_ABORT:
+		printf("ABORT[") ;
+		expr_print(abort_expr(expr)) ;
+		printf("]") ;
 		break ;
 	default:
 		printf("SOMETHING WENT terribly WRONG IN expr_print()") ;

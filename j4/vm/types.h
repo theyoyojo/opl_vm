@@ -67,6 +67,20 @@ int ident_cmp(obj_t * first, obj_t * second) ;
 obj_t * ident_inc_ref(obj_t * ident) ;
 void ident_dec_ref(obj_t ** ident_ptr) ;
 
+#define ABORT_INIT(_expr) (abort_t) { \
+	.head = HEADER_INIT(T_ABORT, D_abort, C_abort_copy), \
+	.expr = _expr }
+
+typedef struct _abort {
+	header_t head ;
+	obj_t * expr ;
+} abort_t ;
+
+obj_t * C_abort(obj_t * expr) ;
+obj_t * C_abort_copy(obj_t * old) ;
+void D_abort(obj_t ** abort_ptr) ;
+obj_t * abort_expr(obj_t * abort) ;
+
 typedef struct _app {
 	header_t head ;
 	olist_t * expr_list ;

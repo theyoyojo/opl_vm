@@ -69,6 +69,7 @@ Cs_from_type = {
         v.Unit:         "C_unit",
         e.Application:  "C_app",
         e.If:           "C_if",
+        e.Abort:        "C_abort",
         }
 
 def create_C_call(typeof, arglist):

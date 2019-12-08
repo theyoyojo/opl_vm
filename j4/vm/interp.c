@@ -195,6 +195,15 @@ obj_t * exec(obj_t * program) {
 			code = tmp1 ;
 			/* env unchanged */
 			continue ;
+		case T_ABORT:
+			tmp1 = C_obj_copy(abort_expr(code)) ;
+			while (obj_typeof(stack_top(stack)) != T_FRRET) {
+				printf("asfd\n") ;
+				stack_chop(stack) ;
+			}
+			D_OBJ(code) ;
+			code = tmp1 ;
+			break ;
 		default :
 			printf("Exception: mystery code\n") ;
 			stack_trace(stack) ;

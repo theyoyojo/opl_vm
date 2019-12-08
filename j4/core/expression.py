@@ -38,3 +38,14 @@ class If(Expression):
 
     def false(self):
         return self.expressions[2]
+
+class Abort(Expression):
+    attrs = {
+            "args_expected": 1,
+            }
+
+    def expr(self):
+        return self.expressions[0]
+
+    def repr(self):
+        return "(ABORT {})".format(self.expr().repr())

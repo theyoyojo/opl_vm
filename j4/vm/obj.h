@@ -18,6 +18,7 @@ typedef enum _type {
 	T_PAIR,
 	T_IDENT,
 	T_LAM,
+	T_ABORT,
 	T_STACK,
 	T_FRIF,
 	T_FRAPP,

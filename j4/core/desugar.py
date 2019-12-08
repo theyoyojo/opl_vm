@@ -114,6 +114,10 @@ def desugar_case(sexpr):
             e.Application(funl, e.Application(v.Primitive("snd"), switch)),
                 e.Application(funr, e.Application(v.Primitive("snd"), switch)))
 
+def desugar_abort(sexpr):
+    sexpr = sexpr.rest()
+    return e.Abort(desugar(sexpr.first()))
+
 antirecipies = { \
         "+":        desugar_arith,
         "-":        desugar_arith,
@@ -128,6 +132,7 @@ antirecipies = { \
         "inl":      desugar_inx,
         "inr":      desugar_inx,
         "case":     desugar_case,
+        "abort":    desugar_abort,
         }
 
 
