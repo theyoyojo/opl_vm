@@ -1,4 +1,5 @@
 #include "delta.h"
+#include "mem.h"
 
 
 obj_t * delta_plus(num_t * first, num_t * second) {
@@ -62,41 +63,29 @@ obj_t * delta_fst(obj_t * pair) {
 obj_t * delta_snd(obj_t * pair) {
 	return C_obj_copy(pair_second(pair)) ;
 }
-obj_t * (*dtable_unary_pair[])(obj_t *) = {
+
+obj_t * delta_box(obj_t * obj) {
+	return mem_alloc_init(obj) ;
+}
+
+obj_t * delta_unbox(obj_t * ptr) {
+	return mem_deref(ptr) ;
+}
+
+obj_t * (*dtable_unary[])(obj_t *) = {
 	[PRIM_FST]  = delta_fst,
 	[PRIM_SND]  = delta_snd,
+	[PRIM_BOX] 	= delta_box,
+	[PRIM_UNBOX] 	= delta_unbox,
 } ;
 
-obj_t * delta(obj_t * obj) {
-	app_t * app ;
-	/* All j1 deltas are binary operations on the 
-	 * second and third _value_ elements of applicaiton lists */
-	if (obj->head.type != T_APP) {
-		return NULL ;
-	}
-
-	app = (app_t *)obj ;
-	if (olist_length(app->expr_list) != 3) {
-		return NULL ;
-	}
-	/*  Additonally, the first better be a prim and the latter two nums */
-	else if (olist_get(app->expr_list,0)->head.type != T_PRIM ||
-		 olist_get(app->expr_list,1)->head.type != T_NUM  ||
-		 olist_get(app->expr_list,2)->head.type != T_NUM) {
-		return NULL ;
-	}
-	/* Final validation: the prim must not be invalid */
-	else if (((prim_t *)olist_get(app->expr_list,0))->value == PRIM_INVALID) {
-		return NULL ;
-	}
-
-	/* now at last, we can lookup the specific delta function and call it */
-	prim_t * prim = (prim_t *)olist_get(app->expr_list,0) ;
-	num_t * first = (num_t *)olist_get(app->expr_list,1) ;
-	num_t * second = (num_t *)olist_get(app->expr_list,2) ;
-	
-	return dtable_binary_num_num[prim->value](first, second) ;
+obj_t * delta_set_box(obj_t * ptr, obj_t * newval) {
+	return mem_set(ptr, newval) ;
 }
+
+obj_t * (*dtable_binary[])(obj_t *, obj_t *) = {
+	[PRIM_SETBOX] 	= delta_set_box,
+} ;
 
 obj_t * delta_frapp(obj_t * obj) {
 	frapp_t * frapp ;
@@ -114,35 +103,28 @@ obj_t * delta_frapp(obj_t * obj) {
 	 */
 
 	frapp = (frapp_t *)obj ;
+	/* primitives required */
+	if (obj_typeof(olist_get(frapp->vals, 0)) != T_PRIM) {
+		return NULL ;
+	}
+
 	switch (olist_length(frapp->vals)) {
 	case 2:
-		if (obj_typeof(olist_get(frapp->vals, 0)) != T_PRIM ||
-			obj_typeof(olist_get(frapp->vals, 1)) != T_PAIR) {
-			return NULL ;
-		}
-
-		return dtable_unary_pair[((prim_t *)olist_get(frapp->vals,0))->value]
-			(olist_get(frapp->vals, 1)) ;
-
+		return dtable_unary[((prim_t *)olist_get(frapp->vals,0))->value]
+				(olist_get(frapp->vals, 1)) ;
 
 	case 3:
-		/*  Additonally, the first better be a prim and the latter two nums */
-		if (obj_typeof(olist_get(frapp->vals, 0)) != T_PRIM ||
-			 obj_typeof(olist_get(frapp->vals, 1)) != T_NUM  ||
-			 obj_typeof(olist_get(frapp->vals, 2)) != T_NUM) {
-			return NULL ;
+		if (obj_typeof(olist_get(frapp->vals, 1)) == T_NUM  &&
+			 obj_typeof(olist_get(frapp->vals, 2)) == T_NUM) {
+			prim = (prim_t *)olist_get(frapp->vals,0) ;
+			first = (num_t *)olist_get(frapp->vals,1) ;
+			second = (num_t *)olist_get(frapp->vals,2) ;
+			/* now at last, we can lookup the specific delta function and call it */
+			return dtable_binary_num_num[prim->value](first, second) ;
 		}
-		/* Final validation: the prim must not be invalid */
-		else if (((prim_t *)olist_get(frapp->vals,0))->value == PRIM_INVALID) {
-			return NULL ;
+		else {
+			return dtable_binary[prim_get_val(olist_get(frapp->vals, 0))](olist_get(frapp->vals, 1), olist_get(frapp->vals, 2)) ;
 		}
-
-		/* now at last, we can lookup the specific delta function and call it */
-		prim = (prim_t *)olist_get(frapp->vals,0) ;
-		first = (num_t *)olist_get(frapp->vals,1) ;
-		second = (num_t *)olist_get(frapp->vals,2) ;
-		
-		return dtable_binary_num_num[prim->value](first, second) ;
 	default:
 		return NULL ;
 	}

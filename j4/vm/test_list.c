@@ -109,109 +109,109 @@ TEST_SET(simple_exprs,
 	) ;
 ) ;
 
-TEST_SET(deltas,
-	TEST_CASE(plus,
-		obj_t * op = C_prim("+") ;
-		obj_t * a = C_num(4) ;
-		obj_t * b = C_num(7) ;
-		obj_t * app = C_app(3, op, a, b) ;
-		obj_t * c = delta(app) ;
-		ASSERT(((num_t *)c)->value == 11) ;
-		c->head.D_obj(&c) ;
-		app->head.D_obj(&app) ;
-	) ;
-	TEST_CASE(mult,
-		obj_t * op = C_prim("*") ;
-		obj_t * a = C_num(4) ;
-		obj_t * b = C_num(7) ;
-		obj_t * app = C_app(3, op, a, b) ;
-		obj_t * c = delta(app) ;
-		ASSERT(((num_t *)c)->value == 28) ;
-		c->head.D_obj(&c) ;
-		app->head.D_obj(&app) ;
-	) ;
-	TEST_CASE(div,
-		obj_t * op = C_prim("/") ;
-		obj_t * a = C_num(4) ;
-		obj_t * b = C_num(7) ;
-		obj_t * app = C_app(3, op, a, b) ;
-		obj_t * c = delta(app) ;
-		ASSERT(((num_t *)c)->value == 4.0/7) ;
-		c->head.D_obj(&c) ;
-		app->head.D_obj(&app) ;
-	) ;
-	TEST_CASE(div_by_zero_retnull,
-		obj_t * op = C_prim("/") ;
-		obj_t * a = C_num(4) ;
-		obj_t * b = C_num(0) ;
-		obj_t * app = C_app(3, op, a, b) ;
-		obj_t * c = delta(app) ;
-		ASSERT(!c)
-		app->head.D_obj(&app) ;
-	) ;
-	TEST_CASE(sub,
-		obj_t * op = C_prim("-") ;
-		obj_t * a = C_num(4) ;
-		obj_t * b = C_num(7) ;
-		obj_t * app = C_app(3, op, a, b) ;
-		obj_t * c = delta(app) ;
-		ASSERT(((num_t *)c)->value == -3) ;
-		c->head.D_obj(&c) ;
-		app->head.D_obj(&app) ;
-	) ;
+/* TEST_SET(deltas, */
+/* 	TEST_CASE(plus, */
+/* 		obj_t * op = C_prim("+") ; */
+/* 		obj_t * a = C_num(4) ; */
+/* 		obj_t * b = C_num(7) ; */
+/* 		obj_t * app = C_app(3, op, a, b) ; */
+/* 		obj_t * c = delta(app) ; */
+/* 		ASSERT(((num_t *)c)->value == 11) ; */
+/* 		c->head.D_obj(&c) ; */
+/* 		app->head.D_obj(&app) ; */
+/* 	) ; */
+/* 	TEST_CASE(mult, */
+/* 		obj_t * op = C_prim("*") ; */
+/* 		obj_t * a = C_num(4) ; */
+/* 		obj_t * b = C_num(7) ; */
+/* 		obj_t * app = C_app(3, op, a, b) ; */
+/* 		obj_t * c = delta(app) ; */
+/* 		ASSERT(((num_t *)c)->value == 28) ; */
+/* 		c->head.D_obj(&c) ; */
+/* 		app->head.D_obj(&app) ; */
+/* 	) ; */
+/* 	TEST_CASE(div, */
+/* 		obj_t * op = C_prim("/") ; */
+/* 		obj_t * a = C_num(4) ; */
+/* 		obj_t * b = C_num(7) ; */
+/* 		obj_t * app = C_app(3, op, a, b) ; */
+/* 		obj_t * c = delta(app) ; */
+/* 		ASSERT(((num_t *)c)->value == 4.0/7) ; */
+/* 		c->head.D_obj(&c) ; */
+/* 		app->head.D_obj(&app) ; */
+/* 	) ; */
+/* 	TEST_CASE(div_by_zero_retnull, */
+/* 		obj_t * op = C_prim("/") ; */
+/* 		obj_t * a = C_num(4) ; */
+/* 		obj_t * b = C_num(0) ; */
+/* 		obj_t * app = C_app(3, op, a, b) ; */
+/* 		obj_t * c = delta(app) ; */
+/* 		ASSERT(!c) */
+/* 		app->head.D_obj(&app) ; */
+/* 	) ; */
+/* 	TEST_CASE(sub, */
+/* 		obj_t * op = C_prim("-") ; */
+/* 		obj_t * a = C_num(4) ; */
+/* 		obj_t * b = C_num(7) ; */
+/* 		obj_t * app = C_app(3, op, a, b) ; */
+/* 		obj_t * c = delta(app) ; */
+/* 		ASSERT(((num_t *)c)->value == -3) ; */
+/* 		c->head.D_obj(&c) ; */
+/* 		app->head.D_obj(&app) ; */
+/* 	) ; */
 
-	TEST_CASE(gt,
-		obj_t * op = C_prim(">") ;
-		obj_t * a = C_num(4) ;
-		obj_t * b = C_num(7) ;
-		obj_t * app = C_app(3, op, a, b) ;
-		obj_t * c = delta(app) ;
-		ASSERT(((bool_t*)c)->value == false) ;
-		c->head.D_obj(&c) ;
-		app->head.D_obj(&app) ;
-	) ;
+/* 	TEST_CASE(gt, */
+/* 		obj_t * op = C_prim(">") ; */
+/* 		obj_t * a = C_num(4) ; */
+/* 		obj_t * b = C_num(7) ; */
+/* 		obj_t * app = C_app(3, op, a, b) ; */
+/* 		obj_t * c = delta(app) ; */
+/* 		ASSERT(((bool_t*)c)->value == false) ; */
+/* 		c->head.D_obj(&c) ; */
+/* 		app->head.D_obj(&app) ; */
+/* 	) ; */
 
-	TEST_CASE(gteq,
-		obj_t * op = C_prim(">=") ;
-		obj_t * a = C_num(4) ;
-		obj_t * b = C_num(7) ;
-		obj_t * app = C_app(3, op, a, b) ;
-		obj_t * c = delta(app) ;
-		assert(((bool_t*)c)->value == false) ;
-		c->head.D_obj(&c) ;
-		app->head.D_obj(&app) ;
-	) ;
-	TEST_CASE(eq,
-		obj_t * op = C_prim("=") ;
-		obj_t * a = C_num(4) ;
-		obj_t * b = C_num(7) ;
-		obj_t * app = C_app(3, op, a, b) ;
-		obj_t * c = delta(app) ;
-		ASSERT(((bool_t*)c)->value == false) ;
-		c->head.D_obj(&c) ;
-		app->head.D_obj(&app) ;
-	) ;
-	TEST_CASE(lt,
-		obj_t * op = C_prim("<") ;
-		obj_t * a = C_num(4) ;
-		obj_t * b = C_num(7) ;
-		obj_t * app = C_app(3, op, a, b) ;
-		obj_t * c = delta(app) ;
-		ASSERT(((bool_t*)c)->value == true) ;
-		c->head.D_obj(&c) ;
-		app->head.D_obj(&app) ;
-	) ;
-	TEST_CASE(lteq,
-		obj_t * op = C_prim("<=") ;
-		obj_t * a = C_num(4) ;
-		obj_t * b = C_num(7) ;
-		obj_t * app = C_app(3, op, a, b) ;
-		obj_t * c = delta(app) ;
-		ASSERT(((bool_t*)c)->value == true) ;
-		c->head.D_obj(&c) ;
-		app->head.D_obj(&app) ;
-	) ;
-) ;
+/* 	TEST_CASE(gteq, */
+/* 		obj_t * op = C_prim(">=") ; */
+/* 		obj_t * a = C_num(4) ; */
+/* 		obj_t * b = C_num(7) ; */
+/* 		obj_t * app = C_app(3, op, a, b) ; */
+/* 		obj_t * c = delta(app) ; */
+/* 		assert(((bool_t*)c)->value == false) ; */
+/* 		c->head.D_obj(&c) ; */
+/* 		app->head.D_obj(&app) ; */
+/* 	) ; */
+/* 	TEST_CASE(eq, */
+/* 		obj_t * op = C_prim("=") ; */
+/* 		obj_t * a = C_num(4) ; */
+/* 		obj_t * b = C_num(7) ; */
+/* 		obj_t * app = C_app(3, op, a, b) ; */
+/* 		obj_t * c = delta(app) ; */
+/* 		ASSERT(((bool_t*)c)->value == false) ; */
+/* 		c->head.D_obj(&c) ; */
+/* 		app->head.D_obj(&app) ; */
+/* 	) ; */
+/* 	TEST_CASE(lt, */
+/* 		obj_t * op = C_prim("<") ; */
+/* 		obj_t * a = C_num(4) ; */
+/* 		obj_t * b = C_num(7) ; */
+/* 		obj_t * app = C_app(3, op, a, b) ; */
+/* 		obj_t * c = delta(app) ; */
+/* 		ASSERT(((bool_t*)c)->value == true) ; */
+/* 		c->head.D_obj(&c) ; */
+/* 		app->head.D_obj(&app) ; */
+/* 	) ; */
+/* 	TEST_CASE(lteq, */
+/* 		obj_t * op = C_prim("<=") ; */
+/* 		obj_t * a = C_num(4) ; */
+/* 		obj_t * b = C_num(7) ; */
+/* 		obj_t * app = C_app(3, op, a, b) ; */
+/* 		obj_t * c = delta(app) ; */
+/* 		ASSERT(((bool_t*)c)->value == true) ; */
+/* 		c->head.D_obj(&c) ; */
+/* 		app->head.D_obj(&app) ; */
+/* 	) ; */
+/* ) ; */
 
 TEST_SET(copy,
 	TEST_CASE(copy_number,

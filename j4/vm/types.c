@@ -62,7 +62,7 @@ void D_lam(obj_t ** lam_ptr) {
 obj_t * C_ident(char * name) {
 	assert(name) ;
 	ALLOC_OR_RETNULL(new, ident_t) ;
-	new->head = HEADER_INIT(T_IDENT, ident_dec_ref, ident_inc_ref) ;
+	new->head = HEADER_INIT(T_IDENT, ident_t, ident_dec_ref, ident_inc_ref) ;
 	new->length = sizeof(name) ;
 	new->value = (char *)malloc(new->length * sizeof(char)) ;
 	strncpy(new->value, name, new->length) ;
@@ -84,17 +84,6 @@ void ident_dec_ref(obj_t ** ident_ptr) {
 	}
 }
 
-obj_t * C_ident_copy(obj_t * old) {
-	assert(old) ;
-	ALLOC_OR_RETNULL(new, ident_t) ;
-	new->head = HEADER_INIT(T_IDENT, D_ident, C_ident_copy) ;
-	new->length = ((ident_t *)old)->length ;
-	new->value = (char *)malloc(new->length * sizeof(char)) ;
-	strncpy(new->value, ((ident_t *)old)->value, new->length) ;
-	new->refcnt = 1 ;
-	return (obj_t *)new ;
-}
-
 void D_ident(obj_t ** ident_ptr) {
 	assert(ident_ptr) ;
 	assert(*ident_ptr) ;
@@ -112,21 +101,36 @@ int ident_cmp(obj_t * first, obj_t * second) {
 	return strcmp(ident_get_name(first), ident_get_name(second)) ;
 }
 
-obj_t * C_app(size_t count, ...) {
-	ALLOC_OR_RETNULL(new, app_t) ;
-
-	va_list arglist ;
-	
-	new->head = HEADER_INIT(T_APP, D_app, C_app_copy) ;
-	new->expr_list = olist_init() ;
-	va_start(arglist, count) ;
-	for (size_t i = 0; i < count; ++i) {
-		olist_append(&new->expr_list, va_arg(arglist, obj_t *)) ;
-	}
-	va_end(arglist) ;
-
+obj_t * C_ptr(void * addr, size_t size) {
+	ALLOC_OR_RETNULL(new, ptr_t) ;
+	*new = PTR_INIT(addr, size) ;
 	return (obj_t *)new ;
 }
+
+obj_t * C_ptr_copy(obj_t * old) {
+	ALLOC_OR_RETNULL(new, ptr_t) ;
+	*new = PTR_INIT(ptr_addr(old), ptr_size(old)) ;
+	return (obj_t *)new ;
+}
+
+/* gotta take out the trash (collect the garbage) */
+void D_ptr(obj_t ** ptr_ptr) {
+	assert(ptr_ptr) ;
+	assert(*ptr_ptr) ;
+	free(*ptr_ptr) ;
+	*ptr_ptr = NULL ;
+}
+
+void * ptr_addr(obj_t * ptr) {
+	assert(obj_typeof(ptr) == T_PTR) ;
+	return ((ptr_t *)ptr)->addr ;
+}
+
+size_t ptr_size(obj_t * ptr) {
+	assert(obj_typeof(ptr) == T_PTR) ;
+	return ((ptr_t *)ptr)->size ;
+}
+
 
 obj_t * C_abort(obj_t * expr) {
 	ALLOC_OR_RETNULL(new, abort_t) ;
@@ -152,10 +156,26 @@ obj_t * abort_expr(obj_t * abort) {
 	return ((abort_t *)abort)->expr ;
 }
 
+obj_t * C_app(size_t count, ...) {
+	ALLOC_OR_RETNULL(new, app_t) ;
+
+	va_list arglist ;
+	
+	new->head = HEADER_INIT(T_APP, app_t,  D_app, C_app_copy) ;
+	new->expr_list = olist_init() ;
+	va_start(arglist, count) ;
+	for (size_t i = 0; i < count; ++i) {
+		olist_append(&new->expr_list, va_arg(arglist, obj_t *)) ;
+	}
+	va_end(arglist) ;
+
+	return (obj_t *)new ;
+}
+
 /* construct an app from an expr list */
 obj_t * C_app_list(olist_t * expr_list) {
 	ALLOC_OR_RETNULL(new, app_t) ;
-	new->head = HEADER_INIT(T_APP, D_app, C_app_copy) ;
+	new->head = HEADER_INIT(T_APP, app_t, D_app, C_app_copy) ;
 	new->expr_list = expr_list ;
 	return (obj_t *)new ;
 }
@@ -164,7 +184,7 @@ obj_t * C_app_copy(obj_t * old) {
 	assert(old) ;
 	ALLOC_OR_RETNULL(new, app_t) ;
 
-	new->head = HEADER_INIT(T_APP, D_app, C_app_copy) ;
+	new->head = HEADER_INIT(T_APP, app_t, D_app, C_app_copy) ;
 	
 	new->expr_list = olist_init_copy(((app_t *)old)->expr_list) ;
 
@@ -289,7 +309,9 @@ char * prim_syms[] = {
 	[PRIM_PAIR]	= "pair",
 	[PRIM_FST]	= "fst",
 	[PRIM_SND]	= "snd",
-		
+	[PRIM_BOX]	= "box",
+	[PRIM_UNBOX]	= "unbox",
+	[PRIM_SETBOX]	= "set-box!",
 };
 
 #define PRIM_SYMS_LENGTH sizeof(prim_syms)/8
@@ -306,12 +328,6 @@ prim_val_t prim_stov(char * prim) {
 
 char * prim_vtos(prim_val_t prim_val) {
 	return prim_syms[prim_val] ;
-	/* if (prim_val != PRIM_INVALID) { */
-	/* 	return prim_syms[prim_val] ; */
-	/* } */
-	/* else { */
-	/* 	return "[?]" ; */
-	/* } */
 }
 
 obj_t * C_prim(char * prim) {
@@ -325,6 +341,11 @@ obj_t * C_prim_copy(obj_t * old) {
 	ALLOC_OR_RETNULL(new, prim_t) ;
 	*new = PRIM_INIT(prim_vtos(((prim_t *)old)->value)) ;
 	return (obj_t *)new ;
+}
+
+prim_val_t prim_get_val(obj_t * prim) {
+	assert(obj_typeof(prim) == T_PRIM) ;
+	return ((prim_t *)prim)->value ;
 }
 
 void D_prim(obj_t ** prim_ptr) {
@@ -378,7 +399,7 @@ obj_t * _unit_inc(void) {
 		}
 
 		*_unit_ptr = (obj_t) {
-			.head = HEADER_INIT(T_UNIT, D_unit, C_unit_copy)
+			.head = HEADER_INIT(T_UNIT, obj_t, D_unit, C_unit_copy)
 		} ;
 		_unit_refcnt = 1 ;
 	} else {
@@ -455,6 +476,9 @@ void value_print(obj_t * value) {
 		break ;
 	case T_UNIT:
 		printf("{#UNIT#}") ;
+		break ;
+	case T_PTR:
+		printf("PTR/%zu[%p]", ptr_size(value), ptr_addr(value)) ;
 		break ;
 	default:
 		printf("SOMETHING WENT terribly WRONG IN value_print()") ;

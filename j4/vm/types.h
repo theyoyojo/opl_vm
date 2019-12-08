@@ -24,6 +24,9 @@ typedef enum {
 	PRIM_PAIR,
 	PRIM_FST,
 	PRIM_SND,
+	PRIM_BOX,
+	PRIM_UNBOX,
+	PRIM_SETBOX,
 } prim_val_t ;
 
 
@@ -36,7 +39,7 @@ typedef struct _lam {
 } lam_t ;
 
 #define LAM_INIT(_recname, _binding, _expr) (lam_t) { \
-	.head = HEADER_INIT(T_LAM, lam_dec_ref, lam_inc_ref), \
+	.head = HEADER_INIT(T_LAM, lam_t, lam_dec_ref, lam_inc_ref), \
 	.recname = _recname, \
 	.binding = _binding, \
 	.expr = _expr }
@@ -67,8 +70,27 @@ int ident_cmp(obj_t * first, obj_t * second) ;
 obj_t * ident_inc_ref(obj_t * ident) ;
 void ident_dec_ref(obj_t ** ident_ptr) ;
 
+#define PTR_INIT(_addr, _size) (ptr_t) { \
+	.head = HEADER_INIT(T_PTR, ptr_t, D_ptr, C_ptr_copy), \
+	.addr = _addr, \
+	.size = _size }
+
+/* ptrs will be handles by the mem subsystem */
+typedef struct _ptr {
+	header_t head ;
+	void * addr ;
+	size_t size ;
+} ptr_t ;
+
+obj_t * C_ptr(void * addr, size_t size) ;
+obj_t * C_ptr_copy(obj_t * old) ;
+void D_ptr(obj_t ** ptr_ptr) ;
+void * ptr_addr(obj_t * ptr) ;
+size_t ptr_size(obj_t * ptr) ;
+
+
 #define ABORT_INIT(_expr) (abort_t) { \
-	.head = HEADER_INIT(T_ABORT, D_abort, C_abort_copy), \
+	.head = HEADER_INIT(T_ABORT, abort_t, D_abort, C_abort_copy), \
 	.expr = _expr }
 
 typedef struct _abort {
@@ -102,7 +124,7 @@ typedef struct _if {
 } if_t  ;
 
 #define IF_INIT(e_pred, e_true, e_false) (if_t) { \
-	.head = HEADER_INIT(T_IF, D_if, C_if_copy), \
+	.head = HEADER_INIT(T_IF, if_t, D_if, C_if_copy), \
 	.expr_pred = (obj_t *)e_pred, \
 	.expr_true = (obj_t *)e_true, \
 	.expr_false = (obj_t *)e_false }
@@ -123,7 +145,7 @@ typedef struct _pair {
 } pair_t ;
 
 #define PAIR_INIT(_fst, _snd) (pair_t) { \
-	.head = HEADER_INIT(T_PAIR, D_pair, C_pair_copy), \
+	.head = HEADER_INIT(T_PAIR, pair_t, D_pair, C_pair_copy), \
 	.first = _fst, \
 	.second = _snd, }
 
@@ -146,7 +168,7 @@ typedef struct _prim {
 } prim_t ;
 
 #define PRIM_INIT(_primitive) (prim_t) { \
-	.head = HEADER_INIT(T_PRIM, D_prim, C_prim_copy), \
+	.head = HEADER_INIT(T_PRIM, prim_t, D_prim, C_prim_copy), \
 	.value = prim_stov(_primitive)} \
 	
 char * prim_vtos(prim_val_t prim_val) ;
@@ -156,13 +178,15 @@ obj_t * C_prim(char * prim) ;
 obj_t * C_prim_copy(obj_t * old) ;
 void D_prim(obj_t ** prim_ptr) ;
 
+prim_val_t prim_get_val(obj_t * prim) ;
+
 typedef struct _bool {
 	header_t head ;
 	bool value ;
 } bool_t ;
 
 #define BOOL_INIT(_boolean) (bool_t) { \
-	.head = HEADER_INIT(T_BOOL, D_bool, C_bool_copy), \
+	.head = HEADER_INIT(T_BOOL, bool_t, D_bool, C_bool_copy), \
 	.value = (!!_boolean) } \
 
 obj_t * C_bool(bool value) ;
@@ -175,7 +199,7 @@ typedef struct _num {
 } num_t ;
 
 #define NUM_INIT(_number) (num_t) { \
-	.head = HEADER_INIT(T_NUM, D_num, C_num_copy), \
+	.head = HEADER_INIT(T_NUM, num_t, D_num, C_num_copy), \
 	.value = _number } \
 
 obj_t * C_num(double value) ;

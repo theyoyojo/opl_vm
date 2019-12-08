@@ -176,7 +176,7 @@ fi
 
 "$J4_PATH/cathead.sh" "$TMPDIR/$INFILE.pyraw"  > "$TMPDIR/$INFILE.py"
 
-OBJS="$J4_PATH/vm/types.o $J4_PATH/vm/olist.o $J4_PATH/vm/delta.o $J4_PATH/vm/interp.o $J4_PATH/vm/obj.o $J4_PATH/vm/stack.o"
+OBJS="$J4_PATH/vm/types.o $J4_PATH/vm/olist.o $J4_PATH/vm/delta.o $J4_PATH/vm/interp.o $J4_PATH/vm/obj.o $J4_PATH/vm/stack.o $J4_PATH/vm/mem.o"
 
 # Translate python to c "bytecode"
 # We don't want to save the output if we are just printing an intermediate form

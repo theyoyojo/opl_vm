@@ -73,7 +73,7 @@ typedef struct _env {
 } env_t ;
 
 #define ENV_INIT() (env_t) { \
-	.head = HEADER_INIT(T_ENV, env_dec_ref, C_env_copy), \
+	.head = HEADER_INIT(T_ENV, env_t, env_dec_ref, C_env_copy), \
 	.idents = olist_init(), \
 	.vals = olist_init(), \
 	.refcnt = 1 } \
@@ -115,7 +115,7 @@ typedef struct _clo {
 } clo_t ;
 
 #define CLO_INIT(_lam, _env) (clo_t) { \
-	.head = HEADER_INIT(T_CLO, clo_dec_ref, clo_inc_ref), \
+	.head = HEADER_INIT(T_CLO, clo_t, clo_dec_ref, clo_inc_ref), \
 	.lam =  _lam, \
 	.env = _env, \
 	.env_orig = _env, \

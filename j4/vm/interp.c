@@ -5,6 +5,7 @@
 #include "stack.h"
 #include "types.h"
 #include "delta.h"
+#include "mem.h"
 
 static inline void boolify_if_not_already_bool(obj_t ** code, obj_t ** tmp) {
 	if (obj_typeof(*code) != T_BOOL) {
@@ -67,6 +68,7 @@ obj_t * exec(obj_t * program) {
   	      * stack 	= C_stack(),   		/* K */
 	      * tmp1 	= NULL ;		/* 0 machine */
 	/* olist_t * tmplist = NULL ; */
+	mem_system_init() ;
 	size_t cycle_count = 0 ;
 
 	stack_push(stack, C_frret(env)) ;
@@ -85,6 +87,7 @@ obj_t * exec(obj_t * program) {
 			printf("Exception: stack overflow\n") ;	
 			stack_trace(stack) ;
 		}
+		mem_gc() ; /* g a r b a g e  c o l l e c t i o n */
 		switch(obj_typeof(code)) {
 		case T_IDENT:
 			if (env_maps(env, code)) {
@@ -102,6 +105,7 @@ obj_t * exec(obj_t * program) {
 		case T_PRIM:
 		case T_CLO:
 		case T_UNIT:
+		case T_PTR:
 			switch (obj_typeof(stack_top(stack))) {
 			/* <v, 0, kret > => return v */
 			case T_FRRET:
@@ -213,6 +217,7 @@ obj_t * exec(obj_t * program) {
 
 
 success:
+	mem_system_free() ;
 	D_OBJ	(tmp1) 	;	/* machine 0 */
 	D_OBJ	(stack) ;		/* K */
 	D_OBJ	(env) 	;		/* E */

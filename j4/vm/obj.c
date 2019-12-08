@@ -5,6 +5,10 @@ type_t obj_typeof(obj_t * obj) {
 	return obj->head.type ;
 }
 
+size_t obj_sizeof(obj_t * obj) {
+	return obj->head.size ;
+}
+
 bool obj_isvalue(obj_t * obj) {
 	assert(obj) ;
 	return obj_typeof(obj) == T_NUM ||
@@ -12,7 +16,7 @@ bool obj_isvalue(obj_t * obj) {
 		obj_typeof(obj) == T_PRIM ||
 		obj_typeof(obj) == T_UNIT ||
 		obj_typeof(obj) == T_PAIR ||
-		obj_typeof(obj) == T_LAM ||
+		obj_typeof(obj) == T_PTR ||
 		obj_typeof(obj) == T_LAM ||
 		obj_typeof(obj) == T_CLO ; /* I suppose a closure is a value */
 }

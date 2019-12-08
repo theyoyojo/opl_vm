@@ -4,14 +4,14 @@
 
 obj_t * C_stack() {
 	ALLOC_OR_RETNULL(new, stack_t) ;
-	new->head = HEADER_INIT(T_STACK, D_stack, C_stack_copy) ;
+	new->head = HEADER_INIT(T_STACK, stack_t, D_stack, C_stack_copy) ;
 	new->data = olist_init() ;
 	return (obj_t *)new ;
 }
 
 obj_t * C_stack_copy(obj_t * old) {
 	ALLOC_OR_RETNULL(new, stack_t) ;
-	new->head = HEADER_INIT(T_STACK, D_stack, C_stack_copy) ;
+	new->head = HEADER_INIT(T_STACK, stack_t, D_stack, C_stack_copy) ;
 	new->data = olist_init_copy(((stack_t *)old)->data) ;
 	return (obj_t *)new ;
 }
@@ -117,7 +117,7 @@ obj_t * stack_top_env(obj_t * stack) {
 obj_t * C_frif(obj_t * ifexpr, obj_t * env) {
 	assert(obj_typeof(ifexpr) == T_IF) ;
 	ALLOC_OR_RETNULL(new, frif_t) ;
-	new->head = HEADER_INIT(T_FRIF, D_frif, C_frif_copy) ;
+	new->head = HEADER_INIT(T_FRIF, frif_t, D_frif, C_frif_copy) ;
 	new->e_true = C_obj_copy(((if_t *)ifexpr)->expr_true) ;
 	new->e_false = C_obj_copy(((if_t *)ifexpr)->expr_false) ;
 	new->env = env_inc_ref(env) ;
@@ -126,7 +126,7 @@ obj_t * C_frif(obj_t * ifexpr, obj_t * env) {
 
 obj_t * C_frif_copy(obj_t * old) {
 	ALLOC_OR_RETNULL(new, frif_t) ;
-	new->head = HEADER_INIT(T_FRIF, D_frif, C_frif_copy) ;
+	new->head = HEADER_INIT(T_FRIF, frif_t, D_frif, C_frif_copy) ;
 	new->e_true = C_obj_copy(((frif_t *)old)->e_true) ;
 	new->e_false = C_obj_copy(((frif_t *)old)->e_false) ;
 	new->env = env_inc_ref(((frif_t *)old)->env) ;
@@ -157,7 +157,7 @@ obj_t * frif_copy_false(obj_t * frif) {
 obj_t * C_frapp(obj_t * app, obj_t * env) {
 	assert(obj_typeof(app) == T_APP) ;
 	ALLOC_OR_RETNULL(new, frapp_t) ;
-	new->head = HEADER_INIT(T_FRAPP, D_frapp, C_frapp_copy) ;
+	new->head = HEADER_INIT(T_FRAPP, frapp_t, D_frapp, C_frapp_copy) ;
 	new->vals = olist_init() ;
 	new->exprs = olist_init_copy(((app_t *)app)->expr_list) ;
 	/* the frapp should have an env ref available for each expr NOTE: this was a bad idea */
@@ -168,7 +168,7 @@ obj_t * C_frapp(obj_t * app, obj_t * env) {
 }
 obj_t * C_frapp_copy(obj_t * old) {
 	ALLOC_OR_RETNULL(new, frapp_t) ;
-	new->head = HEADER_INIT(T_FRAPP, D_frapp, C_frapp_copy) ;
+	new->head = HEADER_INIT(T_FRAPP, frapp_t, D_frapp, C_frapp_copy) ;
 	new->vals = olist_init_copy(((frapp_t *)old)->vals) ;
 	new->exprs = olist_init_copy(((frapp_t *)old)->exprs) ;
 	/* for (size_t i = 0; i < olist_length(new->exprs); ++i) { */
@@ -216,14 +216,14 @@ obj_t * frapp_get_first_value(obj_t * frapp) {
 
 obj_t * C_frret(obj_t * env) {
 	ALLOC_OR_RETNULL(new, frret_t) ;
-	new->head = HEADER_INIT(T_FRRET, D_frret, C_frret_copy) ;
+	new->head = HEADER_INIT(T_FRRET, frret_t, D_frret, C_frret_copy) ;
 	new->env = env_inc_ref(env) ;
 	return (obj_t *)new ;
 }
 
 obj_t * C_frret_copy(obj_t * old) {
 	ALLOC_OR_RETNULL(new, frret_t) ;
-	new->head = HEADER_INIT(T_FRRET, D_frret, C_frret_copy) ;
+	new->head = HEADER_INIT(T_FRRET, frret_t, D_frret, C_frret_copy) ;
 	new->env = env_inc_ref(((frret_t *)old)->env) ;
 	return (obj_t *)new ;
 }
@@ -247,7 +247,7 @@ obj_t * C_env(void) {
 obj_t * C_env_copy(obj_t * old) {
 	env_t * old_env = (env_t *)old ;
 	ALLOC_OR_RETNULL(new, env_t) ;
-	new->head = HEADER_INIT(T_ENV, env_dec_ref, C_env_copy) ;
+	new->head = HEADER_INIT(T_ENV, env_t, env_dec_ref, C_env_copy) ;
 	new->idents = olist_init_copy(old_env->idents) ;
 	new->vals = olist_init_copy(old_env->vals) ;
 	new->refcnt = 1 ;

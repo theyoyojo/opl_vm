@@ -78,7 +78,7 @@ def desugar_lambda(sexpr):
         sexpr = sexpr.rest()
     else:
         recname = v.ID("rec")
-    return v.Lambda(desugar_binding(sexpr.first()),desugar(recursive_letify(sexpr.rest())), recname)
+    return v.Lambda(desugar_binding(sexpr.first()), desugar(recursive_letify(sexpr.rest())), recname)
 
 def desugar_let(sexpr):
     sexpr = sexpr.rest()
