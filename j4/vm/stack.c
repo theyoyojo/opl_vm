@@ -33,7 +33,7 @@ void gen_repr_stack(obj_t * obj) {
 	for (i = 0; i < stack_size; ++i) {
 		tmp = olist_get(((stack_t *)obj)->data, i) ;
 		frame_reprs[i] = obj_repr(tmp) ;
-		obj->head.repr_size = obj_repr_size(tmp) ;
+		obj->head.repr_size += obj_repr_size(tmp) ;
 	}
 	
 	separators = stack_size * sizeof(separator) ;
@@ -63,6 +63,7 @@ void gen_repr_stack(obj_t * obj) {
 void D_stack(obj_t ** stack_ptr) {
 	assert(stack_ptr) ;
 	assert(*stack_ptr) ;
+	D_obj_repr(*stack_ptr) ;
 	olist_free(&((stack_t *)*stack_ptr)->data) ;
 	free(*stack_ptr) ;
 	*stack_ptr = NULL ;
@@ -147,6 +148,7 @@ obj_t * stack_top_env(obj_t * stack) {
 		env_ptr = NULL ;
 		printf("Exception: non frame object in stack\n") ;
 		stack_trace(stack) ;
+		exit(1) ; // TODO
 	}
 
 	return env_inc_ref(*env_ptr) ;
@@ -186,7 +188,7 @@ void gen_repr_frif(obj_t * obj) {
 		+ obj_repr_size(frif_false(obj))
 		+ sizeof(part3) ;
 
-	obj->head.repr = (char *)malloc(obj_repr_size(obj) + 1) ;
+	obj->head.repr = (char *)malloc(obj->head.repr_size + 1) ;
 
 	if (obj->head.repr) {
 		strcpy(obj->head.repr, part1) ;
@@ -213,6 +215,7 @@ void D_frif(obj_t ** frif_ptr) {
 	assert(frif_ptr) ;
 	assert(*frif_ptr) ;
 	frif_t * frif = *(frif_t **)frif_ptr ;
+	D_obj_repr(*frif_ptr) ;
 	D_obj(frif->e_true)(&frif->e_true) ;
 	D_obj(frif->e_false)(&frif->e_false) ;
 	D_OBJ(frif->env) ;
@@ -318,6 +321,7 @@ void D_frapp(obj_t ** frapp_ptr) {
 	assert(frapp_ptr) ;
 	assert(*frapp_ptr) ;
 	frapp_t * frapp = *(frapp_t **)frapp_ptr ;
+	D_obj_repr(*frapp_ptr) ;
 	olist_free(&frapp->vals) ;
 	olist_free(&frapp->exprs) ;
 	D_OBJ(frapp->env) ;
@@ -373,6 +377,7 @@ obj_t * C_frret_copy(obj_t * old) {
 void D_frret(obj_t ** frret_ptr) {
 	assert(frret_ptr) ;
 	assert(*frret_ptr) ;
+	D_obj_repr(*frret_ptr) ;
 	D_OBJ(((frret_t*)*frret_ptr)->env) ;
 	free(*frret_ptr) ;
 	*frret_ptr = NULL ;
@@ -419,6 +424,7 @@ void gen_repr_env(obj_t * obj) {
 	obj_t * tmp ;
 
 	obj->head.repr_size = 0 ;
+
 	idents_size = env_length(obj) ;
 	if (!(ident_reprs = (char **)malloc(sizeof(char *) * idents_size))) return ;
 	for (i = 0; i < idents_size; ++i) {
@@ -436,6 +442,7 @@ void gen_repr_env(obj_t * obj) {
 	}
 
 	spaces = idents_size - 1 ;
+	
 	separators = idents_size * sizeof(separator) ;
 
 	obj->head.repr_size +=
@@ -450,6 +457,7 @@ void gen_repr_env(obj_t * obj) {
 		strcpy(obj->head.repr, part1) ;
 		for (i = 0; i < vals_size; ++i) {
 			strcat(obj->head.repr, ident_reprs[i]) ;
+			/* printf("CAT REPR: %s\n", ident_reprs[i]) ; */
 			strcat(obj->head.repr, separator) ;
 			strcat(obj->head.repr, val_reprs[i]) ;
 			if (i < vals_size - 1) {
@@ -468,6 +476,7 @@ void D_env(obj_t ** env_ptr) {
 	assert(env_ptr) ;
 	assert(*env_ptr) ;
 	env_t * env = *(env_t **)env_ptr ;
+	D_obj_repr(*env_ptr) ;
 	olist_free(&env->idents) ;
 	olist_free(&env->vals) ;
 	free(env) ;
@@ -484,6 +493,8 @@ int env_bind(obj_t * env, olist_t * binding, olist_t * vals) {
 	static unsigned char index_memo[MAX_BIND_AT_ONCE] ;
 	memset(index_memo, 0, MAX_BIND_AT_ONCE) ;
 	env_t * env_ = (env_t *)env ;
+
+	D_obj_repr(env) ;
 
 	if (bindlen > MAX_BIND_AT_ONCE) {
 		printf("Exception: Binding too long to handle in one go\n"
@@ -525,6 +536,9 @@ int env_bind(obj_t * env, olist_t * binding, olist_t * vals) {
 }
 
 int env_bind_direct(obj_t * env, obj_t * ident, obj_t * value) {
+
+	D_obj_repr(env) ;
+
 	assert(obj_typeof(env) == T_ENV) ;
 
 	env_t * env_ = (env_t *)env ;
@@ -675,22 +689,33 @@ obj_t * clo_get_env_noref(obj_t * clo) {
 
 void gen_repr_clo(obj_t * obj) {
 	static char part1[] = "[" ;
-	static char part2[] = " " ;
+	/* static char part2[] = " " ; */
 	static char part3[] = "]" ;
-	char * lam_repr, * env_repr ;
-	obj_t * env, * recname ;
+	char * lam_repr /*, * env_repr */ ; 
+	obj_t * env ;
+	      /* * recname ; */
 
 	lam_repr = obj_repr(clo_get_lam(obj)) ;
 	env = C_obj_copy(clo_get_env_noref(obj)) ;
-	recname = C_obj_copy((obj_t *)env_get_ident(env, 0)) ;
-	env_bind_direct(env, recname, C_str("Self")) ;
-	env_repr = obj_repr(env) ;
+	/* recname = C_obj_copy((obj_t *)env_get_ident(env, 0)) ; */
+	/* env_bind_direct(env, recname, C_str("Self")) ; */
+
+	/* olist_del(&((env_t *)env)->idents, 0) ; */
+	olist_del(&((env_t *)env)->vals, 0) ;
+
+
+	/* olist_insert(&((env_t *)env)->idents, recname, 0) ; */
+	olist_insert(&((env_t *)env)->vals, C_str("Self"), 0) ;
+
+	D_obj_repr(env) ;
+
+	/* env_repr = obj_repr(env) ; */
 
 	obj->head.repr_size =
 		  sizeof(part1)
 		+ obj_repr_size(clo_get_lam(obj))
-		+ sizeof(part2) 
-		+ obj_repr_size(env)
+		/* + sizeof(part2) */ 	/* I'm not sure how I feel about these, they make the output too thick */
+		/* + obj_repr_size(env) */
 		+ sizeof(part3) ;
 
 	obj->head.repr = (char *)malloc(obj->head.repr_size + 1) ;
@@ -698,8 +723,8 @@ void gen_repr_clo(obj_t * obj) {
 	if (obj->head.repr) {
 		strcpy(obj->head.repr, part1) ;
 		strcat(obj->head.repr, lam_repr) ;
-		strcat(obj->head.repr, part2) ;
-		strcat(obj->head.repr, env_repr) ;
+		/* strcat(obj->head.repr, part2) ; */
+		/* strcat(obj->head.repr, env_repr) ; */
 		strcat(obj->head.repr, part3) ;
 		obj->head.repr[obj_repr_size(obj)] = '\0' ;
 	}
@@ -712,6 +737,7 @@ void D_clo(obj_t ** clo_ptr) {
 	assert(clo_ptr) ;
 	assert(*clo_ptr) ;
 	clo_t * clo = *(clo_t **)clo_ptr ;
+	D_obj_repr(*clo_ptr) ;
 	D_OBJ(clo->lam) ;
 	/* we remove the self-reference in the environment by removing it before freeing the env */
 	olist_pop_index(&(((env_t *)clo->env)->vals), 0) ;

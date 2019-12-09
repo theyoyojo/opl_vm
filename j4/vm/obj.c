@@ -61,8 +61,6 @@ void D_obj_repr(obj_t * obj) {
 void (*D_obj(obj_t * obj))(obj_t **) {
 	assert(obj) ;
 
-	D_obj_repr(obj) ;
-
 	return obj->head.D_obj ;
 }
 

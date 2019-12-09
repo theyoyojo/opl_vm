@@ -96,6 +96,7 @@ obj_t * lam_get_recname(obj_t * lam) {
 void D_lam(obj_t ** lam_ptr) {
 	assert(lam_ptr) ;
 	assert(*lam_ptr) ;
+	D_obj_repr(*lam_ptr) ;
 	D_OBJ(((lam_t *)*lam_ptr)->recname) ;
 	olist_free(&((lam_t *)*lam_ptr)->binding) ;
 	D_OBJ(((lam_t *)*lam_ptr)->expr) ;
@@ -141,6 +142,7 @@ void ident_dec_ref(obj_t ** ident_ptr) {
 void D_ident(obj_t ** ident_ptr) {
 	assert(ident_ptr) ;
 	assert(*ident_ptr) ;
+	D_obj_repr(*ident_ptr) ;
 	free(((ident_t *)*ident_ptr)->value) ;
 	free(*ident_ptr) ;
 	*ident_ptr = NULL ;
@@ -208,6 +210,7 @@ void gen_repr_ptr(obj_t * obj) {
 void D_ptr(obj_t ** ptr_ptr) {
 	assert(ptr_ptr) ;
 	assert(*ptr_ptr) ;
+	D_obj_repr(*ptr_ptr) ;
 	free(*ptr_ptr) ;
 	*ptr_ptr = NULL ;
 }
@@ -237,6 +240,7 @@ obj_t * C_abort_copy(obj_t * old) {
 void D_abort(obj_t ** abort_ptr) {
 	assert(abort_ptr) ;
 	assert(*abort_ptr) ;
+	D_obj_repr(*abort_ptr) ;
 	D_OBJ(((abort_t *)*abort_ptr)->expr) ;
 	free(*abort_ptr) ;
 	*abort_ptr = NULL ;
@@ -348,6 +352,7 @@ void gen_repr_app(obj_t * obj) {
 
 void D_app(obj_t ** app_ptr) {
 	assert(app_ptr) ;
+	D_obj_repr(*app_ptr) ;
 	olist_free(&(*(app_t **)app_ptr)->expr_list) ;
 	free(*app_ptr) ;
 	*app_ptr = NULL ;
@@ -423,6 +428,7 @@ void gen_repr_if(obj_t * obj) {
 }
 
 void D_if(obj_t ** if_ptr) {
+	D_obj_repr(*if_ptr) ;
 	if_t * ifexpr = *(if_t **)if_ptr ;
 	D_OBJ(ifexpr->expr_pred) ;
 	D_OBJ(ifexpr->expr_true) ;
@@ -495,6 +501,7 @@ void gen_repr_pair(obj_t * obj) {
 void D_pair(obj_t ** pair_ptr) {
 	assert(pair_ptr) ;
 	assert(*pair_ptr) ;
+	D_obj_repr(*pair_ptr) ;
 	D_OBJ(((pair_t *)*pair_ptr)->first) ;
 	D_OBJ(((pair_t *)*pair_ptr)->second) ;
 	free(*pair_ptr) ;
@@ -587,6 +594,7 @@ prim_val_t prim_get_val(obj_t * prim) {
 }
 
 void D_prim(obj_t ** prim_ptr) {
+	D_obj_repr(*prim_ptr) ;
 	free(*prim_ptr) ;
 	*prim_ptr = NULL ;
 }
@@ -624,6 +632,7 @@ void gen_repr_bool(obj_t * obj) {
 }
 
 void D_bool(obj_t ** bool_ptr) {
+	D_obj_repr(*bool_ptr) ;
 	free(*bool_ptr) ;
 	*bool_ptr = NULL ;
 }
@@ -663,6 +672,7 @@ void gen_repr_num(obj_t * obj) {
 }
 
 void D_num(obj_t ** num_ptr) {
+	D_obj_repr(*num_ptr) ;
 	free(*num_ptr) ;
 	*num_ptr = NULL ;
 }
@@ -706,6 +716,7 @@ void gen_repr_str(obj_t * obj) {
 void D_str(obj_t ** str_ptr) {
 	assert(str_ptr) ;
 	assert(*str_ptr) ;
+	D_obj_repr(*str_ptr) ;
 	free(((str_t *)*str_ptr)->value) ;
 	free(*str_ptr) ;
 	*str_ptr = NULL ;
@@ -743,6 +754,7 @@ obj_t * _unit_inc(void) {
 
 void _unit_dec(void) {
 	if (--_unit_refcnt <= 0) {
+		D_obj_repr(_unit_ptr) ;
 		free(_unit_ptr) ;
 		_unit_ptr = NULL ;
 	}

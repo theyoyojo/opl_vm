@@ -66,7 +66,7 @@ void exec_pair_resolve(obj_t * env, obj_t * pair, obj_t * stack) {
 
 
 #define endlessly_repeat while (++cycle_count || 1)
-#define ARBITRARY_STACK_HEIGHT_LIMIT 10000
+#define ARBITRARY_STACK_HEIGHT_LIMIT 1000
 
 /* the cool uncle of interpret */
 obj_t * exec(obj_t * program) {
