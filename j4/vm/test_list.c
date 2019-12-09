@@ -274,7 +274,7 @@ TEST_SET(execution,
 		obj_t * app = C_app(3, lam, C_num(4), C_num(7)) ;
 
 		obj_t * res  = exec(app) ;
-		value_print(res) ;
+		printf("%s\n", obj_repr(res)) ;
 		
 		D_OBJ(app) ;
 		D_OBJ(res) ;
@@ -294,8 +294,7 @@ TEST_SET(execution,
 		obj_t * app = C_app(2, lam, C_num(100)) ;
 
 		obj_t * res  = exec(app) ;
-		value_print(res) ;
-		putchar('\n') ;
+		printf("%s\n", obj_repr(res)) ;
 		
 		D_OBJ(app) ;
 		D_OBJ(res) ;

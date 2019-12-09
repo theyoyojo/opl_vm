@@ -243,8 +243,4 @@ obj_t * C_unit_copy(obj_t * old) ;
 void gen_repr_unit(obj_t * obj) ;
 void D_unit(obj_t ** unit_ptr) ;
 
-
-void value_print(obj_t * value) ;
-void expr_print(obj_t * value) ;
-
 #endif /* !TYPES_H */

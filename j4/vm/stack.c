@@ -633,16 +633,9 @@ char * env_get_name(obj_t * env) {
 }
 
 void env_print(obj_t * env) {
-	printf("Env: %s\n", env_get_name(env)) ;
-	if (!env || env_empty(env)) {
-		printf("| (empty)\n") ;
-		return ;
-	}
-	for (size_t i = 0; i < olist_length(((env_t *)env)->idents); ++i) {
-		printf("| env(%s) \t= ", ((ident_t *)olist_get(((env_t *)env)->idents, i))->value) ;
-		value_print(olist_get(((env_t *)env)->vals,i)) ;
-		printf("\n") ;
-	}
+	(void)env ;
+	/* deprecated but I may reuse this funciton */
+	/* printf("Env: %s\n", env_get_name(env)) ; */
 }
 
 obj_t * C_clo(obj_t * lam, obj_t * env) {
@@ -772,37 +765,6 @@ char * frame_get_env_name(obj_t * frame) {
 	default:
 		return "Big Error! this should not be returned!!!!!" ;
 	}
-}
-
-void frame_print(obj_t * frame) {
-	assert(frame) ;
-	assert(obj_isframe(frame)) ;
-	printf("Frame: %s\n", frame_get_name(frame)) ;
-	switch(obj_typeof(frame)) {
-	case T_FRAPP:
-		printf("| vals: ") ;
-		for (size_t i = 0; i < olist_length(((frapp_t *)frame)->vals); ++i) {
-			value_print(olist_get(((frapp_t*)frame)->vals, i)) ;
-			putchar(' ') ;
-		}
-		printf("\n| exprs: ") ;
-		for (size_t i = 0; i < olist_length(((frapp_t *)frame)->exprs); ++i) {
-			expr_print(olist_get(((frapp_t*)frame)->exprs, i)) ;
-			putchar(' ') ;
-		}
-		break ;
-	case T_FRIF:
-		printf("| e_true: ") ;
-		expr_print(((frif_t*)frame)->e_true) ;
-		printf("\n| e_false: ") ;
-		expr_print(((frif_t*)frame)->e_false) ;
-	case T_FRRET: /* printing name is all we do for a frret */
-		break ;
-	default:
-		printf("Big Error! this should not be seen!!!!") ;
-	}
-
-	printf("\n") ;
 }
 
 /* idents in env */

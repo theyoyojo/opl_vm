@@ -15,9 +15,7 @@ obj_t * delta_mult(num_t * first, num_t * second) {
 obj_t * delta_div(num_t * first, num_t * second) {
 	/* Divison by zero is undefined */
 	if (second->value == 0) {
-		/* TODO: maybe some better error handling? */
-		printf("Exception: Division by zero is undefined\n") ;
-		return NULL ;
+		return C_abort(C_str("Exception: divide by zero")) ;
 	}
 	return C_num(first->value / second->value) ;
 }
@@ -75,8 +73,7 @@ obj_t * delta_unbox(obj_t * ptr) {
 }
 
 obj_t * delta_print(obj_t * obj) {
-	expr_print(obj) ;
-	putchar('\n') ;
+	printf("%s\n", obj_repr(obj)) ;
 	return C_unit() ;
 }
 

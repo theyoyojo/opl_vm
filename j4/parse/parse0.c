@@ -96,6 +96,7 @@ int main(int argc, char * argv[]) {
 	directive_start() ;
 
 /* the parser */
+	fprintf(outfile, "(($ ()") ; 
 scan:
 	next_token = get_next_token(infile, LEX_DEFAULT | LEX_COMMENT | LEX_DIRECTIVE) ;
 	if(err) {
@@ -141,7 +142,7 @@ done:
 	for (int i = 0; i < appendages; ++i) {
 		fputc(')', outfile) ;
 	}
-	fprintf(outfile, "\n") ;
+	fprintf(outfile, "))\n") ;
 	if (no_tokens) {
 		err = E_NO_INPUT ;
 		pr_err() ;

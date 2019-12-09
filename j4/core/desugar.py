@@ -90,7 +90,7 @@ def desugar_let(sexpr):
         call.append(desugar(binditer.first().second()))
         binditer = binditer.rest()
 
-    return e.Application(v.Lambda(binding, desugar(sexpr.rest().first())), *call)
+    return e.Application(v.Lambda(binding, desugar(recursive_letify(sexpr.rest()))), *call)
 
 def desugar_let_star(sexpr):
     body = sexpr.rest().rest()
