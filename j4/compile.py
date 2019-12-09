@@ -38,8 +38,7 @@ OUTPUT_INTERPRET = \
         obj_t * result = exec(_o1) ;"""
 
 OUTPUT_PRINT_VALUE = \
-"""        value_print(result) ;
-        printf("\\n") ;
+"""        printf("%s\\n", obj_repr(result)) ;
         D_OBJ(result) ;
 """
 

@@ -41,11 +41,14 @@ typedef struct _header {
 	struct _obj * (*C_obj_copy)(struct _obj *) ;
 } header_t ;
 
-#define HEADER_INIT(_typeval, _type, dtor_id, ctor_copy_id) (header_t) { \
-	.type = _typeval,  \
-	.size = sizeof(_type), \
-	.D_obj = dtor_id, \
-	.C_obj_copy = ctor_copy_id }
+#define HEADER_INIT(_typeval, _type, _repr_gen, dtor_id, ctor_copy_id) (header_t) { \
+	.type 		= _typeval,  		\
+	.size 		= sizeof(_type), 	\
+	.repr		= NULL, 		\
+	.repr_size	= 0, 			\
+	.repr_gen	= _repr_gen, 		\
+	.D_obj 		= dtor_id, 		\
+	.C_obj_copy 	= ctor_copy_id 		}
 
 typedef struct _obj {
 	header_t head ;
@@ -57,12 +60,15 @@ size_t obj_sizeof(obj_t * obj) ;
 
 /* returns a null terminated character string on success and NULL on failure */
 char * obj_repr(obj_t * obj) ;
+size_t obj_repr_size(obj_t * obj) ;
 
 bool obj_isvalue(obj_t * obj) ;
 
 bool obj_isexpr(obj_t * obj) ;
 
 bool obj_isframe(obj_t * obj) ;
+
+void D_obj_repr(obj_t * obj) ;
 
 void (*D_obj(obj_t * obj))(obj_t **) ;
 #define D_OBJ(obj) ({ if(obj) { D_obj(obj)(&obj) ; } })

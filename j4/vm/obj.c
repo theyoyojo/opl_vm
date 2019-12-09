@@ -1,5 +1,6 @@
 #include "obj.h"
 #include <assert.h>
+#include <stdlib.h>
 
 type_t obj_typeof(obj_t * obj) {
 	return obj->head.type ;
@@ -7,6 +8,18 @@ type_t obj_typeof(obj_t * obj) {
 
 size_t obj_sizeof(obj_t * obj) {
 	return obj->head.size ;
+}
+
+char * obj_repr(obj_t * obj) {
+	if (!obj->head.repr) {
+		obj->head.repr_gen(obj) ;
+	}
+
+	return obj->head.repr ;
+}
+
+size_t obj_repr_size(obj_t * obj) {
+	return obj->head.repr ? obj->head.repr_size : 0UL ;
 }
 
 bool obj_isvalue(obj_t * obj) {
@@ -37,8 +50,19 @@ bool obj_isframe(obj_t * obj) {
 		obj_typeof(obj) == T_FRRET ;
 }
 
+void D_obj_repr(obj_t * obj) {
+	assert(obj) ;
+	if (obj->head.repr) {
+		free(obj->head.repr) ;
+		obj->head.repr = NULL ;
+	}
+}
+
 void (*D_obj(obj_t * obj))(obj_t **) {
 	assert(obj) ;
+
+	D_obj_repr(obj) ;
+
 	return obj->head.D_obj ;
 }
 

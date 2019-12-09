@@ -12,6 +12,7 @@ typedef struct _stack {
 
 obj_t * C_stack() ;
 obj_t * C_stack_copy(obj_t * old) ;
+void gen_repr_stack(obj_t * obj) ;
 void D_stack(obj_t ** stack_ptr) ;
 
 void stack_push(obj_t * stack, obj_t * frame) ;
@@ -33,9 +34,13 @@ typedef struct _frif {
 
 obj_t * C_frif(obj_t * ifexpr, obj_t * env) ;
 obj_t * C_frif_copy(obj_t * old) ;
+void gen_repr_frif(obj_t * obj) ;
 void D_frif(obj_t ** frif_ptr) ;
 obj_t * frif_copy_true(obj_t * frif) ;
 obj_t * frif_copy_false(obj_t * frif) ;
+
+obj_t * frif_false(obj_t * frif) ;
+obj_t * frif_true(obj_t * frif) ;
 
 /* frame for an app */
 typedef struct _frapp {
@@ -47,11 +52,14 @@ typedef struct _frapp {
 
 obj_t * C_frapp(obj_t * app, obj_t * env) ;
 obj_t * C_frapp_copy(obj_t * old) ;
+void gen_repr_frapp(obj_t * obj) ;
 void D_frapp(obj_t ** frapp_ptr) ;
+
 obj_t * frapp_pop_expr(obj_t * frapp) ;
 void frapp_push_value(obj_t * frapp, obj_t * obj) ;
 bool frapp_has_more_exprs(obj_t * frapp) ;
 olist_t * frapp_get_vals(obj_t * frapp) ;
+olist_t * frapp_get_exprs(obj_t * frapp) ;
 obj_t * frapp_get_first_value(obj_t * frapp) ;
 
 /* frame for a ret, needed for env handling */
@@ -62,6 +70,7 @@ typedef struct _frret {
 
 obj_t * C_frret(obj_t * env) ;
 obj_t * C_frret_copy(obj_t * old) ;
+void gen_repr_frret(obj_t * obj) ;
 void D_frret(obj_t ** frret_ptr) ;
 
 /* an enviromemnt for lazy variable substitution */
@@ -73,13 +82,14 @@ typedef struct _env {
 } env_t ;
 
 #define ENV_INIT() (env_t) { \
-	.head = HEADER_INIT(T_ENV, env_t, env_dec_ref, C_env_copy), \
+	.head = HEADER_INIT(T_ENV, env_t, gen_repr_env, env_dec_ref, C_env_copy), \
 	.idents = olist_init(), \
 	.vals = olist_init(), \
 	.refcnt = 1 } \
 
 obj_t * C_env(void) ;
 obj_t * C_env_copy(obj_t * old) ;
+void gen_repr_env(obj_t * obj) ;
 void D_env(obj_t ** env_ptr) ;
 /* does NOT consume the lists passed to it */
 int env_bind(obj_t * env, olist_t * binding, olist_t * vals) ;
@@ -95,8 +105,8 @@ char * env_get_name(obj_t * env) ;
 ident_t * env_get_ident(obj_t * env, size_t index) ;
 obj_t * env_get_val(obj_t * env, size_t index) ;
 
-size_t env_length(obj_t * env) ;
-size_t env_girth(obj_t * env) ;
+size_t env_length(obj_t * env) ; /* ident list size */
+size_t env_girth(obj_t * env) ;	 /* value list size */
 
 /* envs need to be reference counted because they have multiple valid pointers! ahhh! */
 /* inc_ref MUST be used for every non-constructor assignment to an env! */
@@ -112,16 +122,17 @@ typedef struct _clo {
 	obj_t * env ;
 	obj_t * env_orig ;
 	int refcnt ;
-} clo_t ;
+} clo_t  ;
 
 #define CLO_INIT(_lam, _env) (clo_t) { \
-	.head = HEADER_INIT(T_CLO, clo_t, clo_dec_ref, clo_inc_ref), \
+	.head = HEADER_INIT(T_CLO, clo_t, gen_repr_clo, clo_dec_ref, clo_inc_ref), \
 	.lam =  _lam, \
 	.env = _env, \
 	.env_orig = _env, \
 	.refcnt = 1 }
 
 obj_t * C_clo(obj_t * lam, obj_t * env) ;
+void gen_repr_clo(obj_t * obj) ;
 void D_clo(obj_t ** clo_ptr) ;
 
 obj_t * clo_inc_ref(obj_t * clo) ;

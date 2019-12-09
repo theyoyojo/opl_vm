@@ -20,6 +20,13 @@ static inline void boolify_if_not_already_bool(obj_t ** code, obj_t ** tmp) {
 	}
 }
 
+void exec_exception(obj_t ** code_ptr, obj_t * stack, obj_t * msg) {
+	printf("ERROR!\n") ;
+	stack_trace(stack) ;
+	D_OBJ(*code_ptr) ;
+	*code_ptr = C_abort(msg) ;
+}
+
 void exec_pair_resolve(obj_t * env, obj_t * pair, obj_t * stack) {
 
 	obj_t * tmp ;		
@@ -29,9 +36,9 @@ void exec_pair_resolve(obj_t * env, obj_t * pair, obj_t * stack) {
 		if (env_maps(env, (tmp = pair_first(pair)))) {
 			pair_overwrite_first(pair, env_subst(env, tmp)) ;
 		} else {
-			printf("Exception: unbound identifier %s\n",
-					ident_get_name(tmp)) ;
-			stack_trace(stack) ;
+			exec_exception(&tmp, stack, C_app(3,
+				C_prim("+"), C_str("Exception: unbound identifier: "),
+				C_str(ident_get_name(tmp)))) ;
 		}
 		break ;
 	case T_PAIR:
@@ -45,9 +52,9 @@ void exec_pair_resolve(obj_t * env, obj_t * pair, obj_t * stack) {
 		if (env_maps(env, (tmp = pair_second(pair)))) {
 			pair_overwrite_second(pair, env_subst(env, tmp)) ;
 		} else {
-			printf("Exception: unbound identifier %s\n",
-					ident_get_name(tmp)) ;
-			stack_trace(stack) ;
+			exec_exception(&tmp, stack, C_app(3,
+				C_prim("+"), C_str("Exception: unbound identifier: "),
+				C_str(ident_get_name(tmp)))) ;
 		}
 		break ;
 	case T_PAIR:
@@ -57,16 +64,9 @@ void exec_pair_resolve(obj_t * env, obj_t * pair, obj_t * stack) {
 	}
 }
 
-void exec_exception(obj_t ** code_ptr, obj_t * stack, obj_t * msg) {
-	printf("ERROR!\n") ;
-	stack_trace(stack) ;
-	D_OBJ(*code_ptr) ;
-	*code_ptr = C_abort(msg) ;
-}
-
 
 #define endlessly_repeat while (++cycle_count || 1)
-#define ARBITRARY_STACK_HEIGHT_LIMIT 1000
+#define ARBITRARY_STACK_HEIGHT_LIMIT 10000
 
 /* the cool uncle of interpret */
 obj_t * exec(obj_t * program) {
@@ -82,14 +82,14 @@ obj_t * exec(obj_t * program) {
 
 	endlessly_repeat {			
 		if (!code) {
-			code = C_abort(C_str("Critical and Exceptional Error: the codes has gone missing")) ;
+			code = C_abort(C_str("Critical and Exceptional Error: the code has gone missing")) ;
 		}
 #ifdef DEBUG
 		printf("===[C E K]===\n") ;
 		printf("Cycle:\t%ld\n", cycle_count) ;
-		env_print(env) ;
-		printf("Code : ") ; expr_print(code); putchar('\n') ;
-		frame_print(stack_top(stack)) ;
+		printf("Code: %s\n", obj_repr(code)) ;
+		printf("Env : %s\n", obj_repr(env)) ;
+		printf("Kont: %s\n", obj_repr(stack_top(stack))) ;
 		printf("=============\n") ;
 #endif 
 		if (stack_height(stack) > ARBITRARY_STACK_HEIGHT_LIMIT) {

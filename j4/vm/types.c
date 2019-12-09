@@ -20,6 +20,50 @@ obj_t * C_lam_copy(obj_t * old) {
 	return (obj_t *)new ;
 }
 
+
+void gen_repr_lam(obj_t * obj) {
+	static char part1[] = "(" LAMBDA_STR ".(" ;
+	static char part2[] = ") " ;
+	static char part3[] = ")" ;
+	size_t binding_size,
+	       spaces,
+	       i ;
+	char ** binding_reprs ;
+	char * expr_repr ;
+	obj_t * tmp ;
+
+	binding_size = olist_length(lam_get_binding(obj)) ;
+	spaces = binding_size - 1 ;
+	obj->head.repr_size = 0 ;
+	if (!(binding_reprs = (char **)malloc(sizeof(char *) * binding_size))) return ;
+	for (i = 0; i < binding_size; ++i) {
+		tmp = olist_get(lam_get_binding(obj), i) ;
+		binding_reprs[i] = obj_repr(tmp) ;
+		obj->head.repr_size += obj_repr_size(tmp) ;
+	}
+	
+	expr_repr = obj_repr(lam_get_expr(obj)) ;
+	obj->head.repr_size += obj_repr_size(lam_get_expr(obj))
+		+ sizeof(part1)
+		+ sizeof(part2)
+		+ sizeof(part3)
+		+ spaces ;
+
+	obj->head.repr = (char *)malloc(obj->head.repr_size + 1) ;
+	strcpy(obj->head.repr, part1) ;
+	for (i = 0; i < binding_size; ++i) {
+		strcat(obj->head.repr, binding_reprs[i]) ;
+		if (i < binding_size - 1) {
+			strcat(obj->head.repr, " ") ;
+		}
+	}
+	strcat(obj->head.repr, part2) ;
+	strcat(obj->head.repr, expr_repr) ;
+	strcat(obj->head.repr, part3) ;
+	obj->head.repr[obj_repr_size(obj)] = '\0' ;
+	free(binding_reprs) ;
+}
+
 obj_t * lam_inc_ref(obj_t * lam) {
 	assert(lam) ;
 	++((lam_t *)lam)->refcnt ;
@@ -62,14 +106,22 @@ void D_lam(obj_t ** lam_ptr) {
 obj_t * C_ident(char * name) {
 	assert(name) ;
 	ALLOC_OR_RETNULL(new, ident_t) ;
-	new->head = HEADER_INIT(T_IDENT, ident_t, ident_dec_ref, ident_inc_ref) ;
-	new->length = sizeof(name) ;
-	if (!(new->value = (char *)malloc(new->length * sizeof(char)))) {
+	new->head = HEADER_INIT(T_IDENT, ident_t, gen_repr_ident, ident_dec_ref, ident_inc_ref) ;
+	new->size = sizeof(name) ;
+	if (!(new->value = (char *)malloc(new->size* sizeof(char)))) {
 		return NULL ;
 	}
-	strncpy(new->value, name, new->length) ;
+	strncpy(new->value, name, new->size) ;
 	new->refcnt = 1 ;
 	return (obj_t *) new ;
+}
+
+void gen_repr_ident(obj_t * obj) {
+	obj->head.repr_size = ident_get_size(obj) ;
+	obj->head.repr = (char *)malloc(obj->head.repr_size) ;
+	if (obj->head.repr) {
+		strcpy(obj->head.repr, ident_get_name(obj)) ;
+	}
 }
 
 obj_t * ident_inc_ref(obj_t * ident) {
@@ -99,6 +151,11 @@ char * ident_get_name(obj_t * ident) {
 	return ((ident_t *)ident)->value ;
 }
 
+size_t  ident_get_size(obj_t * ident) {
+	assert(obj_typeof(ident) == T_IDENT) ;
+	return ((ident_t *)ident)->size ;
+}
+
 int ident_cmp(obj_t * first, obj_t * second) {
 	return strcmp(ident_get_name(first), ident_get_name(second)) ;
 }
@@ -113,6 +170,38 @@ obj_t * C_ptr_copy(obj_t * old) {
 	ALLOC_OR_RETNULL(new, ptr_t) ;
 	*new = PTR_INIT(ptr_addr(old), ptr_size(old)) ;
 	return (obj_t *)new ;
+}
+
+void gen_repr_ptr(obj_t * obj) {
+	static char part1[] = "##" ;
+	static char part2[] = "@@" ;
+	static char part3[] = "##" ;
+	static char buff1[16] ;
+	static char buff2[16] ;
+	size_t addr_str_size,
+	       size_str_size ;
+
+	size_str_size = sprintf(buff1, "%zu", ptr_size(obj)) ;
+	addr_str_size = sprintf(buff2, "%p", ptr_addr(obj)) ;
+
+	obj->head.repr_size =
+		  sizeof(part1)
+		+ size_str_size
+		+ sizeof(part2)
+		+ addr_str_size
+		+ sizeof(part3) ;
+
+	obj->head.repr = (char *)malloc(obj->head.repr_size + 1) ;
+
+	if (obj->head.repr) {
+		strcpy(obj->head.repr, part1) ;
+		strcat(obj->head.repr, buff1) ;
+		strcat(obj->head.repr, part2) ;
+		strcat(obj->head.repr, buff2) ;
+		strcat(obj->head.repr, part3) ;
+		obj->head.repr[obj_repr_size(obj)] = '\0' ;
+	}
+
 }
 
 /* gotta take out the trash (collect the garbage) */
@@ -153,6 +242,29 @@ void D_abort(obj_t ** abort_ptr) {
 	*abort_ptr = NULL ;
 }
 
+void gen_repr_abort(obj_t * obj) {
+	static char part1[] = "(abort " ;
+	static char part2[] = ")" ;
+
+	char * expr_repr ;
+
+	expr_repr = obj_repr(abort_expr(obj)) ;
+
+	obj->head.repr_size =
+		  sizeof(part1)
+		+ obj_repr_size(abort_expr(obj))
+		+ sizeof(part2) ;
+
+	obj->head.repr = (char *)malloc(obj->head.repr_size + 1) ;
+		
+	if (obj->head.repr) {
+		strcpy(obj->head.repr, part1) ;
+		strcat(obj->head.repr, expr_repr) ;
+		strcat(obj->head.repr, part2) ;
+		obj->head.repr[obj_repr_size(obj)] = '\0' ;
+	}
+}
+
 obj_t * abort_expr(obj_t * abort) {
 	assert(obj_typeof(abort) == T_ABORT) ;
 	return ((abort_t *)abort)->expr ;
@@ -163,7 +275,7 @@ obj_t * C_app(size_t count, ...) {
 
 	va_list arglist ;
 	
-	new->head = HEADER_INIT(T_APP, app_t,  D_app, C_app_copy) ;
+	new->head = HEADER_INIT(T_APP, app_t, gen_repr_app, D_app, C_app_copy) ;
 	new->expr_list = olist_init() ;
 	va_start(arglist, count) ;
 	for (size_t i = 0; i < count; ++i) {
@@ -177,7 +289,7 @@ obj_t * C_app(size_t count, ...) {
 /* construct an app from an expr list */
 obj_t * C_app_list(olist_t * expr_list) {
 	ALLOC_OR_RETNULL(new, app_t) ;
-	new->head = HEADER_INIT(T_APP, app_t, D_app, C_app_copy) ;
+	new->head = HEADER_INIT(T_APP, app_t, gen_repr_app, D_app, C_app_copy) ;
 	new->expr_list = expr_list ;
 	return (obj_t *)new ;
 }
@@ -186,11 +298,52 @@ obj_t * C_app_copy(obj_t * old) {
 	assert(old) ;
 	ALLOC_OR_RETNULL(new, app_t) ;
 
-	new->head = HEADER_INIT(T_APP, app_t, D_app, C_app_copy) ;
+	new->head = HEADER_INIT(T_APP, app_t, gen_repr_app, D_app, C_app_copy) ;
 	
 	new->expr_list = olist_init_copy(((app_t *)old)->expr_list) ;
 
 	return (obj_t *)new ;
+}
+
+void gen_repr_app(obj_t * obj) {
+	static char part1[] = "(" ;
+	static char part2[] = ")" ;
+	size_t 	app_size,
+		spaces,
+		i ;
+
+	char ** app_expr_reprs ;
+	obj_t * tmp ;
+
+	app_size = olist_length(app_get_expr_list(obj)) ;
+	spaces = app_size - 1 ;
+
+	obj->head.repr_size = 0 ;
+	if (!(app_expr_reprs = (char **)malloc(sizeof(char *) * app_size))) return ;
+	for (i = 0; i < app_size; ++i) {
+		tmp = olist_get(app_get_expr_list(obj), i) ;
+		app_expr_reprs[i] = obj_repr(tmp) ;
+		obj->head.repr_size += obj_repr_size(tmp) ;
+	}
+	obj->head.repr_size +=
+		  spaces
+		+ sizeof(part1)
+		+ sizeof(part2) ;
+
+	obj->head.repr = (char *)malloc(obj->head.repr_size + 1) ;
+	
+	if (obj->head.repr) {
+		strcpy(obj->head.repr, part1) ;
+		for (i = 0; i < app_size; ++i) {
+			strcat(obj->head.repr, app_expr_reprs[i]) ;
+			if (i < app_size - 1) {
+				strcat(obj->head.repr, " ") ;
+			}
+		}
+		strcat(obj->head.repr, part2) ;
+		obj->head.repr[obj_repr_size(obj)] = '\0' ;
+	}
+	free(app_expr_reprs) ;
 }
 
 void D_app(obj_t ** app_ptr) {
@@ -225,6 +378,48 @@ obj_t * C_if_copy(obj_t * old) {
 		C_obj_copy(((if_t *)old)->expr_true),
 		C_obj_copy(((if_t *)old)->expr_false)) ;
 	return (obj_t *)new ;
+}
+
+void gen_repr_if(obj_t * obj) {
+	static char  part1[] = "(if " ;
+	static char  part2[] = " then " ;
+	static char  part3[] = " else " ;
+	static char  part4[] = ")" ;
+	char * Rpred,
+	     * Rtrue,
+	     * Rfalse ;
+	size_t Spred,
+	       Strue,
+	       Sfalse ;
+
+	Rpred = obj_repr(if_get_pred(obj)) ;
+	Rtrue = obj_repr(if_get_true(obj)) ;
+	Rfalse = obj_repr(if_get_false(obj)) ;
+
+	Spred = obj_repr_size(if_get_pred(obj)) ;
+	Strue = obj_repr_size(if_get_true(obj)) ;
+	Sfalse = obj_repr_size(if_get_false(obj)) ;
+
+	obj->head.repr_size =
+		  sizeof(part1)
+		+ Spred
+		+ sizeof(part2)
+		+ Strue
+		+ sizeof(part3)
+		+ Sfalse
+		+ sizeof(part4) ;
+
+	obj->head.repr = (char *)malloc(obj->head.repr_size + 1) ;
+	if (obj->head.repr) {
+		strcpy(obj->head.repr, part1) ;
+		strcat(obj->head.repr, Rpred) ;
+		strcat(obj->head.repr, part2) ;
+		strcat(obj->head.repr, Rtrue) ;
+		strcat(obj->head.repr, part3) ;
+		strcat(obj->head.repr, Rfalse) ;
+		strcat(obj->head.repr, part4) ;
+		obj->head.repr[obj_repr_size(obj)] = '\0' ;
+	}
 }
 
 void D_if(obj_t ** if_ptr) {
@@ -266,6 +461,35 @@ obj_t * C_pair_copy(obj_t * old) {
 	ALLOC_OR_RETNULL(new, pair_t) ;
 	*new = PAIR_INIT(C_obj_copy(pair_first(old)), C_obj_copy(pair_second(old))) ;
 	return (obj_t *)new ;
+}
+
+void gen_repr_pair(obj_t * obj) {
+	static char part1[] = "<" ;
+	static char part2[] = ", " ;
+	static char part3[] = ">" ;
+	char * Rfirst, * Rsecond ;
+
+	Rfirst = obj_repr(pair_first(obj)) ;
+	Rsecond = obj_repr(pair_second(obj)) ;
+
+	obj->head.repr_size =
+		  sizeof(part1)
+		+ obj_repr_size(pair_first(obj))
+		+ sizeof(part2)
+		+ obj_repr_size(pair_second(obj))
+		+ sizeof(part3) ;
+
+	obj->head.repr = (char *)malloc(obj->head.repr_size + 1) ;
+
+	if (obj->head.repr) {
+		strcpy(obj->head.repr, part1) ;
+		strcat(obj->head.repr, Rfirst) ;
+		strcat(obj->head.repr, part2) ;
+		strcat(obj->head.repr, Rsecond) ;
+		strcat(obj->head.repr, part3) ;
+		obj->head.repr[obj_repr_size(obj)] = '\0' ;
+	}
+
 }
 
 void D_pair(obj_t ** pair_ptr) {
@@ -346,6 +570,17 @@ obj_t * C_prim_copy(obj_t * old) {
 	return (obj_t *)new ;
 }
 
+void gen_repr_prim(obj_t * obj) {
+	obj->head.repr_size = sizeof(prim_vtos(prim_get_val(obj))) ;
+
+	obj->head.repr = (char *)malloc(obj->head.repr_size + 1) ;
+
+	if (obj->head.repr) {
+		strcpy(obj->head.repr, prim_vtos(prim_get_val(obj))) ;
+		obj->head.repr[obj_repr_size(obj)] = '\0' ;
+	}
+}
+
 prim_val_t prim_get_val(obj_t * prim) {
 	assert(obj_typeof(prim) == T_PRIM) ;
 	return ((prim_t *)prim)->value ;
@@ -362,16 +597,40 @@ obj_t * C_bool(bool value) {
 	return (obj_t *)new ;
 }
 
-void D_bool(obj_t ** bool_ptr) {
-	free(*bool_ptr) ;
-	*bool_ptr = NULL ;
-}
-
 obj_t * C_bool_copy(obj_t * old) {
 	assert(old) ;
 	ALLOC_OR_RETNULL(new, bool_t) ;
 	*new = BOOL_INIT(((bool_t *)old)->value);
 	return (obj_t *)new ;
+}
+
+void gen_repr_bool(obj_t * obj) {
+	static char * options[] = { "False", "True" } ;
+	enum bool_options { OPTION_FALSE = 0, OPTION_TRUE = 1 } option ;
+
+	if (bool_get(obj)) {
+		option = OPTION_TRUE ;
+	} else {
+		option = OPTION_FALSE ;
+	}
+
+	obj->head.repr_size = strlen(options[option]) ;
+	obj->head.repr = (char *)malloc(obj->head.repr_size + 1) ;
+	
+	if (obj->head.repr) {
+		strcpy(obj->head.repr, options[option]) ;
+		obj->head.repr[obj_repr_size(obj)] = '\0' ;
+	}
+}
+
+void D_bool(obj_t ** bool_ptr) {
+	free(*bool_ptr) ;
+	*bool_ptr = NULL ;
+}
+
+bool bool_get(obj_t * obj) {
+	assert(obj_typeof(obj) == T_BOOL) ;
+	return ((bool_t *)obj)->value ;
 }
 
 obj_t * C_num(double value) {
@@ -387,6 +646,22 @@ obj_t * C_num_copy(obj_t * old) {
 	return (obj_t *)new ;
 }
 
+double num_get(obj_t * obj) {
+	assert(obj_typeof(obj) == T_NUM) ;
+	return ((num_t *)obj)->value ;
+}
+
+void gen_repr_num(obj_t * obj) {
+	static char buff[16] ;
+	obj->head.repr_size = sprintf(buff, "%g", num_get(obj)) ;
+	obj->head.repr = (char *)malloc(obj->head.repr_size + 1) ;
+	
+	if (obj->head.repr) {
+		strcpy(obj->head.repr, buff) ;
+		obj->head.repr[obj_repr_size(obj)] = '\0' ;
+	}
+}
+
 void D_num(obj_t ** num_ptr) {
 	free(*num_ptr) ;
 	*num_ptr = NULL ;
@@ -394,7 +669,7 @@ void D_num(obj_t ** num_ptr) {
 
 obj_t * C_str(char * str) {
 	ALLOC_OR_RETNULL(new, str_t) ;
-	new->head = HEADER_INIT(T_STR, str_t, D_str, C_str_copy) ;
+	new->head = HEADER_INIT(T_STR, str_t, gen_repr_str, D_str, C_str_copy) ;
 	new->size = strlen(str) ;
 	if (!(new->value = (char *)malloc(new->size + 1))) {
 		return NULL ;
@@ -406,7 +681,7 @@ obj_t * C_str(char * str) {
 
 obj_t * C_str_copy(obj_t * old) {
 	ALLOC_OR_RETNULL(new, str_t) ;
-	new->head = HEADER_INIT(T_STR, str_t, D_str, C_str_copy) ;
+	new->head = HEADER_INIT(T_STR, str_t, gen_repr_str, D_str, C_str_copy) ;
 	new->size = str_size(old) ;
 	if (!(new->value = (char *)malloc(new->size + 1))) {
 		return NULL ;
@@ -416,6 +691,18 @@ obj_t * C_str_copy(obj_t * old) {
 	return (obj_t *)new ;
 
 }
+
+void gen_repr_str(obj_t * obj) {
+	obj->head.repr_size = str_size(obj) ;
+	obj->head.repr = (char *)malloc(obj->head.repr_size + 1) ;
+	
+	if (obj->head.repr) {
+		strcpy(obj->head.repr, str_get(obj)) ;
+		obj->head.repr[obj_repr_size(obj)] = '\0' ;
+	}
+
+}
+
 void D_str(obj_t ** str_ptr) {
 	assert(str_ptr) ;
 	assert(*str_ptr) ;
@@ -444,7 +731,7 @@ obj_t * _unit_inc(void) {
 		}
 
 		*_unit_ptr = (obj_t) {
-			.head = HEADER_INIT(T_UNIT, obj_t, D_unit, C_unit_copy)
+			.head = HEADER_INIT(T_UNIT, obj_t, gen_repr_unit, D_unit, C_unit_copy)
 		} ;
 		_unit_refcnt = 1 ;
 	} else {
@@ -459,6 +746,14 @@ void _unit_dec(void) {
 		free(_unit_ptr) ;
 		_unit_ptr = NULL ;
 	}
+}
+
+void gen_repr_unit(obj_t * obj) {
+	static char * part1 = "[UNIT]" ;
+
+	obj->head.repr_size = sizeof(part1) ;
+	obj->head.repr = malloc(obj->head.repr_size) ;
+	strcpy(obj->head.repr, part1) ;
 }
 
 obj_t * C_unit() {
