@@ -1,0 +1,13 @@
+(let(
+	[true ($ (x) ($ (y) (x)))]
+	[false ($ (x) ($ (y) (y)))]
+	[lamif ($ (cond) ($ (e_true) ($ (e_false) ((cond e_true) e_false))))])
+(let(
+	[pair ($ (a) ($ (b) ($ (c) (((lamif c) a) b))))]
+	[1st ($ (pair) (pair true))]
+	[2nd ($ (pair) (pair false))])
+(let(
+	[P ((pair 3) 4)])
+
+(1st P))))
+

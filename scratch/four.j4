@@ -1,0 +1,5 @@
+(let([i (box 0)])
+	(print (unbox i))
+	(set-box! i (+ (unbox i) 1))
+	(unbox i))
+

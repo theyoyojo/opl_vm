@@ -1,0 +1,159 @@
+2 December 2019
+
+Each "assignent" in my let* causes the memory usage of hte program to rise  by more around an order of magnitude
+
+even when not called
+
+1: ==6977==   total heap usage: 624 allocs, 624 frees, 16,616 bytes allocated
+
+2: ==7574==   total heap usage: 8,055 allocs, 8,055 frees, 209,936 bytes allocated
+
+3: ==10222==   total heap usage: 85,597 allocs, 85,597 frees, 2,236,664 bytes allocated
+
+(add [baz 3])
+
+4: ==7910==   total heap usage: 508,459 allocs, 508,459 frees, 13,197,992 bytes allocated
+
+
+A similar setup to the above with 'let' produces:
+
+4: ==12761==   total heap usage: 1,034 allocs, 1,034 frees, 27,408 bytes allocated
+
+
+Solid reduction in unnecessary allocs by refactoring env_bind and call site
+
+4: ==21782==   total heap usage: 317,555 allocs, 317,555 frees, 8,303,832 bytes allocated
+
+
+2lam.j4 
+before patch:
+real	0m0.610s
+user	0m0.495s
+sys	0m0.112s
+
+
+after:
+real	0m0.447s
+user	0m0.355s
+sys	0m0.092s
+
+
+solid improvement
+
+Calls to C_env_copy per implicit lambda in lam.given:
+1: 18
+2: 171
+3: 1548
+4: 13941
+5: 125478
+6: 1129311
+
+here's the thing about lambdas: they never get mutated, so why copy them?
+
+also, I modified bind direct to always overwrite the first element in the env
+
+2lam.j4 performance (up to zero in given):
+real	0m0.315s
+user	0m0.272s
+sys	0m0.043s
+
+
+after modification to refcnt idents instead of copy (they are never mutated):
+real	0m0.238s
+user	0m0.199s
+sys	0m0.036s
+
+
+after adding refcnting to lamdas:
+
+Allocation drop
+
+Before:
+==7269==   total heap usage: 2,517,390 allocs, 2,517,390 frees, 68,673,360 bytes allocated
+
+After:
+==8190==   total heap usage: 472,530 allocs, 472,530 frees, 14,699,992 bytes allocated
+
+Massive performance improvements! over 10x faster
+real	0m0.052s
+user	0m0.041s
+sys	0m0.011s
+
+
+
+1: 18
+2: 167
+3: 14440
+4: 12301
+5: 104958
+6: 895427 (this is ~80% of the allocs above)
+7: 7639020
+
+Before and after patch to store olist_length in pointer:
+
+real	0m2.168s
+user	0m1.931s
+sys	0m0.231s
+[jsavitz@jsavitz scratch]$ time ./bar
+5
+
+real	0m2.188s
+user	0m1.965s
+sys	0m0.221s
+[jsavitz@jsavitz scratch]$ time ./bar
+5
+
+real	0m2.184s
+user	0m1.969s
+sys	0m0.208s
+[jsavitz@jsavitz scratch]$ git checkout j4
+Previous HEAD position was c4c126d Performance improvements
+Switched to branch 'j4'
+Your branch is up to date with 'origin/j4'.
+[jsavitz@jsavitz scratch]$ jcc 2lam.j4 bar
+===[Compilation Success]===
+[jsavitz@jsavitz scratch]$ time ./bar
+5
+
+real	0m0.349s
+user	0m0.297s
+sys	0m0.047s
+[jsavitz@jsavitz scratch]$
+[jsavitz@jsavitz scratch]$ time ./bar
+5
+
+real	0m0.429s
+user	0m0.369s
+sys	0m0.059s
+[jsavitz@jsavitz scratch]$ time ./bar
+5
+
+real	0m0.346s
+user	0m0.293s
+sys	0m0.051s
+
+
+3 December 2019
+
+I considered this problem in hazy detail while falling asleep last night, and I decided to try and refcnt the closures again.
+
+This time, I've figured it out.
+
+
+The following is with the _complete_ let* for all of the lambda calculus stuff:
+
+[jsavitz@jsavitz scratch]$ time ./bar
+5
+
+real	0m0.008s
+user	0m0.004s
+sys	0m0.004s
+
+
+No more exponential time!
+
+==23801==   total heap usage: 3,211 allocs, 3,211 frees, 62,016 bytes allocated
+
+Fantastic!
+
+Perf no longer reports malloc as the primary hotspot, instead it is olist_append...

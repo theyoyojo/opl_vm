@@ -1,5 +1,0 @@
-(define (sum-to n)
-	(if (= n 1) 1
-		(+ n (sum-to (- n 1)))))
-
-(sum-to 100)

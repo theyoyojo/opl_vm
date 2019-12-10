@@ -1,2 +1,3 @@
-(let ((x 3) (y 2)) (if #f x y))
-5
+(let ((x 3) (y 2)) 
+%% a comment %%
+(if #f x y)%% comments  can be anywhere %%)

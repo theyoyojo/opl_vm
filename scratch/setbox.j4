@@ -1,0 +1,3 @@
+(let(
+	[foo (box 4)])
+(($ (ptr) (set-box! ptr (+ 1 (unbox ptr))) (unbox ptr)) foo))

@@ -1,0 +1,4527 @@
+===[C E K]===
+Cycle:	1
+Env: (none)
+| (empty)
+Code : App[LAM[App[LAM[App[LAM[App[LAM[App[LAM[App[LAM[App[LAM[App[App[App[sub1 one ] ++ ] 0 ]] LAM[LAM[App[App[App[lamif App[zero? n ] ] one ] App[App[mult n ] App[fac App[sub1 n ] ] ] ]]] ]] LAM[App[LAM[App[f LAM[App[App[x x ] v ]] ]] LAM[App[f LAM[App[App[x x ] v ]] ]] ]] ]] LAM[LAM[LAM[LAM[App[App[m App[App[App[mult n ] n ] ++ ] ] x ]]]]] App[add1 three ] App[App[add two ] three ] App[App[add three ] three ] LAM[App[1st App[App[n LAM[App[App[pair App[2nd p ] ] App[add1 App[2nd p ] ] ]] ] App[App[pair zero ] zero ] ] ]] ]] LAM[App[App[n LAM[false] ] true ]] LAM[LAM[LAM[App[f App[App[n f ] x ] ]]]] LAM[LAM[LAM[LAM[App[App[n f ] App[App[m f ] x ] ]]]]] LAM[LAM[LAM[LAM[App[App[n App[m f ] ] x ]]]]] ]] LAM[LAM[LAM[App[App[App[lamif c ] a ] b ]]]] LAM[App[pair true ]] LAM[App[pair false ]] ]] LAM[App[+ x 1 ]] LAM[LAM[x]] LAM[LAM[App[f x ]]] LAM[LAM[App[f App[f x ] ]]] LAM[LAM[App[f App[f App[f x ] ] ]]] ]] LAM[LAM[x]] LAM[LAM[y]] LAM[LAM[LAM[App[App[cond e_true ] e_false ]]]] ]
+Frame: return
+
+=============
+===[C E K]===
+Cycle:	2
+Env: (none)
+| (empty)
+Code : LAM[App[LAM[App[LAM[App[LAM[App[LAM[App[LAM[App[LAM[App[App[App[sub1 one ] ++ ] 0 ]] LAM[LAM[App[App[App[lamif App[zero? n ] ] one ] App[App[mult n ] App[fac App[sub1 n ] ] ] ]]] ]] LAM[App[LAM[App[f LAM[App[App[x x ] v ]] ]] LAM[App[f LAM[App[App[x x ] v ]] ]] ]] ]] LAM[LAM[LAM[LAM[App[App[m App[App[App[mult n ] n ] ++ ] ] x ]]]]] App[add1 three ] App[App[add two ] three ] App[App[add three ] three ] LAM[App[1st App[App[n LAM[App[App[pair App[2nd p ] ] App[add1 App[2nd p ] ] ]] ] App[App[pair zero ] zero ] ] ]] ]] LAM[App[App[n LAM[false] ] true ]] LAM[LAM[LAM[App[f App[App[n f ] x ] ]]]] LAM[LAM[LAM[LAM[App[App[n f ] App[App[m f ] x ] ]]]]] LAM[LAM[LAM[LAM[App[App[n App[m f ] ] x ]]]]] ]] LAM[LAM[LAM[App[App[App[lamif c ] a ] b ]]]] LAM[App[pair true ]] LAM[App[pair false ]] ]] LAM[App[+ x 1 ]] LAM[LAM[x]] LAM[LAM[App[f x ]]] LAM[LAM[App[f App[f x ] ]]] LAM[LAM[App[f App[f App[f x ] ] ]]] ]]
+Frame: application
+| vals: 
+| exprs: LAM[LAM[x]] LAM[LAM[y]] LAM[LAM[LAM[App[App[cond e_true ] e_false ]]]] 
+=============
+===[C E K]===
+Cycle:	3
+Env: (none)
+| (empty)
+Code : CLO[App[LAM[App[LAM[App[LAM[App[LAM[App[LAM[App[LAM[App[App[App[sub1 one ] ++ ] 0 ]] LAM[LAM[App[App[App[lamif App[zero? n ] ] one ] App[App[mult n ] App[fac App[sub1 n ] ] ] ]]] ]] LAM[App[LAM[App[f LAM[App[App[x x ] v ]] ]] LAM[App[f LAM[App[App[x x ] v ]] ]] ]] ]] LAM[LAM[LAM[LAM[App[App[m App[App[App[mult n ] n ] ++ ] ] x ]]]]] App[add1 three ] App[App[add two ] three ] App[App[add three ] three ] LAM[App[1st App[App[n LAM[App[App[pair App[2nd p ] ] App[add1 App[2nd p ] ] ]] ] App[App[pair zero ] zero ] ] ]] ]] LAM[App[App[n LAM[false] ] true ]] LAM[LAM[LAM[App[f App[App[n f ] x ] ]]]] LAM[LAM[LAM[LAM[App[App[n f ] App[App[m f ] x ] ]]]]] LAM[LAM[LAM[LAM[App[App[n App[m f ] ] x ]]]]] ]] LAM[LAM[LAM[App[App[App[lamif c ] a ] b ]]]] LAM[App[pair true ]] LAM[App[pair false ]] ]] LAM[App[+ x 1 ]] LAM[LAM[x]] LAM[LAM[App[f x ]]] LAM[LAM[App[f App[f x ] ]]] LAM[LAM[App[f App[f App[f x ] ] ]]] ]]
+Frame: application
+| vals: 
+| exprs: LAM[LAM[x]] LAM[LAM[y]] LAM[LAM[LAM[App[App[cond e_true ] e_false ]]]] 
+=============
+===[C E K]===
+Cycle:	4
+Env: (none)
+| (empty)
+Code : LAM[LAM[x]]
+Frame: application
+| vals: CLO[App[LAM[App[LAM[App[LAM[App[LAM[App[LAM[App[LAM[App[App[App[sub1 one ] ++ ] 0 ]] LAM[LAM[App[App[App[lamif App[zero? n ] ] one ] App[App[mult n ] App[fac App[sub1 n ] ] ] ]]] ]] LAM[App[LAM[App[f LAM[App[App[x x ] v ]] ]] LAM[App[f LAM[App[App[x x ] v ]] ]] ]] ]] LAM[LAM[LAM[LAM[App[App[m App[App[App[mult n ] n ] ++ ] ] x ]]]]] App[add1 three ] App[App[add two ] three ] App[App[add three ] three ] LAM[App[1st App[App[n LAM[App[App[pair App[2nd p ] ] App[add1 App[2nd p ] ] ]] ] App[App[pair zero ] zero ] ] ]] ]] LAM[App[App[n LAM[false] ] true ]] LAM[LAM[LAM[App[f App[App[n f ] x ] ]]]] LAM[LAM[LAM[LAM[App[App[n f ] App[App[m f ] x ] ]]]]] LAM[LAM[LAM[LAM[App[App[n App[m f ] ] x ]]]]] ]] LAM[LAM[LAM[App[App[App[lamif c ] a ] b ]]]] LAM[App[pair true ]] LAM[App[pair false ]] ]] LAM[App[+ x 1 ]] LAM[LAM[x]] LAM[LAM[App[f x ]]] LAM[LAM[App[f App[f x ] ]]] LAM[LAM[App[f App[f App[f x ] ] ]]] ]] 
+| exprs: LAM[LAM[y]] LAM[LAM[LAM[App[App[cond e_true ] e_false ]]]] 
+=============
+===[C E K]===
+Cycle:	5
+Env: (none)
+| (empty)
+Code : CLO[LAM[x]]
+Frame: application
+| vals: CLO[App[LAM[App[LAM[App[LAM[App[LAM[App[LAM[App[LAM[App[App[App[sub1 one ] ++ ] 0 ]] LAM[LAM[App[App[App[lamif App[zero? n ] ] one ] App[App[mult n ] App[fac App[sub1 n ] ] ] ]]] ]] LAM[App[LAM[App[f LAM[App[App[x x ] v ]] ]] LAM[App[f LAM[App[App[x x ] v ]] ]] ]] ]] LAM[LAM[LAM[LAM[App[App[m App[App[App[mult n ] n ] ++ ] ] x ]]]]] App[add1 three ] App[App[add two ] three ] App[App[add three ] three ] LAM[App[1st App[App[n LAM[App[App[pair App[2nd p ] ] App[add1 App[2nd p ] ] ]] ] App[App[pair zero ] zero ] ] ]] ]] LAM[App[App[n LAM[false] ] true ]] LAM[LAM[LAM[App[f App[App[n f ] x ] ]]]] LAM[LAM[LAM[LAM[App[App[n f ] App[App[m f ] x ] ]]]]] LAM[LAM[LAM[LAM[App[App[n App[m f ] ] x ]]]]] ]] LAM[LAM[LAM[App[App[App[lamif c ] a ] b ]]]] LAM[App[pair true ]] LAM[App[pair false ]] ]] LAM[App[+ x 1 ]] LAM[LAM[x]] LAM[LAM[App[f x ]]] LAM[LAM[App[f App[f x ] ]]] LAM[LAM[App[f App[f App[f x ] ] ]]] ]] 
+| exprs: LAM[LAM[y]] LAM[LAM[LAM[App[App[cond e_true ] e_false ]]]] 
+=============
+===[C E K]===
+Cycle:	6
+Env: (none)
+| (empty)
+Code : LAM[LAM[y]]
+Frame: application
+| vals: CLO[App[LAM[App[LAM[App[LAM[App[LAM[App[LAM[App[LAM[App[App[App[sub1 one ] ++ ] 0 ]] LAM[LAM[App[App[App[lamif App[zero? n ] ] one ] App[App[mult n ] App[fac App[sub1 n ] ] ] ]]] ]] LAM[App[LAM[App[f LAM[App[App[x x ] v ]] ]] LAM[App[f LAM[App[App[x x ] v ]] ]] ]] ]] LAM[LAM[LAM[LAM[App[App[m App[App[App[mult n ] n ] ++ ] ] x ]]]]] App[add1 three ] App[App[add two ] three ] App[App[add three ] three ] LAM[App[1st App[App[n LAM[App[App[pair App[2nd p ] ] App[add1 App[2nd p ] ] ]] ] App[App[pair zero ] zero ] ] ]] ]] LAM[App[App[n LAM[false] ] true ]] LAM[LAM[LAM[App[f App[App[n f ] x ] ]]]] LAM[LAM[LAM[LAM[App[App[n f ] App[App[m f ] x ] ]]]]] LAM[LAM[LAM[LAM[App[App[n App[m f ] ] x ]]]]] ]] LAM[LAM[LAM[App[App[App[lamif c ] a ] b ]]]] LAM[App[pair true ]] LAM[App[pair false ]] ]] LAM[App[+ x 1 ]] LAM[LAM[x]] LAM[LAM[App[f x ]]] LAM[LAM[App[f App[f x ] ]]] LAM[LAM[App[f App[f App[f x ] ] ]]] ]] CLO[LAM[x]] 
+| exprs: LAM[LAM[LAM[App[App[cond e_true ] e_false ]]]] 
+=============
+===[C E K]===
+Cycle:	7
+Env: (none)
+| (empty)
+Code : CLO[LAM[y]]
+Frame: application
+| vals: CLO[App[LAM[App[LAM[App[LAM[App[LAM[App[LAM[App[LAM[App[App[App[sub1 one ] ++ ] 0 ]] LAM[LAM[App[App[App[lamif App[zero? n ] ] one ] App[App[mult n ] App[fac App[sub1 n ] ] ] ]]] ]] LAM[App[LAM[App[f LAM[App[App[x x ] v ]] ]] LAM[App[f LAM[App[App[x x ] v ]] ]] ]] ]] LAM[LAM[LAM[LAM[App[App[m App[App[App[mult n ] n ] ++ ] ] x ]]]]] App[add1 three ] App[App[add two ] three ] App[App[add three ] three ] LAM[App[1st App[App[n LAM[App[App[pair App[2nd p ] ] App[add1 App[2nd p ] ] ]] ] App[App[pair zero ] zero ] ] ]] ]] LAM[App[App[n LAM[false] ] true ]] LAM[LAM[LAM[App[f App[App[n f ] x ] ]]]] LAM[LAM[LAM[LAM[App[App[n f ] App[App[m f ] x ] ]]]]] LAM[LAM[LAM[LAM[App[App[n App[m f ] ] x ]]]]] ]] LAM[LAM[LAM[App[App[App[lamif c ] a ] b ]]]] LAM[App[pair true ]] LAM[App[pair false ]] ]] LAM[App[+ x 1 ]] LAM[LAM[x]] LAM[LAM[App[f x ]]] LAM[LAM[App[f App[f x ] ]]] LAM[LAM[App[f App[f App[f x ] ] ]]] ]] CLO[LAM[x]] 
+| exprs: LAM[LAM[LAM[App[App[cond e_true ] e_false ]]]] 
+=============
+===[C E K]===
+Cycle:	8
+Env: (none)
+| (empty)
+Code : LAM[LAM[LAM[App[App[cond e_true ] e_false ]]]]
+Frame: application
+| vals: CLO[App[LAM[App[LAM[App[LAM[App[LAM[App[LAM[App[LAM[App[App[App[sub1 one ] ++ ] 0 ]] LAM[LAM[App[App[App[lamif App[zero? n ] ] one ] App[App[mult n ] App[fac App[sub1 n ] ] ] ]]] ]] LAM[App[LAM[App[f LAM[App[App[x x ] v ]] ]] LAM[App[f LAM[App[App[x x ] v ]] ]] ]] ]] LAM[LAM[LAM[LAM[App[App[m App[App[App[mult n ] n ] ++ ] ] x ]]]]] App[add1 three ] App[App[add two ] three ] App[App[add three ] three ] LAM[App[1st App[App[n LAM[App[App[pair App[2nd p ] ] App[add1 App[2nd p ] ] ]] ] App[App[pair zero ] zero ] ] ]] ]] LAM[App[App[n LAM[false] ] true ]] LAM[LAM[LAM[App[f App[App[n f ] x ] ]]]] LAM[LAM[LAM[LAM[App[App[n f ] App[App[m f ] x ] ]]]]] LAM[LAM[LAM[LAM[App[App[n App[m f ] ] x ]]]]] ]] LAM[LAM[LAM[App[App[App[lamif c ] a ] b ]]]] LAM[App[pair true ]] LAM[App[pair false ]] ]] LAM[App[+ x 1 ]] LAM[LAM[x]] LAM[LAM[App[f x ]]] LAM[LAM[App[f App[f x ] ]]] LAM[LAM[App[f App[f App[f x ] ] ]]] ]] CLO[LAM[x]] CLO[LAM[y]] 
+| exprs: 
+=============
+===[C E K]===
+Cycle:	9
+Env: (none)
+| (empty)
+Code : CLO[LAM[LAM[App[App[cond e_true ] e_false ]]]]
+Frame: application
+| vals: CLO[App[LAM[App[LAM[App[LAM[App[LAM[App[LAM[App[LAM[App[App[App[sub1 one ] ++ ] 0 ]] LAM[LAM[App[App[App[lamif App[zero? n ] ] one ] App[App[mult n ] App[fac App[sub1 n ] ] ] ]]] ]] LAM[App[LAM[App[f LAM[App[App[x x ] v ]] ]] LAM[App[f LAM[App[App[x x ] v ]] ]] ]] ]] LAM[LAM[LAM[LAM[App[App[m App[App[App[mult n ] n ] ++ ] ] x ]]]]] App[add1 three ] App[App[add two ] three ] App[App[add three ] three ] LAM[App[1st App[App[n LAM[App[App[pair App[2nd p ] ] App[add1 App[2nd p ] ] ]] ] App[App[pair zero ] zero ] ] ]] ]] LAM[App[App[n LAM[false] ] true ]] LAM[LAM[LAM[App[f App[App[n f ] x ] ]]]] LAM[LAM[LAM[LAM[App[App[n f ] App[App[m f ] x ] ]]]]] LAM[LAM[LAM[LAM[App[App[n App[m f ] ] x ]]]]] ]] LAM[LAM[LAM[App[App[App[lamif c ] a ] b ]]]] LAM[App[pair true ]] LAM[App[pair false ]] ]] LAM[App[+ x 1 ]] LAM[LAM[x]] LAM[LAM[App[f x ]]] LAM[LAM[App[f App[f x ] ]]] LAM[LAM[App[f App[f App[f x ] ] ]]] ]] CLO[LAM[x]] CLO[LAM[y]] 
+| exprs: 
+=============
+===[C E K]===
+Cycle:	10
+Env: true
+| env(true) 	= CLO[LAM[x]]
+| env(false) 	= CLO[LAM[y]]
+| env(lamif) 	= CLO[LAM[LAM[App[App[cond e_true ] e_false ]]]]
+Code : App[LAM[App[LAM[App[LAM[App[LAM[App[LAM[App[LAM[App[App[App[sub1 one ] ++ ] 0 ]] LAM[LAM[App[App[App[lamif App[zero? n ] ] one ] App[App[mult n ] App[fac App[sub1 n ] ] ] ]]] ]] LAM[App[LAM[App[f LAM[App[App[x x ] v ]] ]] LAM[App[f LAM[App[App[x x ] v ]] ]] ]] ]] LAM[LAM[LAM[LAM[App[App[m App[App[App[mult n ] n ] ++ ] ] x ]]]]] App[add1 three ] App[App[add two ] three ] App[App[add three ] three ] LAM[App[1st App[App[n LAM[App[App[pair App[2nd p ] ] App[add1 App[2nd p ] ] ]] ] App[App[pair zero ] zero ] ] ]] ]] LAM[App[App[n LAM[false] ] true ]] LAM[LAM[LAM[App[f App[App[n f ] x ] ]]]] LAM[LAM[LAM[LAM[App[App[n f ] App[App[m f ] x ] ]]]]] LAM[LAM[LAM[LAM[App[App[n App[m f ] ] x ]]]]] ]] LAM[LAM[LAM[App[App[App[lamif c ] a ] b ]]]] LAM[App[pair true ]] LAM[App[pair false ]] ]] LAM[App[+ x 1 ]] LAM[LAM[x]] LAM[LAM[App[f x ]]] LAM[LAM[App[f App[f x ] ]]] LAM[LAM[App[f App[f App[f x ] ] ]]] ]
+Frame: return
+
+=============
+===[C E K]===
+Cycle:	11
+Env: true
+| env(true) 	= CLO[LAM[x]]
+| env(false) 	= CLO[LAM[y]]
+| env(lamif) 	= CLO[LAM[LAM[App[App[cond e_true ] e_false ]]]]
+Code : LAM[App[LAM[App[LAM[App[LAM[App[LAM[App[LAM[App[App[App[sub1 one ] ++ ] 0 ]] LAM[LAM[App[App[App[lamif App[zero? n ] ] one ] App[App[mult n ] App[fac App[sub1 n ] ] ] ]]] ]] LAM[App[LAM[App[f LAM[App[App[x x ] v ]] ]] LAM[App[f LAM[App[App[x x ] v ]] ]] ]] ]] LAM[LAM[LAM[LAM[App[App[m App[App[App[mult n ] n ] ++ ] ] x ]]]]] App[add1 three ] App[App[add two ] three ] App[App[add three ] three ] LAM[App[1st App[App[n LAM[App[App[pair App[2nd p ] ] App[add1 App[2nd p ] ] ]] ] App[App[pair zero ] zero ] ] ]] ]] LAM[App[App[n LAM[false] ] true ]] LAM[LAM[LAM[App[f App[App[n f ] x ] ]]]] LAM[LAM[LAM[LAM[App[App[n f ] App[App[m f ] x ] ]]]]] LAM[LAM[LAM[LAM[App[App[n App[m f ] ] x ]]]]] ]] LAM[LAM[LAM[App[App[App[lamif c ] a ] b ]]]] LAM[App[pair true ]] LAM[App[pair false ]] ]]
+Frame: application
+| vals: 
+| exprs: LAM[App[+ x 1 ]] LAM[LAM[x]] LAM[LAM[App[f x ]]] LAM[LAM[App[f App[f x ] ]]] LAM[LAM[App[f App[f App[f x ] ] ]]] 
+=============
+===[C E K]===
+Cycle:	12
+Env: true
+| env(true) 	= CLO[LAM[x]]
+| env(false) 	= CLO[LAM[y]]
+| env(lamif) 	= CLO[LAM[LAM[App[App[cond e_true ] e_false ]]]]
+Code : CLO[App[LAM[App[LAM[App[LAM[App[LAM[App[LAM[App[App[App[sub1 one ] ++ ] 0 ]] LAM[LAM[App[App[App[lamif App[zero? n ] ] one ] App[App[mult n ] App[fac App[sub1 n ] ] ] ]]] ]] LAM[App[LAM[App[f LAM[App[App[x x ] v ]] ]] LAM[App[f LAM[App[App[x x ] v ]] ]] ]] ]] LAM[LAM[LAM[LAM[App[App[m App[App[App[mult n ] n ] ++ ] ] x ]]]]] App[add1 three ] App[App[add two ] three ] App[App[add three ] three ] LAM[App[1st App[App[n LAM[App[App[pair App[2nd p ] ] App[add1 App[2nd p ] ] ]] ] App[App[pair zero ] zero ] ] ]] ]] LAM[App[App[n LAM[false] ] true ]] LAM[LAM[LAM[App[f App[App[n f ] x ] ]]]] LAM[LAM[LAM[LAM[App[App[n f ] App[App[m f ] x ] ]]]]] LAM[LAM[LAM[LAM[App[App[n App[m f ] ] x ]]]]] ]] LAM[LAM[LAM[App[App[App[lamif c ] a ] b ]]]] LAM[App[pair true ]] LAM[App[pair false ]] ]]
+Frame: application
+| vals: 
+| exprs: LAM[App[+ x 1 ]] LAM[LAM[x]] LAM[LAM[App[f x ]]] LAM[LAM[App[f App[f x ] ]]] LAM[LAM[App[f App[f App[f x ] ] ]]] 
+=============
+===[C E K]===
+Cycle:	13
+Env: true
+| env(true) 	= CLO[LAM[x]]
+| env(false) 	= CLO[LAM[y]]
+| env(lamif) 	= CLO[LAM[LAM[App[App[cond e_true ] e_false ]]]]
+Code : LAM[App[+ x 1 ]]
+Frame: application
+| vals: CLO[App[LAM[App[LAM[App[LAM[App[LAM[App[LAM[App[App[App[sub1 one ] ++ ] 0 ]] LAM[LAM[App[App[App[lamif App[zero? n ] ] one ] App[App[mult n ] App[fac App[sub1 n ] ] ] ]]] ]] LAM[App[LAM[App[f LAM[App[App[x x ] v ]] ]] LAM[App[f LAM[App[App[x x ] v ]] ]] ]] ]] LAM[LAM[LAM[LAM[App[App[m App[App[App[mult n ] n ] ++ ] ] x ]]]]] App[add1 three ] App[App[add two ] three ] App[App[add three ] three ] LAM[App[1st App[App[n LAM[App[App[pair App[2nd p ] ] App[add1 App[2nd p ] ] ]] ] App[App[pair zero ] zero ] ] ]] ]] LAM[App[App[n LAM[false] ] true ]] LAM[LAM[LAM[App[f App[App[n f ] x ] ]]]] LAM[LAM[LAM[LAM[App[App[n f ] App[App[m f ] x ] ]]]]] LAM[LAM[LAM[LAM[App[App[n App[m f ] ] x ]]]]] ]] LAM[LAM[LAM[App[App[App[lamif c ] a ] b ]]]] LAM[App[pair true ]] LAM[App[pair false ]] ]] 
+| exprs: LAM[LAM[x]] LAM[LAM[App[f x ]]] LAM[LAM[App[f App[f x ] ]]] LAM[LAM[App[f App[f App[f x ] ] ]]] 
+=============
+===[C E K]===
+Cycle:	14
+Env: true
+| env(true) 	= CLO[LAM[x]]
+| env(false) 	= CLO[LAM[y]]
+| env(lamif) 	= CLO[LAM[LAM[App[App[cond e_true ] e_false ]]]]
+Code : CLO[App[+ x 1 ]]
+Frame: application
+| vals: CLO[App[LAM[App[LAM[App[LAM[App[LAM[App[LAM[App[App[App[sub1 one ] ++ ] 0 ]] LAM[LAM[App[App[App[lamif App[zero? n ] ] one ] App[App[mult n ] App[fac App[sub1 n ] ] ] ]]] ]] LAM[App[LAM[App[f LAM[App[App[x x ] v ]] ]] LAM[App[f LAM[App[App[x x ] v ]] ]] ]] ]] LAM[LAM[LAM[LAM[App[App[m App[App[App[mult n ] n ] ++ ] ] x ]]]]] App[add1 three ] App[App[add two ] three ] App[App[add three ] three ] LAM[App[1st App[App[n LAM[App[App[pair App[2nd p ] ] App[add1 App[2nd p ] ] ]] ] App[App[pair zero ] zero ] ] ]] ]] LAM[App[App[n LAM[false] ] true ]] LAM[LAM[LAM[App[f App[App[n f ] x ] ]]]] LAM[LAM[LAM[LAM[App[App[n f ] App[App[m f ] x ] ]]]]] LAM[LAM[LAM[LAM[App[App[n App[m f ] ] x ]]]]] ]] LAM[LAM[LAM[App[App[App[lamif c ] a ] b ]]]] LAM[App[pair true ]] LAM[App[pair false ]] ]] 
+| exprs: LAM[LAM[x]] LAM[LAM[App[f x ]]] LAM[LAM[App[f App[f x ] ]]] LAM[LAM[App[f App[f App[f x ] ] ]]] 
+=============
+===[C E K]===
+Cycle:	15
+Env: true
+| env(true) 	= CLO[LAM[x]]
+| env(false) 	= CLO[LAM[y]]
+| env(lamif) 	= CLO[LAM[LAM[App[App[cond e_true ] e_false ]]]]
+Code : LAM[LAM[x]]
+Frame: application
+| vals: CLO[App[LAM[App[LAM[App[LAM[App[LAM[App[LAM[App[App[App[sub1 one ] ++ ] 0 ]] LAM[LAM[App[App[App[lamif App[zero? n ] ] one ] App[App[mult n ] App[fac App[sub1 n ] ] ] ]]] ]] LAM[App[LAM[App[f LAM[App[App[x x ] v ]] ]] LAM[App[f LAM[App[App[x x ] v ]] ]] ]] ]] LAM[LAM[LAM[LAM[App[App[m App[App[App[mult n ] n ] ++ ] ] x ]]]]] App[add1 three ] App[App[add two ] three ] App[App[add three ] three ] LAM[App[1st App[App[n LAM[App[App[pair App[2nd p ] ] App[add1 App[2nd p ] ] ]] ] App[App[pair zero ] zero ] ] ]] ]] LAM[App[App[n LAM[false] ] true ]] LAM[LAM[LAM[App[f App[App[n f ] x ] ]]]] LAM[LAM[LAM[LAM[App[App[n f ] App[App[m f ] x ] ]]]]] LAM[LAM[LAM[LAM[App[App[n App[m f ] ] x ]]]]] ]] LAM[LAM[LAM[App[App[App[lamif c ] a ] b ]]]] LAM[App[pair true ]] LAM[App[pair false ]] ]] CLO[App[+ x 1 ]] 
+| exprs: LAM[LAM[App[f x ]]] LAM[LAM[App[f App[f x ] ]]] LAM[LAM[App[f App[f App[f x ] ] ]]] 
+=============
+===[C E K]===
+Cycle:	16
+Env: true
+| env(true) 	= CLO[LAM[x]]
+| env(false) 	= CLO[LAM[y]]
+| env(lamif) 	= CLO[LAM[LAM[App[App[cond e_true ] e_false ]]]]
+Code : CLO[LAM[x]]
+Frame: application
+| vals: CLO[App[LAM[App[LAM[App[LAM[App[LAM[App[LAM[App[App[App[sub1 one ] ++ ] 0 ]] LAM[LAM[App[App[App[lamif App[zero? n ] ] one ] App[App[mult n ] App[fac App[sub1 n ] ] ] ]]] ]] LAM[App[LAM[App[f LAM[App[App[x x ] v ]] ]] LAM[App[f LAM[App[App[x x ] v ]] ]] ]] ]] LAM[LAM[LAM[LAM[App[App[m App[App[App[mult n ] n ] ++ ] ] x ]]]]] App[add1 three ] App[App[add two ] three ] App[App[add three ] three ] LAM[App[1st App[App[n LAM[App[App[pair App[2nd p ] ] App[add1 App[2nd p ] ] ]] ] App[App[pair zero ] zero ] ] ]] ]] LAM[App[App[n LAM[false] ] true ]] LAM[LAM[LAM[App[f App[App[n f ] x ] ]]]] LAM[LAM[LAM[LAM[App[App[n f ] App[App[m f ] x ] ]]]]] LAM[LAM[LAM[LAM[App[App[n App[m f ] ] x ]]]]] ]] LAM[LAM[LAM[App[App[App[lamif c ] a ] b ]]]] LAM[App[pair true ]] LAM[App[pair false ]] ]] CLO[App[+ x 1 ]] 
+| exprs: LAM[LAM[App[f x ]]] LAM[LAM[App[f App[f x ] ]]] LAM[LAM[App[f App[f App[f x ] ] ]]] 
+=============
+===[C E K]===
+Cycle:	17
+Env: true
+| env(true) 	= CLO[LAM[x]]
+| env(false) 	= CLO[LAM[y]]
+| env(lamif) 	= CLO[LAM[LAM[App[App[cond e_true ] e_false ]]]]
+Code : LAM[LAM[App[f x ]]]
+Frame: application
+| vals: CLO[App[LAM[App[LAM[App[LAM[App[LAM[App[LAM[App[App[App[sub1 one ] ++ ] 0 ]] LAM[LAM[App[App[App[lamif App[zero? n ] ] one ] App[App[mult n ] App[fac App[sub1 n ] ] ] ]]] ]] LAM[App[LAM[App[f LAM[App[App[x x ] v ]] ]] LAM[App[f LAM[App[App[x x ] v ]] ]] ]] ]] LAM[LAM[LAM[LAM[App[App[m App[App[App[mult n ] n ] ++ ] ] x ]]]]] App[add1 three ] App[App[add two ] three ] App[App[add three ] three ] LAM[App[1st App[App[n LAM[App[App[pair App[2nd p ] ] App[add1 App[2nd p ] ] ]] ] App[App[pair zero ] zero ] ] ]] ]] LAM[App[App[n LAM[false] ] true ]] LAM[LAM[LAM[App[f App[App[n f ] x ] ]]]] LAM[LAM[LAM[LAM[App[App[n f ] App[App[m f ] x ] ]]]]] LAM[LAM[LAM[LAM[App[App[n App[m f ] ] x ]]]]] ]] LAM[LAM[LAM[App[App[App[lamif c ] a ] b ]]]] LAM[App[pair true ]] LAM[App[pair false ]] ]] CLO[App[+ x 1 ]] CLO[LAM[x]] 
+| exprs: LAM[LAM[App[f App[f x ] ]]] LAM[LAM[App[f App[f App[f x ] ] ]]] 
+=============
+===[C E K]===
+Cycle:	18
+Env: true
+| env(true) 	= CLO[LAM[x]]
+| env(false) 	= CLO[LAM[y]]
+| env(lamif) 	= CLO[LAM[LAM[App[App[cond e_true ] e_false ]]]]
+Code : CLO[LAM[App[f x ]]]
+Frame: application
+| vals: CLO[App[LAM[App[LAM[App[LAM[App[LAM[App[LAM[App[App[App[sub1 one ] ++ ] 0 ]] LAM[LAM[App[App[App[lamif App[zero? n ] ] one ] App[App[mult n ] App[fac App[sub1 n ] ] ] ]]] ]] LAM[App[LAM[App[f LAM[App[App[x x ] v ]] ]] LAM[App[f LAM[App[App[x x ] v ]] ]] ]] ]] LAM[LAM[LAM[LAM[App[App[m App[App[App[mult n ] n ] ++ ] ] x ]]]]] App[add1 three ] App[App[add two ] three ] App[App[add three ] three ] LAM[App[1st App[App[n LAM[App[App[pair App[2nd p ] ] App[add1 App[2nd p ] ] ]] ] App[App[pair zero ] zero ] ] ]] ]] LAM[App[App[n LAM[false] ] true ]] LAM[LAM[LAM[App[f App[App[n f ] x ] ]]]] LAM[LAM[LAM[LAM[App[App[n f ] App[App[m f ] x ] ]]]]] LAM[LAM[LAM[LAM[App[App[n App[m f ] ] x ]]]]] ]] LAM[LAM[LAM[App[App[App[lamif c ] a ] b ]]]] LAM[App[pair true ]] LAM[App[pair false ]] ]] CLO[App[+ x 1 ]] CLO[LAM[x]] 
+| exprs: LAM[LAM[App[f App[f x ] ]]] LAM[LAM[App[f App[f App[f x ] ] ]]] 
+=============
+===[C E K]===
+Cycle:	19
+Env: true
+| env(true) 	= CLO[LAM[x]]
+| env(false) 	= CLO[LAM[y]]
+| env(lamif) 	= CLO[LAM[LAM[App[App[cond e_true ] e_false ]]]]
+Code : LAM[LAM[App[f App[f x ] ]]]
+Frame: application
+| vals: CLO[App[LAM[App[LAM[App[LAM[App[LAM[App[LAM[App[App[App[sub1 one ] ++ ] 0 ]] LAM[LAM[App[App[App[lamif App[zero? n ] ] one ] App[App[mult n ] App[fac App[sub1 n ] ] ] ]]] ]] LAM[App[LAM[App[f LAM[App[App[x x ] v ]] ]] LAM[App[f LAM[App[App[x x ] v ]] ]] ]] ]] LAM[LAM[LAM[LAM[App[App[m App[App[App[mult n ] n ] ++ ] ] x ]]]]] App[add1 three ] App[App[add two ] three ] App[App[add three ] three ] LAM[App[1st App[App[n LAM[App[App[pair App[2nd p ] ] App[add1 App[2nd p ] ] ]] ] App[App[pair zero ] zero ] ] ]] ]] LAM[App[App[n LAM[false] ] true ]] LAM[LAM[LAM[App[f App[App[n f ] x ] ]]]] LAM[LAM[LAM[LAM[App[App[n f ] App[App[m f ] x ] ]]]]] LAM[LAM[LAM[LAM[App[App[n App[m f ] ] x ]]]]] ]] LAM[LAM[LAM[App[App[App[lamif c ] a ] b ]]]] LAM[App[pair true ]] LAM[App[pair false ]] ]] CLO[App[+ x 1 ]] CLO[LAM[x]] CLO[LAM[App[f x ]]] 
+| exprs: LAM[LAM[App[f App[f App[f x ] ] ]]] 
+=============
+===[C E K]===
+Cycle:	20
+Env: true
+| env(true) 	= CLO[LAM[x]]
+| env(false) 	= CLO[LAM[y]]
+| env(lamif) 	= CLO[LAM[LAM[App[App[cond e_true ] e_false ]]]]
+Code : CLO[LAM[App[f App[f x ] ]]]
+Frame: application
+| vals: CLO[App[LAM[App[LAM[App[LAM[App[LAM[App[LAM[App[App[App[sub1 one ] ++ ] 0 ]] LAM[LAM[App[App[App[lamif App[zero? n ] ] one ] App[App[mult n ] App[fac App[sub1 n ] ] ] ]]] ]] LAM[App[LAM[App[f LAM[App[App[x x ] v ]] ]] LAM[App[f LAM[App[App[x x ] v ]] ]] ]] ]] LAM[LAM[LAM[LAM[App[App[m App[App[App[mult n ] n ] ++ ] ] x ]]]]] App[add1 three ] App[App[add two ] three ] App[App[add three ] three ] LAM[App[1st App[App[n LAM[App[App[pair App[2nd p ] ] App[add1 App[2nd p ] ] ]] ] App[App[pair zero ] zero ] ] ]] ]] LAM[App[App[n LAM[false] ] true ]] LAM[LAM[LAM[App[f App[App[n f ] x ] ]]]] LAM[LAM[LAM[LAM[App[App[n f ] App[App[m f ] x ] ]]]]] LAM[LAM[LAM[LAM[App[App[n App[m f ] ] x ]]]]] ]] LAM[LAM[LAM[App[App[App[lamif c ] a ] b ]]]] LAM[App[pair true ]] LAM[App[pair false ]] ]] CLO[App[+ x 1 ]] CLO[LAM[x]] CLO[LAM[App[f x ]]] 
+| exprs: LAM[LAM[App[f App[f App[f x ] ] ]]] 
+=============
+===[C E K]===
+Cycle:	21
+Env: true
+| env(true) 	= CLO[LAM[x]]
+| env(false) 	= CLO[LAM[y]]
+| env(lamif) 	= CLO[LAM[LAM[App[App[cond e_true ] e_false ]]]]
+Code : LAM[LAM[App[f App[f App[f x ] ] ]]]
+Frame: application
+| vals: CLO[App[LAM[App[LAM[App[LAM[App[LAM[App[LAM[App[App[App[sub1 one ] ++ ] 0 ]] LAM[LAM[App[App[App[lamif App[zero? n ] ] one ] App[App[mult n ] App[fac App[sub1 n ] ] ] ]]] ]] LAM[App[LAM[App[f LAM[App[App[x x ] v ]] ]] LAM[App[f LAM[App[App[x x ] v ]] ]] ]] ]] LAM[LAM[LAM[LAM[App[App[m App[App[App[mult n ] n ] ++ ] ] x ]]]]] App[add1 three ] App[App[add two ] three ] App[App[add three ] three ] LAM[App[1st App[App[n LAM[App[App[pair App[2nd p ] ] App[add1 App[2nd p ] ] ]] ] App[App[pair zero ] zero ] ] ]] ]] LAM[App[App[n LAM[false] ] true ]] LAM[LAM[LAM[App[f App[App[n f ] x ] ]]]] LAM[LAM[LAM[LAM[App[App[n f ] App[App[m f ] x ] ]]]]] LAM[LAM[LAM[LAM[App[App[n App[m f ] ] x ]]]]] ]] LAM[LAM[LAM[App[App[App[lamif c ] a ] b ]]]] LAM[App[pair true ]] LAM[App[pair false ]] ]] CLO[App[+ x 1 ]] CLO[LAM[x]] CLO[LAM[App[f x ]]] CLO[LAM[App[f App[f x ] ]]] 
+| exprs: 
+=============
+===[C E K]===
+Cycle:	22
+Env: true
+| env(true) 	= CLO[LAM[x]]
+| env(false) 	= CLO[LAM[y]]
+| env(lamif) 	= CLO[LAM[LAM[App[App[cond e_true ] e_false ]]]]
+Code : CLO[LAM[App[f App[f App[f x ] ] ]]]
+Frame: application
+| vals: CLO[App[LAM[App[LAM[App[LAM[App[LAM[App[LAM[App[App[App[sub1 one ] ++ ] 0 ]] LAM[LAM[App[App[App[lamif App[zero? n ] ] one ] App[App[mult n ] App[fac App[sub1 n ] ] ] ]]] ]] LAM[App[LAM[App[f LAM[App[App[x x ] v ]] ]] LAM[App[f LAM[App[App[x x ] v ]] ]] ]] ]] LAM[LAM[LAM[LAM[App[App[m App[App[App[mult n ] n ] ++ ] ] x ]]]]] App[add1 three ] App[App[add two ] three ] App[App[add three ] three ] LAM[App[1st App[App[n LAM[App[App[pair App[2nd p ] ] App[add1 App[2nd p ] ] ]] ] App[App[pair zero ] zero ] ] ]] ]] LAM[App[App[n LAM[false] ] true ]] LAM[LAM[LAM[App[f App[App[n f ] x ] ]]]] LAM[LAM[LAM[LAM[App[App[n f ] App[App[m f ] x ] ]]]]] LAM[LAM[LAM[LAM[App[App[n App[m f ] ] x ]]]]] ]] LAM[LAM[LAM[App[App[App[lamif c ] a ] b ]]]] LAM[App[pair true ]] LAM[App[pair false ]] ]] CLO[App[+ x 1 ]] CLO[LAM[x]] CLO[LAM[App[f x ]]] CLO[LAM[App[f App[f x ] ]]] 
+| exprs: 
+=============
+===[C E K]===
+Cycle:	23
+Env: true
+| env(true) 	= CLO[LAM[x]]
+| env(false) 	= CLO[LAM[y]]
+| env(lamif) 	= CLO[LAM[LAM[App[App[cond e_true ] e_false ]]]]
+| env(++) 	= CLO[App[+ x 1 ]]
+| env(zero) 	= CLO[LAM[x]]
+| env(one) 	= CLO[LAM[App[f x ]]]
+| env(two) 	= CLO[LAM[App[f App[f x ] ]]]
+| env(three) 	= CLO[LAM[App[f App[f App[f x ] ] ]]]
+Code : App[LAM[App[LAM[App[LAM[App[LAM[App[LAM[App[App[App[sub1 one ] ++ ] 0 ]] LAM[LAM[App[App[App[lamif App[zero? n ] ] one ] App[App[mult n ] App[fac App[sub1 n ] ] ] ]]] ]] LAM[App[LAM[App[f LAM[App[App[x x ] v ]] ]] LAM[App[f LAM[App[App[x x ] v ]] ]] ]] ]] LAM[LAM[LAM[LAM[App[App[m App[App[App[mult n ] n ] ++ ] ] x ]]]]] App[add1 three ] App[App[add two ] three ] App[App[add three ] three ] LAM[App[1st App[App[n LAM[App[App[pair App[2nd p ] ] App[add1 App[2nd p ] ] ]] ] App[App[pair zero ] zero ] ] ]] ]] LAM[App[App[n LAM[false] ] true ]] LAM[LAM[LAM[App[f App[App[n f ] x ] ]]]] LAM[LAM[LAM[LAM[App[App[n f ] App[App[m f ] x ] ]]]]] LAM[LAM[LAM[LAM[App[App[n App[m f ] ] x ]]]]] ]] LAM[LAM[LAM[App[App[App[lamif c ] a ] b ]]]] LAM[App[pair true ]] LAM[App[pair false ]] ]
+Frame: return
+
+=============
+===[C E K]===
+Cycle:	24
+Env: true
+| env(true) 	= CLO[LAM[x]]
+| env(false) 	= CLO[LAM[y]]
+| env(lamif) 	= CLO[LAM[LAM[App[App[cond e_true ] e_false ]]]]
+| env(++) 	= CLO[App[+ x 1 ]]
+| env(zero) 	= CLO[LAM[x]]
+| env(one) 	= CLO[LAM[App[f x ]]]
+| env(two) 	= CLO[LAM[App[f App[f x ] ]]]
+| env(three) 	= CLO[LAM[App[f App[f App[f x ] ] ]]]
+Code : LAM[App[LAM[App[LAM[App[LAM[App[LAM[App[App[App[sub1 one ] ++ ] 0 ]] LAM[LAM[App[App[App[lamif App[zero? n ] ] one ] App[App[mult n ] App[fac App[sub1 n ] ] ] ]]] ]] LAM[App[LAM[App[f LAM[App[App[x x ] v ]] ]] LAM[App[f LAM[App[App[x x ] v ]] ]] ]] ]] LAM[LAM[LAM[LAM[App[App[m App[App[App[mult n ] n ] ++ ] ] x ]]]]] App[add1 three ] App[App[add two ] three ] App[App[add three ] three ] LAM[App[1st App[App[n LAM[App[App[pair App[2nd p ] ] App[add1 App[2nd p ] ] ]] ] App[App[pair zero ] zero ] ] ]] ]] LAM[App[App[n LAM[false] ] true ]] LAM[LAM[LAM[App[f App[App[n f ] x ] ]]]] LAM[LAM[LAM[LAM[App[App[n f ] App[App[m f ] x ] ]]]]] LAM[LAM[LAM[LAM[App[App[n App[m f ] ] x ]]]]] ]]
+Frame: application
+| vals: 
+| exprs: LAM[LAM[LAM[App[App[App[lamif c ] a ] b ]]]] LAM[App[pair true ]] LAM[App[pair false ]] 
+=============
+===[C E K]===
+Cycle:	25
+Env: true
+| env(true) 	= CLO[LAM[x]]
+| env(false) 	= CLO[LAM[y]]
+| env(lamif) 	= CLO[LAM[LAM[App[App[cond e_true ] e_false ]]]]
+| env(++) 	= CLO[App[+ x 1 ]]
+| env(zero) 	= CLO[LAM[x]]
+| env(one) 	= CLO[LAM[App[f x ]]]
+| env(two) 	= CLO[LAM[App[f App[f x ] ]]]
+| env(three) 	= CLO[LAM[App[f App[f App[f x ] ] ]]]
+Code : CLO[App[LAM[App[LAM[App[LAM[App[LAM[App[App[App[sub1 one ] ++ ] 0 ]] LAM[LAM[App[App[App[lamif App[zero? n ] ] one ] App[App[mult n ] App[fac App[sub1 n ] ] ] ]]] ]] LAM[App[LAM[App[f LAM[App[App[x x ] v ]] ]] LAM[App[f LAM[App[App[x x ] v ]] ]] ]] ]] LAM[LAM[LAM[LAM[App[App[m App[App[App[mult n ] n ] ++ ] ] x ]]]]] App[add1 three ] App[App[add two ] three ] App[App[add three ] three ] LAM[App[1st App[App[n LAM[App[App[pair App[2nd p ] ] App[add1 App[2nd p ] ] ]] ] App[App[pair zero ] zero ] ] ]] ]] LAM[App[App[n LAM[false] ] true ]] LAM[LAM[LAM[App[f App[App[n f ] x ] ]]]] LAM[LAM[LAM[LAM[App[App[n f ] App[App[m f ] x ] ]]]]] LAM[LAM[LAM[LAM[App[App[n App[m f ] ] x ]]]]] ]]
+Frame: application
+| vals: 
+| exprs: LAM[LAM[LAM[App[App[App[lamif c ] a ] b ]]]] LAM[App[pair true ]] LAM[App[pair false ]] 
+=============
+===[C E K]===
+Cycle:	26
+Env: true
+| env(true) 	= CLO[LAM[x]]
+| env(false) 	= CLO[LAM[y]]
+| env(lamif) 	= CLO[LAM[LAM[App[App[cond e_true ] e_false ]]]]
+| env(++) 	= CLO[App[+ x 1 ]]
+| env(zero) 	= CLO[LAM[x]]
+| env(one) 	= CLO[LAM[App[f x ]]]
+| env(two) 	= CLO[LAM[App[f App[f x ] ]]]
+| env(three) 	= CLO[LAM[App[f App[f App[f x ] ] ]]]
+Code : LAM[LAM[LAM[App[App[App[lamif c ] a ] b ]]]]
+Frame: application
+| vals: CLO[App[LAM[App[LAM[App[LAM[App[LAM[App[App[App[sub1 one ] ++ ] 0 ]] LAM[LAM[App[App[App[lamif App[zero? n ] ] one ] App[App[mult n ] App[fac App[sub1 n ] ] ] ]]] ]] LAM[App[LAM[App[f LAM[App[App[x x ] v ]] ]] LAM[App[f LAM[App[App[x x ] v ]] ]] ]] ]] LAM[LAM[LAM[LAM[App[App[m App[App[App[mult n ] n ] ++ ] ] x ]]]]] App[add1 three ] App[App[add two ] three ] App[App[add three ] three ] LAM[App[1st App[App[n LAM[App[App[pair App[2nd p ] ] App[add1 App[2nd p ] ] ]] ] App[App[pair zero ] zero ] ] ]] ]] LAM[App[App[n LAM[false] ] true ]] LAM[LAM[LAM[App[f App[App[n f ] x ] ]]]] LAM[LAM[LAM[LAM[App[App[n f ] App[App[m f ] x ] ]]]]] LAM[LAM[LAM[LAM[App[App[n App[m f ] ] x ]]]]] ]] 
+| exprs: LAM[App[pair true ]] LAM[App[pair false ]] 
+=============
+===[C E K]===
+Cycle:	27
+Env: true
+| env(true) 	= CLO[LAM[x]]
+| env(false) 	= CLO[LAM[y]]
+| env(lamif) 	= CLO[LAM[LAM[App[App[cond e_true ] e_false ]]]]
+| env(++) 	= CLO[App[+ x 1 ]]
+| env(zero) 	= CLO[LAM[x]]
+| env(one) 	= CLO[LAM[App[f x ]]]
+| env(two) 	= CLO[LAM[App[f App[f x ] ]]]
+| env(three) 	= CLO[LAM[App[f App[f App[f x ] ] ]]]
+Code : CLO[LAM[LAM[App[App[App[lamif c ] a ] b ]]]]
+Frame: application
+| vals: CLO[App[LAM[App[LAM[App[LAM[App[LAM[App[App[App[sub1 one ] ++ ] 0 ]] LAM[LAM[App[App[App[lamif App[zero? n ] ] one ] App[App[mult n ] App[fac App[sub1 n ] ] ] ]]] ]] LAM[App[LAM[App[f LAM[App[App[x x ] v ]] ]] LAM[App[f LAM[App[App[x x ] v ]] ]] ]] ]] LAM[LAM[LAM[LAM[App[App[m App[App[App[mult n ] n ] ++ ] ] x ]]]]] App[add1 three ] App[App[add two ] three ] App[App[add three ] three ] LAM[App[1st App[App[n LAM[App[App[pair App[2nd p ] ] App[add1 App[2nd p ] ] ]] ] App[App[pair zero ] zero ] ] ]] ]] LAM[App[App[n LAM[false] ] true ]] LAM[LAM[LAM[App[f App[App[n f ] x ] ]]]] LAM[LAM[LAM[LAM[App[App[n f ] App[App[m f ] x ] ]]]]] LAM[LAM[LAM[LAM[App[App[n App[m f ] ] x ]]]]] ]] 
+| exprs: LAM[App[pair true ]] LAM[App[pair false ]] 
+=============
+===[C E K]===
+Cycle:	28
+Env: true
+| env(true) 	= CLO[LAM[x]]
+| env(false) 	= CLO[LAM[y]]
+| env(lamif) 	= CLO[LAM[LAM[App[App[cond e_true ] e_false ]]]]
+| env(++) 	= CLO[App[+ x 1 ]]
+| env(zero) 	= CLO[LAM[x]]
+| env(one) 	= CLO[LAM[App[f x ]]]
+| env(two) 	= CLO[LAM[App[f App[f x ] ]]]
+| env(three) 	= CLO[LAM[App[f App[f App[f x ] ] ]]]
+Code : LAM[App[pair true ]]
+Frame: application
+| vals: CLO[App[LAM[App[LAM[App[LAM[App[LAM[App[App[App[sub1 one ] ++ ] 0 ]] LAM[LAM[App[App[App[lamif App[zero? n ] ] one ] App[App[mult n ] App[fac App[sub1 n ] ] ] ]]] ]] LAM[App[LAM[App[f LAM[App[App[x x ] v ]] ]] LAM[App[f LAM[App[App[x x ] v ]] ]] ]] ]] LAM[LAM[LAM[LAM[App[App[m App[App[App[mult n ] n ] ++ ] ] x ]]]]] App[add1 three ] App[App[add two ] three ] App[App[add three ] three ] LAM[App[1st App[App[n LAM[App[App[pair App[2nd p ] ] App[add1 App[2nd p ] ] ]] ] App[App[pair zero ] zero ] ] ]] ]] LAM[App[App[n LAM[false] ] true ]] LAM[LAM[LAM[App[f App[App[n f ] x ] ]]]] LAM[LAM[LAM[LAM[App[App[n f ] App[App[m f ] x ] ]]]]] LAM[LAM[LAM[LAM[App[App[n App[m f ] ] x ]]]]] ]] CLO[LAM[LAM[App[App[App[lamif c ] a ] b ]]]] 
+| exprs: LAM[App[pair false ]] 
+=============
+===[C E K]===
+Cycle:	29
+Env: true
+| env(true) 	= CLO[LAM[x]]
+| env(false) 	= CLO[LAM[y]]
+| env(lamif) 	= CLO[LAM[LAM[App[App[cond e_true ] e_false ]]]]
+| env(++) 	= CLO[App[+ x 1 ]]
+| env(zero) 	= CLO[LAM[x]]
+| env(one) 	= CLO[LAM[App[f x ]]]
+| env(two) 	= CLO[LAM[App[f App[f x ] ]]]
+| env(three) 	= CLO[LAM[App[f App[f App[f x ] ] ]]]
+Code : CLO[App[pair true ]]
+Frame: application
+| vals: CLO[App[LAM[App[LAM[App[LAM[App[LAM[App[App[App[sub1 one ] ++ ] 0 ]] LAM[LAM[App[App[App[lamif App[zero? n ] ] one ] App[App[mult n ] App[fac App[sub1 n ] ] ] ]]] ]] LAM[App[LAM[App[f LAM[App[App[x x ] v ]] ]] LAM[App[f LAM[App[App[x x ] v ]] ]] ]] ]] LAM[LAM[LAM[LAM[App[App[m App[App[App[mult n ] n ] ++ ] ] x ]]]]] App[add1 three ] App[App[add two ] three ] App[App[add three ] three ] LAM[App[1st App[App[n LAM[App[App[pair App[2nd p ] ] App[add1 App[2nd p ] ] ]] ] App[App[pair zero ] zero ] ] ]] ]] LAM[App[App[n LAM[false] ] true ]] LAM[LAM[LAM[App[f App[App[n f ] x ] ]]]] LAM[LAM[LAM[LAM[App[App[n f ] App[App[m f ] x ] ]]]]] LAM[LAM[LAM[LAM[App[App[n App[m f ] ] x ]]]]] ]] CLO[LAM[LAM[App[App[App[lamif c ] a ] b ]]]] 
+| exprs: LAM[App[pair false ]] 
+=============
+===[C E K]===
+Cycle:	30
+Env: true
+| env(true) 	= CLO[LAM[x]]
+| env(false) 	= CLO[LAM[y]]
+| env(lamif) 	= CLO[LAM[LAM[App[App[cond e_true ] e_false ]]]]
+| env(++) 	= CLO[App[+ x 1 ]]
+| env(zero) 	= CLO[LAM[x]]
+| env(one) 	= CLO[LAM[App[f x ]]]
+| env(two) 	= CLO[LAM[App[f App[f x ] ]]]
+| env(three) 	= CLO[LAM[App[f App[f App[f x ] ] ]]]
+Code : LAM[App[pair false ]]
+Frame: application
+| vals: CLO[App[LAM[App[LAM[App[LAM[App[LAM[App[App[App[sub1 one ] ++ ] 0 ]] LAM[LAM[App[App[App[lamif App[zero? n ] ] one ] App[App[mult n ] App[fac App[sub1 n ] ] ] ]]] ]] LAM[App[LAM[App[f LAM[App[App[x x ] v ]] ]] LAM[App[f LAM[App[App[x x ] v ]] ]] ]] ]] LAM[LAM[LAM[LAM[App[App[m App[App[App[mult n ] n ] ++ ] ] x ]]]]] App[add1 three ] App[App[add two ] three ] App[App[add three ] three ] LAM[App[1st App[App[n LAM[App[App[pair App[2nd p ] ] App[add1 App[2nd p ] ] ]] ] App[App[pair zero ] zero ] ] ]] ]] LAM[App[App[n LAM[false] ] true ]] LAM[LAM[LAM[App[f App[App[n f ] x ] ]]]] LAM[LAM[LAM[LAM[App[App[n f ] App[App[m f ] x ] ]]]]] LAM[LAM[LAM[LAM[App[App[n App[m f ] ] x ]]]]] ]] CLO[LAM[LAM[App[App[App[lamif c ] a ] b ]]]] CLO[App[pair true ]] 
+| exprs: 
+=============
+===[C E K]===
+Cycle:	31
+Env: true
+| env(true) 	= CLO[LAM[x]]
+| env(false) 	= CLO[LAM[y]]
+| env(lamif) 	= CLO[LAM[LAM[App[App[cond e_true ] e_false ]]]]
+| env(++) 	= CLO[App[+ x 1 ]]
+| env(zero) 	= CLO[LAM[x]]
+| env(one) 	= CLO[LAM[App[f x ]]]
+| env(two) 	= CLO[LAM[App[f App[f x ] ]]]
+| env(three) 	= CLO[LAM[App[f App[f App[f x ] ] ]]]
+Code : CLO[App[pair false ]]
+Frame: application
+| vals: CLO[App[LAM[App[LAM[App[LAM[App[LAM[App[App[App[sub1 one ] ++ ] 0 ]] LAM[LAM[App[App[App[lamif App[zero? n ] ] one ] App[App[mult n ] App[fac App[sub1 n ] ] ] ]]] ]] LAM[App[LAM[App[f LAM[App[App[x x ] v ]] ]] LAM[App[f LAM[App[App[x x ] v ]] ]] ]] ]] LAM[LAM[LAM[LAM[App[App[m App[App[App[mult n ] n ] ++ ] ] x ]]]]] App[add1 three ] App[App[add two ] three ] App[App[add three ] three ] LAM[App[1st App[App[n LAM[App[App[pair App[2nd p ] ] App[add1 App[2nd p ] ] ]] ] App[App[pair zero ] zero ] ] ]] ]] LAM[App[App[n LAM[false] ] true ]] LAM[LAM[LAM[App[f App[App[n f ] x ] ]]]] LAM[LAM[LAM[LAM[App[App[n f ] App[App[m f ] x ] ]]]]] LAM[LAM[LAM[LAM[App[App[n App[m f ] ] x ]]]]] ]] CLO[LAM[LAM[App[App[App[lamif c ] a ] b ]]]] CLO[App[pair true ]] 
+| exprs: 
+=============
+===[C E K]===
+Cycle:	32
+Env: true
+| env(true) 	= CLO[LAM[x]]
+| env(false) 	= CLO[LAM[y]]
+| env(lamif) 	= CLO[LAM[LAM[App[App[cond e_true ] e_false ]]]]
+| env(++) 	= CLO[App[+ x 1 ]]
+| env(zero) 	= CLO[LAM[x]]
+| env(one) 	= CLO[LAM[App[f x ]]]
+| env(two) 	= CLO[LAM[App[f App[f x ] ]]]
+| env(three) 	= CLO[LAM[App[f App[f App[f x ] ] ]]]
+| env(pair) 	= CLO[LAM[LAM[App[App[App[lamif c ] a ] b ]]]]
+| env(1st) 	= CLO[App[pair true ]]
+| env(2nd) 	= CLO[App[pair false ]]
+Code : App[LAM[App[LAM[App[LAM[App[LAM[App[App[App[sub1 one ] ++ ] 0 ]] LAM[LAM[App[App[App[lamif App[zero? n ] ] one ] App[App[mult n ] App[fac App[sub1 n ] ] ] ]]] ]] LAM[App[LAM[App[f LAM[App[App[x x ] v ]] ]] LAM[App[f LAM[App[App[x x ] v ]] ]] ]] ]] LAM[LAM[LAM[LAM[App[App[m App[App[App[mult n ] n ] ++ ] ] x ]]]]] App[add1 three ] App[App[add two ] three ] App[App[add three ] three ] LAM[App[1st App[App[n LAM[App[App[pair App[2nd p ] ] App[add1 App[2nd p ] ] ]] ] App[App[pair zero ] zero ] ] ]] ]] LAM[App[App[n LAM[false] ] true ]] LAM[LAM[LAM[App[f App[App[n f ] x ] ]]]] LAM[LAM[LAM[LAM[App[App[n f ] App[App[m f ] x ] ]]]]] LAM[LAM[LAM[LAM[App[App[n App[m f ] ] x ]]]]] ]
+Frame: return
+
+=============
+===[C E K]===
+Cycle:	33
+Env: true
+| env(true) 	= CLO[LAM[x]]
+| env(false) 	= CLO[LAM[y]]
+| env(lamif) 	= CLO[LAM[LAM[App[App[cond e_true ] e_false ]]]]
+| env(++) 	= CLO[App[+ x 1 ]]
+| env(zero) 	= CLO[LAM[x]]
+| env(one) 	= CLO[LAM[App[f x ]]]
+| env(two) 	= CLO[LAM[App[f App[f x ] ]]]
+| env(three) 	= CLO[LAM[App[f App[f App[f x ] ] ]]]
+| env(pair) 	= CLO[LAM[LAM[App[App[App[lamif c ] a ] b ]]]]
+| env(1st) 	= CLO[App[pair true ]]
+| env(2nd) 	= CLO[App[pair false ]]
+Code : LAM[App[LAM[App[LAM[App[LAM[App[App[App[sub1 one ] ++ ] 0 ]] LAM[LAM[App[App[App[lamif App[zero? n ] ] one ] App[App[mult n ] App[fac App[sub1 n ] ] ] ]]] ]] LAM[App[LAM[App[f LAM[App[App[x x ] v ]] ]] LAM[App[f LAM[App[App[x x ] v ]] ]] ]] ]] LAM[LAM[LAM[LAM[App[App[m App[App[App[mult n ] n ] ++ ] ] x ]]]]] App[add1 three ] App[App[add two ] three ] App[App[add three ] three ] LAM[App[1st App[App[n LAM[App[App[pair App[2nd p ] ] App[add1 App[2nd p ] ] ]] ] App[App[pair zero ] zero ] ] ]] ]]
+Frame: application
+| vals: 
+| exprs: LAM[App[App[n LAM[false] ] true ]] LAM[LAM[LAM[App[f App[App[n f ] x ] ]]]] LAM[LAM[LAM[LAM[App[App[n f ] App[App[m f ] x ] ]]]]] LAM[LAM[LAM[LAM[App[App[n App[m f ] ] x ]]]]] 
+=============
+===[C E K]===
+Cycle:	34
+Env: true
+| env(true) 	= CLO[LAM[x]]
+| env(false) 	= CLO[LAM[y]]
+| env(lamif) 	= CLO[LAM[LAM[App[App[cond e_true ] e_false ]]]]
+| env(++) 	= CLO[App[+ x 1 ]]
+| env(zero) 	= CLO[LAM[x]]
+| env(one) 	= CLO[LAM[App[f x ]]]
+| env(two) 	= CLO[LAM[App[f App[f x ] ]]]
+| env(three) 	= CLO[LAM[App[f App[f App[f x ] ] ]]]
+| env(pair) 	= CLO[LAM[LAM[App[App[App[lamif c ] a ] b ]]]]
+| env(1st) 	= CLO[App[pair true ]]
+| env(2nd) 	= CLO[App[pair false ]]
+Code : CLO[App[LAM[App[LAM[App[LAM[App[App[App[sub1 one ] ++ ] 0 ]] LAM[LAM[App[App[App[lamif App[zero? n ] ] one ] App[App[mult n ] App[fac App[sub1 n ] ] ] ]]] ]] LAM[App[LAM[App[f LAM[App[App[x x ] v ]] ]] LAM[App[f LAM[App[App[x x ] v ]] ]] ]] ]] LAM[LAM[LAM[LAM[App[App[m App[App[App[mult n ] n ] ++ ] ] x ]]]]] App[add1 three ] App[App[add two ] three ] App[App[add three ] three ] LAM[App[1st App[App[n LAM[App[App[pair App[2nd p ] ] App[add1 App[2nd p ] ] ]] ] App[App[pair zero ] zero ] ] ]] ]]
+Frame: application
+| vals: 
+| exprs: LAM[App[App[n LAM[false] ] true ]] LAM[LAM[LAM[App[f App[App[n f ] x ] ]]]] LAM[LAM[LAM[LAM[App[App[n f ] App[App[m f ] x ] ]]]]] LAM[LAM[LAM[LAM[App[App[n App[m f ] ] x ]]]]] 
+=============
+===[C E K]===
+Cycle:	35
+Env: true
+| env(true) 	= CLO[LAM[x]]
+| env(false) 	= CLO[LAM[y]]
+| env(lamif) 	= CLO[LAM[LAM[App[App[cond e_true ] e_false ]]]]
+| env(++) 	= CLO[App[+ x 1 ]]
+| env(zero) 	= CLO[LAM[x]]
+| env(one) 	= CLO[LAM[App[f x ]]]
+| env(two) 	= CLO[LAM[App[f App[f x ] ]]]
+| env(three) 	= CLO[LAM[App[f App[f App[f x ] ] ]]]
+| env(pair) 	= CLO[LAM[LAM[App[App[App[lamif c ] a ] b ]]]]
+| env(1st) 	= CLO[App[pair true ]]
+| env(2nd) 	= CLO[App[pair false ]]
+Code : LAM[App[App[n LAM[false] ] true ]]
+Frame: application
+| vals: CLO[App[LAM[App[LAM[App[LAM[App[App[App[sub1 one ] ++ ] 0 ]] LAM[LAM[App[App[App[lamif App[zero? n ] ] one ] App[App[mult n ] App[fac App[sub1 n ] ] ] ]]] ]] LAM[App[LAM[App[f LAM[App[App[x x ] v ]] ]] LAM[App[f LAM[App[App[x x ] v ]] ]] ]] ]] LAM[LAM[LAM[LAM[App[App[m App[App[App[mult n ] n ] ++ ] ] x ]]]]] App[add1 three ] App[App[add two ] three ] App[App[add three ] three ] LAM[App[1st App[App[n LAM[App[App[pair App[2nd p ] ] App[add1 App[2nd p ] ] ]] ] App[App[pair zero ] zero ] ] ]] ]] 
+| exprs: LAM[LAM[LAM[App[f App[App[n f ] x ] ]]]] LAM[LAM[LAM[LAM[App[App[n f ] App[App[m f ] x ] ]]]]] LAM[LAM[LAM[LAM[App[App[n App[m f ] ] x ]]]]] 
+=============
+===[C E K]===
+Cycle:	36
+Env: true
+| env(true) 	= CLO[LAM[x]]
+| env(false) 	= CLO[LAM[y]]
+| env(lamif) 	= CLO[LAM[LAM[App[App[cond e_true ] e_false ]]]]
+| env(++) 	= CLO[App[+ x 1 ]]
+| env(zero) 	= CLO[LAM[x]]
+| env(one) 	= CLO[LAM[App[f x ]]]
+| env(two) 	= CLO[LAM[App[f App[f x ] ]]]
+| env(three) 	= CLO[LAM[App[f App[f App[f x ] ] ]]]
+| env(pair) 	= CLO[LAM[LAM[App[App[App[lamif c ] a ] b ]]]]
+| env(1st) 	= CLO[App[pair true ]]
+| env(2nd) 	= CLO[App[pair false ]]
+Code : CLO[App[App[n LAM[false] ] true ]]
+Frame: application
+| vals: CLO[App[LAM[App[LAM[App[LAM[App[App[App[sub1 one ] ++ ] 0 ]] LAM[LAM[App[App[App[lamif App[zero? n ] ] one ] App[App[mult n ] App[fac App[sub1 n ] ] ] ]]] ]] LAM[App[LAM[App[f LAM[App[App[x x ] v ]] ]] LAM[App[f LAM[App[App[x x ] v ]] ]] ]] ]] LAM[LAM[LAM[LAM[App[App[m App[App[App[mult n ] n ] ++ ] ] x ]]]]] App[add1 three ] App[App[add two ] three ] App[App[add three ] three ] LAM[App[1st App[App[n LAM[App[App[pair App[2nd p ] ] App[add1 App[2nd p ] ] ]] ] App[App[pair zero ] zero ] ] ]] ]] 
+| exprs: LAM[LAM[LAM[App[f App[App[n f ] x ] ]]]] LAM[LAM[LAM[LAM[App[App[n f ] App[App[m f ] x ] ]]]]] LAM[LAM[LAM[LAM[App[App[n App[m f ] ] x ]]]]] 
+=============
+===[C E K]===
+Cycle:	37
+Env: true
+| env(true) 	= CLO[LAM[x]]
+| env(false) 	= CLO[LAM[y]]
+| env(lamif) 	= CLO[LAM[LAM[App[App[cond e_true ] e_false ]]]]
+| env(++) 	= CLO[App[+ x 1 ]]
+| env(zero) 	= CLO[LAM[x]]
+| env(one) 	= CLO[LAM[App[f x ]]]
+| env(two) 	= CLO[LAM[App[f App[f x ] ]]]
+| env(three) 	= CLO[LAM[App[f App[f App[f x ] ] ]]]
+| env(pair) 	= CLO[LAM[LAM[App[App[App[lamif c ] a ] b ]]]]
+| env(1st) 	= CLO[App[pair true ]]
+| env(2nd) 	= CLO[App[pair false ]]
+Code : LAM[LAM[LAM[App[f App[App[n f ] x ] ]]]]
+Frame: application
+| vals: CLO[App[LAM[App[LAM[App[LAM[App[App[App[sub1 one ] ++ ] 0 ]] LAM[LAM[App[App[App[lamif App[zero? n ] ] one ] App[App[mult n ] App[fac App[sub1 n ] ] ] ]]] ]] LAM[App[LAM[App[f LAM[App[App[x x ] v ]] ]] LAM[App[f LAM[App[App[x x ] v ]] ]] ]] ]] LAM[LAM[LAM[LAM[App[App[m App[App[App[mult n ] n ] ++ ] ] x ]]]]] App[add1 three ] App[App[add two ] three ] App[App[add three ] three ] LAM[App[1st App[App[n LAM[App[App[pair App[2nd p ] ] App[add1 App[2nd p ] ] ]] ] App[App[pair zero ] zero ] ] ]] ]] CLO[App[App[n LAM[false] ] true ]] 
+| exprs: LAM[LAM[LAM[LAM[App[App[n f ] App[App[m f ] x ] ]]]]] LAM[LAM[LAM[LAM[App[App[n App[m f ] ] x ]]]]] 
+=============
+===[C E K]===
+Cycle:	38
+Env: true
+| env(true) 	= CLO[LAM[x]]
+| env(false) 	= CLO[LAM[y]]
+| env(lamif) 	= CLO[LAM[LAM[App[App[cond e_true ] e_false ]]]]
+| env(++) 	= CLO[App[+ x 1 ]]
+| env(zero) 	= CLO[LAM[x]]
+| env(one) 	= CLO[LAM[App[f x ]]]
+| env(two) 	= CLO[LAM[App[f App[f x ] ]]]
+| env(three) 	= CLO[LAM[App[f App[f App[f x ] ] ]]]
+| env(pair) 	= CLO[LAM[LAM[App[App[App[lamif c ] a ] b ]]]]
+| env(1st) 	= CLO[App[pair true ]]
+| env(2nd) 	= CLO[App[pair false ]]
+Code : CLO[LAM[LAM[App[f App[App[n f ] x ] ]]]]
+Frame: application
+| vals: CLO[App[LAM[App[LAM[App[LAM[App[App[App[sub1 one ] ++ ] 0 ]] LAM[LAM[App[App[App[lamif App[zero? n ] ] one ] App[App[mult n ] App[fac App[sub1 n ] ] ] ]]] ]] LAM[App[LAM[App[f LAM[App[App[x x ] v ]] ]] LAM[App[f LAM[App[App[x x ] v ]] ]] ]] ]] LAM[LAM[LAM[LAM[App[App[m App[App[App[mult n ] n ] ++ ] ] x ]]]]] App[add1 three ] App[App[add two ] three ] App[App[add three ] three ] LAM[App[1st App[App[n LAM[App[App[pair App[2nd p ] ] App[add1 App[2nd p ] ] ]] ] App[App[pair zero ] zero ] ] ]] ]] CLO[App[App[n LAM[false] ] true ]] 
+| exprs: LAM[LAM[LAM[LAM[App[App[n f ] App[App[m f ] x ] ]]]]] LAM[LAM[LAM[LAM[App[App[n App[m f ] ] x ]]]]] 
+=============
+===[C E K]===
+Cycle:	39
+Env: true
+| env(true) 	= CLO[LAM[x]]
+| env(false) 	= CLO[LAM[y]]
+| env(lamif) 	= CLO[LAM[LAM[App[App[cond e_true ] e_false ]]]]
+| env(++) 	= CLO[App[+ x 1 ]]
+| env(zero) 	= CLO[LAM[x]]
+| env(one) 	= CLO[LAM[App[f x ]]]
+| env(two) 	= CLO[LAM[App[f App[f x ] ]]]
+| env(three) 	= CLO[LAM[App[f App[f App[f x ] ] ]]]
+| env(pair) 	= CLO[LAM[LAM[App[App[App[lamif c ] a ] b ]]]]
+| env(1st) 	= CLO[App[pair true ]]
+| env(2nd) 	= CLO[App[pair false ]]
+Code : LAM[LAM[LAM[LAM[App[App[n f ] App[App[m f ] x ] ]]]]]
+Frame: application
+| vals: CLO[App[LAM[App[LAM[App[LAM[App[App[App[sub1 one ] ++ ] 0 ]] LAM[LAM[App[App[App[lamif App[zero? n ] ] one ] App[App[mult n ] App[fac App[sub1 n ] ] ] ]]] ]] LAM[App[LAM[App[f LAM[App[App[x x ] v ]] ]] LAM[App[f LAM[App[App[x x ] v ]] ]] ]] ]] LAM[LAM[LAM[LAM[App[App[m App[App[App[mult n ] n ] ++ ] ] x ]]]]] App[add1 three ] App[App[add two ] three ] App[App[add three ] three ] LAM[App[1st App[App[n LAM[App[App[pair App[2nd p ] ] App[add1 App[2nd p ] ] ]] ] App[App[pair zero ] zero ] ] ]] ]] CLO[App[App[n LAM[false] ] true ]] CLO[LAM[LAM[App[f App[App[n f ] x ] ]]]] 
+| exprs: LAM[LAM[LAM[LAM[App[App[n App[m f ] ] x ]]]]] 
+=============
+===[C E K]===
+Cycle:	40
+Env: true
+| env(true) 	= CLO[LAM[x]]
+| env(false) 	= CLO[LAM[y]]
+| env(lamif) 	= CLO[LAM[LAM[App[App[cond e_true ] e_false ]]]]
+| env(++) 	= CLO[App[+ x 1 ]]
+| env(zero) 	= CLO[LAM[x]]
+| env(one) 	= CLO[LAM[App[f x ]]]
+| env(two) 	= CLO[LAM[App[f App[f x ] ]]]
+| env(three) 	= CLO[LAM[App[f App[f App[f x ] ] ]]]
+| env(pair) 	= CLO[LAM[LAM[App[App[App[lamif c ] a ] b ]]]]
+| env(1st) 	= CLO[App[pair true ]]
+| env(2nd) 	= CLO[App[pair false ]]
+Code : CLO[LAM[LAM[LAM[App[App[n f ] App[App[m f ] x ] ]]]]]
+Frame: application
+| vals: CLO[App[LAM[App[LAM[App[LAM[App[App[App[sub1 one ] ++ ] 0 ]] LAM[LAM[App[App[App[lamif App[zero? n ] ] one ] App[App[mult n ] App[fac App[sub1 n ] ] ] ]]] ]] LAM[App[LAM[App[f LAM[App[App[x x ] v ]] ]] LAM[App[f LAM[App[App[x x ] v ]] ]] ]] ]] LAM[LAM[LAM[LAM[App[App[m App[App[App[mult n ] n ] ++ ] ] x ]]]]] App[add1 three ] App[App[add two ] three ] App[App[add three ] three ] LAM[App[1st App[App[n LAM[App[App[pair App[2nd p ] ] App[add1 App[2nd p ] ] ]] ] App[App[pair zero ] zero ] ] ]] ]] CLO[App[App[n LAM[false] ] true ]] CLO[LAM[LAM[App[f App[App[n f ] x ] ]]]] 
+| exprs: LAM[LAM[LAM[LAM[App[App[n App[m f ] ] x ]]]]] 
+=============
+===[C E K]===
+Cycle:	41
+Env: true
+| env(true) 	= CLO[LAM[x]]
+| env(false) 	= CLO[LAM[y]]
+| env(lamif) 	= CLO[LAM[LAM[App[App[cond e_true ] e_false ]]]]
+| env(++) 	= CLO[App[+ x 1 ]]
+| env(zero) 	= CLO[LAM[x]]
+| env(one) 	= CLO[LAM[App[f x ]]]
+| env(two) 	= CLO[LAM[App[f App[f x ] ]]]
+| env(three) 	= CLO[LAM[App[f App[f App[f x ] ] ]]]
+| env(pair) 	= CLO[LAM[LAM[App[App[App[lamif c ] a ] b ]]]]
+| env(1st) 	= CLO[App[pair true ]]
+| env(2nd) 	= CLO[App[pair false ]]
+Code : LAM[LAM[LAM[LAM[App[App[n App[m f ] ] x ]]]]]
+Frame: application
+| vals: CLO[App[LAM[App[LAM[App[LAM[App[App[App[sub1 one ] ++ ] 0 ]] LAM[LAM[App[App[App[lamif App[zero? n ] ] one ] App[App[mult n ] App[fac App[sub1 n ] ] ] ]]] ]] LAM[App[LAM[App[f LAM[App[App[x x ] v ]] ]] LAM[App[f LAM[App[App[x x ] v ]] ]] ]] ]] LAM[LAM[LAM[LAM[App[App[m App[App[App[mult n ] n ] ++ ] ] x ]]]]] App[add1 three ] App[App[add two ] three ] App[App[add three ] three ] LAM[App[1st App[App[n LAM[App[App[pair App[2nd p ] ] App[add1 App[2nd p ] ] ]] ] App[App[pair zero ] zero ] ] ]] ]] CLO[App[App[n LAM[false] ] true ]] CLO[LAM[LAM[App[f App[App[n f ] x ] ]]]] CLO[LAM[LAM[LAM[App[App[n f ] App[App[m f ] x ] ]]]]] 
+| exprs: 
+=============
+===[C E K]===
+Cycle:	42
+Env: true
+| env(true) 	= CLO[LAM[x]]
+| env(false) 	= CLO[LAM[y]]
+| env(lamif) 	= CLO[LAM[LAM[App[App[cond e_true ] e_false ]]]]
+| env(++) 	= CLO[App[+ x 1 ]]
+| env(zero) 	= CLO[LAM[x]]
+| env(one) 	= CLO[LAM[App[f x ]]]
+| env(two) 	= CLO[LAM[App[f App[f x ] ]]]
+| env(three) 	= CLO[LAM[App[f App[f App[f x ] ] ]]]
+| env(pair) 	= CLO[LAM[LAM[App[App[App[lamif c ] a ] b ]]]]
+| env(1st) 	= CLO[App[pair true ]]
+| env(2nd) 	= CLO[App[pair false ]]
+Code : CLO[LAM[LAM[LAM[App[App[n App[m f ] ] x ]]]]]
+Frame: application
+| vals: CLO[App[LAM[App[LAM[App[LAM[App[App[App[sub1 one ] ++ ] 0 ]] LAM[LAM[App[App[App[lamif App[zero? n ] ] one ] App[App[mult n ] App[fac App[sub1 n ] ] ] ]]] ]] LAM[App[LAM[App[f LAM[App[App[x x ] v ]] ]] LAM[App[f LAM[App[App[x x ] v ]] ]] ]] ]] LAM[LAM[LAM[LAM[App[App[m App[App[App[mult n ] n ] ++ ] ] x ]]]]] App[add1 three ] App[App[add two ] three ] App[App[add three ] three ] LAM[App[1st App[App[n LAM[App[App[pair App[2nd p ] ] App[add1 App[2nd p ] ] ]] ] App[App[pair zero ] zero ] ] ]] ]] CLO[App[App[n LAM[false] ] true ]] CLO[LAM[LAM[App[f App[App[n f ] x ] ]]]] CLO[LAM[LAM[LAM[App[App[n f ] App[App[m f ] x ] ]]]]] 
+| exprs: 
+=============
+===[C E K]===
+Cycle:	43
+Env: true
+| env(true) 	= CLO[LAM[x]]
+| env(false) 	= CLO[LAM[y]]
+| env(lamif) 	= CLO[LAM[LAM[App[App[cond e_true ] e_false ]]]]
+| env(++) 	= CLO[App[+ x 1 ]]
+| env(zero) 	= CLO[LAM[x]]
+| env(one) 	= CLO[LAM[App[f x ]]]
+| env(two) 	= CLO[LAM[App[f App[f x ] ]]]
+| env(three) 	= CLO[LAM[App[f App[f App[f x ] ] ]]]
+| env(pair) 	= CLO[LAM[LAM[App[App[App[lamif c ] a ] b ]]]]
+| env(1st) 	= CLO[App[pair true ]]
+| env(2nd) 	= CLO[App[pair false ]]
+| env(zero?) 	= CLO[App[App[n LAM[false] ] true ]]
+| env(add1) 	= CLO[LAM[LAM[App[f App[App[n f ] x ] ]]]]
+| env(add) 	= CLO[LAM[LAM[LAM[App[App[n f ] App[App[m f ] x ] ]]]]]
+| env(mult) 	= CLO[LAM[LAM[LAM[App[App[n App[m f ] ] x ]]]]]
+Code : App[LAM[App[LAM[App[LAM[App[App[App[sub1 one ] ++ ] 0 ]] LAM[LAM[App[App[App[lamif App[zero? n ] ] one ] App[App[mult n ] App[fac App[sub1 n ] ] ] ]]] ]] LAM[App[LAM[App[f LAM[App[App[x x ] v ]] ]] LAM[App[f LAM[App[App[x x ] v ]] ]] ]] ]] LAM[LAM[LAM[LAM[App[App[m App[App[App[mult n ] n ] ++ ] ] x ]]]]] App[add1 three ] App[App[add two ] three ] App[App[add three ] three ] LAM[App[1st App[App[n LAM[App[App[pair App[2nd p ] ] App[add1 App[2nd p ] ] ]] ] App[App[pair zero ] zero ] ] ]] ]
+Frame: return
+
+=============
+===[C E K]===
+Cycle:	44
+Env: true
+| env(true) 	= CLO[LAM[x]]
+| env(false) 	= CLO[LAM[y]]
+| env(lamif) 	= CLO[LAM[LAM[App[App[cond e_true ] e_false ]]]]
+| env(++) 	= CLO[App[+ x 1 ]]
+| env(zero) 	= CLO[LAM[x]]
+| env(one) 	= CLO[LAM[App[f x ]]]
+| env(two) 	= CLO[LAM[App[f App[f x ] ]]]
+| env(three) 	= CLO[LAM[App[f App[f App[f x ] ] ]]]
+| env(pair) 	= CLO[LAM[LAM[App[App[App[lamif c ] a ] b ]]]]
+| env(1st) 	= CLO[App[pair true ]]
+| env(2nd) 	= CLO[App[pair false ]]
+| env(zero?) 	= CLO[App[App[n LAM[false] ] true ]]
+| env(add1) 	= CLO[LAM[LAM[App[f App[App[n f ] x ] ]]]]
+| env(add) 	= CLO[LAM[LAM[LAM[App[App[n f ] App[App[m f ] x ] ]]]]]
+| env(mult) 	= CLO[LAM[LAM[LAM[App[App[n App[m f ] ] x ]]]]]
+Code : LAM[App[LAM[App[LAM[App[App[App[sub1 one ] ++ ] 0 ]] LAM[LAM[App[App[App[lamif App[zero? n ] ] one ] App[App[mult n ] App[fac App[sub1 n ] ] ] ]]] ]] LAM[App[LAM[App[f LAM[App[App[x x ] v ]] ]] LAM[App[f LAM[App[App[x x ] v ]] ]] ]] ]]
+Frame: application
+| vals: 
+| exprs: LAM[LAM[LAM[LAM[App[App[m App[App[App[mult n ] n ] ++ ] ] x ]]]]] App[add1 three ] App[App[add two ] three ] App[App[add three ] three ] LAM[App[1st App[App[n LAM[App[App[pair App[2nd p ] ] App[add1 App[2nd p ] ] ]] ] App[App[pair zero ] zero ] ] ]] 
+=============
+===[C E K]===
+Cycle:	45
+Env: true
+| env(true) 	= CLO[LAM[x]]
+| env(false) 	= CLO[LAM[y]]
+| env(lamif) 	= CLO[LAM[LAM[App[App[cond e_true ] e_false ]]]]
+| env(++) 	= CLO[App[+ x 1 ]]
+| env(zero) 	= CLO[LAM[x]]
+| env(one) 	= CLO[LAM[App[f x ]]]
+| env(two) 	= CLO[LAM[App[f App[f x ] ]]]
+| env(three) 	= CLO[LAM[App[f App[f App[f x ] ] ]]]
+| env(pair) 	= CLO[LAM[LAM[App[App[App[lamif c ] a ] b ]]]]
+| env(1st) 	= CLO[App[pair true ]]
+| env(2nd) 	= CLO[App[pair false ]]
+| env(zero?) 	= CLO[App[App[n LAM[false] ] true ]]
+| env(add1) 	= CLO[LAM[LAM[App[f App[App[n f ] x ] ]]]]
+| env(add) 	= CLO[LAM[LAM[LAM[App[App[n f ] App[App[m f ] x ] ]]]]]
+| env(mult) 	= CLO[LAM[LAM[LAM[App[App[n App[m f ] ] x ]]]]]
+Code : CLO[App[LAM[App[LAM[App[App[App[sub1 one ] ++ ] 0 ]] LAM[LAM[App[App[App[lamif App[zero? n ] ] one ] App[App[mult n ] App[fac App[sub1 n ] ] ] ]]] ]] LAM[App[LAM[App[f LAM[App[App[x x ] v ]] ]] LAM[App[f LAM[App[App[x x ] v ]] ]] ]] ]]
+Frame: application
+| vals: 
+| exprs: LAM[LAM[LAM[LAM[App[App[m App[App[App[mult n ] n ] ++ ] ] x ]]]]] App[add1 three ] App[App[add two ] three ] App[App[add three ] three ] LAM[App[1st App[App[n LAM[App[App[pair App[2nd p ] ] App[add1 App[2nd p ] ] ]] ] App[App[pair zero ] zero ] ] ]] 
+=============
+===[C E K]===
+Cycle:	46
+Env: true
+| env(true) 	= CLO[LAM[x]]
+| env(false) 	= CLO[LAM[y]]
+| env(lamif) 	= CLO[LAM[LAM[App[App[cond e_true ] e_false ]]]]
+| env(++) 	= CLO[App[+ x 1 ]]
+| env(zero) 	= CLO[LAM[x]]
+| env(one) 	= CLO[LAM[App[f x ]]]
+| env(two) 	= CLO[LAM[App[f App[f x ] ]]]
+| env(three) 	= CLO[LAM[App[f App[f App[f x ] ] ]]]
+| env(pair) 	= CLO[LAM[LAM[App[App[App[lamif c ] a ] b ]]]]
+| env(1st) 	= CLO[App[pair true ]]
+| env(2nd) 	= CLO[App[pair false ]]
+| env(zero?) 	= CLO[App[App[n LAM[false] ] true ]]
+| env(add1) 	= CLO[LAM[LAM[App[f App[App[n f ] x ] ]]]]
+| env(add) 	= CLO[LAM[LAM[LAM[App[App[n f ] App[App[m f ] x ] ]]]]]
+| env(mult) 	= CLO[LAM[LAM[LAM[App[App[n App[m f ] ] x ]]]]]
+Code : LAM[LAM[LAM[LAM[App[App[m App[App[App[mult n ] n ] ++ ] ] x ]]]]]
+Frame: application
+| vals: CLO[App[LAM[App[LAM[App[App[App[sub1 one ] ++ ] 0 ]] LAM[LAM[App[App[App[lamif App[zero? n ] ] one ] App[App[mult n ] App[fac App[sub1 n ] ] ] ]]] ]] LAM[App[LAM[App[f LAM[App[App[x x ] v ]] ]] LAM[App[f LAM[App[App[x x ] v ]] ]] ]] ]] 
+| exprs: App[add1 three ] App[App[add two ] three ] App[App[add three ] three ] LAM[App[1st App[App[n LAM[App[App[pair App[2nd p ] ] App[add1 App[2nd p ] ] ]] ] App[App[pair zero ] zero ] ] ]] 
+=============
+===[C E K]===
+Cycle:	47
+Env: true
+| env(true) 	= CLO[LAM[x]]
+| env(false) 	= CLO[LAM[y]]
+| env(lamif) 	= CLO[LAM[LAM[App[App[cond e_true ] e_false ]]]]
+| env(++) 	= CLO[App[+ x 1 ]]
+| env(zero) 	= CLO[LAM[x]]
+| env(one) 	= CLO[LAM[App[f x ]]]
+| env(two) 	= CLO[LAM[App[f App[f x ] ]]]
+| env(three) 	= CLO[LAM[App[f App[f App[f x ] ] ]]]
+| env(pair) 	= CLO[LAM[LAM[App[App[App[lamif c ] a ] b ]]]]
+| env(1st) 	= CLO[App[pair true ]]
+| env(2nd) 	= CLO[App[pair false ]]
+| env(zero?) 	= CLO[App[App[n LAM[false] ] true ]]
+| env(add1) 	= CLO[LAM[LAM[App[f App[App[n f ] x ] ]]]]
+| env(add) 	= CLO[LAM[LAM[LAM[App[App[n f ] App[App[m f ] x ] ]]]]]
+| env(mult) 	= CLO[LAM[LAM[LAM[App[App[n App[m f ] ] x ]]]]]
+Code : CLO[LAM[LAM[LAM[App[App[m App[App[App[mult n ] n ] ++ ] ] x ]]]]]
+Frame: application
+| vals: CLO[App[LAM[App[LAM[App[App[App[sub1 one ] ++ ] 0 ]] LAM[LAM[App[App[App[lamif App[zero? n ] ] one ] App[App[mult n ] App[fac App[sub1 n ] ] ] ]]] ]] LAM[App[LAM[App[f LAM[App[App[x x ] v ]] ]] LAM[App[f LAM[App[App[x x ] v ]] ]] ]] ]] 
+| exprs: App[add1 three ] App[App[add two ] three ] App[App[add three ] three ] LAM[App[1st App[App[n LAM[App[App[pair App[2nd p ] ] App[add1 App[2nd p ] ] ]] ] App[App[pair zero ] zero ] ] ]] 
+=============
+===[C E K]===
+Cycle:	48
+Env: true
+| env(true) 	= CLO[LAM[x]]
+| env(false) 	= CLO[LAM[y]]
+| env(lamif) 	= CLO[LAM[LAM[App[App[cond e_true ] e_false ]]]]
+| env(++) 	= CLO[App[+ x 1 ]]
+| env(zero) 	= CLO[LAM[x]]
+| env(one) 	= CLO[LAM[App[f x ]]]
+| env(two) 	= CLO[LAM[App[f App[f x ] ]]]
+| env(three) 	= CLO[LAM[App[f App[f App[f x ] ] ]]]
+| env(pair) 	= CLO[LAM[LAM[App[App[App[lamif c ] a ] b ]]]]
+| env(1st) 	= CLO[App[pair true ]]
+| env(2nd) 	= CLO[App[pair false ]]
+| env(zero?) 	= CLO[App[App[n LAM[false] ] true ]]
+| env(add1) 	= CLO[LAM[LAM[App[f App[App[n f ] x ] ]]]]
+| env(add) 	= CLO[LAM[LAM[LAM[App[App[n f ] App[App[m f ] x ] ]]]]]
+| env(mult) 	= CLO[LAM[LAM[LAM[App[App[n App[m f ] ] x ]]]]]
+Code : App[add1 three ]
+Frame: application
+| vals: CLO[App[LAM[App[LAM[App[App[App[sub1 one ] ++ ] 0 ]] LAM[LAM[App[App[App[lamif App[zero? n ] ] one ] App[App[mult n ] App[fac App[sub1 n ] ] ] ]]] ]] LAM[App[LAM[App[f LAM[App[App[x x ] v ]] ]] LAM[App[f LAM[App[App[x x ] v ]] ]] ]] ]] CLO[LAM[LAM[LAM[App[App[m App[App[App[mult n ] n ] ++ ] ] x ]]]]] 
+| exprs: App[App[add two ] three ] App[App[add three ] three ] LAM[App[1st App[App[n LAM[App[App[pair App[2nd p ] ] App[add1 App[2nd p ] ] ]] ] App[App[pair zero ] zero ] ] ]] 
+=============
+===[C E K]===
+Cycle:	49
+Env: true
+| env(true) 	= CLO[LAM[x]]
+| env(false) 	= CLO[LAM[y]]
+| env(lamif) 	= CLO[LAM[LAM[App[App[cond e_true ] e_false ]]]]
+| env(++) 	= CLO[App[+ x 1 ]]
+| env(zero) 	= CLO[LAM[x]]
+| env(one) 	= CLO[LAM[App[f x ]]]
+| env(two) 	= CLO[LAM[App[f App[f x ] ]]]
+| env(three) 	= CLO[LAM[App[f App[f App[f x ] ] ]]]
+| env(pair) 	= CLO[LAM[LAM[App[App[App[lamif c ] a ] b ]]]]
+| env(1st) 	= CLO[App[pair true ]]
+| env(2nd) 	= CLO[App[pair false ]]
+| env(zero?) 	= CLO[App[App[n LAM[false] ] true ]]
+| env(add1) 	= CLO[LAM[LAM[App[f App[App[n f ] x ] ]]]]
+| env(add) 	= CLO[LAM[LAM[LAM[App[App[n f ] App[App[m f ] x ] ]]]]]
+| env(mult) 	= CLO[LAM[LAM[LAM[App[App[n App[m f ] ] x ]]]]]
+Code : add1
+Frame: application
+| vals: 
+| exprs: three 
+=============
+===[C E K]===
+Cycle:	50
+Env: true
+| env(true) 	= CLO[LAM[x]]
+| env(false) 	= CLO[LAM[y]]
+| env(lamif) 	= CLO[LAM[LAM[App[App[cond e_true ] e_false ]]]]
+| env(++) 	= CLO[App[+ x 1 ]]
+| env(zero) 	= CLO[LAM[x]]
+| env(one) 	= CLO[LAM[App[f x ]]]
+| env(two) 	= CLO[LAM[App[f App[f x ] ]]]
+| env(three) 	= CLO[LAM[App[f App[f App[f x ] ] ]]]
+| env(pair) 	= CLO[LAM[LAM[App[App[App[lamif c ] a ] b ]]]]
+| env(1st) 	= CLO[App[pair true ]]
+| env(2nd) 	= CLO[App[pair false ]]
+| env(zero?) 	= CLO[App[App[n LAM[false] ] true ]]
+| env(add1) 	= CLO[LAM[LAM[App[f App[App[n f ] x ] ]]]]
+| env(add) 	= CLO[LAM[LAM[LAM[App[App[n f ] App[App[m f ] x ] ]]]]]
+| env(mult) 	= CLO[LAM[LAM[LAM[App[App[n App[m f ] ] x ]]]]]
+Code : CLO[LAM[LAM[App[f App[App[n f ] x ] ]]]]
+Frame: application
+| vals: 
+| exprs: three 
+=============
+===[C E K]===
+Cycle:	51
+Env: true
+| env(true) 	= CLO[LAM[x]]
+| env(false) 	= CLO[LAM[y]]
+| env(lamif) 	= CLO[LAM[LAM[App[App[cond e_true ] e_false ]]]]
+| env(++) 	= CLO[App[+ x 1 ]]
+| env(zero) 	= CLO[LAM[x]]
+| env(one) 	= CLO[LAM[App[f x ]]]
+| env(two) 	= CLO[LAM[App[f App[f x ] ]]]
+| env(three) 	= CLO[LAM[App[f App[f App[f x ] ] ]]]
+| env(pair) 	= CLO[LAM[LAM[App[App[App[lamif c ] a ] b ]]]]
+| env(1st) 	= CLO[App[pair true ]]
+| env(2nd) 	= CLO[App[pair false ]]
+| env(zero?) 	= CLO[App[App[n LAM[false] ] true ]]
+| env(add1) 	= CLO[LAM[LAM[App[f App[App[n f ] x ] ]]]]
+| env(add) 	= CLO[LAM[LAM[LAM[App[App[n f ] App[App[m f ] x ] ]]]]]
+| env(mult) 	= CLO[LAM[LAM[LAM[App[App[n App[m f ] ] x ]]]]]
+Code : three
+Frame: application
+| vals: CLO[LAM[LAM[App[f App[App[n f ] x ] ]]]] 
+| exprs: 
+=============
+===[C E K]===
+Cycle:	52
+Env: true
+| env(true) 	= CLO[LAM[x]]
+| env(false) 	= CLO[LAM[y]]
+| env(lamif) 	= CLO[LAM[LAM[App[App[cond e_true ] e_false ]]]]
+| env(++) 	= CLO[App[+ x 1 ]]
+| env(zero) 	= CLO[LAM[x]]
+| env(one) 	= CLO[LAM[App[f x ]]]
+| env(two) 	= CLO[LAM[App[f App[f x ] ]]]
+| env(three) 	= CLO[LAM[App[f App[f App[f x ] ] ]]]
+| env(pair) 	= CLO[LAM[LAM[App[App[App[lamif c ] a ] b ]]]]
+| env(1st) 	= CLO[App[pair true ]]
+| env(2nd) 	= CLO[App[pair false ]]
+| env(zero?) 	= CLO[App[App[n LAM[false] ] true ]]
+| env(add1) 	= CLO[LAM[LAM[App[f App[App[n f ] x ] ]]]]
+| env(add) 	= CLO[LAM[LAM[LAM[App[App[n f ] App[App[m f ] x ] ]]]]]
+| env(mult) 	= CLO[LAM[LAM[LAM[App[App[n App[m f ] ] x ]]]]]
+Code : CLO[LAM[App[f App[f App[f x ] ] ]]]
+Frame: application
+| vals: CLO[LAM[LAM[App[f App[App[n f ] x ] ]]]] 
+| exprs: 
+=============
+===[C E K]===
+Cycle:	53
+Env: true
+| env(true) 	= CLO[LAM[x]]
+| env(false) 	= CLO[LAM[y]]
+| env(lamif) 	= CLO[LAM[LAM[App[App[cond e_true ] e_false ]]]]
+| env(++) 	= CLO[App[+ x 1 ]]
+| env(zero) 	= CLO[LAM[x]]
+| env(one) 	= CLO[LAM[App[f x ]]]
+| env(two) 	= CLO[LAM[App[f App[f x ] ]]]
+| env(three) 	= CLO[LAM[App[f App[f App[f x ] ] ]]]
+| env(pair) 	= CLO[LAM[LAM[App[App[App[lamif c ] a ] b ]]]]
+| env(1st) 	= CLO[App[pair true ]]
+| env(2nd) 	= CLO[App[pair false ]]
+| env(n) 	= CLO[LAM[App[f App[f App[f x ] ] ]]]
+Code : LAM[LAM[App[f App[App[n f ] x ] ]]]
+Frame: application
+| vals: CLO[App[LAM[App[LAM[App[App[App[sub1 one ] ++ ] 0 ]] LAM[LAM[App[App[App[lamif App[zero? n ] ] one ] App[App[mult n ] App[fac App[sub1 n ] ] ] ]]] ]] LAM[App[LAM[App[f LAM[App[App[x x ] v ]] ]] LAM[App[f LAM[App[App[x x ] v ]] ]] ]] ]] CLO[LAM[LAM[LAM[App[App[m App[App[App[mult n ] n ] ++ ] ] x ]]]]] 
+| exprs: App[App[add two ] three ] App[App[add three ] three ] LAM[App[1st App[App[n LAM[App[App[pair App[2nd p ] ] App[add1 App[2nd p ] ] ]] ] App[App[pair zero ] zero ] ] ]] 
+=============
+===[C E K]===
+Cycle:	54
+Env: true
+| env(true) 	= CLO[LAM[x]]
+| env(false) 	= CLO[LAM[y]]
+| env(lamif) 	= CLO[LAM[LAM[App[App[cond e_true ] e_false ]]]]
+| env(++) 	= CLO[App[+ x 1 ]]
+| env(zero) 	= CLO[LAM[x]]
+| env(one) 	= CLO[LAM[App[f x ]]]
+| env(two) 	= CLO[LAM[App[f App[f x ] ]]]
+| env(three) 	= CLO[LAM[App[f App[f App[f x ] ] ]]]
+| env(pair) 	= CLO[LAM[LAM[App[App[App[lamif c ] a ] b ]]]]
+| env(1st) 	= CLO[App[pair true ]]
+| env(2nd) 	= CLO[App[pair false ]]
+| env(n) 	= CLO[LAM[App[f App[f App[f x ] ] ]]]
+Code : CLO[LAM[App[f App[App[n f ] x ] ]]]
+Frame: application
+| vals: CLO[App[LAM[App[LAM[App[App[App[sub1 one ] ++ ] 0 ]] LAM[LAM[App[App[App[lamif App[zero? n ] ] one ] App[App[mult n ] App[fac App[sub1 n ] ] ] ]]] ]] LAM[App[LAM[App[f LAM[App[App[x x ] v ]] ]] LAM[App[f LAM[App[App[x x ] v ]] ]] ]] ]] CLO[LAM[LAM[LAM[App[App[m App[App[App[mult n ] n ] ++ ] ] x ]]]]] 
+| exprs: App[App[add two ] three ] App[App[add three ] three ] LAM[App[1st App[App[n LAM[App[App[pair App[2nd p ] ] App[add1 App[2nd p ] ] ]] ] App[App[pair zero ] zero ] ] ]] 
+=============
+===[C E K]===
+Cycle:	55
+Env: true
+| env(true) 	= CLO[LAM[x]]
+| env(false) 	= CLO[LAM[y]]
+| env(lamif) 	= CLO[LAM[LAM[App[App[cond e_true ] e_false ]]]]
+| env(++) 	= CLO[App[+ x 1 ]]
+| env(zero) 	= CLO[LAM[x]]
+| env(one) 	= CLO[LAM[App[f x ]]]
+| env(two) 	= CLO[LAM[App[f App[f x ] ]]]
+| env(three) 	= CLO[LAM[App[f App[f App[f x ] ] ]]]
+| env(pair) 	= CLO[LAM[LAM[App[App[App[lamif c ] a ] b ]]]]
+| env(1st) 	= CLO[App[pair true ]]
+| env(2nd) 	= CLO[App[pair false ]]
+| env(zero?) 	= CLO[App[App[n LAM[false] ] true ]]
+| env(add1) 	= CLO[LAM[LAM[App[f App[App[n f ] x ] ]]]]
+| env(add) 	= CLO[LAM[LAM[LAM[App[App[n f ] App[App[m f ] x ] ]]]]]
+| env(mult) 	= CLO[LAM[LAM[LAM[App[App[n App[m f ] ] x ]]]]]
+Code : App[App[add two ] three ]
+Frame: application
+| vals: CLO[App[LAM[App[LAM[App[App[App[sub1 one ] ++ ] 0 ]] LAM[LAM[App[App[App[lamif App[zero? n ] ] one ] App[App[mult n ] App[fac App[sub1 n ] ] ] ]]] ]] LAM[App[LAM[App[f LAM[App[App[x x ] v ]] ]] LAM[App[f LAM[App[App[x x ] v ]] ]] ]] ]] CLO[LAM[LAM[LAM[App[App[m App[App[App[mult n ] n ] ++ ] ] x ]]]]] CLO[LAM[App[f App[App[n f ] x ] ]]] 
+| exprs: App[App[add three ] three ] LAM[App[1st App[App[n LAM[App[App[pair App[2nd p ] ] App[add1 App[2nd p ] ] ]] ] App[App[pair zero ] zero ] ] ]] 
+=============
+===[C E K]===
+Cycle:	56
+Env: true
+| env(true) 	= CLO[LAM[x]]
+| env(false) 	= CLO[LAM[y]]
+| env(lamif) 	= CLO[LAM[LAM[App[App[cond e_true ] e_false ]]]]
+| env(++) 	= CLO[App[+ x 1 ]]
+| env(zero) 	= CLO[LAM[x]]
+| env(one) 	= CLO[LAM[App[f x ]]]
+| env(two) 	= CLO[LAM[App[f App[f x ] ]]]
+| env(three) 	= CLO[LAM[App[f App[f App[f x ] ] ]]]
+| env(pair) 	= CLO[LAM[LAM[App[App[App[lamif c ] a ] b ]]]]
+| env(1st) 	= CLO[App[pair true ]]
+| env(2nd) 	= CLO[App[pair false ]]
+| env(zero?) 	= CLO[App[App[n LAM[false] ] true ]]
+| env(add1) 	= CLO[LAM[LAM[App[f App[App[n f ] x ] ]]]]
+| env(add) 	= CLO[LAM[LAM[LAM[App[App[n f ] App[App[m f ] x ] ]]]]]
+| env(mult) 	= CLO[LAM[LAM[LAM[App[App[n App[m f ] ] x ]]]]]
+Code : App[add two ]
+Frame: application
+| vals: 
+| exprs: three 
+=============
+===[C E K]===
+Cycle:	57
+Env: true
+| env(true) 	= CLO[LAM[x]]
+| env(false) 	= CLO[LAM[y]]
+| env(lamif) 	= CLO[LAM[LAM[App[App[cond e_true ] e_false ]]]]
+| env(++) 	= CLO[App[+ x 1 ]]
+| env(zero) 	= CLO[LAM[x]]
+| env(one) 	= CLO[LAM[App[f x ]]]
+| env(two) 	= CLO[LAM[App[f App[f x ] ]]]
+| env(three) 	= CLO[LAM[App[f App[f App[f x ] ] ]]]
+| env(pair) 	= CLO[LAM[LAM[App[App[App[lamif c ] a ] b ]]]]
+| env(1st) 	= CLO[App[pair true ]]
+| env(2nd) 	= CLO[App[pair false ]]
+| env(zero?) 	= CLO[App[App[n LAM[false] ] true ]]
+| env(add1) 	= CLO[LAM[LAM[App[f App[App[n f ] x ] ]]]]
+| env(add) 	= CLO[LAM[LAM[LAM[App[App[n f ] App[App[m f ] x ] ]]]]]
+| env(mult) 	= CLO[LAM[LAM[LAM[App[App[n App[m f ] ] x ]]]]]
+Code : add
+Frame: application
+| vals: 
+| exprs: two 
+=============
+===[C E K]===
+Cycle:	58
+Env: true
+| env(true) 	= CLO[LAM[x]]
+| env(false) 	= CLO[LAM[y]]
+| env(lamif) 	= CLO[LAM[LAM[App[App[cond e_true ] e_false ]]]]
+| env(++) 	= CLO[App[+ x 1 ]]
+| env(zero) 	= CLO[LAM[x]]
+| env(one) 	= CLO[LAM[App[f x ]]]
+| env(two) 	= CLO[LAM[App[f App[f x ] ]]]
+| env(three) 	= CLO[LAM[App[f App[f App[f x ] ] ]]]
+| env(pair) 	= CLO[LAM[LAM[App[App[App[lamif c ] a ] b ]]]]
+| env(1st) 	= CLO[App[pair true ]]
+| env(2nd) 	= CLO[App[pair false ]]
+| env(zero?) 	= CLO[App[App[n LAM[false] ] true ]]
+| env(add1) 	= CLO[LAM[LAM[App[f App[App[n f ] x ] ]]]]
+| env(add) 	= CLO[LAM[LAM[LAM[App[App[n f ] App[App[m f ] x ] ]]]]]
+| env(mult) 	= CLO[LAM[LAM[LAM[App[App[n App[m f ] ] x ]]]]]
+Code : CLO[LAM[LAM[LAM[App[App[n f ] App[App[m f ] x ] ]]]]]
+Frame: application
+| vals: 
+| exprs: two 
+=============
+===[C E K]===
+Cycle:	59
+Env: true
+| env(true) 	= CLO[LAM[x]]
+| env(false) 	= CLO[LAM[y]]
+| env(lamif) 	= CLO[LAM[LAM[App[App[cond e_true ] e_false ]]]]
+| env(++) 	= CLO[App[+ x 1 ]]
+| env(zero) 	= CLO[LAM[x]]
+| env(one) 	= CLO[LAM[App[f x ]]]
+| env(two) 	= CLO[LAM[App[f App[f x ] ]]]
+| env(three) 	= CLO[LAM[App[f App[f App[f x ] ] ]]]
+| env(pair) 	= CLO[LAM[LAM[App[App[App[lamif c ] a ] b ]]]]
+| env(1st) 	= CLO[App[pair true ]]
+| env(2nd) 	= CLO[App[pair false ]]
+| env(zero?) 	= CLO[App[App[n LAM[false] ] true ]]
+| env(add1) 	= CLO[LAM[LAM[App[f App[App[n f ] x ] ]]]]
+| env(add) 	= CLO[LAM[LAM[LAM[App[App[n f ] App[App[m f ] x ] ]]]]]
+| env(mult) 	= CLO[LAM[LAM[LAM[App[App[n App[m f ] ] x ]]]]]
+Code : two
+Frame: application
+| vals: CLO[LAM[LAM[LAM[App[App[n f ] App[App[m f ] x ] ]]]]] 
+| exprs: 
+=============
+===[C E K]===
+Cycle:	60
+Env: true
+| env(true) 	= CLO[LAM[x]]
+| env(false) 	= CLO[LAM[y]]
+| env(lamif) 	= CLO[LAM[LAM[App[App[cond e_true ] e_false ]]]]
+| env(++) 	= CLO[App[+ x 1 ]]
+| env(zero) 	= CLO[LAM[x]]
+| env(one) 	= CLO[LAM[App[f x ]]]
+| env(two) 	= CLO[LAM[App[f App[f x ] ]]]
+| env(three) 	= CLO[LAM[App[f App[f App[f x ] ] ]]]
+| env(pair) 	= CLO[LAM[LAM[App[App[App[lamif c ] a ] b ]]]]
+| env(1st) 	= CLO[App[pair true ]]
+| env(2nd) 	= CLO[App[pair false ]]
+| env(zero?) 	= CLO[App[App[n LAM[false] ] true ]]
+| env(add1) 	= CLO[LAM[LAM[App[f App[App[n f ] x ] ]]]]
+| env(add) 	= CLO[LAM[LAM[LAM[App[App[n f ] App[App[m f ] x ] ]]]]]
+| env(mult) 	= CLO[LAM[LAM[LAM[App[App[n App[m f ] ] x ]]]]]
+Code : CLO[LAM[App[f App[f x ] ]]]
+Frame: application
+| vals: CLO[LAM[LAM[LAM[App[App[n f ] App[App[m f ] x ] ]]]]] 
+| exprs: 
+=============
+===[C E K]===
+Cycle:	61
+Env: true
+| env(true) 	= CLO[LAM[x]]
+| env(false) 	= CLO[LAM[y]]
+| env(lamif) 	= CLO[LAM[LAM[App[App[cond e_true ] e_false ]]]]
+| env(++) 	= CLO[App[+ x 1 ]]
+| env(zero) 	= CLO[LAM[x]]
+| env(one) 	= CLO[LAM[App[f x ]]]
+| env(two) 	= CLO[LAM[App[f App[f x ] ]]]
+| env(three) 	= CLO[LAM[App[f App[f App[f x ] ] ]]]
+| env(pair) 	= CLO[LAM[LAM[App[App[App[lamif c ] a ] b ]]]]
+| env(1st) 	= CLO[App[pair true ]]
+| env(2nd) 	= CLO[App[pair false ]]
+| env(n) 	= CLO[LAM[App[f App[f x ] ]]]
+Code : LAM[LAM[LAM[App[App[n f ] App[App[m f ] x ] ]]]]
+Frame: application
+| vals: 
+| exprs: three 
+=============
+===[C E K]===
+Cycle:	62
+Env: true
+| env(true) 	= CLO[LAM[x]]
+| env(false) 	= CLO[LAM[y]]
+| env(lamif) 	= CLO[LAM[LAM[App[App[cond e_true ] e_false ]]]]
+| env(++) 	= CLO[App[+ x 1 ]]
+| env(zero) 	= CLO[LAM[x]]
+| env(one) 	= CLO[LAM[App[f x ]]]
+| env(two) 	= CLO[LAM[App[f App[f x ] ]]]
+| env(three) 	= CLO[LAM[App[f App[f App[f x ] ] ]]]
+| env(pair) 	= CLO[LAM[LAM[App[App[App[lamif c ] a ] b ]]]]
+| env(1st) 	= CLO[App[pair true ]]
+| env(2nd) 	= CLO[App[pair false ]]
+| env(n) 	= CLO[LAM[App[f App[f x ] ]]]
+Code : CLO[LAM[LAM[App[App[n f ] App[App[m f ] x ] ]]]]
+Frame: application
+| vals: 
+| exprs: three 
+=============
+===[C E K]===
+Cycle:	63
+Env: true
+| env(true) 	= CLO[LAM[x]]
+| env(false) 	= CLO[LAM[y]]
+| env(lamif) 	= CLO[LAM[LAM[App[App[cond e_true ] e_false ]]]]
+| env(++) 	= CLO[App[+ x 1 ]]
+| env(zero) 	= CLO[LAM[x]]
+| env(one) 	= CLO[LAM[App[f x ]]]
+| env(two) 	= CLO[LAM[App[f App[f x ] ]]]
+| env(three) 	= CLO[LAM[App[f App[f App[f x ] ] ]]]
+| env(pair) 	= CLO[LAM[LAM[App[App[App[lamif c ] a ] b ]]]]
+| env(1st) 	= CLO[App[pair true ]]
+| env(2nd) 	= CLO[App[pair false ]]
+| env(zero?) 	= CLO[App[App[n LAM[false] ] true ]]
+| env(add1) 	= CLO[LAM[LAM[App[f App[App[n f ] x ] ]]]]
+| env(add) 	= CLO[LAM[LAM[LAM[App[App[n f ] App[App[m f ] x ] ]]]]]
+| env(mult) 	= CLO[LAM[LAM[LAM[App[App[n App[m f ] ] x ]]]]]
+Code : three
+Frame: application
+| vals: CLO[LAM[LAM[App[App[n f ] App[App[m f ] x ] ]]]] 
+| exprs: 
+=============
+===[C E K]===
+Cycle:	64
+Env: true
+| env(true) 	= CLO[LAM[x]]
+| env(false) 	= CLO[LAM[y]]
+| env(lamif) 	= CLO[LAM[LAM[App[App[cond e_true ] e_false ]]]]
+| env(++) 	= CLO[App[+ x 1 ]]
+| env(zero) 	= CLO[LAM[x]]
+| env(one) 	= CLO[LAM[App[f x ]]]
+| env(two) 	= CLO[LAM[App[f App[f x ] ]]]
+| env(three) 	= CLO[LAM[App[f App[f App[f x ] ] ]]]
+| env(pair) 	= CLO[LAM[LAM[App[App[App[lamif c ] a ] b ]]]]
+| env(1st) 	= CLO[App[pair true ]]
+| env(2nd) 	= CLO[App[pair false ]]
+| env(zero?) 	= CLO[App[App[n LAM[false] ] true ]]
+| env(add1) 	= CLO[LAM[LAM[App[f App[App[n f ] x ] ]]]]
+| env(add) 	= CLO[LAM[LAM[LAM[App[App[n f ] App[App[m f ] x ] ]]]]]
+| env(mult) 	= CLO[LAM[LAM[LAM[App[App[n App[m f ] ] x ]]]]]
+Code : CLO[LAM[App[f App[f App[f x ] ] ]]]
+Frame: application
+| vals: CLO[LAM[LAM[App[App[n f ] App[App[m f ] x ] ]]]] 
+| exprs: 
+=============
+===[C E K]===
+Cycle:	65
+Env: true
+| env(true) 	= CLO[LAM[x]]
+| env(false) 	= CLO[LAM[y]]
+| env(lamif) 	= CLO[LAM[LAM[App[App[cond e_true ] e_false ]]]]
+| env(++) 	= CLO[App[+ x 1 ]]
+| env(zero) 	= CLO[LAM[x]]
+| env(one) 	= CLO[LAM[App[f x ]]]
+| env(two) 	= CLO[LAM[App[f App[f x ] ]]]
+| env(three) 	= CLO[LAM[App[f App[f App[f x ] ] ]]]
+| env(pair) 	= CLO[LAM[LAM[App[App[App[lamif c ] a ] b ]]]]
+| env(1st) 	= CLO[App[pair true ]]
+| env(2nd) 	= CLO[App[pair false ]]
+| env(n) 	= CLO[LAM[App[f App[f x ] ]]]
+| env(m) 	= CLO[LAM[App[f App[f App[f x ] ] ]]]
+Code : LAM[LAM[App[App[n f ] App[App[m f ] x ] ]]]
+Frame: application
+| vals: CLO[App[LAM[App[LAM[App[App[App[sub1 one ] ++ ] 0 ]] LAM[LAM[App[App[App[lamif App[zero? n ] ] one ] App[App[mult n ] App[fac App[sub1 n ] ] ] ]]] ]] LAM[App[LAM[App[f LAM[App[App[x x ] v ]] ]] LAM[App[f LAM[App[App[x x ] v ]] ]] ]] ]] CLO[LAM[LAM[LAM[App[App[m App[App[App[mult n ] n ] ++ ] ] x ]]]]] CLO[LAM[App[f App[App[n f ] x ] ]]] 
+| exprs: App[App[add three ] three ] LAM[App[1st App[App[n LAM[App[App[pair App[2nd p ] ] App[add1 App[2nd p ] ] ]] ] App[App[pair zero ] zero ] ] ]] 
+=============
+===[C E K]===
+Cycle:	66
+Env: true
+| env(true) 	= CLO[LAM[x]]
+| env(false) 	= CLO[LAM[y]]
+| env(lamif) 	= CLO[LAM[LAM[App[App[cond e_true ] e_false ]]]]
+| env(++) 	= CLO[App[+ x 1 ]]
+| env(zero) 	= CLO[LAM[x]]
+| env(one) 	= CLO[LAM[App[f x ]]]
+| env(two) 	= CLO[LAM[App[f App[f x ] ]]]
+| env(three) 	= CLO[LAM[App[f App[f App[f x ] ] ]]]
+| env(pair) 	= CLO[LAM[LAM[App[App[App[lamif c ] a ] b ]]]]
+| env(1st) 	= CLO[App[pair true ]]
+| env(2nd) 	= CLO[App[pair false ]]
+| env(n) 	= CLO[LAM[App[f App[f x ] ]]]
+| env(m) 	= CLO[LAM[App[f App[f App[f x ] ] ]]]
+Code : CLO[LAM[App[App[n f ] App[App[m f ] x ] ]]]
+Frame: application
+| vals: CLO[App[LAM[App[LAM[App[App[App[sub1 one ] ++ ] 0 ]] LAM[LAM[App[App[App[lamif App[zero? n ] ] one ] App[App[mult n ] App[fac App[sub1 n ] ] ] ]]] ]] LAM[App[LAM[App[f LAM[App[App[x x ] v ]] ]] LAM[App[f LAM[App[App[x x ] v ]] ]] ]] ]] CLO[LAM[LAM[LAM[App[App[m App[App[App[mult n ] n ] ++ ] ] x ]]]]] CLO[LAM[App[f App[App[n f ] x ] ]]] 
+| exprs: App[App[add three ] three ] LAM[App[1st App[App[n LAM[App[App[pair App[2nd p ] ] App[add1 App[2nd p ] ] ]] ] App[App[pair zero ] zero ] ] ]] 
+=============
+===[C E K]===
+Cycle:	67
+Env: true
+| env(true) 	= CLO[LAM[x]]
+| env(false) 	= CLO[LAM[y]]
+| env(lamif) 	= CLO[LAM[LAM[App[App[cond e_true ] e_false ]]]]
+| env(++) 	= CLO[App[+ x 1 ]]
+| env(zero) 	= CLO[LAM[x]]
+| env(one) 	= CLO[LAM[App[f x ]]]
+| env(two) 	= CLO[LAM[App[f App[f x ] ]]]
+| env(three) 	= CLO[LAM[App[f App[f App[f x ] ] ]]]
+| env(pair) 	= CLO[LAM[LAM[App[App[App[lamif c ] a ] b ]]]]
+| env(1st) 	= CLO[App[pair true ]]
+| env(2nd) 	= CLO[App[pair false ]]
+| env(zero?) 	= CLO[App[App[n LAM[false] ] true ]]
+| env(add1) 	= CLO[LAM[LAM[App[f App[App[n f ] x ] ]]]]
+| env(add) 	= CLO[LAM[LAM[LAM[App[App[n f ] App[App[m f ] x ] ]]]]]
+| env(mult) 	= CLO[LAM[LAM[LAM[App[App[n App[m f ] ] x ]]]]]
+Code : App[App[add three ] three ]
+Frame: application
+| vals: CLO[App[LAM[App[LAM[App[App[App[sub1 one ] ++ ] 0 ]] LAM[LAM[App[App[App[lamif App[zero? n ] ] one ] App[App[mult n ] App[fac App[sub1 n ] ] ] ]]] ]] LAM[App[LAM[App[f LAM[App[App[x x ] v ]] ]] LAM[App[f LAM[App[App[x x ] v ]] ]] ]] ]] CLO[LAM[LAM[LAM[App[App[m App[App[App[mult n ] n ] ++ ] ] x ]]]]] CLO[LAM[App[f App[App[n f ] x ] ]]] CLO[LAM[App[App[n f ] App[App[m f ] x ] ]]] 
+| exprs: LAM[App[1st App[App[n LAM[App[App[pair App[2nd p ] ] App[add1 App[2nd p ] ] ]] ] App[App[pair zero ] zero ] ] ]] 
+=============
+===[C E K]===
+Cycle:	68
+Env: true
+| env(true) 	= CLO[LAM[x]]
+| env(false) 	= CLO[LAM[y]]
+| env(lamif) 	= CLO[LAM[LAM[App[App[cond e_true ] e_false ]]]]
+| env(++) 	= CLO[App[+ x 1 ]]
+| env(zero) 	= CLO[LAM[x]]
+| env(one) 	= CLO[LAM[App[f x ]]]
+| env(two) 	= CLO[LAM[App[f App[f x ] ]]]
+| env(three) 	= CLO[LAM[App[f App[f App[f x ] ] ]]]
+| env(pair) 	= CLO[LAM[LAM[App[App[App[lamif c ] a ] b ]]]]
+| env(1st) 	= CLO[App[pair true ]]
+| env(2nd) 	= CLO[App[pair false ]]
+| env(zero?) 	= CLO[App[App[n LAM[false] ] true ]]
+| env(add1) 	= CLO[LAM[LAM[App[f App[App[n f ] x ] ]]]]
+| env(add) 	= CLO[LAM[LAM[LAM[App[App[n f ] App[App[m f ] x ] ]]]]]
+| env(mult) 	= CLO[LAM[LAM[LAM[App[App[n App[m f ] ] x ]]]]]
+Code : App[add three ]
+Frame: application
+| vals: 
+| exprs: three 
+=============
+===[C E K]===
+Cycle:	69
+Env: true
+| env(true) 	= CLO[LAM[x]]
+| env(false) 	= CLO[LAM[y]]
+| env(lamif) 	= CLO[LAM[LAM[App[App[cond e_true ] e_false ]]]]
+| env(++) 	= CLO[App[+ x 1 ]]
+| env(zero) 	= CLO[LAM[x]]
+| env(one) 	= CLO[LAM[App[f x ]]]
+| env(two) 	= CLO[LAM[App[f App[f x ] ]]]
+| env(three) 	= CLO[LAM[App[f App[f App[f x ] ] ]]]
+| env(pair) 	= CLO[LAM[LAM[App[App[App[lamif c ] a ] b ]]]]
+| env(1st) 	= CLO[App[pair true ]]
+| env(2nd) 	= CLO[App[pair false ]]
+| env(zero?) 	= CLO[App[App[n LAM[false] ] true ]]
+| env(add1) 	= CLO[LAM[LAM[App[f App[App[n f ] x ] ]]]]
+| env(add) 	= CLO[LAM[LAM[LAM[App[App[n f ] App[App[m f ] x ] ]]]]]
+| env(mult) 	= CLO[LAM[LAM[LAM[App[App[n App[m f ] ] x ]]]]]
+Code : add
+Frame: application
+| vals: 
+| exprs: three 
+=============
+===[C E K]===
+Cycle:	70
+Env: true
+| env(true) 	= CLO[LAM[x]]
+| env(false) 	= CLO[LAM[y]]
+| env(lamif) 	= CLO[LAM[LAM[App[App[cond e_true ] e_false ]]]]
+| env(++) 	= CLO[App[+ x 1 ]]
+| env(zero) 	= CLO[LAM[x]]
+| env(one) 	= CLO[LAM[App[f x ]]]
+| env(two) 	= CLO[LAM[App[f App[f x ] ]]]
+| env(three) 	= CLO[LAM[App[f App[f App[f x ] ] ]]]
+| env(pair) 	= CLO[LAM[LAM[App[App[App[lamif c ] a ] b ]]]]
+| env(1st) 	= CLO[App[pair true ]]
+| env(2nd) 	= CLO[App[pair false ]]
+| env(zero?) 	= CLO[App[App[n LAM[false] ] true ]]
+| env(add1) 	= CLO[LAM[LAM[App[f App[App[n f ] x ] ]]]]
+| env(add) 	= CLO[LAM[LAM[LAM[App[App[n f ] App[App[m f ] x ] ]]]]]
+| env(mult) 	= CLO[LAM[LAM[LAM[App[App[n App[m f ] ] x ]]]]]
+Code : CLO[LAM[LAM[LAM[App[App[n f ] App[App[m f ] x ] ]]]]]
+Frame: application
+| vals: 
+| exprs: three 
+=============
+===[C E K]===
+Cycle:	71
+Env: true
+| env(true) 	= CLO[LAM[x]]
+| env(false) 	= CLO[LAM[y]]
+| env(lamif) 	= CLO[LAM[LAM[App[App[cond e_true ] e_false ]]]]
+| env(++) 	= CLO[App[+ x 1 ]]
+| env(zero) 	= CLO[LAM[x]]
+| env(one) 	= CLO[LAM[App[f x ]]]
+| env(two) 	= CLO[LAM[App[f App[f x ] ]]]
+| env(three) 	= CLO[LAM[App[f App[f App[f x ] ] ]]]
+| env(pair) 	= CLO[LAM[LAM[App[App[App[lamif c ] a ] b ]]]]
+| env(1st) 	= CLO[App[pair true ]]
+| env(2nd) 	= CLO[App[pair false ]]
+| env(zero?) 	= CLO[App[App[n LAM[false] ] true ]]
+| env(add1) 	= CLO[LAM[LAM[App[f App[App[n f ] x ] ]]]]
+| env(add) 	= CLO[LAM[LAM[LAM[App[App[n f ] App[App[m f ] x ] ]]]]]
+| env(mult) 	= CLO[LAM[LAM[LAM[App[App[n App[m f ] ] x ]]]]]
+Code : three
+Frame: application
+| vals: CLO[LAM[LAM[LAM[App[App[n f ] App[App[m f ] x ] ]]]]] 
+| exprs: 
+=============
+===[C E K]===
+Cycle:	72
+Env: true
+| env(true) 	= CLO[LAM[x]]
+| env(false) 	= CLO[LAM[y]]
+| env(lamif) 	= CLO[LAM[LAM[App[App[cond e_true ] e_false ]]]]
+| env(++) 	= CLO[App[+ x 1 ]]
+| env(zero) 	= CLO[LAM[x]]
+| env(one) 	= CLO[LAM[App[f x ]]]
+| env(two) 	= CLO[LAM[App[f App[f x ] ]]]
+| env(three) 	= CLO[LAM[App[f App[f App[f x ] ] ]]]
+| env(pair) 	= CLO[LAM[LAM[App[App[App[lamif c ] a ] b ]]]]
+| env(1st) 	= CLO[App[pair true ]]
+| env(2nd) 	= CLO[App[pair false ]]
+| env(zero?) 	= CLO[App[App[n LAM[false] ] true ]]
+| env(add1) 	= CLO[LAM[LAM[App[f App[App[n f ] x ] ]]]]
+| env(add) 	= CLO[LAM[LAM[LAM[App[App[n f ] App[App[m f ] x ] ]]]]]
+| env(mult) 	= CLO[LAM[LAM[LAM[App[App[n App[m f ] ] x ]]]]]
+Code : CLO[LAM[App[f App[f App[f x ] ] ]]]
+Frame: application
+| vals: CLO[LAM[LAM[LAM[App[App[n f ] App[App[m f ] x ] ]]]]] 
+| exprs: 
+=============
+===[C E K]===
+Cycle:	73
+Env: true
+| env(true) 	= CLO[LAM[x]]
+| env(false) 	= CLO[LAM[y]]
+| env(lamif) 	= CLO[LAM[LAM[App[App[cond e_true ] e_false ]]]]
+| env(++) 	= CLO[App[+ x 1 ]]
+| env(zero) 	= CLO[LAM[x]]
+| env(one) 	= CLO[LAM[App[f x ]]]
+| env(two) 	= CLO[LAM[App[f App[f x ] ]]]
+| env(three) 	= CLO[LAM[App[f App[f App[f x ] ] ]]]
+| env(pair) 	= CLO[LAM[LAM[App[App[App[lamif c ] a ] b ]]]]
+| env(1st) 	= CLO[App[pair true ]]
+| env(2nd) 	= CLO[App[pair false ]]
+| env(n) 	= CLO[LAM[App[f App[f App[f x ] ] ]]]
+Code : LAM[LAM[LAM[App[App[n f ] App[App[m f ] x ] ]]]]
+Frame: application
+| vals: 
+| exprs: three 
+=============
+===[C E K]===
+Cycle:	74
+Env: true
+| env(true) 	= CLO[LAM[x]]
+| env(false) 	= CLO[LAM[y]]
+| env(lamif) 	= CLO[LAM[LAM[App[App[cond e_true ] e_false ]]]]
+| env(++) 	= CLO[App[+ x 1 ]]
+| env(zero) 	= CLO[LAM[x]]
+| env(one) 	= CLO[LAM[App[f x ]]]
+| env(two) 	= CLO[LAM[App[f App[f x ] ]]]
+| env(three) 	= CLO[LAM[App[f App[f App[f x ] ] ]]]
+| env(pair) 	= CLO[LAM[LAM[App[App[App[lamif c ] a ] b ]]]]
+| env(1st) 	= CLO[App[pair true ]]
+| env(2nd) 	= CLO[App[pair false ]]
+| env(n) 	= CLO[LAM[App[f App[f App[f x ] ] ]]]
+Code : CLO[LAM[LAM[App[App[n f ] App[App[m f ] x ] ]]]]
+Frame: application
+| vals: 
+| exprs: three 
+=============
+===[C E K]===
+Cycle:	75
+Env: true
+| env(true) 	= CLO[LAM[x]]
+| env(false) 	= CLO[LAM[y]]
+| env(lamif) 	= CLO[LAM[LAM[App[App[cond e_true ] e_false ]]]]
+| env(++) 	= CLO[App[+ x 1 ]]
+| env(zero) 	= CLO[LAM[x]]
+| env(one) 	= CLO[LAM[App[f x ]]]
+| env(two) 	= CLO[LAM[App[f App[f x ] ]]]
+| env(three) 	= CLO[LAM[App[f App[f App[f x ] ] ]]]
+| env(pair) 	= CLO[LAM[LAM[App[App[App[lamif c ] a ] b ]]]]
+| env(1st) 	= CLO[App[pair true ]]
+| env(2nd) 	= CLO[App[pair false ]]
+| env(zero?) 	= CLO[App[App[n LAM[false] ] true ]]
+| env(add1) 	= CLO[LAM[LAM[App[f App[App[n f ] x ] ]]]]
+| env(add) 	= CLO[LAM[LAM[LAM[App[App[n f ] App[App[m f ] x ] ]]]]]
+| env(mult) 	= CLO[LAM[LAM[LAM[App[App[n App[m f ] ] x ]]]]]
+Code : three
+Frame: application
+| vals: CLO[LAM[LAM[App[App[n f ] App[App[m f ] x ] ]]]] 
+| exprs: 
+=============
+===[C E K]===
+Cycle:	76
+Env: true
+| env(true) 	= CLO[LAM[x]]
+| env(false) 	= CLO[LAM[y]]
+| env(lamif) 	= CLO[LAM[LAM[App[App[cond e_true ] e_false ]]]]
+| env(++) 	= CLO[App[+ x 1 ]]
+| env(zero) 	= CLO[LAM[x]]
+| env(one) 	= CLO[LAM[App[f x ]]]
+| env(two) 	= CLO[LAM[App[f App[f x ] ]]]
+| env(three) 	= CLO[LAM[App[f App[f App[f x ] ] ]]]
+| env(pair) 	= CLO[LAM[LAM[App[App[App[lamif c ] a ] b ]]]]
+| env(1st) 	= CLO[App[pair true ]]
+| env(2nd) 	= CLO[App[pair false ]]
+| env(zero?) 	= CLO[App[App[n LAM[false] ] true ]]
+| env(add1) 	= CLO[LAM[LAM[App[f App[App[n f ] x ] ]]]]
+| env(add) 	= CLO[LAM[LAM[LAM[App[App[n f ] App[App[m f ] x ] ]]]]]
+| env(mult) 	= CLO[LAM[LAM[LAM[App[App[n App[m f ] ] x ]]]]]
+Code : CLO[LAM[App[f App[f App[f x ] ] ]]]
+Frame: application
+| vals: CLO[LAM[LAM[App[App[n f ] App[App[m f ] x ] ]]]] 
+| exprs: 
+=============
+===[C E K]===
+Cycle:	77
+Env: true
+| env(true) 	= CLO[LAM[x]]
+| env(false) 	= CLO[LAM[y]]
+| env(lamif) 	= CLO[LAM[LAM[App[App[cond e_true ] e_false ]]]]
+| env(++) 	= CLO[App[+ x 1 ]]
+| env(zero) 	= CLO[LAM[x]]
+| env(one) 	= CLO[LAM[App[f x ]]]
+| env(two) 	= CLO[LAM[App[f App[f x ] ]]]
+| env(three) 	= CLO[LAM[App[f App[f App[f x ] ] ]]]
+| env(pair) 	= CLO[LAM[LAM[App[App[App[lamif c ] a ] b ]]]]
+| env(1st) 	= CLO[App[pair true ]]
+| env(2nd) 	= CLO[App[pair false ]]
+| env(n) 	= CLO[LAM[App[f App[f App[f x ] ] ]]]
+| env(m) 	= CLO[LAM[App[f App[f App[f x ] ] ]]]
+Code : LAM[LAM[App[App[n f ] App[App[m f ] x ] ]]]
+Frame: application
+| vals: CLO[App[LAM[App[LAM[App[App[App[sub1 one ] ++ ] 0 ]] LAM[LAM[App[App[App[lamif App[zero? n ] ] one ] App[App[mult n ] App[fac App[sub1 n ] ] ] ]]] ]] LAM[App[LAM[App[f LAM[App[App[x x ] v ]] ]] LAM[App[f LAM[App[App[x x ] v ]] ]] ]] ]] CLO[LAM[LAM[LAM[App[App[m App[App[App[mult n ] n ] ++ ] ] x ]]]]] CLO[LAM[App[f App[App[n f ] x ] ]]] CLO[LAM[App[App[n f ] App[App[m f ] x ] ]]] 
+| exprs: LAM[App[1st App[App[n LAM[App[App[pair App[2nd p ] ] App[add1 App[2nd p ] ] ]] ] App[App[pair zero ] zero ] ] ]] 
+=============
+===[C E K]===
+Cycle:	78
+Env: true
+| env(true) 	= CLO[LAM[x]]
+| env(false) 	= CLO[LAM[y]]
+| env(lamif) 	= CLO[LAM[LAM[App[App[cond e_true ] e_false ]]]]
+| env(++) 	= CLO[App[+ x 1 ]]
+| env(zero) 	= CLO[LAM[x]]
+| env(one) 	= CLO[LAM[App[f x ]]]
+| env(two) 	= CLO[LAM[App[f App[f x ] ]]]
+| env(three) 	= CLO[LAM[App[f App[f App[f x ] ] ]]]
+| env(pair) 	= CLO[LAM[LAM[App[App[App[lamif c ] a ] b ]]]]
+| env(1st) 	= CLO[App[pair true ]]
+| env(2nd) 	= CLO[App[pair false ]]
+| env(n) 	= CLO[LAM[App[f App[f App[f x ] ] ]]]
+| env(m) 	= CLO[LAM[App[f App[f App[f x ] ] ]]]
+Code : CLO[LAM[App[App[n f ] App[App[m f ] x ] ]]]
+Frame: application
+| vals: CLO[App[LAM[App[LAM[App[App[App[sub1 one ] ++ ] 0 ]] LAM[LAM[App[App[App[lamif App[zero? n ] ] one ] App[App[mult n ] App[fac App[sub1 n ] ] ] ]]] ]] LAM[App[LAM[App[f LAM[App[App[x x ] v ]] ]] LAM[App[f LAM[App[App[x x ] v ]] ]] ]] ]] CLO[LAM[LAM[LAM[App[App[m App[App[App[mult n ] n ] ++ ] ] x ]]]]] CLO[LAM[App[f App[App[n f ] x ] ]]] CLO[LAM[App[App[n f ] App[App[m f ] x ] ]]] 
+| exprs: LAM[App[1st App[App[n LAM[App[App[pair App[2nd p ] ] App[add1 App[2nd p ] ] ]] ] App[App[pair zero ] zero ] ] ]] 
+=============
+===[C E K]===
+Cycle:	79
+Env: true
+| env(true) 	= CLO[LAM[x]]
+| env(false) 	= CLO[LAM[y]]
+| env(lamif) 	= CLO[LAM[LAM[App[App[cond e_true ] e_false ]]]]
+| env(++) 	= CLO[App[+ x 1 ]]
+| env(zero) 	= CLO[LAM[x]]
+| env(one) 	= CLO[LAM[App[f x ]]]
+| env(two) 	= CLO[LAM[App[f App[f x ] ]]]
+| env(three) 	= CLO[LAM[App[f App[f App[f x ] ] ]]]
+| env(pair) 	= CLO[LAM[LAM[App[App[App[lamif c ] a ] b ]]]]
+| env(1st) 	= CLO[App[pair true ]]
+| env(2nd) 	= CLO[App[pair false ]]
+| env(zero?) 	= CLO[App[App[n LAM[false] ] true ]]
+| env(add1) 	= CLO[LAM[LAM[App[f App[App[n f ] x ] ]]]]
+| env(add) 	= CLO[LAM[LAM[LAM[App[App[n f ] App[App[m f ] x ] ]]]]]
+| env(mult) 	= CLO[LAM[LAM[LAM[App[App[n App[m f ] ] x ]]]]]
+Code : LAM[App[1st App[App[n LAM[App[App[pair App[2nd p ] ] App[add1 App[2nd p ] ] ]] ] App[App[pair zero ] zero ] ] ]]
+Frame: application
+| vals: CLO[App[LAM[App[LAM[App[App[App[sub1 one ] ++ ] 0 ]] LAM[LAM[App[App[App[lamif App[zero? n ] ] one ] App[App[mult n ] App[fac App[sub1 n ] ] ] ]]] ]] LAM[App[LAM[App[f LAM[App[App[x x ] v ]] ]] LAM[App[f LAM[App[App[x x ] v ]] ]] ]] ]] CLO[LAM[LAM[LAM[App[App[m App[App[App[mult n ] n ] ++ ] ] x ]]]]] CLO[LAM[App[f App[App[n f ] x ] ]]] CLO[LAM[App[App[n f ] App[App[m f ] x ] ]]] CLO[LAM[App[App[n f ] App[App[m f ] x ] ]]] 
+| exprs: 
+=============
+===[C E K]===
+Cycle:	80
+Env: true
+| env(true) 	= CLO[LAM[x]]
+| env(false) 	= CLO[LAM[y]]
+| env(lamif) 	= CLO[LAM[LAM[App[App[cond e_true ] e_false ]]]]
+| env(++) 	= CLO[App[+ x 1 ]]
+| env(zero) 	= CLO[LAM[x]]
+| env(one) 	= CLO[LAM[App[f x ]]]
+| env(two) 	= CLO[LAM[App[f App[f x ] ]]]
+| env(three) 	= CLO[LAM[App[f App[f App[f x ] ] ]]]
+| env(pair) 	= CLO[LAM[LAM[App[App[App[lamif c ] a ] b ]]]]
+| env(1st) 	= CLO[App[pair true ]]
+| env(2nd) 	= CLO[App[pair false ]]
+| env(zero?) 	= CLO[App[App[n LAM[false] ] true ]]
+| env(add1) 	= CLO[LAM[LAM[App[f App[App[n f ] x ] ]]]]
+| env(add) 	= CLO[LAM[LAM[LAM[App[App[n f ] App[App[m f ] x ] ]]]]]
+| env(mult) 	= CLO[LAM[LAM[LAM[App[App[n App[m f ] ] x ]]]]]
+Code : CLO[App[1st App[App[n LAM[App[App[pair App[2nd p ] ] App[add1 App[2nd p ] ] ]] ] App[App[pair zero ] zero ] ] ]]
+Frame: application
+| vals: CLO[App[LAM[App[LAM[App[App[App[sub1 one ] ++ ] 0 ]] LAM[LAM[App[App[App[lamif App[zero? n ] ] one ] App[App[mult n ] App[fac App[sub1 n ] ] ] ]]] ]] LAM[App[LAM[App[f LAM[App[App[x x ] v ]] ]] LAM[App[f LAM[App[App[x x ] v ]] ]] ]] ]] CLO[LAM[LAM[LAM[App[App[m App[App[App[mult n ] n ] ++ ] ] x ]]]]] CLO[LAM[App[f App[App[n f ] x ] ]]] CLO[LAM[App[App[n f ] App[App[m f ] x ] ]]] CLO[LAM[App[App[n f ] App[App[m f ] x ] ]]] 
+| exprs: 
+=============
+===[C E K]===
+Cycle:	81
+Env: true
+| env(true) 	= CLO[LAM[x]]
+| env(false) 	= CLO[LAM[y]]
+| env(lamif) 	= CLO[LAM[LAM[App[App[cond e_true ] e_false ]]]]
+| env(++) 	= CLO[App[+ x 1 ]]
+| env(zero) 	= CLO[LAM[x]]
+| env(one) 	= CLO[LAM[App[f x ]]]
+| env(two) 	= CLO[LAM[App[f App[f x ] ]]]
+| env(three) 	= CLO[LAM[App[f App[f App[f x ] ] ]]]
+| env(pair) 	= CLO[LAM[LAM[App[App[App[lamif c ] a ] b ]]]]
+| env(1st) 	= CLO[App[pair true ]]
+| env(2nd) 	= CLO[App[pair false ]]
+| env(zero?) 	= CLO[App[App[n LAM[false] ] true ]]
+| env(add1) 	= CLO[LAM[LAM[App[f App[App[n f ] x ] ]]]]
+| env(add) 	= CLO[LAM[LAM[LAM[App[App[n f ] App[App[m f ] x ] ]]]]]
+| env(mult) 	= CLO[LAM[LAM[LAM[App[App[n App[m f ] ] x ]]]]]
+| env(exp) 	= CLO[LAM[LAM[LAM[App[App[m App[App[App[mult n ] n ] ++ ] ] x ]]]]]
+| env(four) 	= CLO[LAM[App[f App[App[n f ] x ] ]]]
+| env(five) 	= CLO[LAM[App[App[n f ] App[App[m f ] x ] ]]]
+| env(six) 	= CLO[LAM[App[App[n f ] App[App[m f ] x ] ]]]
+| env(sub1) 	= CLO[App[1st App[App[n LAM[App[App[pair App[2nd p ] ] App[add1 App[2nd p ] ] ]] ] App[App[pair zero ] zero ] ] ]]
+Code : App[LAM[App[LAM[App[App[App[sub1 one ] ++ ] 0 ]] LAM[LAM[App[App[App[lamif App[zero? n ] ] one ] App[App[mult n ] App[fac App[sub1 n ] ] ] ]]] ]] LAM[App[LAM[App[f LAM[App[App[x x ] v ]] ]] LAM[App[f LAM[App[App[x x ] v ]] ]] ]] ]
+Frame: return
+
+=============
+===[C E K]===
+Cycle:	82
+Env: true
+| env(true) 	= CLO[LAM[x]]
+| env(false) 	= CLO[LAM[y]]
+| env(lamif) 	= CLO[LAM[LAM[App[App[cond e_true ] e_false ]]]]
+| env(++) 	= CLO[App[+ x 1 ]]
+| env(zero) 	= CLO[LAM[x]]
+| env(one) 	= CLO[LAM[App[f x ]]]
+| env(two) 	= CLO[LAM[App[f App[f x ] ]]]
+| env(three) 	= CLO[LAM[App[f App[f App[f x ] ] ]]]
+| env(pair) 	= CLO[LAM[LAM[App[App[App[lamif c ] a ] b ]]]]
+| env(1st) 	= CLO[App[pair true ]]
+| env(2nd) 	= CLO[App[pair false ]]
+| env(zero?) 	= CLO[App[App[n LAM[false] ] true ]]
+| env(add1) 	= CLO[LAM[LAM[App[f App[App[n f ] x ] ]]]]
+| env(add) 	= CLO[LAM[LAM[LAM[App[App[n f ] App[App[m f ] x ] ]]]]]
+| env(mult) 	= CLO[LAM[LAM[LAM[App[App[n App[m f ] ] x ]]]]]
+| env(exp) 	= CLO[LAM[LAM[LAM[App[App[m App[App[App[mult n ] n ] ++ ] ] x ]]]]]
+| env(four) 	= CLO[LAM[App[f App[App[n f ] x ] ]]]
+| env(five) 	= CLO[LAM[App[App[n f ] App[App[m f ] x ] ]]]
+| env(six) 	= CLO[LAM[App[App[n f ] App[App[m f ] x ] ]]]
+| env(sub1) 	= CLO[App[1st App[App[n LAM[App[App[pair App[2nd p ] ] App[add1 App[2nd p ] ] ]] ] App[App[pair zero ] zero ] ] ]]
+Code : LAM[App[LAM[App[App[App[sub1 one ] ++ ] 0 ]] LAM[LAM[App[App[App[lamif App[zero? n ] ] one ] App[App[mult n ] App[fac App[sub1 n ] ] ] ]]] ]]
+Frame: application
+| vals: 
+| exprs: LAM[App[LAM[App[f LAM[App[App[x x ] v ]] ]] LAM[App[f LAM[App[App[x x ] v ]] ]] ]] 
+=============
+===[C E K]===
+Cycle:	83
+Env: true
+| env(true) 	= CLO[LAM[x]]
+| env(false) 	= CLO[LAM[y]]
+| env(lamif) 	= CLO[LAM[LAM[App[App[cond e_true ] e_false ]]]]
+| env(++) 	= CLO[App[+ x 1 ]]
+| env(zero) 	= CLO[LAM[x]]
+| env(one) 	= CLO[LAM[App[f x ]]]
+| env(two) 	= CLO[LAM[App[f App[f x ] ]]]
+| env(three) 	= CLO[LAM[App[f App[f App[f x ] ] ]]]
+| env(pair) 	= CLO[LAM[LAM[App[App[App[lamif c ] a ] b ]]]]
+| env(1st) 	= CLO[App[pair true ]]
+| env(2nd) 	= CLO[App[pair false ]]
+| env(zero?) 	= CLO[App[App[n LAM[false] ] true ]]
+| env(add1) 	= CLO[LAM[LAM[App[f App[App[n f ] x ] ]]]]
+| env(add) 	= CLO[LAM[LAM[LAM[App[App[n f ] App[App[m f ] x ] ]]]]]
+| env(mult) 	= CLO[LAM[LAM[LAM[App[App[n App[m f ] ] x ]]]]]
+| env(exp) 	= CLO[LAM[LAM[LAM[App[App[m App[App[App[mult n ] n ] ++ ] ] x ]]]]]
+| env(four) 	= CLO[LAM[App[f App[App[n f ] x ] ]]]
+| env(five) 	= CLO[LAM[App[App[n f ] App[App[m f ] x ] ]]]
+| env(six) 	= CLO[LAM[App[App[n f ] App[App[m f ] x ] ]]]
+| env(sub1) 	= CLO[App[1st App[App[n LAM[App[App[pair App[2nd p ] ] App[add1 App[2nd p ] ] ]] ] App[App[pair zero ] zero ] ] ]]
+Code : CLO[App[LAM[App[App[App[sub1 one ] ++ ] 0 ]] LAM[LAM[App[App[App[lamif App[zero? n ] ] one ] App[App[mult n ] App[fac App[sub1 n ] ] ] ]]] ]]
+Frame: application
+| vals: 
+| exprs: LAM[App[LAM[App[f LAM[App[App[x x ] v ]] ]] LAM[App[f LAM[App[App[x x ] v ]] ]] ]] 
+=============
+===[C E K]===
+Cycle:	84
+Env: true
+| env(true) 	= CLO[LAM[x]]
+| env(false) 	= CLO[LAM[y]]
+| env(lamif) 	= CLO[LAM[LAM[App[App[cond e_true ] e_false ]]]]
+| env(++) 	= CLO[App[+ x 1 ]]
+| env(zero) 	= CLO[LAM[x]]
+| env(one) 	= CLO[LAM[App[f x ]]]
+| env(two) 	= CLO[LAM[App[f App[f x ] ]]]
+| env(three) 	= CLO[LAM[App[f App[f App[f x ] ] ]]]
+| env(pair) 	= CLO[LAM[LAM[App[App[App[lamif c ] a ] b ]]]]
+| env(1st) 	= CLO[App[pair true ]]
+| env(2nd) 	= CLO[App[pair false ]]
+| env(zero?) 	= CLO[App[App[n LAM[false] ] true ]]
+| env(add1) 	= CLO[LAM[LAM[App[f App[App[n f ] x ] ]]]]
+| env(add) 	= CLO[LAM[LAM[LAM[App[App[n f ] App[App[m f ] x ] ]]]]]
+| env(mult) 	= CLO[LAM[LAM[LAM[App[App[n App[m f ] ] x ]]]]]
+| env(exp) 	= CLO[LAM[LAM[LAM[App[App[m App[App[App[mult n ] n ] ++ ] ] x ]]]]]
+| env(four) 	= CLO[LAM[App[f App[App[n f ] x ] ]]]
+| env(five) 	= CLO[LAM[App[App[n f ] App[App[m f ] x ] ]]]
+| env(six) 	= CLO[LAM[App[App[n f ] App[App[m f ] x ] ]]]
+| env(sub1) 	= CLO[App[1st App[App[n LAM[App[App[pair App[2nd p ] ] App[add1 App[2nd p ] ] ]] ] App[App[pair zero ] zero ] ] ]]
+Code : LAM[App[LAM[App[f LAM[App[App[x x ] v ]] ]] LAM[App[f LAM[App[App[x x ] v ]] ]] ]]
+Frame: application
+| vals: CLO[App[LAM[App[App[App[sub1 one ] ++ ] 0 ]] LAM[LAM[App[App[App[lamif App[zero? n ] ] one ] App[App[mult n ] App[fac App[sub1 n ] ] ] ]]] ]] 
+| exprs: 
+=============
+===[C E K]===
+Cycle:	85
+Env: true
+| env(true) 	= CLO[LAM[x]]
+| env(false) 	= CLO[LAM[y]]
+| env(lamif) 	= CLO[LAM[LAM[App[App[cond e_true ] e_false ]]]]
+| env(++) 	= CLO[App[+ x 1 ]]
+| env(zero) 	= CLO[LAM[x]]
+| env(one) 	= CLO[LAM[App[f x ]]]
+| env(two) 	= CLO[LAM[App[f App[f x ] ]]]
+| env(three) 	= CLO[LAM[App[f App[f App[f x ] ] ]]]
+| env(pair) 	= CLO[LAM[LAM[App[App[App[lamif c ] a ] b ]]]]
+| env(1st) 	= CLO[App[pair true ]]
+| env(2nd) 	= CLO[App[pair false ]]
+| env(zero?) 	= CLO[App[App[n LAM[false] ] true ]]
+| env(add1) 	= CLO[LAM[LAM[App[f App[App[n f ] x ] ]]]]
+| env(add) 	= CLO[LAM[LAM[LAM[App[App[n f ] App[App[m f ] x ] ]]]]]
+| env(mult) 	= CLO[LAM[LAM[LAM[App[App[n App[m f ] ] x ]]]]]
+| env(exp) 	= CLO[LAM[LAM[LAM[App[App[m App[App[App[mult n ] n ] ++ ] ] x ]]]]]
+| env(four) 	= CLO[LAM[App[f App[App[n f ] x ] ]]]
+| env(five) 	= CLO[LAM[App[App[n f ] App[App[m f ] x ] ]]]
+| env(six) 	= CLO[LAM[App[App[n f ] App[App[m f ] x ] ]]]
+| env(sub1) 	= CLO[App[1st App[App[n LAM[App[App[pair App[2nd p ] ] App[add1 App[2nd p ] ] ]] ] App[App[pair zero ] zero ] ] ]]
+Code : CLO[App[LAM[App[f LAM[App[App[x x ] v ]] ]] LAM[App[f LAM[App[App[x x ] v ]] ]] ]]
+Frame: application
+| vals: CLO[App[LAM[App[App[App[sub1 one ] ++ ] 0 ]] LAM[LAM[App[App[App[lamif App[zero? n ] ] one ] App[App[mult n ] App[fac App[sub1 n ] ] ] ]]] ]] 
+| exprs: 
+=============
+===[C E K]===
+Cycle:	86
+Env: true
+| env(true) 	= CLO[LAM[x]]
+| env(false) 	= CLO[LAM[y]]
+| env(lamif) 	= CLO[LAM[LAM[App[App[cond e_true ] e_false ]]]]
+| env(++) 	= CLO[App[+ x 1 ]]
+| env(zero) 	= CLO[LAM[x]]
+| env(one) 	= CLO[LAM[App[f x ]]]
+| env(two) 	= CLO[LAM[App[f App[f x ] ]]]
+| env(three) 	= CLO[LAM[App[f App[f App[f x ] ] ]]]
+| env(pair) 	= CLO[LAM[LAM[App[App[App[lamif c ] a ] b ]]]]
+| env(1st) 	= CLO[App[pair true ]]
+| env(2nd) 	= CLO[App[pair false ]]
+| env(zero?) 	= CLO[App[App[n LAM[false] ] true ]]
+| env(add1) 	= CLO[LAM[LAM[App[f App[App[n f ] x ] ]]]]
+| env(add) 	= CLO[LAM[LAM[LAM[App[App[n f ] App[App[m f ] x ] ]]]]]
+| env(mult) 	= CLO[LAM[LAM[LAM[App[App[n App[m f ] ] x ]]]]]
+| env(exp) 	= CLO[LAM[LAM[LAM[App[App[m App[App[App[mult n ] n ] ++ ] ] x ]]]]]
+| env(four) 	= CLO[LAM[App[f App[App[n f ] x ] ]]]
+| env(five) 	= CLO[LAM[App[App[n f ] App[App[m f ] x ] ]]]
+| env(six) 	= CLO[LAM[App[App[n f ] App[App[m f ] x ] ]]]
+| env(sub1) 	= CLO[App[1st App[App[n LAM[App[App[pair App[2nd p ] ] App[add1 App[2nd p ] ] ]] ] App[App[pair zero ] zero ] ] ]]
+| env(zcomb) 	= CLO[App[LAM[App[f LAM[App[App[x x ] v ]] ]] LAM[App[f LAM[App[App[x x ] v ]] ]] ]]
+Code : App[LAM[App[App[App[sub1 one ] ++ ] 0 ]] LAM[LAM[App[App[App[lamif App[zero? n ] ] one ] App[App[mult n ] App[fac App[sub1 n ] ] ] ]]] ]
+Frame: return
+
+=============
+===[C E K]===
+Cycle:	87
+Env: true
+| env(true) 	= CLO[LAM[x]]
+| env(false) 	= CLO[LAM[y]]
+| env(lamif) 	= CLO[LAM[LAM[App[App[cond e_true ] e_false ]]]]
+| env(++) 	= CLO[App[+ x 1 ]]
+| env(zero) 	= CLO[LAM[x]]
+| env(one) 	= CLO[LAM[App[f x ]]]
+| env(two) 	= CLO[LAM[App[f App[f x ] ]]]
+| env(three) 	= CLO[LAM[App[f App[f App[f x ] ] ]]]
+| env(pair) 	= CLO[LAM[LAM[App[App[App[lamif c ] a ] b ]]]]
+| env(1st) 	= CLO[App[pair true ]]
+| env(2nd) 	= CLO[App[pair false ]]
+| env(zero?) 	= CLO[App[App[n LAM[false] ] true ]]
+| env(add1) 	= CLO[LAM[LAM[App[f App[App[n f ] x ] ]]]]
+| env(add) 	= CLO[LAM[LAM[LAM[App[App[n f ] App[App[m f ] x ] ]]]]]
+| env(mult) 	= CLO[LAM[LAM[LAM[App[App[n App[m f ] ] x ]]]]]
+| env(exp) 	= CLO[LAM[LAM[LAM[App[App[m App[App[App[mult n ] n ] ++ ] ] x ]]]]]
+| env(four) 	= CLO[LAM[App[f App[App[n f ] x ] ]]]
+| env(five) 	= CLO[LAM[App[App[n f ] App[App[m f ] x ] ]]]
+| env(six) 	= CLO[LAM[App[App[n f ] App[App[m f ] x ] ]]]
+| env(sub1) 	= CLO[App[1st App[App[n LAM[App[App[pair App[2nd p ] ] App[add1 App[2nd p ] ] ]] ] App[App[pair zero ] zero ] ] ]]
+| env(zcomb) 	= CLO[App[LAM[App[f LAM[App[App[x x ] v ]] ]] LAM[App[f LAM[App[App[x x ] v ]] ]] ]]
+Code : LAM[App[App[App[sub1 one ] ++ ] 0 ]]
+Frame: application
+| vals: 
+| exprs: LAM[LAM[App[App[App[lamif App[zero? n ] ] one ] App[App[mult n ] App[fac App[sub1 n ] ] ] ]]] 
+=============
+===[C E K]===
+Cycle:	88
+Env: true
+| env(true) 	= CLO[LAM[x]]
+| env(false) 	= CLO[LAM[y]]
+| env(lamif) 	= CLO[LAM[LAM[App[App[cond e_true ] e_false ]]]]
+| env(++) 	= CLO[App[+ x 1 ]]
+| env(zero) 	= CLO[LAM[x]]
+| env(one) 	= CLO[LAM[App[f x ]]]
+| env(two) 	= CLO[LAM[App[f App[f x ] ]]]
+| env(three) 	= CLO[LAM[App[f App[f App[f x ] ] ]]]
+| env(pair) 	= CLO[LAM[LAM[App[App[App[lamif c ] a ] b ]]]]
+| env(1st) 	= CLO[App[pair true ]]
+| env(2nd) 	= CLO[App[pair false ]]
+| env(zero?) 	= CLO[App[App[n LAM[false] ] true ]]
+| env(add1) 	= CLO[LAM[LAM[App[f App[App[n f ] x ] ]]]]
+| env(add) 	= CLO[LAM[LAM[LAM[App[App[n f ] App[App[m f ] x ] ]]]]]
+| env(mult) 	= CLO[LAM[LAM[LAM[App[App[n App[m f ] ] x ]]]]]
+| env(exp) 	= CLO[LAM[LAM[LAM[App[App[m App[App[App[mult n ] n ] ++ ] ] x ]]]]]
+| env(four) 	= CLO[LAM[App[f App[App[n f ] x ] ]]]
+| env(five) 	= CLO[LAM[App[App[n f ] App[App[m f ] x ] ]]]
+| env(six) 	= CLO[LAM[App[App[n f ] App[App[m f ] x ] ]]]
+| env(sub1) 	= CLO[App[1st App[App[n LAM[App[App[pair App[2nd p ] ] App[add1 App[2nd p ] ] ]] ] App[App[pair zero ] zero ] ] ]]
+| env(zcomb) 	= CLO[App[LAM[App[f LAM[App[App[x x ] v ]] ]] LAM[App[f LAM[App[App[x x ] v ]] ]] ]]
+Code : CLO[App[App[App[sub1 one ] ++ ] 0 ]]
+Frame: application
+| vals: 
+| exprs: LAM[LAM[App[App[App[lamif App[zero? n ] ] one ] App[App[mult n ] App[fac App[sub1 n ] ] ] ]]] 
+=============
+===[C E K]===
+Cycle:	89
+Env: true
+| env(true) 	= CLO[LAM[x]]
+| env(false) 	= CLO[LAM[y]]
+| env(lamif) 	= CLO[LAM[LAM[App[App[cond e_true ] e_false ]]]]
+| env(++) 	= CLO[App[+ x 1 ]]
+| env(zero) 	= CLO[LAM[x]]
+| env(one) 	= CLO[LAM[App[f x ]]]
+| env(two) 	= CLO[LAM[App[f App[f x ] ]]]
+| env(three) 	= CLO[LAM[App[f App[f App[f x ] ] ]]]
+| env(pair) 	= CLO[LAM[LAM[App[App[App[lamif c ] a ] b ]]]]
+| env(1st) 	= CLO[App[pair true ]]
+| env(2nd) 	= CLO[App[pair false ]]
+| env(zero?) 	= CLO[App[App[n LAM[false] ] true ]]
+| env(add1) 	= CLO[LAM[LAM[App[f App[App[n f ] x ] ]]]]
+| env(add) 	= CLO[LAM[LAM[LAM[App[App[n f ] App[App[m f ] x ] ]]]]]
+| env(mult) 	= CLO[LAM[LAM[LAM[App[App[n App[m f ] ] x ]]]]]
+| env(exp) 	= CLO[LAM[LAM[LAM[App[App[m App[App[App[mult n ] n ] ++ ] ] x ]]]]]
+| env(four) 	= CLO[LAM[App[f App[App[n f ] x ] ]]]
+| env(five) 	= CLO[LAM[App[App[n f ] App[App[m f ] x ] ]]]
+| env(six) 	= CLO[LAM[App[App[n f ] App[App[m f ] x ] ]]]
+| env(sub1) 	= CLO[App[1st App[App[n LAM[App[App[pair App[2nd p ] ] App[add1 App[2nd p ] ] ]] ] App[App[pair zero ] zero ] ] ]]
+| env(zcomb) 	= CLO[App[LAM[App[f LAM[App[App[x x ] v ]] ]] LAM[App[f LAM[App[App[x x ] v ]] ]] ]]
+Code : LAM[LAM[App[App[App[lamif App[zero? n ] ] one ] App[App[mult n ] App[fac App[sub1 n ] ] ] ]]]
+Frame: application
+| vals: CLO[App[App[App[sub1 one ] ++ ] 0 ]] 
+| exprs: 
+=============
+===[C E K]===
+Cycle:	90
+Env: true
+| env(true) 	= CLO[LAM[x]]
+| env(false) 	= CLO[LAM[y]]
+| env(lamif) 	= CLO[LAM[LAM[App[App[cond e_true ] e_false ]]]]
+| env(++) 	= CLO[App[+ x 1 ]]
+| env(zero) 	= CLO[LAM[x]]
+| env(one) 	= CLO[LAM[App[f x ]]]
+| env(two) 	= CLO[LAM[App[f App[f x ] ]]]
+| env(three) 	= CLO[LAM[App[f App[f App[f x ] ] ]]]
+| env(pair) 	= CLO[LAM[LAM[App[App[App[lamif c ] a ] b ]]]]
+| env(1st) 	= CLO[App[pair true ]]
+| env(2nd) 	= CLO[App[pair false ]]
+| env(zero?) 	= CLO[App[App[n LAM[false] ] true ]]
+| env(add1) 	= CLO[LAM[LAM[App[f App[App[n f ] x ] ]]]]
+| env(add) 	= CLO[LAM[LAM[LAM[App[App[n f ] App[App[m f ] x ] ]]]]]
+| env(mult) 	= CLO[LAM[LAM[LAM[App[App[n App[m f ] ] x ]]]]]
+| env(exp) 	= CLO[LAM[LAM[LAM[App[App[m App[App[App[mult n ] n ] ++ ] ] x ]]]]]
+| env(four) 	= CLO[LAM[App[f App[App[n f ] x ] ]]]
+| env(five) 	= CLO[LAM[App[App[n f ] App[App[m f ] x ] ]]]
+| env(six) 	= CLO[LAM[App[App[n f ] App[App[m f ] x ] ]]]
+| env(sub1) 	= CLO[App[1st App[App[n LAM[App[App[pair App[2nd p ] ] App[add1 App[2nd p ] ] ]] ] App[App[pair zero ] zero ] ] ]]
+| env(zcomb) 	= CLO[App[LAM[App[f LAM[App[App[x x ] v ]] ]] LAM[App[f LAM[App[App[x x ] v ]] ]] ]]
+Code : CLO[LAM[App[App[App[lamif App[zero? n ] ] one ] App[App[mult n ] App[fac App[sub1 n ] ] ] ]]]
+Frame: application
+| vals: CLO[App[App[App[sub1 one ] ++ ] 0 ]] 
+| exprs: 
+=============
+===[C E K]===
+Cycle:	91
+Env: true
+| env(true) 	= CLO[LAM[x]]
+| env(false) 	= CLO[LAM[y]]
+| env(lamif) 	= CLO[LAM[LAM[App[App[cond e_true ] e_false ]]]]
+| env(++) 	= CLO[App[+ x 1 ]]
+| env(zero) 	= CLO[LAM[x]]
+| env(one) 	= CLO[LAM[App[f x ]]]
+| env(two) 	= CLO[LAM[App[f App[f x ] ]]]
+| env(three) 	= CLO[LAM[App[f App[f App[f x ] ] ]]]
+| env(pair) 	= CLO[LAM[LAM[App[App[App[lamif c ] a ] b ]]]]
+| env(1st) 	= CLO[App[pair true ]]
+| env(2nd) 	= CLO[App[pair false ]]
+| env(zero?) 	= CLO[App[App[n LAM[false] ] true ]]
+| env(add1) 	= CLO[LAM[LAM[App[f App[App[n f ] x ] ]]]]
+| env(add) 	= CLO[LAM[LAM[LAM[App[App[n f ] App[App[m f ] x ] ]]]]]
+| env(mult) 	= CLO[LAM[LAM[LAM[App[App[n App[m f ] ] x ]]]]]
+| env(exp) 	= CLO[LAM[LAM[LAM[App[App[m App[App[App[mult n ] n ] ++ ] ] x ]]]]]
+| env(four) 	= CLO[LAM[App[f App[App[n f ] x ] ]]]
+| env(five) 	= CLO[LAM[App[App[n f ] App[App[m f ] x ] ]]]
+| env(six) 	= CLO[LAM[App[App[n f ] App[App[m f ] x ] ]]]
+| env(sub1) 	= CLO[App[1st App[App[n LAM[App[App[pair App[2nd p ] ] App[add1 App[2nd p ] ] ]] ] App[App[pair zero ] zero ] ] ]]
+| env(zcomb) 	= CLO[App[LAM[App[f LAM[App[App[x x ] v ]] ]] LAM[App[f LAM[App[App[x x ] v ]] ]] ]]
+| env(mkfac) 	= CLO[LAM[App[App[App[lamif App[zero? n ] ] one ] App[App[mult n ] App[fac App[sub1 n ] ] ] ]]]
+Code : App[App[App[sub1 one ] ++ ] 0 ]
+Frame: return
+
+=============
+===[C E K]===
+Cycle:	92
+Env: true
+| env(true) 	= CLO[LAM[x]]
+| env(false) 	= CLO[LAM[y]]
+| env(lamif) 	= CLO[LAM[LAM[App[App[cond e_true ] e_false ]]]]
+| env(++) 	= CLO[App[+ x 1 ]]
+| env(zero) 	= CLO[LAM[x]]
+| env(one) 	= CLO[LAM[App[f x ]]]
+| env(two) 	= CLO[LAM[App[f App[f x ] ]]]
+| env(three) 	= CLO[LAM[App[f App[f App[f x ] ] ]]]
+| env(pair) 	= CLO[LAM[LAM[App[App[App[lamif c ] a ] b ]]]]
+| env(1st) 	= CLO[App[pair true ]]
+| env(2nd) 	= CLO[App[pair false ]]
+| env(zero?) 	= CLO[App[App[n LAM[false] ] true ]]
+| env(add1) 	= CLO[LAM[LAM[App[f App[App[n f ] x ] ]]]]
+| env(add) 	= CLO[LAM[LAM[LAM[App[App[n f ] App[App[m f ] x ] ]]]]]
+| env(mult) 	= CLO[LAM[LAM[LAM[App[App[n App[m f ] ] x ]]]]]
+| env(exp) 	= CLO[LAM[LAM[LAM[App[App[m App[App[App[mult n ] n ] ++ ] ] x ]]]]]
+| env(four) 	= CLO[LAM[App[f App[App[n f ] x ] ]]]
+| env(five) 	= CLO[LAM[App[App[n f ] App[App[m f ] x ] ]]]
+| env(six) 	= CLO[LAM[App[App[n f ] App[App[m f ] x ] ]]]
+| env(sub1) 	= CLO[App[1st App[App[n LAM[App[App[pair App[2nd p ] ] App[add1 App[2nd p ] ] ]] ] App[App[pair zero ] zero ] ] ]]
+| env(zcomb) 	= CLO[App[LAM[App[f LAM[App[App[x x ] v ]] ]] LAM[App[f LAM[App[App[x x ] v ]] ]] ]]
+| env(mkfac) 	= CLO[LAM[App[App[App[lamif App[zero? n ] ] one ] App[App[mult n ] App[fac App[sub1 n ] ] ] ]]]
+Code : App[App[sub1 one ] ++ ]
+Frame: application
+| vals: 
+| exprs: 0 
+=============
+===[C E K]===
+Cycle:	93
+Env: true
+| env(true) 	= CLO[LAM[x]]
+| env(false) 	= CLO[LAM[y]]
+| env(lamif) 	= CLO[LAM[LAM[App[App[cond e_true ] e_false ]]]]
+| env(++) 	= CLO[App[+ x 1 ]]
+| env(zero) 	= CLO[LAM[x]]
+| env(one) 	= CLO[LAM[App[f x ]]]
+| env(two) 	= CLO[LAM[App[f App[f x ] ]]]
+| env(three) 	= CLO[LAM[App[f App[f App[f x ] ] ]]]
+| env(pair) 	= CLO[LAM[LAM[App[App[App[lamif c ] a ] b ]]]]
+| env(1st) 	= CLO[App[pair true ]]
+| env(2nd) 	= CLO[App[pair false ]]
+| env(zero?) 	= CLO[App[App[n LAM[false] ] true ]]
+| env(add1) 	= CLO[LAM[LAM[App[f App[App[n f ] x ] ]]]]
+| env(add) 	= CLO[LAM[LAM[LAM[App[App[n f ] App[App[m f ] x ] ]]]]]
+| env(mult) 	= CLO[LAM[LAM[LAM[App[App[n App[m f ] ] x ]]]]]
+| env(exp) 	= CLO[LAM[LAM[LAM[App[App[m App[App[App[mult n ] n ] ++ ] ] x ]]]]]
+| env(four) 	= CLO[LAM[App[f App[App[n f ] x ] ]]]
+| env(five) 	= CLO[LAM[App[App[n f ] App[App[m f ] x ] ]]]
+| env(six) 	= CLO[LAM[App[App[n f ] App[App[m f ] x ] ]]]
+| env(sub1) 	= CLO[App[1st App[App[n LAM[App[App[pair App[2nd p ] ] App[add1 App[2nd p ] ] ]] ] App[App[pair zero ] zero ] ] ]]
+| env(zcomb) 	= CLO[App[LAM[App[f LAM[App[App[x x ] v ]] ]] LAM[App[f LAM[App[App[x x ] v ]] ]] ]]
+| env(mkfac) 	= CLO[LAM[App[App[App[lamif App[zero? n ] ] one ] App[App[mult n ] App[fac App[sub1 n ] ] ] ]]]
+Code : App[sub1 one ]
+Frame: application
+| vals: 
+| exprs: ++ 
+=============
+===[C E K]===
+Cycle:	94
+Env: true
+| env(true) 	= CLO[LAM[x]]
+| env(false) 	= CLO[LAM[y]]
+| env(lamif) 	= CLO[LAM[LAM[App[App[cond e_true ] e_false ]]]]
+| env(++) 	= CLO[App[+ x 1 ]]
+| env(zero) 	= CLO[LAM[x]]
+| env(one) 	= CLO[LAM[App[f x ]]]
+| env(two) 	= CLO[LAM[App[f App[f x ] ]]]
+| env(three) 	= CLO[LAM[App[f App[f App[f x ] ] ]]]
+| env(pair) 	= CLO[LAM[LAM[App[App[App[lamif c ] a ] b ]]]]
+| env(1st) 	= CLO[App[pair true ]]
+| env(2nd) 	= CLO[App[pair false ]]
+| env(zero?) 	= CLO[App[App[n LAM[false] ] true ]]
+| env(add1) 	= CLO[LAM[LAM[App[f App[App[n f ] x ] ]]]]
+| env(add) 	= CLO[LAM[LAM[LAM[App[App[n f ] App[App[m f ] x ] ]]]]]
+| env(mult) 	= CLO[LAM[LAM[LAM[App[App[n App[m f ] ] x ]]]]]
+| env(exp) 	= CLO[LAM[LAM[LAM[App[App[m App[App[App[mult n ] n ] ++ ] ] x ]]]]]
+| env(four) 	= CLO[LAM[App[f App[App[n f ] x ] ]]]
+| env(five) 	= CLO[LAM[App[App[n f ] App[App[m f ] x ] ]]]
+| env(six) 	= CLO[LAM[App[App[n f ] App[App[m f ] x ] ]]]
+| env(sub1) 	= CLO[App[1st App[App[n LAM[App[App[pair App[2nd p ] ] App[add1 App[2nd p ] ] ]] ] App[App[pair zero ] zero ] ] ]]
+| env(zcomb) 	= CLO[App[LAM[App[f LAM[App[App[x x ] v ]] ]] LAM[App[f LAM[App[App[x x ] v ]] ]] ]]
+| env(mkfac) 	= CLO[LAM[App[App[App[lamif App[zero? n ] ] one ] App[App[mult n ] App[fac App[sub1 n ] ] ] ]]]
+Code : sub1
+Frame: application
+| vals: 
+| exprs: one 
+=============
+===[C E K]===
+Cycle:	95
+Env: true
+| env(true) 	= CLO[LAM[x]]
+| env(false) 	= CLO[LAM[y]]
+| env(lamif) 	= CLO[LAM[LAM[App[App[cond e_true ] e_false ]]]]
+| env(++) 	= CLO[App[+ x 1 ]]
+| env(zero) 	= CLO[LAM[x]]
+| env(one) 	= CLO[LAM[App[f x ]]]
+| env(two) 	= CLO[LAM[App[f App[f x ] ]]]
+| env(three) 	= CLO[LAM[App[f App[f App[f x ] ] ]]]
+| env(pair) 	= CLO[LAM[LAM[App[App[App[lamif c ] a ] b ]]]]
+| env(1st) 	= CLO[App[pair true ]]
+| env(2nd) 	= CLO[App[pair false ]]
+| env(zero?) 	= CLO[App[App[n LAM[false] ] true ]]
+| env(add1) 	= CLO[LAM[LAM[App[f App[App[n f ] x ] ]]]]
+| env(add) 	= CLO[LAM[LAM[LAM[App[App[n f ] App[App[m f ] x ] ]]]]]
+| env(mult) 	= CLO[LAM[LAM[LAM[App[App[n App[m f ] ] x ]]]]]
+| env(exp) 	= CLO[LAM[LAM[LAM[App[App[m App[App[App[mult n ] n ] ++ ] ] x ]]]]]
+| env(four) 	= CLO[LAM[App[f App[App[n f ] x ] ]]]
+| env(five) 	= CLO[LAM[App[App[n f ] App[App[m f ] x ] ]]]
+| env(six) 	= CLO[LAM[App[App[n f ] App[App[m f ] x ] ]]]
+| env(sub1) 	= CLO[App[1st App[App[n LAM[App[App[pair App[2nd p ] ] App[add1 App[2nd p ] ] ]] ] App[App[pair zero ] zero ] ] ]]
+| env(zcomb) 	= CLO[App[LAM[App[f LAM[App[App[x x ] v ]] ]] LAM[App[f LAM[App[App[x x ] v ]] ]] ]]
+| env(mkfac) 	= CLO[LAM[App[App[App[lamif App[zero? n ] ] one ] App[App[mult n ] App[fac App[sub1 n ] ] ] ]]]
+Code : CLO[App[1st App[App[n LAM[App[App[pair App[2nd p ] ] App[add1 App[2nd p ] ] ]] ] App[App[pair zero ] zero ] ] ]]
+Frame: application
+| vals: 
+| exprs: one 
+=============
+===[C E K]===
+Cycle:	96
+Env: true
+| env(true) 	= CLO[LAM[x]]
+| env(false) 	= CLO[LAM[y]]
+| env(lamif) 	= CLO[LAM[LAM[App[App[cond e_true ] e_false ]]]]
+| env(++) 	= CLO[App[+ x 1 ]]
+| env(zero) 	= CLO[LAM[x]]
+| env(one) 	= CLO[LAM[App[f x ]]]
+| env(two) 	= CLO[LAM[App[f App[f x ] ]]]
+| env(three) 	= CLO[LAM[App[f App[f App[f x ] ] ]]]
+| env(pair) 	= CLO[LAM[LAM[App[App[App[lamif c ] a ] b ]]]]
+| env(1st) 	= CLO[App[pair true ]]
+| env(2nd) 	= CLO[App[pair false ]]
+| env(zero?) 	= CLO[App[App[n LAM[false] ] true ]]
+| env(add1) 	= CLO[LAM[LAM[App[f App[App[n f ] x ] ]]]]
+| env(add) 	= CLO[LAM[LAM[LAM[App[App[n f ] App[App[m f ] x ] ]]]]]
+| env(mult) 	= CLO[LAM[LAM[LAM[App[App[n App[m f ] ] x ]]]]]
+| env(exp) 	= CLO[LAM[LAM[LAM[App[App[m App[App[App[mult n ] n ] ++ ] ] x ]]]]]
+| env(four) 	= CLO[LAM[App[f App[App[n f ] x ] ]]]
+| env(five) 	= CLO[LAM[App[App[n f ] App[App[m f ] x ] ]]]
+| env(six) 	= CLO[LAM[App[App[n f ] App[App[m f ] x ] ]]]
+| env(sub1) 	= CLO[App[1st App[App[n LAM[App[App[pair App[2nd p ] ] App[add1 App[2nd p ] ] ]] ] App[App[pair zero ] zero ] ] ]]
+| env(zcomb) 	= CLO[App[LAM[App[f LAM[App[App[x x ] v ]] ]] LAM[App[f LAM[App[App[x x ] v ]] ]] ]]
+| env(mkfac) 	= CLO[LAM[App[App[App[lamif App[zero? n ] ] one ] App[App[mult n ] App[fac App[sub1 n ] ] ] ]]]
+Code : one
+Frame: application
+| vals: CLO[App[1st App[App[n LAM[App[App[pair App[2nd p ] ] App[add1 App[2nd p ] ] ]] ] App[App[pair zero ] zero ] ] ]] 
+| exprs: 
+=============
+===[C E K]===
+Cycle:	97
+Env: true
+| env(true) 	= CLO[LAM[x]]
+| env(false) 	= CLO[LAM[y]]
+| env(lamif) 	= CLO[LAM[LAM[App[App[cond e_true ] e_false ]]]]
+| env(++) 	= CLO[App[+ x 1 ]]
+| env(zero) 	= CLO[LAM[x]]
+| env(one) 	= CLO[LAM[App[f x ]]]
+| env(two) 	= CLO[LAM[App[f App[f x ] ]]]
+| env(three) 	= CLO[LAM[App[f App[f App[f x ] ] ]]]
+| env(pair) 	= CLO[LAM[LAM[App[App[App[lamif c ] a ] b ]]]]
+| env(1st) 	= CLO[App[pair true ]]
+| env(2nd) 	= CLO[App[pair false ]]
+| env(zero?) 	= CLO[App[App[n LAM[false] ] true ]]
+| env(add1) 	= CLO[LAM[LAM[App[f App[App[n f ] x ] ]]]]
+| env(add) 	= CLO[LAM[LAM[LAM[App[App[n f ] App[App[m f ] x ] ]]]]]
+| env(mult) 	= CLO[LAM[LAM[LAM[App[App[n App[m f ] ] x ]]]]]
+| env(exp) 	= CLO[LAM[LAM[LAM[App[App[m App[App[App[mult n ] n ] ++ ] ] x ]]]]]
+| env(four) 	= CLO[LAM[App[f App[App[n f ] x ] ]]]
+| env(five) 	= CLO[LAM[App[App[n f ] App[App[m f ] x ] ]]]
+| env(six) 	= CLO[LAM[App[App[n f ] App[App[m f ] x ] ]]]
+| env(sub1) 	= CLO[App[1st App[App[n LAM[App[App[pair App[2nd p ] ] App[add1 App[2nd p ] ] ]] ] App[App[pair zero ] zero ] ] ]]
+| env(zcomb) 	= CLO[App[LAM[App[f LAM[App[App[x x ] v ]] ]] LAM[App[f LAM[App[App[x x ] v ]] ]] ]]
+| env(mkfac) 	= CLO[LAM[App[App[App[lamif App[zero? n ] ] one ] App[App[mult n ] App[fac App[sub1 n ] ] ] ]]]
+Code : CLO[LAM[App[f x ]]]
+Frame: application
+| vals: CLO[App[1st App[App[n LAM[App[App[pair App[2nd p ] ] App[add1 App[2nd p ] ] ]] ] App[App[pair zero ] zero ] ] ]] 
+| exprs: 
+=============
+===[C E K]===
+Cycle:	98
+Env: true
+| env(true) 	= CLO[LAM[x]]
+| env(false) 	= CLO[LAM[y]]
+| env(lamif) 	= CLO[LAM[LAM[App[App[cond e_true ] e_false ]]]]
+| env(++) 	= CLO[App[+ x 1 ]]
+| env(zero) 	= CLO[LAM[x]]
+| env(one) 	= CLO[LAM[App[f x ]]]
+| env(two) 	= CLO[LAM[App[f App[f x ] ]]]
+| env(three) 	= CLO[LAM[App[f App[f App[f x ] ] ]]]
+| env(pair) 	= CLO[LAM[LAM[App[App[App[lamif c ] a ] b ]]]]
+| env(1st) 	= CLO[App[pair true ]]
+| env(2nd) 	= CLO[App[pair false ]]
+| env(zero?) 	= CLO[App[App[n LAM[false] ] true ]]
+| env(add1) 	= CLO[LAM[LAM[App[f App[App[n f ] x ] ]]]]
+| env(add) 	= CLO[LAM[LAM[LAM[App[App[n f ] App[App[m f ] x ] ]]]]]
+| env(mult) 	= CLO[LAM[LAM[LAM[App[App[n App[m f ] ] x ]]]]]
+| env(n) 	= CLO[LAM[App[f x ]]]
+Code : App[1st App[App[n LAM[App[App[pair App[2nd p ] ] App[add1 App[2nd p ] ] ]] ] App[App[pair zero ] zero ] ] ]
+Frame: application
+| vals: 
+| exprs: ++ 
+=============
+===[C E K]===
+Cycle:	99
+Env: true
+| env(true) 	= CLO[LAM[x]]
+| env(false) 	= CLO[LAM[y]]
+| env(lamif) 	= CLO[LAM[LAM[App[App[cond e_true ] e_false ]]]]
+| env(++) 	= CLO[App[+ x 1 ]]
+| env(zero) 	= CLO[LAM[x]]
+| env(one) 	= CLO[LAM[App[f x ]]]
+| env(two) 	= CLO[LAM[App[f App[f x ] ]]]
+| env(three) 	= CLO[LAM[App[f App[f App[f x ] ] ]]]
+| env(pair) 	= CLO[LAM[LAM[App[App[App[lamif c ] a ] b ]]]]
+| env(1st) 	= CLO[App[pair true ]]
+| env(2nd) 	= CLO[App[pair false ]]
+| env(zero?) 	= CLO[App[App[n LAM[false] ] true ]]
+| env(add1) 	= CLO[LAM[LAM[App[f App[App[n f ] x ] ]]]]
+| env(add) 	= CLO[LAM[LAM[LAM[App[App[n f ] App[App[m f ] x ] ]]]]]
+| env(mult) 	= CLO[LAM[LAM[LAM[App[App[n App[m f ] ] x ]]]]]
+| env(n) 	= CLO[LAM[App[f x ]]]
+Code : 1st
+Frame: application
+| vals: 
+| exprs: App[App[n LAM[App[App[pair App[2nd p ] ] App[add1 App[2nd p ] ] ]] ] App[App[pair zero ] zero ] ] 
+=============
+===[C E K]===
+Cycle:	100
+Env: true
+| env(true) 	= CLO[LAM[x]]
+| env(false) 	= CLO[LAM[y]]
+| env(lamif) 	= CLO[LAM[LAM[App[App[cond e_true ] e_false ]]]]
+| env(++) 	= CLO[App[+ x 1 ]]
+| env(zero) 	= CLO[LAM[x]]
+| env(one) 	= CLO[LAM[App[f x ]]]
+| env(two) 	= CLO[LAM[App[f App[f x ] ]]]
+| env(three) 	= CLO[LAM[App[f App[f App[f x ] ] ]]]
+| env(pair) 	= CLO[LAM[LAM[App[App[App[lamif c ] a ] b ]]]]
+| env(1st) 	= CLO[App[pair true ]]
+| env(2nd) 	= CLO[App[pair false ]]
+| env(zero?) 	= CLO[App[App[n LAM[false] ] true ]]
+| env(add1) 	= CLO[LAM[LAM[App[f App[App[n f ] x ] ]]]]
+| env(add) 	= CLO[LAM[LAM[LAM[App[App[n f ] App[App[m f ] x ] ]]]]]
+| env(mult) 	= CLO[LAM[LAM[LAM[App[App[n App[m f ] ] x ]]]]]
+| env(n) 	= CLO[LAM[App[f x ]]]
+Code : CLO[App[pair true ]]
+Frame: application
+| vals: 
+| exprs: App[App[n LAM[App[App[pair App[2nd p ] ] App[add1 App[2nd p ] ] ]] ] App[App[pair zero ] zero ] ] 
+=============
+===[C E K]===
+Cycle:	101
+Env: true
+| env(true) 	= CLO[LAM[x]]
+| env(false) 	= CLO[LAM[y]]
+| env(lamif) 	= CLO[LAM[LAM[App[App[cond e_true ] e_false ]]]]
+| env(++) 	= CLO[App[+ x 1 ]]
+| env(zero) 	= CLO[LAM[x]]
+| env(one) 	= CLO[LAM[App[f x ]]]
+| env(two) 	= CLO[LAM[App[f App[f x ] ]]]
+| env(three) 	= CLO[LAM[App[f App[f App[f x ] ] ]]]
+| env(pair) 	= CLO[LAM[LAM[App[App[App[lamif c ] a ] b ]]]]
+| env(1st) 	= CLO[App[pair true ]]
+| env(2nd) 	= CLO[App[pair false ]]
+| env(zero?) 	= CLO[App[App[n LAM[false] ] true ]]
+| env(add1) 	= CLO[LAM[LAM[App[f App[App[n f ] x ] ]]]]
+| env(add) 	= CLO[LAM[LAM[LAM[App[App[n f ] App[App[m f ] x ] ]]]]]
+| env(mult) 	= CLO[LAM[LAM[LAM[App[App[n App[m f ] ] x ]]]]]
+| env(n) 	= CLO[LAM[App[f x ]]]
+Code : App[App[n LAM[App[App[pair App[2nd p ] ] App[add1 App[2nd p ] ] ]] ] App[App[pair zero ] zero ] ]
+Frame: application
+| vals: CLO[App[pair true ]] 
+| exprs: 
+=============
+===[C E K]===
+Cycle:	102
+Env: true
+| env(true) 	= CLO[LAM[x]]
+| env(false) 	= CLO[LAM[y]]
+| env(lamif) 	= CLO[LAM[LAM[App[App[cond e_true ] e_false ]]]]
+| env(++) 	= CLO[App[+ x 1 ]]
+| env(zero) 	= CLO[LAM[x]]
+| env(one) 	= CLO[LAM[App[f x ]]]
+| env(two) 	= CLO[LAM[App[f App[f x ] ]]]
+| env(three) 	= CLO[LAM[App[f App[f App[f x ] ] ]]]
+| env(pair) 	= CLO[LAM[LAM[App[App[App[lamif c ] a ] b ]]]]
+| env(1st) 	= CLO[App[pair true ]]
+| env(2nd) 	= CLO[App[pair false ]]
+| env(zero?) 	= CLO[App[App[n LAM[false] ] true ]]
+| env(add1) 	= CLO[LAM[LAM[App[f App[App[n f ] x ] ]]]]
+| env(add) 	= CLO[LAM[LAM[LAM[App[App[n f ] App[App[m f ] x ] ]]]]]
+| env(mult) 	= CLO[LAM[LAM[LAM[App[App[n App[m f ] ] x ]]]]]
+| env(n) 	= CLO[LAM[App[f x ]]]
+Code : App[n LAM[App[App[pair App[2nd p ] ] App[add1 App[2nd p ] ] ]] ]
+Frame: application
+| vals: 
+| exprs: App[App[pair zero ] zero ] 
+=============
+===[C E K]===
+Cycle:	103
+Env: true
+| env(true) 	= CLO[LAM[x]]
+| env(false) 	= CLO[LAM[y]]
+| env(lamif) 	= CLO[LAM[LAM[App[App[cond e_true ] e_false ]]]]
+| env(++) 	= CLO[App[+ x 1 ]]
+| env(zero) 	= CLO[LAM[x]]
+| env(one) 	= CLO[LAM[App[f x ]]]
+| env(two) 	= CLO[LAM[App[f App[f x ] ]]]
+| env(three) 	= CLO[LAM[App[f App[f App[f x ] ] ]]]
+| env(pair) 	= CLO[LAM[LAM[App[App[App[lamif c ] a ] b ]]]]
+| env(1st) 	= CLO[App[pair true ]]
+| env(2nd) 	= CLO[App[pair false ]]
+| env(zero?) 	= CLO[App[App[n LAM[false] ] true ]]
+| env(add1) 	= CLO[LAM[LAM[App[f App[App[n f ] x ] ]]]]
+| env(add) 	= CLO[LAM[LAM[LAM[App[App[n f ] App[App[m f ] x ] ]]]]]
+| env(mult) 	= CLO[LAM[LAM[LAM[App[App[n App[m f ] ] x ]]]]]
+| env(n) 	= CLO[LAM[App[f x ]]]
+Code : n
+Frame: application
+| vals: 
+| exprs: LAM[App[App[pair App[2nd p ] ] App[add1 App[2nd p ] ] ]] 
+=============
+===[C E K]===
+Cycle:	104
+Env: true
+| env(true) 	= CLO[LAM[x]]
+| env(false) 	= CLO[LAM[y]]
+| env(lamif) 	= CLO[LAM[LAM[App[App[cond e_true ] e_false ]]]]
+| env(++) 	= CLO[App[+ x 1 ]]
+| env(zero) 	= CLO[LAM[x]]
+| env(one) 	= CLO[LAM[App[f x ]]]
+| env(two) 	= CLO[LAM[App[f App[f x ] ]]]
+| env(three) 	= CLO[LAM[App[f App[f App[f x ] ] ]]]
+| env(pair) 	= CLO[LAM[LAM[App[App[App[lamif c ] a ] b ]]]]
+| env(1st) 	= CLO[App[pair true ]]
+| env(2nd) 	= CLO[App[pair false ]]
+| env(zero?) 	= CLO[App[App[n LAM[false] ] true ]]
+| env(add1) 	= CLO[LAM[LAM[App[f App[App[n f ] x ] ]]]]
+| env(add) 	= CLO[LAM[LAM[LAM[App[App[n f ] App[App[m f ] x ] ]]]]]
+| env(mult) 	= CLO[LAM[LAM[LAM[App[App[n App[m f ] ] x ]]]]]
+| env(n) 	= CLO[LAM[App[f x ]]]
+Code : CLO[LAM[App[f x ]]]
+Frame: application
+| vals: 
+| exprs: LAM[App[App[pair App[2nd p ] ] App[add1 App[2nd p ] ] ]] 
+=============
+===[C E K]===
+Cycle:	105
+Env: true
+| env(true) 	= CLO[LAM[x]]
+| env(false) 	= CLO[LAM[y]]
+| env(lamif) 	= CLO[LAM[LAM[App[App[cond e_true ] e_false ]]]]
+| env(++) 	= CLO[App[+ x 1 ]]
+| env(zero) 	= CLO[LAM[x]]
+| env(one) 	= CLO[LAM[App[f x ]]]
+| env(two) 	= CLO[LAM[App[f App[f x ] ]]]
+| env(three) 	= CLO[LAM[App[f App[f App[f x ] ] ]]]
+| env(pair) 	= CLO[LAM[LAM[App[App[App[lamif c ] a ] b ]]]]
+| env(1st) 	= CLO[App[pair true ]]
+| env(2nd) 	= CLO[App[pair false ]]
+| env(zero?) 	= CLO[App[App[n LAM[false] ] true ]]
+| env(add1) 	= CLO[LAM[LAM[App[f App[App[n f ] x ] ]]]]
+| env(add) 	= CLO[LAM[LAM[LAM[App[App[n f ] App[App[m f ] x ] ]]]]]
+| env(mult) 	= CLO[LAM[LAM[LAM[App[App[n App[m f ] ] x ]]]]]
+| env(n) 	= CLO[LAM[App[f x ]]]
+Code : LAM[App[App[pair App[2nd p ] ] App[add1 App[2nd p ] ] ]]
+Frame: application
+| vals: CLO[LAM[App[f x ]]] 
+| exprs: 
+=============
+===[C E K]===
+Cycle:	106
+Env: true
+| env(true) 	= CLO[LAM[x]]
+| env(false) 	= CLO[LAM[y]]
+| env(lamif) 	= CLO[LAM[LAM[App[App[cond e_true ] e_false ]]]]
+| env(++) 	= CLO[App[+ x 1 ]]
+| env(zero) 	= CLO[LAM[x]]
+| env(one) 	= CLO[LAM[App[f x ]]]
+| env(two) 	= CLO[LAM[App[f App[f x ] ]]]
+| env(three) 	= CLO[LAM[App[f App[f App[f x ] ] ]]]
+| env(pair) 	= CLO[LAM[LAM[App[App[App[lamif c ] a ] b ]]]]
+| env(1st) 	= CLO[App[pair true ]]
+| env(2nd) 	= CLO[App[pair false ]]
+| env(zero?) 	= CLO[App[App[n LAM[false] ] true ]]
+| env(add1) 	= CLO[LAM[LAM[App[f App[App[n f ] x ] ]]]]
+| env(add) 	= CLO[LAM[LAM[LAM[App[App[n f ] App[App[m f ] x ] ]]]]]
+| env(mult) 	= CLO[LAM[LAM[LAM[App[App[n App[m f ] ] x ]]]]]
+| env(n) 	= CLO[LAM[App[f x ]]]
+Code : CLO[App[App[pair App[2nd p ] ] App[add1 App[2nd p ] ] ]]
+Frame: application
+| vals: CLO[LAM[App[f x ]]] 
+| exprs: 
+=============
+===[C E K]===
+Cycle:	107
+Env: true
+| env(true) 	= CLO[LAM[x]]
+| env(false) 	= CLO[LAM[y]]
+| env(lamif) 	= CLO[LAM[LAM[App[App[cond e_true ] e_false ]]]]
+| env(f) 	= CLO[App[App[pair App[2nd p ] ] App[add1 App[2nd p ] ] ]]
+Code : LAM[App[f x ]]
+Frame: application
+| vals: 
+| exprs: App[App[pair zero ] zero ] 
+=============
+===[C E K]===
+Cycle:	108
+Env: true
+| env(true) 	= CLO[LAM[x]]
+| env(false) 	= CLO[LAM[y]]
+| env(lamif) 	= CLO[LAM[LAM[App[App[cond e_true ] e_false ]]]]
+| env(f) 	= CLO[App[App[pair App[2nd p ] ] App[add1 App[2nd p ] ] ]]
+Code : CLO[App[f x ]]
+Frame: application
+| vals: 
+| exprs: App[App[pair zero ] zero ] 
+=============
+===[C E K]===
+Cycle:	109
+Env: true
+| env(true) 	= CLO[LAM[x]]
+| env(false) 	= CLO[LAM[y]]
+| env(lamif) 	= CLO[LAM[LAM[App[App[cond e_true ] e_false ]]]]
+| env(++) 	= CLO[App[+ x 1 ]]
+| env(zero) 	= CLO[LAM[x]]
+| env(one) 	= CLO[LAM[App[f x ]]]
+| env(two) 	= CLO[LAM[App[f App[f x ] ]]]
+| env(three) 	= CLO[LAM[App[f App[f App[f x ] ] ]]]
+| env(pair) 	= CLO[LAM[LAM[App[App[App[lamif c ] a ] b ]]]]
+| env(1st) 	= CLO[App[pair true ]]
+| env(2nd) 	= CLO[App[pair false ]]
+| env(zero?) 	= CLO[App[App[n LAM[false] ] true ]]
+| env(add1) 	= CLO[LAM[LAM[App[f App[App[n f ] x ] ]]]]
+| env(add) 	= CLO[LAM[LAM[LAM[App[App[n f ] App[App[m f ] x ] ]]]]]
+| env(mult) 	= CLO[LAM[LAM[LAM[App[App[n App[m f ] ] x ]]]]]
+| env(n) 	= CLO[LAM[App[f x ]]]
+Code : App[App[pair zero ] zero ]
+Frame: application
+| vals: CLO[App[f x ]] 
+| exprs: 
+=============
+===[C E K]===
+Cycle:	110
+Env: true
+| env(true) 	= CLO[LAM[x]]
+| env(false) 	= CLO[LAM[y]]
+| env(lamif) 	= CLO[LAM[LAM[App[App[cond e_true ] e_false ]]]]
+| env(++) 	= CLO[App[+ x 1 ]]
+| env(zero) 	= CLO[LAM[x]]
+| env(one) 	= CLO[LAM[App[f x ]]]
+| env(two) 	= CLO[LAM[App[f App[f x ] ]]]
+| env(three) 	= CLO[LAM[App[f App[f App[f x ] ] ]]]
+| env(pair) 	= CLO[LAM[LAM[App[App[App[lamif c ] a ] b ]]]]
+| env(1st) 	= CLO[App[pair true ]]
+| env(2nd) 	= CLO[App[pair false ]]
+| env(zero?) 	= CLO[App[App[n LAM[false] ] true ]]
+| env(add1) 	= CLO[LAM[LAM[App[f App[App[n f ] x ] ]]]]
+| env(add) 	= CLO[LAM[LAM[LAM[App[App[n f ] App[App[m f ] x ] ]]]]]
+| env(mult) 	= CLO[LAM[LAM[LAM[App[App[n App[m f ] ] x ]]]]]
+| env(n) 	= CLO[LAM[App[f x ]]]
+Code : App[pair zero ]
+Frame: application
+| vals: 
+| exprs: zero 
+=============
+===[C E K]===
+Cycle:	111
+Env: true
+| env(true) 	= CLO[LAM[x]]
+| env(false) 	= CLO[LAM[y]]
+| env(lamif) 	= CLO[LAM[LAM[App[App[cond e_true ] e_false ]]]]
+| env(++) 	= CLO[App[+ x 1 ]]
+| env(zero) 	= CLO[LAM[x]]
+| env(one) 	= CLO[LAM[App[f x ]]]
+| env(two) 	= CLO[LAM[App[f App[f x ] ]]]
+| env(three) 	= CLO[LAM[App[f App[f App[f x ] ] ]]]
+| env(pair) 	= CLO[LAM[LAM[App[App[App[lamif c ] a ] b ]]]]
+| env(1st) 	= CLO[App[pair true ]]
+| env(2nd) 	= CLO[App[pair false ]]
+| env(zero?) 	= CLO[App[App[n LAM[false] ] true ]]
+| env(add1) 	= CLO[LAM[LAM[App[f App[App[n f ] x ] ]]]]
+| env(add) 	= CLO[LAM[LAM[LAM[App[App[n f ] App[App[m f ] x ] ]]]]]
+| env(mult) 	= CLO[LAM[LAM[LAM[App[App[n App[m f ] ] x ]]]]]
+| env(n) 	= CLO[LAM[App[f x ]]]
+Code : pair
+Frame: application
+| vals: 
+| exprs: zero 
+=============
+===[C E K]===
+Cycle:	112
+Env: true
+| env(true) 	= CLO[LAM[x]]
+| env(false) 	= CLO[LAM[y]]
+| env(lamif) 	= CLO[LAM[LAM[App[App[cond e_true ] e_false ]]]]
+| env(++) 	= CLO[App[+ x 1 ]]
+| env(zero) 	= CLO[LAM[x]]
+| env(one) 	= CLO[LAM[App[f x ]]]
+| env(two) 	= CLO[LAM[App[f App[f x ] ]]]
+| env(three) 	= CLO[LAM[App[f App[f App[f x ] ] ]]]
+| env(pair) 	= CLO[LAM[LAM[App[App[App[lamif c ] a ] b ]]]]
+| env(1st) 	= CLO[App[pair true ]]
+| env(2nd) 	= CLO[App[pair false ]]
+| env(zero?) 	= CLO[App[App[n LAM[false] ] true ]]
+| env(add1) 	= CLO[LAM[LAM[App[f App[App[n f ] x ] ]]]]
+| env(add) 	= CLO[LAM[LAM[LAM[App[App[n f ] App[App[m f ] x ] ]]]]]
+| env(mult) 	= CLO[LAM[LAM[LAM[App[App[n App[m f ] ] x ]]]]]
+| env(n) 	= CLO[LAM[App[f x ]]]
+Code : CLO[LAM[LAM[App[App[App[lamif c ] a ] b ]]]]
+Frame: application
+| vals: 
+| exprs: zero 
+=============
+===[C E K]===
+Cycle:	113
+Env: true
+| env(true) 	= CLO[LAM[x]]
+| env(false) 	= CLO[LAM[y]]
+| env(lamif) 	= CLO[LAM[LAM[App[App[cond e_true ] e_false ]]]]
+| env(++) 	= CLO[App[+ x 1 ]]
+| env(zero) 	= CLO[LAM[x]]
+| env(one) 	= CLO[LAM[App[f x ]]]
+| env(two) 	= CLO[LAM[App[f App[f x ] ]]]
+| env(three) 	= CLO[LAM[App[f App[f App[f x ] ] ]]]
+| env(pair) 	= CLO[LAM[LAM[App[App[App[lamif c ] a ] b ]]]]
+| env(1st) 	= CLO[App[pair true ]]
+| env(2nd) 	= CLO[App[pair false ]]
+| env(zero?) 	= CLO[App[App[n LAM[false] ] true ]]
+| env(add1) 	= CLO[LAM[LAM[App[f App[App[n f ] x ] ]]]]
+| env(add) 	= CLO[LAM[LAM[LAM[App[App[n f ] App[App[m f ] x ] ]]]]]
+| env(mult) 	= CLO[LAM[LAM[LAM[App[App[n App[m f ] ] x ]]]]]
+| env(n) 	= CLO[LAM[App[f x ]]]
+Code : zero
+Frame: application
+| vals: CLO[LAM[LAM[App[App[App[lamif c ] a ] b ]]]] 
+| exprs: 
+=============
+===[C E K]===
+Cycle:	114
+Env: true
+| env(true) 	= CLO[LAM[x]]
+| env(false) 	= CLO[LAM[y]]
+| env(lamif) 	= CLO[LAM[LAM[App[App[cond e_true ] e_false ]]]]
+| env(++) 	= CLO[App[+ x 1 ]]
+| env(zero) 	= CLO[LAM[x]]
+| env(one) 	= CLO[LAM[App[f x ]]]
+| env(two) 	= CLO[LAM[App[f App[f x ] ]]]
+| env(three) 	= CLO[LAM[App[f App[f App[f x ] ] ]]]
+| env(pair) 	= CLO[LAM[LAM[App[App[App[lamif c ] a ] b ]]]]
+| env(1st) 	= CLO[App[pair true ]]
+| env(2nd) 	= CLO[App[pair false ]]
+| env(zero?) 	= CLO[App[App[n LAM[false] ] true ]]
+| env(add1) 	= CLO[LAM[LAM[App[f App[App[n f ] x ] ]]]]
+| env(add) 	= CLO[LAM[LAM[LAM[App[App[n f ] App[App[m f ] x ] ]]]]]
+| env(mult) 	= CLO[LAM[LAM[LAM[App[App[n App[m f ] ] x ]]]]]
+| env(n) 	= CLO[LAM[App[f x ]]]
+Code : CLO[LAM[x]]
+Frame: application
+| vals: CLO[LAM[LAM[App[App[App[lamif c ] a ] b ]]]] 
+| exprs: 
+=============
+===[C E K]===
+Cycle:	115
+Env: true
+| env(true) 	= CLO[LAM[x]]
+| env(false) 	= CLO[LAM[y]]
+| env(lamif) 	= CLO[LAM[LAM[App[App[cond e_true ] e_false ]]]]
+| env(++) 	= CLO[App[+ x 1 ]]
+| env(zero) 	= CLO[LAM[x]]
+| env(one) 	= CLO[LAM[App[f x ]]]
+| env(two) 	= CLO[LAM[App[f App[f x ] ]]]
+| env(three) 	= CLO[LAM[App[f App[f App[f x ] ] ]]]
+| env(a) 	= CLO[LAM[x]]
+Code : LAM[LAM[App[App[App[lamif c ] a ] b ]]]
+Frame: application
+| vals: 
+| exprs: zero 
+=============
+===[C E K]===
+Cycle:	116
+Env: true
+| env(true) 	= CLO[LAM[x]]
+| env(false) 	= CLO[LAM[y]]
+| env(lamif) 	= CLO[LAM[LAM[App[App[cond e_true ] e_false ]]]]
+| env(++) 	= CLO[App[+ x 1 ]]
+| env(zero) 	= CLO[LAM[x]]
+| env(one) 	= CLO[LAM[App[f x ]]]
+| env(two) 	= CLO[LAM[App[f App[f x ] ]]]
+| env(three) 	= CLO[LAM[App[f App[f App[f x ] ] ]]]
+| env(a) 	= CLO[LAM[x]]
+Code : CLO[LAM[App[App[App[lamif c ] a ] b ]]]
+Frame: application
+| vals: 
+| exprs: zero 
+=============
+===[C E K]===
+Cycle:	117
+Env: true
+| env(true) 	= CLO[LAM[x]]
+| env(false) 	= CLO[LAM[y]]
+| env(lamif) 	= CLO[LAM[LAM[App[App[cond e_true ] e_false ]]]]
+| env(++) 	= CLO[App[+ x 1 ]]
+| env(zero) 	= CLO[LAM[x]]
+| env(one) 	= CLO[LAM[App[f x ]]]
+| env(two) 	= CLO[LAM[App[f App[f x ] ]]]
+| env(three) 	= CLO[LAM[App[f App[f App[f x ] ] ]]]
+| env(pair) 	= CLO[LAM[LAM[App[App[App[lamif c ] a ] b ]]]]
+| env(1st) 	= CLO[App[pair true ]]
+| env(2nd) 	= CLO[App[pair false ]]
+| env(zero?) 	= CLO[App[App[n LAM[false] ] true ]]
+| env(add1) 	= CLO[LAM[LAM[App[f App[App[n f ] x ] ]]]]
+| env(add) 	= CLO[LAM[LAM[LAM[App[App[n f ] App[App[m f ] x ] ]]]]]
+| env(mult) 	= CLO[LAM[LAM[LAM[App[App[n App[m f ] ] x ]]]]]
+| env(n) 	= CLO[LAM[App[f x ]]]
+Code : zero
+Frame: application
+| vals: CLO[LAM[App[App[App[lamif c ] a ] b ]]] 
+| exprs: 
+=============
+===[C E K]===
+Cycle:	118
+Env: true
+| env(true) 	= CLO[LAM[x]]
+| env(false) 	= CLO[LAM[y]]
+| env(lamif) 	= CLO[LAM[LAM[App[App[cond e_true ] e_false ]]]]
+| env(++) 	= CLO[App[+ x 1 ]]
+| env(zero) 	= CLO[LAM[x]]
+| env(one) 	= CLO[LAM[App[f x ]]]
+| env(two) 	= CLO[LAM[App[f App[f x ] ]]]
+| env(three) 	= CLO[LAM[App[f App[f App[f x ] ] ]]]
+| env(pair) 	= CLO[LAM[LAM[App[App[App[lamif c ] a ] b ]]]]
+| env(1st) 	= CLO[App[pair true ]]
+| env(2nd) 	= CLO[App[pair false ]]
+| env(zero?) 	= CLO[App[App[n LAM[false] ] true ]]
+| env(add1) 	= CLO[LAM[LAM[App[f App[App[n f ] x ] ]]]]
+| env(add) 	= CLO[LAM[LAM[LAM[App[App[n f ] App[App[m f ] x ] ]]]]]
+| env(mult) 	= CLO[LAM[LAM[LAM[App[App[n App[m f ] ] x ]]]]]
+| env(n) 	= CLO[LAM[App[f x ]]]
+Code : CLO[LAM[x]]
+Frame: application
+| vals: CLO[LAM[App[App[App[lamif c ] a ] b ]]] 
+| exprs: 
+=============
+===[C E K]===
+Cycle:	119
+Env: true
+| env(true) 	= CLO[LAM[x]]
+| env(false) 	= CLO[LAM[y]]
+| env(lamif) 	= CLO[LAM[LAM[App[App[cond e_true ] e_false ]]]]
+| env(++) 	= CLO[App[+ x 1 ]]
+| env(zero) 	= CLO[LAM[x]]
+| env(one) 	= CLO[LAM[App[f x ]]]
+| env(two) 	= CLO[LAM[App[f App[f x ] ]]]
+| env(three) 	= CLO[LAM[App[f App[f App[f x ] ] ]]]
+| env(a) 	= CLO[LAM[x]]
+| env(b) 	= CLO[LAM[x]]
+Code : LAM[App[App[App[lamif c ] a ] b ]]
+Frame: application
+| vals: CLO[App[f x ]] 
+| exprs: 
+=============
+===[C E K]===
+Cycle:	120
+Env: true
+| env(true) 	= CLO[LAM[x]]
+| env(false) 	= CLO[LAM[y]]
+| env(lamif) 	= CLO[LAM[LAM[App[App[cond e_true ] e_false ]]]]
+| env(++) 	= CLO[App[+ x 1 ]]
+| env(zero) 	= CLO[LAM[x]]
+| env(one) 	= CLO[LAM[App[f x ]]]
+| env(two) 	= CLO[LAM[App[f App[f x ] ]]]
+| env(three) 	= CLO[LAM[App[f App[f App[f x ] ] ]]]
+| env(a) 	= CLO[LAM[x]]
+| env(b) 	= CLO[LAM[x]]
+Code : CLO[App[App[App[lamif c ] a ] b ]]
+Frame: application
+| vals: CLO[App[f x ]] 
+| exprs: 
+=============
+===[C E K]===
+Cycle:	121
+Env: true
+| env(true) 	= CLO[LAM[x]]
+| env(false) 	= CLO[LAM[y]]
+| env(lamif) 	= CLO[LAM[LAM[App[App[cond e_true ] e_false ]]]]
+| env(f) 	= CLO[App[App[pair App[2nd p ] ] App[add1 App[2nd p ] ] ]]
+| env(x) 	= CLO[App[App[App[lamif c ] a ] b ]]
+Code : App[f x ]
+Frame: application
+| vals: CLO[App[pair true ]] 
+| exprs: 
+=============
+===[C E K]===
+Cycle:	122
+Env: true
+| env(true) 	= CLO[LAM[x]]
+| env(false) 	= CLO[LAM[y]]
+| env(lamif) 	= CLO[LAM[LAM[App[App[cond e_true ] e_false ]]]]
+| env(f) 	= CLO[App[App[pair App[2nd p ] ] App[add1 App[2nd p ] ] ]]
+| env(x) 	= CLO[App[App[App[lamif c ] a ] b ]]
+Code : f
+Frame: application
+| vals: 
+| exprs: x 
+=============
+===[C E K]===
+Cycle:	123
+Env: true
+| env(true) 	= CLO[LAM[x]]
+| env(false) 	= CLO[LAM[y]]
+| env(lamif) 	= CLO[LAM[LAM[App[App[cond e_true ] e_false ]]]]
+| env(f) 	= CLO[App[App[pair App[2nd p ] ] App[add1 App[2nd p ] ] ]]
+| env(x) 	= CLO[App[App[App[lamif c ] a ] b ]]
+Code : CLO[App[App[pair App[2nd p ] ] App[add1 App[2nd p ] ] ]]
+Frame: application
+| vals: 
+| exprs: x 
+=============
+===[C E K]===
+Cycle:	124
+Env: true
+| env(true) 	= CLO[LAM[x]]
+| env(false) 	= CLO[LAM[y]]
+| env(lamif) 	= CLO[LAM[LAM[App[App[cond e_true ] e_false ]]]]
+| env(f) 	= CLO[App[App[pair App[2nd p ] ] App[add1 App[2nd p ] ] ]]
+| env(x) 	= CLO[App[App[App[lamif c ] a ] b ]]
+Code : x
+Frame: application
+| vals: CLO[App[App[pair App[2nd p ] ] App[add1 App[2nd p ] ] ]] 
+| exprs: 
+=============
+===[C E K]===
+Cycle:	125
+Env: true
+| env(true) 	= CLO[LAM[x]]
+| env(false) 	= CLO[LAM[y]]
+| env(lamif) 	= CLO[LAM[LAM[App[App[cond e_true ] e_false ]]]]
+| env(f) 	= CLO[App[App[pair App[2nd p ] ] App[add1 App[2nd p ] ] ]]
+| env(x) 	= CLO[App[App[App[lamif c ] a ] b ]]
+Code : CLO[App[App[App[lamif c ] a ] b ]]
+Frame: application
+| vals: CLO[App[App[pair App[2nd p ] ] App[add1 App[2nd p ] ] ]] 
+| exprs: 
+=============
+===[C E K]===
+Cycle:	126
+Env: true
+| env(true) 	= CLO[LAM[x]]
+| env(false) 	= CLO[LAM[y]]
+| env(lamif) 	= CLO[LAM[LAM[App[App[cond e_true ] e_false ]]]]
+| env(++) 	= CLO[App[+ x 1 ]]
+| env(zero) 	= CLO[LAM[x]]
+| env(one) 	= CLO[LAM[App[f x ]]]
+| env(two) 	= CLO[LAM[App[f App[f x ] ]]]
+| env(three) 	= CLO[LAM[App[f App[f App[f x ] ] ]]]
+| env(pair) 	= CLO[LAM[LAM[App[App[App[lamif c ] a ] b ]]]]
+| env(1st) 	= CLO[App[pair true ]]
+| env(2nd) 	= CLO[App[pair false ]]
+| env(zero?) 	= CLO[App[App[n LAM[false] ] true ]]
+| env(add1) 	= CLO[LAM[LAM[App[f App[App[n f ] x ] ]]]]
+| env(add) 	= CLO[LAM[LAM[LAM[App[App[n f ] App[App[m f ] x ] ]]]]]
+| env(mult) 	= CLO[LAM[LAM[LAM[App[App[n App[m f ] ] x ]]]]]
+| env(n) 	= CLO[LAM[App[f x ]]]
+| env(p) 	= CLO[App[App[App[lamif c ] a ] b ]]
+Code : App[App[pair App[2nd p ] ] App[add1 App[2nd p ] ] ]
+Frame: application
+| vals: CLO[App[pair true ]] 
+| exprs: 
+=============
+===[C E K]===
+Cycle:	127
+Env: true
+| env(true) 	= CLO[LAM[x]]
+| env(false) 	= CLO[LAM[y]]
+| env(lamif) 	= CLO[LAM[LAM[App[App[cond e_true ] e_false ]]]]
+| env(++) 	= CLO[App[+ x 1 ]]
+| env(zero) 	= CLO[LAM[x]]
+| env(one) 	= CLO[LAM[App[f x ]]]
+| env(two) 	= CLO[LAM[App[f App[f x ] ]]]
+| env(three) 	= CLO[LAM[App[f App[f App[f x ] ] ]]]
+| env(pair) 	= CLO[LAM[LAM[App[App[App[lamif c ] a ] b ]]]]
+| env(1st) 	= CLO[App[pair true ]]
+| env(2nd) 	= CLO[App[pair false ]]
+| env(zero?) 	= CLO[App[App[n LAM[false] ] true ]]
+| env(add1) 	= CLO[LAM[LAM[App[f App[App[n f ] x ] ]]]]
+| env(add) 	= CLO[LAM[LAM[LAM[App[App[n f ] App[App[m f ] x ] ]]]]]
+| env(mult) 	= CLO[LAM[LAM[LAM[App[App[n App[m f ] ] x ]]]]]
+| env(n) 	= CLO[LAM[App[f x ]]]
+| env(p) 	= CLO[App[App[App[lamif c ] a ] b ]]
+Code : App[pair App[2nd p ] ]
+Frame: application
+| vals: 
+| exprs: App[add1 App[2nd p ] ] 
+=============
+===[C E K]===
+Cycle:	128
+Env: true
+| env(true) 	= CLO[LAM[x]]
+| env(false) 	= CLO[LAM[y]]
+| env(lamif) 	= CLO[LAM[LAM[App[App[cond e_true ] e_false ]]]]
+| env(++) 	= CLO[App[+ x 1 ]]
+| env(zero) 	= CLO[LAM[x]]
+| env(one) 	= CLO[LAM[App[f x ]]]
+| env(two) 	= CLO[LAM[App[f App[f x ] ]]]
+| env(three) 	= CLO[LAM[App[f App[f App[f x ] ] ]]]
+| env(pair) 	= CLO[LAM[LAM[App[App[App[lamif c ] a ] b ]]]]
+| env(1st) 	= CLO[App[pair true ]]
+| env(2nd) 	= CLO[App[pair false ]]
+| env(zero?) 	= CLO[App[App[n LAM[false] ] true ]]
+| env(add1) 	= CLO[LAM[LAM[App[f App[App[n f ] x ] ]]]]
+| env(add) 	= CLO[LAM[LAM[LAM[App[App[n f ] App[App[m f ] x ] ]]]]]
+| env(mult) 	= CLO[LAM[LAM[LAM[App[App[n App[m f ] ] x ]]]]]
+| env(n) 	= CLO[LAM[App[f x ]]]
+| env(p) 	= CLO[App[App[App[lamif c ] a ] b ]]
+Code : pair
+Frame: application
+| vals: 
+| exprs: App[2nd p ] 
+=============
+===[C E K]===
+Cycle:	129
+Env: true
+| env(true) 	= CLO[LAM[x]]
+| env(false) 	= CLO[LAM[y]]
+| env(lamif) 	= CLO[LAM[LAM[App[App[cond e_true ] e_false ]]]]
+| env(++) 	= CLO[App[+ x 1 ]]
+| env(zero) 	= CLO[LAM[x]]
+| env(one) 	= CLO[LAM[App[f x ]]]
+| env(two) 	= CLO[LAM[App[f App[f x ] ]]]
+| env(three) 	= CLO[LAM[App[f App[f App[f x ] ] ]]]
+| env(pair) 	= CLO[LAM[LAM[App[App[App[lamif c ] a ] b ]]]]
+| env(1st) 	= CLO[App[pair true ]]
+| env(2nd) 	= CLO[App[pair false ]]
+| env(zero?) 	= CLO[App[App[n LAM[false] ] true ]]
+| env(add1) 	= CLO[LAM[LAM[App[f App[App[n f ] x ] ]]]]
+| env(add) 	= CLO[LAM[LAM[LAM[App[App[n f ] App[App[m f ] x ] ]]]]]
+| env(mult) 	= CLO[LAM[LAM[LAM[App[App[n App[m f ] ] x ]]]]]
+| env(n) 	= CLO[LAM[App[f x ]]]
+| env(p) 	= CLO[App[App[App[lamif c ] a ] b ]]
+Code : CLO[LAM[LAM[App[App[App[lamif c ] a ] b ]]]]
+Frame: application
+| vals: 
+| exprs: App[2nd p ] 
+=============
+===[C E K]===
+Cycle:	130
+Env: true
+| env(true) 	= CLO[LAM[x]]
+| env(false) 	= CLO[LAM[y]]
+| env(lamif) 	= CLO[LAM[LAM[App[App[cond e_true ] e_false ]]]]
+| env(++) 	= CLO[App[+ x 1 ]]
+| env(zero) 	= CLO[LAM[x]]
+| env(one) 	= CLO[LAM[App[f x ]]]
+| env(two) 	= CLO[LAM[App[f App[f x ] ]]]
+| env(three) 	= CLO[LAM[App[f App[f App[f x ] ] ]]]
+| env(pair) 	= CLO[LAM[LAM[App[App[App[lamif c ] a ] b ]]]]
+| env(1st) 	= CLO[App[pair true ]]
+| env(2nd) 	= CLO[App[pair false ]]
+| env(zero?) 	= CLO[App[App[n LAM[false] ] true ]]
+| env(add1) 	= CLO[LAM[LAM[App[f App[App[n f ] x ] ]]]]
+| env(add) 	= CLO[LAM[LAM[LAM[App[App[n f ] App[App[m f ] x ] ]]]]]
+| env(mult) 	= CLO[LAM[LAM[LAM[App[App[n App[m f ] ] x ]]]]]
+| env(n) 	= CLO[LAM[App[f x ]]]
+| env(p) 	= CLO[App[App[App[lamif c ] a ] b ]]
+Code : App[2nd p ]
+Frame: application
+| vals: CLO[LAM[LAM[App[App[App[lamif c ] a ] b ]]]] 
+| exprs: 
+=============
+===[C E K]===
+Cycle:	131
+Env: true
+| env(true) 	= CLO[LAM[x]]
+| env(false) 	= CLO[LAM[y]]
+| env(lamif) 	= CLO[LAM[LAM[App[App[cond e_true ] e_false ]]]]
+| env(++) 	= CLO[App[+ x 1 ]]
+| env(zero) 	= CLO[LAM[x]]
+| env(one) 	= CLO[LAM[App[f x ]]]
+| env(two) 	= CLO[LAM[App[f App[f x ] ]]]
+| env(three) 	= CLO[LAM[App[f App[f App[f x ] ] ]]]
+| env(pair) 	= CLO[LAM[LAM[App[App[App[lamif c ] a ] b ]]]]
+| env(1st) 	= CLO[App[pair true ]]
+| env(2nd) 	= CLO[App[pair false ]]
+| env(zero?) 	= CLO[App[App[n LAM[false] ] true ]]
+| env(add1) 	= CLO[LAM[LAM[App[f App[App[n f ] x ] ]]]]
+| env(add) 	= CLO[LAM[LAM[LAM[App[App[n f ] App[App[m f ] x ] ]]]]]
+| env(mult) 	= CLO[LAM[LAM[LAM[App[App[n App[m f ] ] x ]]]]]
+| env(n) 	= CLO[LAM[App[f x ]]]
+| env(p) 	= CLO[App[App[App[lamif c ] a ] b ]]
+Code : 2nd
+Frame: application
+| vals: 
+| exprs: p 
+=============
+===[C E K]===
+Cycle:	132
+Env: true
+| env(true) 	= CLO[LAM[x]]
+| env(false) 	= CLO[LAM[y]]
+| env(lamif) 	= CLO[LAM[LAM[App[App[cond e_true ] e_false ]]]]
+| env(++) 	= CLO[App[+ x 1 ]]
+| env(zero) 	= CLO[LAM[x]]
+| env(one) 	= CLO[LAM[App[f x ]]]
+| env(two) 	= CLO[LAM[App[f App[f x ] ]]]
+| env(three) 	= CLO[LAM[App[f App[f App[f x ] ] ]]]
+| env(pair) 	= CLO[LAM[LAM[App[App[App[lamif c ] a ] b ]]]]
+| env(1st) 	= CLO[App[pair true ]]
+| env(2nd) 	= CLO[App[pair false ]]
+| env(zero?) 	= CLO[App[App[n LAM[false] ] true ]]
+| env(add1) 	= CLO[LAM[LAM[App[f App[App[n f ] x ] ]]]]
+| env(add) 	= CLO[LAM[LAM[LAM[App[App[n f ] App[App[m f ] x ] ]]]]]
+| env(mult) 	= CLO[LAM[LAM[LAM[App[App[n App[m f ] ] x ]]]]]
+| env(n) 	= CLO[LAM[App[f x ]]]
+| env(p) 	= CLO[App[App[App[lamif c ] a ] b ]]
+Code : CLO[App[pair false ]]
+Frame: application
+| vals: 
+| exprs: p 
+=============
+===[C E K]===
+Cycle:	133
+Env: true
+| env(true) 	= CLO[LAM[x]]
+| env(false) 	= CLO[LAM[y]]
+| env(lamif) 	= CLO[LAM[LAM[App[App[cond e_true ] e_false ]]]]
+| env(++) 	= CLO[App[+ x 1 ]]
+| env(zero) 	= CLO[LAM[x]]
+| env(one) 	= CLO[LAM[App[f x ]]]
+| env(two) 	= CLO[LAM[App[f App[f x ] ]]]
+| env(three) 	= CLO[LAM[App[f App[f App[f x ] ] ]]]
+| env(pair) 	= CLO[LAM[LAM[App[App[App[lamif c ] a ] b ]]]]
+| env(1st) 	= CLO[App[pair true ]]
+| env(2nd) 	= CLO[App[pair false ]]
+| env(zero?) 	= CLO[App[App[n LAM[false] ] true ]]
+| env(add1) 	= CLO[LAM[LAM[App[f App[App[n f ] x ] ]]]]
+| env(add) 	= CLO[LAM[LAM[LAM[App[App[n f ] App[App[m f ] x ] ]]]]]
+| env(mult) 	= CLO[LAM[LAM[LAM[App[App[n App[m f ] ] x ]]]]]
+| env(n) 	= CLO[LAM[App[f x ]]]
+| env(p) 	= CLO[App[App[App[lamif c ] a ] b ]]
+Code : p
+Frame: application
+| vals: CLO[App[pair false ]] 
+| exprs: 
+=============
+===[C E K]===
+Cycle:	134
+Env: true
+| env(true) 	= CLO[LAM[x]]
+| env(false) 	= CLO[LAM[y]]
+| env(lamif) 	= CLO[LAM[LAM[App[App[cond e_true ] e_false ]]]]
+| env(++) 	= CLO[App[+ x 1 ]]
+| env(zero) 	= CLO[LAM[x]]
+| env(one) 	= CLO[LAM[App[f x ]]]
+| env(two) 	= CLO[LAM[App[f App[f x ] ]]]
+| env(three) 	= CLO[LAM[App[f App[f App[f x ] ] ]]]
+| env(pair) 	= CLO[LAM[LAM[App[App[App[lamif c ] a ] b ]]]]
+| env(1st) 	= CLO[App[pair true ]]
+| env(2nd) 	= CLO[App[pair false ]]
+| env(zero?) 	= CLO[App[App[n LAM[false] ] true ]]
+| env(add1) 	= CLO[LAM[LAM[App[f App[App[n f ] x ] ]]]]
+| env(add) 	= CLO[LAM[LAM[LAM[App[App[n f ] App[App[m f ] x ] ]]]]]
+| env(mult) 	= CLO[LAM[LAM[LAM[App[App[n App[m f ] ] x ]]]]]
+| env(n) 	= CLO[LAM[App[f x ]]]
+| env(p) 	= CLO[App[App[App[lamif c ] a ] b ]]
+Code : CLO[App[App[App[lamif c ] a ] b ]]
+Frame: application
+| vals: CLO[App[pair false ]] 
+| exprs: 
+=============
+===[C E K]===
+Cycle:	135
+Env: true
+| env(true) 	= CLO[LAM[x]]
+| env(false) 	= CLO[LAM[y]]
+| env(lamif) 	= CLO[LAM[LAM[App[App[cond e_true ] e_false ]]]]
+| env(++) 	= CLO[App[+ x 1 ]]
+| env(zero) 	= CLO[LAM[x]]
+| env(one) 	= CLO[LAM[App[f x ]]]
+| env(two) 	= CLO[LAM[App[f App[f x ] ]]]
+| env(three) 	= CLO[LAM[App[f App[f App[f x ] ] ]]]
+| env(pair) 	= CLO[App[App[App[lamif c ] a ] b ]]
+Code : App[pair false ]
+Frame: application
+| vals: CLO[LAM[LAM[App[App[App[lamif c ] a ] b ]]]] 
+| exprs: 
+=============
+===[C E K]===
+Cycle:	136
+Env: true
+| env(true) 	= CLO[LAM[x]]
+| env(false) 	= CLO[LAM[y]]
+| env(lamif) 	= CLO[LAM[LAM[App[App[cond e_true ] e_false ]]]]
+| env(++) 	= CLO[App[+ x 1 ]]
+| env(zero) 	= CLO[LAM[x]]
+| env(one) 	= CLO[LAM[App[f x ]]]
+| env(two) 	= CLO[LAM[App[f App[f x ] ]]]
+| env(three) 	= CLO[LAM[App[f App[f App[f x ] ] ]]]
+| env(pair) 	= CLO[App[App[App[lamif c ] a ] b ]]
+Code : pair
+Frame: application
+| vals: 
+| exprs: false 
+=============
+===[C E K]===
+Cycle:	137
+Env: true
+| env(true) 	= CLO[LAM[x]]
+| env(false) 	= CLO[LAM[y]]
+| env(lamif) 	= CLO[LAM[LAM[App[App[cond e_true ] e_false ]]]]
+| env(++) 	= CLO[App[+ x 1 ]]
+| env(zero) 	= CLO[LAM[x]]
+| env(one) 	= CLO[LAM[App[f x ]]]
+| env(two) 	= CLO[LAM[App[f App[f x ] ]]]
+| env(three) 	= CLO[LAM[App[f App[f App[f x ] ] ]]]
+| env(pair) 	= CLO[App[App[App[lamif c ] a ] b ]]
+Code : CLO[App[App[App[lamif c ] a ] b ]]
+Frame: application
+| vals: 
+| exprs: false 
+=============
+===[C E K]===
+Cycle:	138
+Env: true
+| env(true) 	= CLO[LAM[x]]
+| env(false) 	= CLO[LAM[y]]
+| env(lamif) 	= CLO[LAM[LAM[App[App[cond e_true ] e_false ]]]]
+| env(++) 	= CLO[App[+ x 1 ]]
+| env(zero) 	= CLO[LAM[x]]
+| env(one) 	= CLO[LAM[App[f x ]]]
+| env(two) 	= CLO[LAM[App[f App[f x ] ]]]
+| env(three) 	= CLO[LAM[App[f App[f App[f x ] ] ]]]
+| env(pair) 	= CLO[App[App[App[lamif c ] a ] b ]]
+Code : false
+Frame: application
+| vals: CLO[App[App[App[lamif c ] a ] b ]] 
+| exprs: 
+=============
+===[C E K]===
+Cycle:	139
+Env: true
+| env(true) 	= CLO[LAM[x]]
+| env(false) 	= CLO[LAM[y]]
+| env(lamif) 	= CLO[LAM[LAM[App[App[cond e_true ] e_false ]]]]
+| env(++) 	= CLO[App[+ x 1 ]]
+| env(zero) 	= CLO[LAM[x]]
+| env(one) 	= CLO[LAM[App[f x ]]]
+| env(two) 	= CLO[LAM[App[f App[f x ] ]]]
+| env(three) 	= CLO[LAM[App[f App[f App[f x ] ] ]]]
+| env(pair) 	= CLO[App[App[App[lamif c ] a ] b ]]
+Code : CLO[LAM[y]]
+Frame: application
+| vals: CLO[App[App[App[lamif c ] a ] b ]] 
+| exprs: 
+=============
+===[C E K]===
+Cycle:	140
+Env: true
+| env(true) 	= CLO[LAM[x]]
+| env(false) 	= CLO[LAM[y]]
+| env(lamif) 	= CLO[LAM[LAM[App[App[cond e_true ] e_false ]]]]
+| env(++) 	= CLO[App[+ x 1 ]]
+| env(zero) 	= CLO[LAM[x]]
+| env(one) 	= CLO[LAM[App[f x ]]]
+| env(two) 	= CLO[LAM[App[f App[f x ] ]]]
+| env(three) 	= CLO[LAM[App[f App[f App[f x ] ] ]]]
+| env(a) 	= CLO[LAM[x]]
+| env(b) 	= CLO[LAM[x]]
+| env(c) 	= CLO[LAM[y]]
+Code : App[App[App[lamif c ] a ] b ]
+Frame: application
+| vals: CLO[LAM[LAM[App[App[App[lamif c ] a ] b ]]]] 
+| exprs: 
+=============
+===[C E K]===
+Cycle:	141
+Env: true
+| env(true) 	= CLO[LAM[x]]
+| env(false) 	= CLO[LAM[y]]
+| env(lamif) 	= CLO[LAM[LAM[App[App[cond e_true ] e_false ]]]]
+| env(++) 	= CLO[App[+ x 1 ]]
+| env(zero) 	= CLO[LAM[x]]
+| env(one) 	= CLO[LAM[App[f x ]]]
+| env(two) 	= CLO[LAM[App[f App[f x ] ]]]
+| env(three) 	= CLO[LAM[App[f App[f App[f x ] ] ]]]
+| env(a) 	= CLO[LAM[x]]
+| env(b) 	= CLO[LAM[x]]
+| env(c) 	= CLO[LAM[y]]
+Code : App[App[lamif c ] a ]
+Frame: application
+| vals: 
+| exprs: b 
+=============
+===[C E K]===
+Cycle:	142
+Env: true
+| env(true) 	= CLO[LAM[x]]
+| env(false) 	= CLO[LAM[y]]
+| env(lamif) 	= CLO[LAM[LAM[App[App[cond e_true ] e_false ]]]]
+| env(++) 	= CLO[App[+ x 1 ]]
+| env(zero) 	= CLO[LAM[x]]
+| env(one) 	= CLO[LAM[App[f x ]]]
+| env(two) 	= CLO[LAM[App[f App[f x ] ]]]
+| env(three) 	= CLO[LAM[App[f App[f App[f x ] ] ]]]
+| env(a) 	= CLO[LAM[x]]
+| env(b) 	= CLO[LAM[x]]
+| env(c) 	= CLO[LAM[y]]
+Code : App[lamif c ]
+Frame: application
+| vals: 
+| exprs: a 
+=============
+===[C E K]===
+Cycle:	143
+Env: true
+| env(true) 	= CLO[LAM[x]]
+| env(false) 	= CLO[LAM[y]]
+| env(lamif) 	= CLO[LAM[LAM[App[App[cond e_true ] e_false ]]]]
+| env(++) 	= CLO[App[+ x 1 ]]
+| env(zero) 	= CLO[LAM[x]]
+| env(one) 	= CLO[LAM[App[f x ]]]
+| env(two) 	= CLO[LAM[App[f App[f x ] ]]]
+| env(three) 	= CLO[LAM[App[f App[f App[f x ] ] ]]]
+| env(a) 	= CLO[LAM[x]]
+| env(b) 	= CLO[LAM[x]]
+| env(c) 	= CLO[LAM[y]]
+Code : lamif
+Frame: application
+| vals: 
+| exprs: c 
+=============
+===[C E K]===
+Cycle:	144
+Env: true
+| env(true) 	= CLO[LAM[x]]
+| env(false) 	= CLO[LAM[y]]
+| env(lamif) 	= CLO[LAM[LAM[App[App[cond e_true ] e_false ]]]]
+| env(++) 	= CLO[App[+ x 1 ]]
+| env(zero) 	= CLO[LAM[x]]
+| env(one) 	= CLO[LAM[App[f x ]]]
+| env(two) 	= CLO[LAM[App[f App[f x ] ]]]
+| env(three) 	= CLO[LAM[App[f App[f App[f x ] ] ]]]
+| env(a) 	= CLO[LAM[x]]
+| env(b) 	= CLO[LAM[x]]
+| env(c) 	= CLO[LAM[y]]
+Code : CLO[LAM[LAM[App[App[cond e_true ] e_false ]]]]
+Frame: application
+| vals: 
+| exprs: c 
+=============
+===[C E K]===
+Cycle:	145
+Env: true
+| env(true) 	= CLO[LAM[x]]
+| env(false) 	= CLO[LAM[y]]
+| env(lamif) 	= CLO[LAM[LAM[App[App[cond e_true ] e_false ]]]]
+| env(++) 	= CLO[App[+ x 1 ]]
+| env(zero) 	= CLO[LAM[x]]
+| env(one) 	= CLO[LAM[App[f x ]]]
+| env(two) 	= CLO[LAM[App[f App[f x ] ]]]
+| env(three) 	= CLO[LAM[App[f App[f App[f x ] ] ]]]
+| env(a) 	= CLO[LAM[x]]
+| env(b) 	= CLO[LAM[x]]
+| env(c) 	= CLO[LAM[y]]
+Code : c
+Frame: application
+| vals: CLO[LAM[LAM[App[App[cond e_true ] e_false ]]]] 
+| exprs: 
+=============
+===[C E K]===
+Cycle:	146
+Env: true
+| env(true) 	= CLO[LAM[x]]
+| env(false) 	= CLO[LAM[y]]
+| env(lamif) 	= CLO[LAM[LAM[App[App[cond e_true ] e_false ]]]]
+| env(++) 	= CLO[App[+ x 1 ]]
+| env(zero) 	= CLO[LAM[x]]
+| env(one) 	= CLO[LAM[App[f x ]]]
+| env(two) 	= CLO[LAM[App[f App[f x ] ]]]
+| env(three) 	= CLO[LAM[App[f App[f App[f x ] ] ]]]
+| env(a) 	= CLO[LAM[x]]
+| env(b) 	= CLO[LAM[x]]
+| env(c) 	= CLO[LAM[y]]
+Code : CLO[LAM[y]]
+Frame: application
+| vals: CLO[LAM[LAM[App[App[cond e_true ] e_false ]]]] 
+| exprs: 
+=============
+===[C E K]===
+Cycle:	147
+Env: cond
+| env(cond) 	= CLO[LAM[y]]
+Code : LAM[LAM[App[App[cond e_true ] e_false ]]]
+Frame: application
+| vals: 
+| exprs: a 
+=============
+===[C E K]===
+Cycle:	148
+Env: cond
+| env(cond) 	= CLO[LAM[y]]
+Code : CLO[LAM[App[App[cond e_true ] e_false ]]]
+Frame: application
+| vals: 
+| exprs: a 
+=============
+===[C E K]===
+Cycle:	149
+Env: true
+| env(true) 	= CLO[LAM[x]]
+| env(false) 	= CLO[LAM[y]]
+| env(lamif) 	= CLO[LAM[LAM[App[App[cond e_true ] e_false ]]]]
+| env(++) 	= CLO[App[+ x 1 ]]
+| env(zero) 	= CLO[LAM[x]]
+| env(one) 	= CLO[LAM[App[f x ]]]
+| env(two) 	= CLO[LAM[App[f App[f x ] ]]]
+| env(three) 	= CLO[LAM[App[f App[f App[f x ] ] ]]]
+| env(a) 	= CLO[LAM[x]]
+| env(b) 	= CLO[LAM[x]]
+| env(c) 	= CLO[LAM[y]]
+Code : a
+Frame: application
+| vals: CLO[LAM[App[App[cond e_true ] e_false ]]] 
+| exprs: 
+=============
+===[C E K]===
+Cycle:	150
+Env: true
+| env(true) 	= CLO[LAM[x]]
+| env(false) 	= CLO[LAM[y]]
+| env(lamif) 	= CLO[LAM[LAM[App[App[cond e_true ] e_false ]]]]
+| env(++) 	= CLO[App[+ x 1 ]]
+| env(zero) 	= CLO[LAM[x]]
+| env(one) 	= CLO[LAM[App[f x ]]]
+| env(two) 	= CLO[LAM[App[f App[f x ] ]]]
+| env(three) 	= CLO[LAM[App[f App[f App[f x ] ] ]]]
+| env(a) 	= CLO[LAM[x]]
+| env(b) 	= CLO[LAM[x]]
+| env(c) 	= CLO[LAM[y]]
+Code : CLO[LAM[x]]
+Frame: application
+| vals: CLO[LAM[App[App[cond e_true ] e_false ]]] 
+| exprs: 
+=============
+===[C E K]===
+Cycle:	151
+Env: cond
+| env(cond) 	= CLO[LAM[y]]
+| env(e_true) 	= CLO[LAM[x]]
+Code : LAM[App[App[cond e_true ] e_false ]]
+Frame: application
+| vals: 
+| exprs: b 
+=============
+===[C E K]===
+Cycle:	152
+Env: cond
+| env(cond) 	= CLO[LAM[y]]
+| env(e_true) 	= CLO[LAM[x]]
+Code : CLO[App[App[cond e_true ] e_false ]]
+Frame: application
+| vals: 
+| exprs: b 
+=============
+===[C E K]===
+Cycle:	153
+Env: true
+| env(true) 	= CLO[LAM[x]]
+| env(false) 	= CLO[LAM[y]]
+| env(lamif) 	= CLO[LAM[LAM[App[App[cond e_true ] e_false ]]]]
+| env(++) 	= CLO[App[+ x 1 ]]
+| env(zero) 	= CLO[LAM[x]]
+| env(one) 	= CLO[LAM[App[f x ]]]
+| env(two) 	= CLO[LAM[App[f App[f x ] ]]]
+| env(three) 	= CLO[LAM[App[f App[f App[f x ] ] ]]]
+| env(a) 	= CLO[LAM[x]]
+| env(b) 	= CLO[LAM[x]]
+| env(c) 	= CLO[LAM[y]]
+Code : b
+Frame: application
+| vals: CLO[App[App[cond e_true ] e_false ]] 
+| exprs: 
+=============
+===[C E K]===
+Cycle:	154
+Env: true
+| env(true) 	= CLO[LAM[x]]
+| env(false) 	= CLO[LAM[y]]
+| env(lamif) 	= CLO[LAM[LAM[App[App[cond e_true ] e_false ]]]]
+| env(++) 	= CLO[App[+ x 1 ]]
+| env(zero) 	= CLO[LAM[x]]
+| env(one) 	= CLO[LAM[App[f x ]]]
+| env(two) 	= CLO[LAM[App[f App[f x ] ]]]
+| env(three) 	= CLO[LAM[App[f App[f App[f x ] ] ]]]
+| env(a) 	= CLO[LAM[x]]
+| env(b) 	= CLO[LAM[x]]
+| env(c) 	= CLO[LAM[y]]
+Code : CLO[LAM[x]]
+Frame: application
+| vals: CLO[App[App[cond e_true ] e_false ]] 
+| exprs: 
+=============
+===[C E K]===
+Cycle:	155
+Env: cond
+| env(cond) 	= CLO[LAM[y]]
+| env(e_true) 	= CLO[LAM[x]]
+| env(e_false) 	= CLO[LAM[x]]
+Code : App[App[cond e_true ] e_false ]
+Frame: application
+| vals: CLO[LAM[LAM[App[App[App[lamif c ] a ] b ]]]] 
+| exprs: 
+=============
+===[C E K]===
+Cycle:	156
+Env: cond
+| env(cond) 	= CLO[LAM[y]]
+| env(e_true) 	= CLO[LAM[x]]
+| env(e_false) 	= CLO[LAM[x]]
+Code : App[cond e_true ]
+Frame: application
+| vals: 
+| exprs: e_false 
+=============
+===[C E K]===
+Cycle:	157
+Env: cond
+| env(cond) 	= CLO[LAM[y]]
+| env(e_true) 	= CLO[LAM[x]]
+| env(e_false) 	= CLO[LAM[x]]
+Code : cond
+Frame: application
+| vals: 
+| exprs: e_true 
+=============
+===[C E K]===
+Cycle:	158
+Env: cond
+| env(cond) 	= CLO[LAM[y]]
+| env(e_true) 	= CLO[LAM[x]]
+| env(e_false) 	= CLO[LAM[x]]
+Code : CLO[LAM[y]]
+Frame: application
+| vals: 
+| exprs: e_true 
+=============
+===[C E K]===
+Cycle:	159
+Env: cond
+| env(cond) 	= CLO[LAM[y]]
+| env(e_true) 	= CLO[LAM[x]]
+| env(e_false) 	= CLO[LAM[x]]
+Code : e_true
+Frame: application
+| vals: CLO[LAM[y]] 
+| exprs: 
+=============
+===[C E K]===
+Cycle:	160
+Env: cond
+| env(cond) 	= CLO[LAM[y]]
+| env(e_true) 	= CLO[LAM[x]]
+| env(e_false) 	= CLO[LAM[x]]
+Code : CLO[LAM[x]]
+Frame: application
+| vals: CLO[LAM[y]] 
+| exprs: 
+=============
+===[C E K]===
+Cycle:	161
+Env: x
+| env(x) 	= CLO[LAM[x]]
+Code : LAM[y]
+Frame: application
+| vals: 
+| exprs: e_false 
+=============
+===[C E K]===
+Cycle:	162
+Env: x
+| env(x) 	= CLO[LAM[x]]
+Code : CLO[y]
+Frame: application
+| vals: 
+| exprs: e_false 
+=============
+===[C E K]===
+Cycle:	163
+Env: cond
+| env(cond) 	= CLO[LAM[y]]
+| env(e_true) 	= CLO[LAM[x]]
+| env(e_false) 	= CLO[LAM[x]]
+Code : e_false
+Frame: application
+| vals: CLO[y] 
+| exprs: 
+=============
+===[C E K]===
+Cycle:	164
+Env: cond
+| env(cond) 	= CLO[LAM[y]]
+| env(e_true) 	= CLO[LAM[x]]
+| env(e_false) 	= CLO[LAM[x]]
+Code : CLO[LAM[x]]
+Frame: application
+| vals: CLO[y] 
+| exprs: 
+=============
+===[C E K]===
+Cycle:	165
+Env: x
+| env(x) 	= CLO[LAM[x]]
+| env(y) 	= CLO[LAM[x]]
+Code : y
+Frame: application
+| vals: CLO[LAM[LAM[App[App[App[lamif c ] a ] b ]]]] 
+| exprs: 
+=============
+===[C E K]===
+Cycle:	166
+Env: x
+| env(x) 	= CLO[LAM[x]]
+| env(y) 	= CLO[LAM[x]]
+Code : CLO[LAM[x]]
+Frame: application
+| vals: CLO[LAM[LAM[App[App[App[lamif c ] a ] b ]]]] 
+| exprs: 
+=============
+===[C E K]===
+Cycle:	167
+Env: true
+| env(true) 	= CLO[LAM[x]]
+| env(false) 	= CLO[LAM[y]]
+| env(lamif) 	= CLO[LAM[LAM[App[App[cond e_true ] e_false ]]]]
+| env(++) 	= CLO[App[+ x 1 ]]
+| env(zero) 	= CLO[LAM[x]]
+| env(one) 	= CLO[LAM[App[f x ]]]
+| env(two) 	= CLO[LAM[App[f App[f x ] ]]]
+| env(three) 	= CLO[LAM[App[f App[f App[f x ] ] ]]]
+| env(a) 	= CLO[LAM[x]]
+Code : LAM[LAM[App[App[App[lamif c ] a ] b ]]]
+Frame: application
+| vals: 
+| exprs: App[add1 App[2nd p ] ] 
+=============
+===[C E K]===
+Cycle:	168
+Env: true
+| env(true) 	= CLO[LAM[x]]
+| env(false) 	= CLO[LAM[y]]
+| env(lamif) 	= CLO[LAM[LAM[App[App[cond e_true ] e_false ]]]]
+| env(++) 	= CLO[App[+ x 1 ]]
+| env(zero) 	= CLO[LAM[x]]
+| env(one) 	= CLO[LAM[App[f x ]]]
+| env(two) 	= CLO[LAM[App[f App[f x ] ]]]
+| env(three) 	= CLO[LAM[App[f App[f App[f x ] ] ]]]
+| env(a) 	= CLO[LAM[x]]
+Code : CLO[LAM[App[App[App[lamif c ] a ] b ]]]
+Frame: application
+| vals: 
+| exprs: App[add1 App[2nd p ] ] 
+=============
+===[C E K]===
+Cycle:	169
+Env: true
+| env(true) 	= CLO[LAM[x]]
+| env(false) 	= CLO[LAM[y]]
+| env(lamif) 	= CLO[LAM[LAM[App[App[cond e_true ] e_false ]]]]
+| env(++) 	= CLO[App[+ x 1 ]]
+| env(zero) 	= CLO[LAM[x]]
+| env(one) 	= CLO[LAM[App[f x ]]]
+| env(two) 	= CLO[LAM[App[f App[f x ] ]]]
+| env(three) 	= CLO[LAM[App[f App[f App[f x ] ] ]]]
+| env(pair) 	= CLO[LAM[LAM[App[App[App[lamif c ] a ] b ]]]]
+| env(1st) 	= CLO[App[pair true ]]
+| env(2nd) 	= CLO[App[pair false ]]
+| env(zero?) 	= CLO[App[App[n LAM[false] ] true ]]
+| env(add1) 	= CLO[LAM[LAM[App[f App[App[n f ] x ] ]]]]
+| env(add) 	= CLO[LAM[LAM[LAM[App[App[n f ] App[App[m f ] x ] ]]]]]
+| env(mult) 	= CLO[LAM[LAM[LAM[App[App[n App[m f ] ] x ]]]]]
+| env(n) 	= CLO[LAM[App[f x ]]]
+| env(p) 	= CLO[App[App[App[lamif c ] a ] b ]]
+Code : App[add1 App[2nd p ] ]
+Frame: application
+| vals: CLO[LAM[App[App[App[lamif c ] a ] b ]]] 
+| exprs: 
+=============
+===[C E K]===
+Cycle:	170
+Env: true
+| env(true) 	= CLO[LAM[x]]
+| env(false) 	= CLO[LAM[y]]
+| env(lamif) 	= CLO[LAM[LAM[App[App[cond e_true ] e_false ]]]]
+| env(++) 	= CLO[App[+ x 1 ]]
+| env(zero) 	= CLO[LAM[x]]
+| env(one) 	= CLO[LAM[App[f x ]]]
+| env(two) 	= CLO[LAM[App[f App[f x ] ]]]
+| env(three) 	= CLO[LAM[App[f App[f App[f x ] ] ]]]
+| env(pair) 	= CLO[LAM[LAM[App[App[App[lamif c ] a ] b ]]]]
+| env(1st) 	= CLO[App[pair true ]]
+| env(2nd) 	= CLO[App[pair false ]]
+| env(zero?) 	= CLO[App[App[n LAM[false] ] true ]]
+| env(add1) 	= CLO[LAM[LAM[App[f App[App[n f ] x ] ]]]]
+| env(add) 	= CLO[LAM[LAM[LAM[App[App[n f ] App[App[m f ] x ] ]]]]]
+| env(mult) 	= CLO[LAM[LAM[LAM[App[App[n App[m f ] ] x ]]]]]
+| env(n) 	= CLO[LAM[App[f x ]]]
+| env(p) 	= CLO[App[App[App[lamif c ] a ] b ]]
+Code : add1
+Frame: application
+| vals: 
+| exprs: App[2nd p ] 
+=============
+===[C E K]===
+Cycle:	171
+Env: true
+| env(true) 	= CLO[LAM[x]]
+| env(false) 	= CLO[LAM[y]]
+| env(lamif) 	= CLO[LAM[LAM[App[App[cond e_true ] e_false ]]]]
+| env(++) 	= CLO[App[+ x 1 ]]
+| env(zero) 	= CLO[LAM[x]]
+| env(one) 	= CLO[LAM[App[f x ]]]
+| env(two) 	= CLO[LAM[App[f App[f x ] ]]]
+| env(three) 	= CLO[LAM[App[f App[f App[f x ] ] ]]]
+| env(pair) 	= CLO[LAM[LAM[App[App[App[lamif c ] a ] b ]]]]
+| env(1st) 	= CLO[App[pair true ]]
+| env(2nd) 	= CLO[App[pair false ]]
+| env(zero?) 	= CLO[App[App[n LAM[false] ] true ]]
+| env(add1) 	= CLO[LAM[LAM[App[f App[App[n f ] x ] ]]]]
+| env(add) 	= CLO[LAM[LAM[LAM[App[App[n f ] App[App[m f ] x ] ]]]]]
+| env(mult) 	= CLO[LAM[LAM[LAM[App[App[n App[m f ] ] x ]]]]]
+| env(n) 	= CLO[LAM[App[f x ]]]
+| env(p) 	= CLO[App[App[App[lamif c ] a ] b ]]
+Code : CLO[LAM[LAM[App[f App[App[n f ] x ] ]]]]
+Frame: application
+| vals: 
+| exprs: App[2nd p ] 
+=============
+===[C E K]===
+Cycle:	172
+Env: true
+| env(true) 	= CLO[LAM[x]]
+| env(false) 	= CLO[LAM[y]]
+| env(lamif) 	= CLO[LAM[LAM[App[App[cond e_true ] e_false ]]]]
+| env(++) 	= CLO[App[+ x 1 ]]
+| env(zero) 	= CLO[LAM[x]]
+| env(one) 	= CLO[LAM[App[f x ]]]
+| env(two) 	= CLO[LAM[App[f App[f x ] ]]]
+| env(three) 	= CLO[LAM[App[f App[f App[f x ] ] ]]]
+| env(pair) 	= CLO[LAM[LAM[App[App[App[lamif c ] a ] b ]]]]
+| env(1st) 	= CLO[App[pair true ]]
+| env(2nd) 	= CLO[App[pair false ]]
+| env(zero?) 	= CLO[App[App[n LAM[false] ] true ]]
+| env(add1) 	= CLO[LAM[LAM[App[f App[App[n f ] x ] ]]]]
+| env(add) 	= CLO[LAM[LAM[LAM[App[App[n f ] App[App[m f ] x ] ]]]]]
+| env(mult) 	= CLO[LAM[LAM[LAM[App[App[n App[m f ] ] x ]]]]]
+| env(n) 	= CLO[LAM[App[f x ]]]
+| env(p) 	= CLO[App[App[App[lamif c ] a ] b ]]
+Code : App[2nd p ]
+Frame: application
+| vals: CLO[LAM[LAM[App[f App[App[n f ] x ] ]]]] 
+| exprs: 
+=============
+===[C E K]===
+Cycle:	173
+Env: true
+| env(true) 	= CLO[LAM[x]]
+| env(false) 	= CLO[LAM[y]]
+| env(lamif) 	= CLO[LAM[LAM[App[App[cond e_true ] e_false ]]]]
+| env(++) 	= CLO[App[+ x 1 ]]
+| env(zero) 	= CLO[LAM[x]]
+| env(one) 	= CLO[LAM[App[f x ]]]
+| env(two) 	= CLO[LAM[App[f App[f x ] ]]]
+| env(three) 	= CLO[LAM[App[f App[f App[f x ] ] ]]]
+| env(pair) 	= CLO[LAM[LAM[App[App[App[lamif c ] a ] b ]]]]
+| env(1st) 	= CLO[App[pair true ]]
+| env(2nd) 	= CLO[App[pair false ]]
+| env(zero?) 	= CLO[App[App[n LAM[false] ] true ]]
+| env(add1) 	= CLO[LAM[LAM[App[f App[App[n f ] x ] ]]]]
+| env(add) 	= CLO[LAM[LAM[LAM[App[App[n f ] App[App[m f ] x ] ]]]]]
+| env(mult) 	= CLO[LAM[LAM[LAM[App[App[n App[m f ] ] x ]]]]]
+| env(n) 	= CLO[LAM[App[f x ]]]
+| env(p) 	= CLO[App[App[App[lamif c ] a ] b ]]
+Code : 2nd
+Frame: application
+| vals: 
+| exprs: p 
+=============
+===[C E K]===
+Cycle:	174
+Env: true
+| env(true) 	= CLO[LAM[x]]
+| env(false) 	= CLO[LAM[y]]
+| env(lamif) 	= CLO[LAM[LAM[App[App[cond e_true ] e_false ]]]]
+| env(++) 	= CLO[App[+ x 1 ]]
+| env(zero) 	= CLO[LAM[x]]
+| env(one) 	= CLO[LAM[App[f x ]]]
+| env(two) 	= CLO[LAM[App[f App[f x ] ]]]
+| env(three) 	= CLO[LAM[App[f App[f App[f x ] ] ]]]
+| env(pair) 	= CLO[LAM[LAM[App[App[App[lamif c ] a ] b ]]]]
+| env(1st) 	= CLO[App[pair true ]]
+| env(2nd) 	= CLO[App[pair false ]]
+| env(zero?) 	= CLO[App[App[n LAM[false] ] true ]]
+| env(add1) 	= CLO[LAM[LAM[App[f App[App[n f ] x ] ]]]]
+| env(add) 	= CLO[LAM[LAM[LAM[App[App[n f ] App[App[m f ] x ] ]]]]]
+| env(mult) 	= CLO[LAM[LAM[LAM[App[App[n App[m f ] ] x ]]]]]
+| env(n) 	= CLO[LAM[App[f x ]]]
+| env(p) 	= CLO[App[App[App[lamif c ] a ] b ]]
+Code : CLO[App[pair false ]]
+Frame: application
+| vals: 
+| exprs: p 
+=============
+===[C E K]===
+Cycle:	175
+Env: true
+| env(true) 	= CLO[LAM[x]]
+| env(false) 	= CLO[LAM[y]]
+| env(lamif) 	= CLO[LAM[LAM[App[App[cond e_true ] e_false ]]]]
+| env(++) 	= CLO[App[+ x 1 ]]
+| env(zero) 	= CLO[LAM[x]]
+| env(one) 	= CLO[LAM[App[f x ]]]
+| env(two) 	= CLO[LAM[App[f App[f x ] ]]]
+| env(three) 	= CLO[LAM[App[f App[f App[f x ] ] ]]]
+| env(pair) 	= CLO[LAM[LAM[App[App[App[lamif c ] a ] b ]]]]
+| env(1st) 	= CLO[App[pair true ]]
+| env(2nd) 	= CLO[App[pair false ]]
+| env(zero?) 	= CLO[App[App[n LAM[false] ] true ]]
+| env(add1) 	= CLO[LAM[LAM[App[f App[App[n f ] x ] ]]]]
+| env(add) 	= CLO[LAM[LAM[LAM[App[App[n f ] App[App[m f ] x ] ]]]]]
+| env(mult) 	= CLO[LAM[LAM[LAM[App[App[n App[m f ] ] x ]]]]]
+| env(n) 	= CLO[LAM[App[f x ]]]
+| env(p) 	= CLO[App[App[App[lamif c ] a ] b ]]
+Code : p
+Frame: application
+| vals: CLO[App[pair false ]] 
+| exprs: 
+=============
+===[C E K]===
+Cycle:	176
+Env: true
+| env(true) 	= CLO[LAM[x]]
+| env(false) 	= CLO[LAM[y]]
+| env(lamif) 	= CLO[LAM[LAM[App[App[cond e_true ] e_false ]]]]
+| env(++) 	= CLO[App[+ x 1 ]]
+| env(zero) 	= CLO[LAM[x]]
+| env(one) 	= CLO[LAM[App[f x ]]]
+| env(two) 	= CLO[LAM[App[f App[f x ] ]]]
+| env(three) 	= CLO[LAM[App[f App[f App[f x ] ] ]]]
+| env(pair) 	= CLO[LAM[LAM[App[App[App[lamif c ] a ] b ]]]]
+| env(1st) 	= CLO[App[pair true ]]
+| env(2nd) 	= CLO[App[pair false ]]
+| env(zero?) 	= CLO[App[App[n LAM[false] ] true ]]
+| env(add1) 	= CLO[LAM[LAM[App[f App[App[n f ] x ] ]]]]
+| env(add) 	= CLO[LAM[LAM[LAM[App[App[n f ] App[App[m f ] x ] ]]]]]
+| env(mult) 	= CLO[LAM[LAM[LAM[App[App[n App[m f ] ] x ]]]]]
+| env(n) 	= CLO[LAM[App[f x ]]]
+| env(p) 	= CLO[App[App[App[lamif c ] a ] b ]]
+Code : CLO[App[App[App[lamif c ] a ] b ]]
+Frame: application
+| vals: CLO[App[pair false ]] 
+| exprs: 
+=============
+===[C E K]===
+Cycle:	177
+Env: true
+| env(true) 	= CLO[LAM[x]]
+| env(false) 	= CLO[LAM[y]]
+| env(lamif) 	= CLO[LAM[LAM[App[App[cond e_true ] e_false ]]]]
+| env(++) 	= CLO[App[+ x 1 ]]
+| env(zero) 	= CLO[LAM[x]]
+| env(one) 	= CLO[LAM[App[f x ]]]
+| env(two) 	= CLO[LAM[App[f App[f x ] ]]]
+| env(three) 	= CLO[LAM[App[f App[f App[f x ] ] ]]]
+| env(pair) 	= CLO[App[App[App[lamif c ] a ] b ]]
+Code : App[pair false ]
+Frame: application
+| vals: CLO[LAM[LAM[App[f App[App[n f ] x ] ]]]] 
+| exprs: 
+=============
+===[C E K]===
+Cycle:	178
+Env: true
+| env(true) 	= CLO[LAM[x]]
+| env(false) 	= CLO[LAM[y]]
+| env(lamif) 	= CLO[LAM[LAM[App[App[cond e_true ] e_false ]]]]
+| env(++) 	= CLO[App[+ x 1 ]]
+| env(zero) 	= CLO[LAM[x]]
+| env(one) 	= CLO[LAM[App[f x ]]]
+| env(two) 	= CLO[LAM[App[f App[f x ] ]]]
+| env(three) 	= CLO[LAM[App[f App[f App[f x ] ] ]]]
+| env(pair) 	= CLO[App[App[App[lamif c ] a ] b ]]
+Code : pair
+Frame: application
+| vals: 
+| exprs: false 
+=============
+===[C E K]===
+Cycle:	179
+Env: true
+| env(true) 	= CLO[LAM[x]]
+| env(false) 	= CLO[LAM[y]]
+| env(lamif) 	= CLO[LAM[LAM[App[App[cond e_true ] e_false ]]]]
+| env(++) 	= CLO[App[+ x 1 ]]
+| env(zero) 	= CLO[LAM[x]]
+| env(one) 	= CLO[LAM[App[f x ]]]
+| env(two) 	= CLO[LAM[App[f App[f x ] ]]]
+| env(three) 	= CLO[LAM[App[f App[f App[f x ] ] ]]]
+| env(pair) 	= CLO[App[App[App[lamif c ] a ] b ]]
+Code : CLO[App[App[App[lamif c ] a ] b ]]
+Frame: application
+| vals: 
+| exprs: false 
+=============
+===[C E K]===
+Cycle:	180
+Env: true
+| env(true) 	= CLO[LAM[x]]
+| env(false) 	= CLO[LAM[y]]
+| env(lamif) 	= CLO[LAM[LAM[App[App[cond e_true ] e_false ]]]]
+| env(++) 	= CLO[App[+ x 1 ]]
+| env(zero) 	= CLO[LAM[x]]
+| env(one) 	= CLO[LAM[App[f x ]]]
+| env(two) 	= CLO[LAM[App[f App[f x ] ]]]
+| env(three) 	= CLO[LAM[App[f App[f App[f x ] ] ]]]
+| env(pair) 	= CLO[App[App[App[lamif c ] a ] b ]]
+Code : false
+Frame: application
+| vals: CLO[App[App[App[lamif c ] a ] b ]] 
+| exprs: 
+=============
+===[C E K]===
+Cycle:	181
+Env: true
+| env(true) 	= CLO[LAM[x]]
+| env(false) 	= CLO[LAM[y]]
+| env(lamif) 	= CLO[LAM[LAM[App[App[cond e_true ] e_false ]]]]
+| env(++) 	= CLO[App[+ x 1 ]]
+| env(zero) 	= CLO[LAM[x]]
+| env(one) 	= CLO[LAM[App[f x ]]]
+| env(two) 	= CLO[LAM[App[f App[f x ] ]]]
+| env(three) 	= CLO[LAM[App[f App[f App[f x ] ] ]]]
+| env(pair) 	= CLO[App[App[App[lamif c ] a ] b ]]
+Code : CLO[LAM[y]]
+Frame: application
+| vals: CLO[App[App[App[lamif c ] a ] b ]] 
+| exprs: 
+=============
+===[C E K]===
+Cycle:	182
+Env: true
+| env(true) 	= CLO[LAM[x]]
+| env(false) 	= CLO[LAM[y]]
+| env(lamif) 	= CLO[LAM[LAM[App[App[cond e_true ] e_false ]]]]
+| env(++) 	= CLO[App[+ x 1 ]]
+| env(zero) 	= CLO[LAM[x]]
+| env(one) 	= CLO[LAM[App[f x ]]]
+| env(two) 	= CLO[LAM[App[f App[f x ] ]]]
+| env(three) 	= CLO[LAM[App[f App[f App[f x ] ] ]]]
+| env(a) 	= CLO[LAM[x]]
+| env(b) 	= CLO[LAM[x]]
+| env(c) 	= CLO[LAM[y]]
+Code : App[App[App[lamif c ] a ] b ]
+Frame: application
+| vals: CLO[LAM[LAM[App[f App[App[n f ] x ] ]]]] 
+| exprs: 
+=============
+===[C E K]===
+Cycle:	183
+Env: true
+| env(true) 	= CLO[LAM[x]]
+| env(false) 	= CLO[LAM[y]]
+| env(lamif) 	= CLO[LAM[LAM[App[App[cond e_true ] e_false ]]]]
+| env(++) 	= CLO[App[+ x 1 ]]
+| env(zero) 	= CLO[LAM[x]]
+| env(one) 	= CLO[LAM[App[f x ]]]
+| env(two) 	= CLO[LAM[App[f App[f x ] ]]]
+| env(three) 	= CLO[LAM[App[f App[f App[f x ] ] ]]]
+| env(a) 	= CLO[LAM[x]]
+| env(b) 	= CLO[LAM[x]]
+| env(c) 	= CLO[LAM[y]]
+Code : App[App[lamif c ] a ]
+Frame: application
+| vals: 
+| exprs: b 
+=============
+===[C E K]===
+Cycle:	184
+Env: true
+| env(true) 	= CLO[LAM[x]]
+| env(false) 	= CLO[LAM[y]]
+| env(lamif) 	= CLO[LAM[LAM[App[App[cond e_true ] e_false ]]]]
+| env(++) 	= CLO[App[+ x 1 ]]
+| env(zero) 	= CLO[LAM[x]]
+| env(one) 	= CLO[LAM[App[f x ]]]
+| env(two) 	= CLO[LAM[App[f App[f x ] ]]]
+| env(three) 	= CLO[LAM[App[f App[f App[f x ] ] ]]]
+| env(a) 	= CLO[LAM[x]]
+| env(b) 	= CLO[LAM[x]]
+| env(c) 	= CLO[LAM[y]]
+Code : App[lamif c ]
+Frame: application
+| vals: 
+| exprs: a 
+=============
+===[C E K]===
+Cycle:	185
+Env: true
+| env(true) 	= CLO[LAM[x]]
+| env(false) 	= CLO[LAM[y]]
+| env(lamif) 	= CLO[LAM[LAM[App[App[cond e_true ] e_false ]]]]
+| env(++) 	= CLO[App[+ x 1 ]]
+| env(zero) 	= CLO[LAM[x]]
+| env(one) 	= CLO[LAM[App[f x ]]]
+| env(two) 	= CLO[LAM[App[f App[f x ] ]]]
+| env(three) 	= CLO[LAM[App[f App[f App[f x ] ] ]]]
+| env(a) 	= CLO[LAM[x]]
+| env(b) 	= CLO[LAM[x]]
+| env(c) 	= CLO[LAM[y]]
+Code : lamif
+Frame: application
+| vals: 
+| exprs: c 
+=============
+===[C E K]===
+Cycle:	186
+Env: true
+| env(true) 	= CLO[LAM[x]]
+| env(false) 	= CLO[LAM[y]]
+| env(lamif) 	= CLO[LAM[LAM[App[App[cond e_true ] e_false ]]]]
+| env(++) 	= CLO[App[+ x 1 ]]
+| env(zero) 	= CLO[LAM[x]]
+| env(one) 	= CLO[LAM[App[f x ]]]
+| env(two) 	= CLO[LAM[App[f App[f x ] ]]]
+| env(three) 	= CLO[LAM[App[f App[f App[f x ] ] ]]]
+| env(a) 	= CLO[LAM[x]]
+| env(b) 	= CLO[LAM[x]]
+| env(c) 	= CLO[LAM[y]]
+Code : CLO[LAM[LAM[App[App[cond e_true ] e_false ]]]]
+Frame: application
+| vals: 
+| exprs: c 
+=============
+===[C E K]===
+Cycle:	187
+Env: true
+| env(true) 	= CLO[LAM[x]]
+| env(false) 	= CLO[LAM[y]]
+| env(lamif) 	= CLO[LAM[LAM[App[App[cond e_true ] e_false ]]]]
+| env(++) 	= CLO[App[+ x 1 ]]
+| env(zero) 	= CLO[LAM[x]]
+| env(one) 	= CLO[LAM[App[f x ]]]
+| env(two) 	= CLO[LAM[App[f App[f x ] ]]]
+| env(three) 	= CLO[LAM[App[f App[f App[f x ] ] ]]]
+| env(a) 	= CLO[LAM[x]]
+| env(b) 	= CLO[LAM[x]]
+| env(c) 	= CLO[LAM[y]]
+Code : c
+Frame: application
+| vals: CLO[LAM[LAM[App[App[cond e_true ] e_false ]]]] 
+| exprs: 
+=============
+===[C E K]===
+Cycle:	188
+Env: true
+| env(true) 	= CLO[LAM[x]]
+| env(false) 	= CLO[LAM[y]]
+| env(lamif) 	= CLO[LAM[LAM[App[App[cond e_true ] e_false ]]]]
+| env(++) 	= CLO[App[+ x 1 ]]
+| env(zero) 	= CLO[LAM[x]]
+| env(one) 	= CLO[LAM[App[f x ]]]
+| env(two) 	= CLO[LAM[App[f App[f x ] ]]]
+| env(three) 	= CLO[LAM[App[f App[f App[f x ] ] ]]]
+| env(a) 	= CLO[LAM[x]]
+| env(b) 	= CLO[LAM[x]]
+| env(c) 	= CLO[LAM[y]]
+Code : CLO[LAM[y]]
+Frame: application
+| vals: CLO[LAM[LAM[App[App[cond e_true ] e_false ]]]] 
+| exprs: 
+=============
+===[C E K]===
+Cycle:	189
+Env: cond
+| env(cond) 	= CLO[LAM[y]]
+Code : LAM[LAM[App[App[cond e_true ] e_false ]]]
+Frame: application
+| vals: 
+| exprs: a 
+=============
+===[C E K]===
+Cycle:	190
+Env: cond
+| env(cond) 	= CLO[LAM[y]]
+Code : CLO[LAM[App[App[cond e_true ] e_false ]]]
+Frame: application
+| vals: 
+| exprs: a 
+=============
+===[C E K]===
+Cycle:	191
+Env: true
+| env(true) 	= CLO[LAM[x]]
+| env(false) 	= CLO[LAM[y]]
+| env(lamif) 	= CLO[LAM[LAM[App[App[cond e_true ] e_false ]]]]
+| env(++) 	= CLO[App[+ x 1 ]]
+| env(zero) 	= CLO[LAM[x]]
+| env(one) 	= CLO[LAM[App[f x ]]]
+| env(two) 	= CLO[LAM[App[f App[f x ] ]]]
+| env(three) 	= CLO[LAM[App[f App[f App[f x ] ] ]]]
+| env(a) 	= CLO[LAM[x]]
+| env(b) 	= CLO[LAM[x]]
+| env(c) 	= CLO[LAM[y]]
+Code : a
+Frame: application
+| vals: CLO[LAM[App[App[cond e_true ] e_false ]]] 
+| exprs: 
+=============
+===[C E K]===
+Cycle:	192
+Env: true
+| env(true) 	= CLO[LAM[x]]
+| env(false) 	= CLO[LAM[y]]
+| env(lamif) 	= CLO[LAM[LAM[App[App[cond e_true ] e_false ]]]]
+| env(++) 	= CLO[App[+ x 1 ]]
+| env(zero) 	= CLO[LAM[x]]
+| env(one) 	= CLO[LAM[App[f x ]]]
+| env(two) 	= CLO[LAM[App[f App[f x ] ]]]
+| env(three) 	= CLO[LAM[App[f App[f App[f x ] ] ]]]
+| env(a) 	= CLO[LAM[x]]
+| env(b) 	= CLO[LAM[x]]
+| env(c) 	= CLO[LAM[y]]
+Code : CLO[LAM[x]]
+Frame: application
+| vals: CLO[LAM[App[App[cond e_true ] e_false ]]] 
+| exprs: 
+=============
+===[C E K]===
+Cycle:	193
+Env: cond
+| env(cond) 	= CLO[LAM[y]]
+| env(e_true) 	= CLO[LAM[x]]
+Code : LAM[App[App[cond e_true ] e_false ]]
+Frame: application
+| vals: 
+| exprs: b 
+=============
+===[C E K]===
+Cycle:	194
+Env: cond
+| env(cond) 	= CLO[LAM[y]]
+| env(e_true) 	= CLO[LAM[x]]
+Code : CLO[App[App[cond e_true ] e_false ]]
+Frame: application
+| vals: 
+| exprs: b 
+=============
+===[C E K]===
+Cycle:	195
+Env: true
+| env(true) 	= CLO[LAM[x]]
+| env(false) 	= CLO[LAM[y]]
+| env(lamif) 	= CLO[LAM[LAM[App[App[cond e_true ] e_false ]]]]
+| env(++) 	= CLO[App[+ x 1 ]]
+| env(zero) 	= CLO[LAM[x]]
+| env(one) 	= CLO[LAM[App[f x ]]]
+| env(two) 	= CLO[LAM[App[f App[f x ] ]]]
+| env(three) 	= CLO[LAM[App[f App[f App[f x ] ] ]]]
+| env(a) 	= CLO[LAM[x]]
+| env(b) 	= CLO[LAM[x]]
+| env(c) 	= CLO[LAM[y]]
+Code : b
+Frame: application
+| vals: CLO[App[App[cond e_true ] e_false ]] 
+| exprs: 
+=============
+===[C E K]===
+Cycle:	196
+Env: true
+| env(true) 	= CLO[LAM[x]]
+| env(false) 	= CLO[LAM[y]]
+| env(lamif) 	= CLO[LAM[LAM[App[App[cond e_true ] e_false ]]]]
+| env(++) 	= CLO[App[+ x 1 ]]
+| env(zero) 	= CLO[LAM[x]]
+| env(one) 	= CLO[LAM[App[f x ]]]
+| env(two) 	= CLO[LAM[App[f App[f x ] ]]]
+| env(three) 	= CLO[LAM[App[f App[f App[f x ] ] ]]]
+| env(a) 	= CLO[LAM[x]]
+| env(b) 	= CLO[LAM[x]]
+| env(c) 	= CLO[LAM[y]]
+Code : CLO[LAM[x]]
+Frame: application
+| vals: CLO[App[App[cond e_true ] e_false ]] 
+| exprs: 
+=============
+===[C E K]===
+Cycle:	197
+Env: cond
+| env(cond) 	= CLO[LAM[y]]
+| env(e_true) 	= CLO[LAM[x]]
+| env(e_false) 	= CLO[LAM[x]]
+Code : App[App[cond e_true ] e_false ]
+Frame: application
+| vals: CLO[LAM[LAM[App[f App[App[n f ] x ] ]]]] 
+| exprs: 
+=============
+===[C E K]===
+Cycle:	198
+Env: cond
+| env(cond) 	= CLO[LAM[y]]
+| env(e_true) 	= CLO[LAM[x]]
+| env(e_false) 	= CLO[LAM[x]]
+Code : App[cond e_true ]
+Frame: application
+| vals: 
+| exprs: e_false 
+=============
+===[C E K]===
+Cycle:	199
+Env: cond
+| env(cond) 	= CLO[LAM[y]]
+| env(e_true) 	= CLO[LAM[x]]
+| env(e_false) 	= CLO[LAM[x]]
+Code : cond
+Frame: application
+| vals: 
+| exprs: e_true 
+=============
+===[C E K]===
+Cycle:	200
+Env: cond
+| env(cond) 	= CLO[LAM[y]]
+| env(e_true) 	= CLO[LAM[x]]
+| env(e_false) 	= CLO[LAM[x]]
+Code : CLO[LAM[y]]
+Frame: application
+| vals: 
+| exprs: e_true 
+=============
+===[C E K]===
+Cycle:	201
+Env: cond
+| env(cond) 	= CLO[LAM[y]]
+| env(e_true) 	= CLO[LAM[x]]
+| env(e_false) 	= CLO[LAM[x]]
+Code : e_true
+Frame: application
+| vals: CLO[LAM[y]] 
+| exprs: 
+=============
+===[C E K]===
+Cycle:	202
+Env: cond
+| env(cond) 	= CLO[LAM[y]]
+| env(e_true) 	= CLO[LAM[x]]
+| env(e_false) 	= CLO[LAM[x]]
+Code : CLO[LAM[x]]
+Frame: application
+| vals: CLO[LAM[y]] 
+| exprs: 
+=============
+===[C E K]===
+Cycle:	203
+Env: x
+| env(x) 	= CLO[LAM[x]]
+Code : LAM[y]
+Frame: application
+| vals: 
+| exprs: e_false 
+=============
+===[C E K]===
+Cycle:	204
+Env: x
+| env(x) 	= CLO[LAM[x]]
+Code : CLO[y]
+Frame: application
+| vals: 
+| exprs: e_false 
+=============
+===[C E K]===
+Cycle:	205
+Env: cond
+| env(cond) 	= CLO[LAM[y]]
+| env(e_true) 	= CLO[LAM[x]]
+| env(e_false) 	= CLO[LAM[x]]
+Code : e_false
+Frame: application
+| vals: CLO[y] 
+| exprs: 
+=============
+===[C E K]===
+Cycle:	206
+Env: cond
+| env(cond) 	= CLO[LAM[y]]
+| env(e_true) 	= CLO[LAM[x]]
+| env(e_false) 	= CLO[LAM[x]]
+Code : CLO[LAM[x]]
+Frame: application
+| vals: CLO[y] 
+| exprs: 
+=============
+===[C E K]===
+Cycle:	207
+Env: x
+| env(x) 	= CLO[LAM[x]]
+| env(y) 	= CLO[LAM[x]]
+Code : y
+Frame: application
+| vals: CLO[LAM[LAM[App[f App[App[n f ] x ] ]]]] 
+| exprs: 
+=============
+===[C E K]===
+Cycle:	208
+Env: x
+| env(x) 	= CLO[LAM[x]]
+| env(y) 	= CLO[LAM[x]]
+Code : CLO[LAM[x]]
+Frame: application
+| vals: CLO[LAM[LAM[App[f App[App[n f ] x ] ]]]] 
+| exprs: 
+=============
+===[C E K]===
+Cycle:	209
+Env: true
+| env(true) 	= CLO[LAM[x]]
+| env(false) 	= CLO[LAM[y]]
+| env(lamif) 	= CLO[LAM[LAM[App[App[cond e_true ] e_false ]]]]
+| env(++) 	= CLO[App[+ x 1 ]]
+| env(zero) 	= CLO[LAM[x]]
+| env(one) 	= CLO[LAM[App[f x ]]]
+| env(two) 	= CLO[LAM[App[f App[f x ] ]]]
+| env(three) 	= CLO[LAM[App[f App[f App[f x ] ] ]]]
+| env(pair) 	= CLO[LAM[LAM[App[App[App[lamif c ] a ] b ]]]]
+| env(1st) 	= CLO[App[pair true ]]
+| env(2nd) 	= CLO[App[pair false ]]
+| env(n) 	= CLO[LAM[x]]
+Code : LAM[LAM[App[f App[App[n f ] x ] ]]]
+Frame: application
+| vals: CLO[LAM[App[App[App[lamif c ] a ] b ]]] 
+| exprs: 
+=============
+===[C E K]===
+Cycle:	210
+Env: true
+| env(true) 	= CLO[LAM[x]]
+| env(false) 	= CLO[LAM[y]]
+| env(lamif) 	= CLO[LAM[LAM[App[App[cond e_true ] e_false ]]]]
+| env(++) 	= CLO[App[+ x 1 ]]
+| env(zero) 	= CLO[LAM[x]]
+| env(one) 	= CLO[LAM[App[f x ]]]
+| env(two) 	= CLO[LAM[App[f App[f x ] ]]]
+| env(three) 	= CLO[LAM[App[f App[f App[f x ] ] ]]]
+| env(pair) 	= CLO[LAM[LAM[App[App[App[lamif c ] a ] b ]]]]
+| env(1st) 	= CLO[App[pair true ]]
+| env(2nd) 	= CLO[App[pair false ]]
+| env(n) 	= CLO[LAM[x]]
+Code : CLO[LAM[App[f App[App[n f ] x ] ]]]
+Frame: application
+| vals: CLO[LAM[App[App[App[lamif c ] a ] b ]]] 
+| exprs: 
+=============
+===[C E K]===
+Cycle:	211
+Env: true
+| env(true) 	= CLO[LAM[x]]
+| env(false) 	= CLO[LAM[y]]
+| env(lamif) 	= CLO[LAM[LAM[App[App[cond e_true ] e_false ]]]]
+| env(++) 	= CLO[App[+ x 1 ]]
+| env(zero) 	= CLO[LAM[x]]
+| env(one) 	= CLO[LAM[App[f x ]]]
+| env(two) 	= CLO[LAM[App[f App[f x ] ]]]
+| env(three) 	= CLO[LAM[App[f App[f App[f x ] ] ]]]
+| env(a) 	= CLO[LAM[x]]
+| env(b) 	= CLO[LAM[App[f App[App[n f ] x ] ]]]
+Code : LAM[App[App[App[lamif c ] a ] b ]]
+Frame: application
+| vals: CLO[App[pair true ]] 
+| exprs: 
+=============
+===[C E K]===
+Cycle:	212
+Env: true
+| env(true) 	= CLO[LAM[x]]
+| env(false) 	= CLO[LAM[y]]
+| env(lamif) 	= CLO[LAM[LAM[App[App[cond e_true ] e_false ]]]]
+| env(++) 	= CLO[App[+ x 1 ]]
+| env(zero) 	= CLO[LAM[x]]
+| env(one) 	= CLO[LAM[App[f x ]]]
+| env(two) 	= CLO[LAM[App[f App[f x ] ]]]
+| env(three) 	= CLO[LAM[App[f App[f App[f x ] ] ]]]
+| env(a) 	= CLO[LAM[x]]
+| env(b) 	= CLO[LAM[App[f App[App[n f ] x ] ]]]
+Code : CLO[App[App[App[lamif c ] a ] b ]]
+Frame: application
+| vals: CLO[App[pair true ]] 
+| exprs: 
+=============
+===[C E K]===
+Cycle:	213
+Env: true
+| env(true) 	= CLO[LAM[x]]
+| env(false) 	= CLO[LAM[y]]
+| env(lamif) 	= CLO[LAM[LAM[App[App[cond e_true ] e_false ]]]]
+| env(++) 	= CLO[App[+ x 1 ]]
+| env(zero) 	= CLO[LAM[x]]
+| env(one) 	= CLO[LAM[App[f x ]]]
+| env(two) 	= CLO[LAM[App[f App[f x ] ]]]
+| env(three) 	= CLO[LAM[App[f App[f App[f x ] ] ]]]
+| env(pair) 	= CLO[App[App[App[lamif c ] a ] b ]]
+Code : App[pair true ]
+Frame: application
+| vals: 
+| exprs: ++ 
+=============
+===[C E K]===
+Cycle:	214
+Env: true
+| env(true) 	= CLO[LAM[x]]
+| env(false) 	= CLO[LAM[y]]
+| env(lamif) 	= CLO[LAM[LAM[App[App[cond e_true ] e_false ]]]]
+| env(++) 	= CLO[App[+ x 1 ]]
+| env(zero) 	= CLO[LAM[x]]
+| env(one) 	= CLO[LAM[App[f x ]]]
+| env(two) 	= CLO[LAM[App[f App[f x ] ]]]
+| env(three) 	= CLO[LAM[App[f App[f App[f x ] ] ]]]
+| env(pair) 	= CLO[App[App[App[lamif c ] a ] b ]]
+Code : pair
+Frame: application
+| vals: 
+| exprs: true 
+=============
+===[C E K]===
+Cycle:	215
+Env: true
+| env(true) 	= CLO[LAM[x]]
+| env(false) 	= CLO[LAM[y]]
+| env(lamif) 	= CLO[LAM[LAM[App[App[cond e_true ] e_false ]]]]
+| env(++) 	= CLO[App[+ x 1 ]]
+| env(zero) 	= CLO[LAM[x]]
+| env(one) 	= CLO[LAM[App[f x ]]]
+| env(two) 	= CLO[LAM[App[f App[f x ] ]]]
+| env(three) 	= CLO[LAM[App[f App[f App[f x ] ] ]]]
+| env(pair) 	= CLO[App[App[App[lamif c ] a ] b ]]
+Code : CLO[App[App[App[lamif c ] a ] b ]]
+Frame: application
+| vals: 
+| exprs: true 
+=============
+===[C E K]===
+Cycle:	216
+Env: true
+| env(true) 	= CLO[LAM[x]]
+| env(false) 	= CLO[LAM[y]]
+| env(lamif) 	= CLO[LAM[LAM[App[App[cond e_true ] e_false ]]]]
+| env(++) 	= CLO[App[+ x 1 ]]
+| env(zero) 	= CLO[LAM[x]]
+| env(one) 	= CLO[LAM[App[f x ]]]
+| env(two) 	= CLO[LAM[App[f App[f x ] ]]]
+| env(three) 	= CLO[LAM[App[f App[f App[f x ] ] ]]]
+| env(pair) 	= CLO[App[App[App[lamif c ] a ] b ]]
+Code : true
+Frame: application
+| vals: CLO[App[App[App[lamif c ] a ] b ]] 
+| exprs: 
+=============
+===[C E K]===
+Cycle:	217
+Env: true
+| env(true) 	= CLO[LAM[x]]
+| env(false) 	= CLO[LAM[y]]
+| env(lamif) 	= CLO[LAM[LAM[App[App[cond e_true ] e_false ]]]]
+| env(++) 	= CLO[App[+ x 1 ]]
+| env(zero) 	= CLO[LAM[x]]
+| env(one) 	= CLO[LAM[App[f x ]]]
+| env(two) 	= CLO[LAM[App[f App[f x ] ]]]
+| env(three) 	= CLO[LAM[App[f App[f App[f x ] ] ]]]
+| env(pair) 	= CLO[App[App[App[lamif c ] a ] b ]]
+Code : CLO[LAM[x]]
+Frame: application
+| vals: CLO[App[App[App[lamif c ] a ] b ]] 
+| exprs: 
+=============
+===[C E K]===
+Cycle:	218
+Env: true
+| env(true) 	= CLO[LAM[x]]
+| env(false) 	= CLO[LAM[y]]
+| env(lamif) 	= CLO[LAM[LAM[App[App[cond e_true ] e_false ]]]]
+| env(++) 	= CLO[App[+ x 1 ]]
+| env(zero) 	= CLO[LAM[x]]
+| env(one) 	= CLO[LAM[App[f x ]]]
+| env(two) 	= CLO[LAM[App[f App[f x ] ]]]
+| env(three) 	= CLO[LAM[App[f App[f App[f x ] ] ]]]
+| env(a) 	= CLO[LAM[x]]
+| env(b) 	= CLO[LAM[App[f App[App[n f ] x ] ]]]
+| env(c) 	= CLO[LAM[x]]
+Code : App[App[App[lamif c ] a ] b ]
+Frame: application
+| vals: 
+| exprs: ++ 
+=============
+===[C E K]===
+Cycle:	219
+Env: true
+| env(true) 	= CLO[LAM[x]]
+| env(false) 	= CLO[LAM[y]]
+| env(lamif) 	= CLO[LAM[LAM[App[App[cond e_true ] e_false ]]]]
+| env(++) 	= CLO[App[+ x 1 ]]
+| env(zero) 	= CLO[LAM[x]]
+| env(one) 	= CLO[LAM[App[f x ]]]
+| env(two) 	= CLO[LAM[App[f App[f x ] ]]]
+| env(three) 	= CLO[LAM[App[f App[f App[f x ] ] ]]]
+| env(a) 	= CLO[LAM[x]]
+| env(b) 	= CLO[LAM[App[f App[App[n f ] x ] ]]]
+| env(c) 	= CLO[LAM[x]]
+Code : App[App[lamif c ] a ]
+Frame: application
+| vals: 
+| exprs: b 
+=============
+===[C E K]===
+Cycle:	220
+Env: true
+| env(true) 	= CLO[LAM[x]]
+| env(false) 	= CLO[LAM[y]]
+| env(lamif) 	= CLO[LAM[LAM[App[App[cond e_true ] e_false ]]]]
+| env(++) 	= CLO[App[+ x 1 ]]
+| env(zero) 	= CLO[LAM[x]]
+| env(one) 	= CLO[LAM[App[f x ]]]
+| env(two) 	= CLO[LAM[App[f App[f x ] ]]]
+| env(three) 	= CLO[LAM[App[f App[f App[f x ] ] ]]]
+| env(a) 	= CLO[LAM[x]]
+| env(b) 	= CLO[LAM[App[f App[App[n f ] x ] ]]]
+| env(c) 	= CLO[LAM[x]]
+Code : App[lamif c ]
+Frame: application
+| vals: 
+| exprs: a 
+=============
+===[C E K]===
+Cycle:	221
+Env: true
+| env(true) 	= CLO[LAM[x]]
+| env(false) 	= CLO[LAM[y]]
+| env(lamif) 	= CLO[LAM[LAM[App[App[cond e_true ] e_false ]]]]
+| env(++) 	= CLO[App[+ x 1 ]]
+| env(zero) 	= CLO[LAM[x]]
+| env(one) 	= CLO[LAM[App[f x ]]]
+| env(two) 	= CLO[LAM[App[f App[f x ] ]]]
+| env(three) 	= CLO[LAM[App[f App[f App[f x ] ] ]]]
+| env(a) 	= CLO[LAM[x]]
+| env(b) 	= CLO[LAM[App[f App[App[n f ] x ] ]]]
+| env(c) 	= CLO[LAM[x]]
+Code : lamif
+Frame: application
+| vals: 
+| exprs: c 
+=============
+===[C E K]===
+Cycle:	222
+Env: true
+| env(true) 	= CLO[LAM[x]]
+| env(false) 	= CLO[LAM[y]]
+| env(lamif) 	= CLO[LAM[LAM[App[App[cond e_true ] e_false ]]]]
+| env(++) 	= CLO[App[+ x 1 ]]
+| env(zero) 	= CLO[LAM[x]]
+| env(one) 	= CLO[LAM[App[f x ]]]
+| env(two) 	= CLO[LAM[App[f App[f x ] ]]]
+| env(three) 	= CLO[LAM[App[f App[f App[f x ] ] ]]]
+| env(a) 	= CLO[LAM[x]]
+| env(b) 	= CLO[LAM[App[f App[App[n f ] x ] ]]]
+| env(c) 	= CLO[LAM[x]]
+Code : CLO[LAM[LAM[App[App[cond e_true ] e_false ]]]]
+Frame: application
+| vals: 
+| exprs: c 
+=============
+===[C E K]===
+Cycle:	223
+Env: true
+| env(true) 	= CLO[LAM[x]]
+| env(false) 	= CLO[LAM[y]]
+| env(lamif) 	= CLO[LAM[LAM[App[App[cond e_true ] e_false ]]]]
+| env(++) 	= CLO[App[+ x 1 ]]
+| env(zero) 	= CLO[LAM[x]]
+| env(one) 	= CLO[LAM[App[f x ]]]
+| env(two) 	= CLO[LAM[App[f App[f x ] ]]]
+| env(three) 	= CLO[LAM[App[f App[f App[f x ] ] ]]]
+| env(a) 	= CLO[LAM[x]]
+| env(b) 	= CLO[LAM[App[f App[App[n f ] x ] ]]]
+| env(c) 	= CLO[LAM[x]]
+Code : c
+Frame: application
+| vals: CLO[LAM[LAM[App[App[cond e_true ] e_false ]]]] 
+| exprs: 
+=============
+===[C E K]===
+Cycle:	224
+Env: true
+| env(true) 	= CLO[LAM[x]]
+| env(false) 	= CLO[LAM[y]]
+| env(lamif) 	= CLO[LAM[LAM[App[App[cond e_true ] e_false ]]]]
+| env(++) 	= CLO[App[+ x 1 ]]
+| env(zero) 	= CLO[LAM[x]]
+| env(one) 	= CLO[LAM[App[f x ]]]
+| env(two) 	= CLO[LAM[App[f App[f x ] ]]]
+| env(three) 	= CLO[LAM[App[f App[f App[f x ] ] ]]]
+| env(a) 	= CLO[LAM[x]]
+| env(b) 	= CLO[LAM[App[f App[App[n f ] x ] ]]]
+| env(c) 	= CLO[LAM[x]]
+Code : CLO[LAM[x]]
+Frame: application
+| vals: CLO[LAM[LAM[App[App[cond e_true ] e_false ]]]] 
+| exprs: 
+=============
+===[C E K]===
+Cycle:	225
+Env: cond
+| env(cond) 	= CLO[LAM[x]]
+Code : LAM[LAM[App[App[cond e_true ] e_false ]]]
+Frame: application
+| vals: 
+| exprs: a 
+=============
+===[C E K]===
+Cycle:	226
+Env: cond
+| env(cond) 	= CLO[LAM[x]]
+Code : CLO[LAM[App[App[cond e_true ] e_false ]]]
+Frame: application
+| vals: 
+| exprs: a 
+=============
+===[C E K]===
+Cycle:	227
+Env: true
+| env(true) 	= CLO[LAM[x]]
+| env(false) 	= CLO[LAM[y]]
+| env(lamif) 	= CLO[LAM[LAM[App[App[cond e_true ] e_false ]]]]
+| env(++) 	= CLO[App[+ x 1 ]]
+| env(zero) 	= CLO[LAM[x]]
+| env(one) 	= CLO[LAM[App[f x ]]]
+| env(two) 	= CLO[LAM[App[f App[f x ] ]]]
+| env(three) 	= CLO[LAM[App[f App[f App[f x ] ] ]]]
+| env(a) 	= CLO[LAM[x]]
+| env(b) 	= CLO[LAM[App[f App[App[n f ] x ] ]]]
+| env(c) 	= CLO[LAM[x]]
+Code : a
+Frame: application
+| vals: CLO[LAM[App[App[cond e_true ] e_false ]]] 
+| exprs: 
+=============
+===[C E K]===
+Cycle:	228
+Env: true
+| env(true) 	= CLO[LAM[x]]
+| env(false) 	= CLO[LAM[y]]
+| env(lamif) 	= CLO[LAM[LAM[App[App[cond e_true ] e_false ]]]]
+| env(++) 	= CLO[App[+ x 1 ]]
+| env(zero) 	= CLO[LAM[x]]
+| env(one) 	= CLO[LAM[App[f x ]]]
+| env(two) 	= CLO[LAM[App[f App[f x ] ]]]
+| env(three) 	= CLO[LAM[App[f App[f App[f x ] ] ]]]
+| env(a) 	= CLO[LAM[x]]
+| env(b) 	= CLO[LAM[App[f App[App[n f ] x ] ]]]
+| env(c) 	= CLO[LAM[x]]
+Code : CLO[LAM[x]]
+Frame: application
+| vals: CLO[LAM[App[App[cond e_true ] e_false ]]] 
+| exprs: 
+=============
+===[C E K]===
+Cycle:	229
+Env: cond
+| env(cond) 	= CLO[LAM[x]]
+| env(e_true) 	= CLO[LAM[x]]
+Code : LAM[App[App[cond e_true ] e_false ]]
+Frame: application
+| vals: 
+| exprs: b 
+=============
+===[C E K]===
+Cycle:	230
+Env: cond
+| env(cond) 	= CLO[LAM[x]]
+| env(e_true) 	= CLO[LAM[x]]
+Code : CLO[App[App[cond e_true ] e_false ]]
+Frame: application
+| vals: 
+| exprs: b 
+=============
+===[C E K]===
+Cycle:	231
+Env: true
+| env(true) 	= CLO[LAM[x]]
+| env(false) 	= CLO[LAM[y]]
+| env(lamif) 	= CLO[LAM[LAM[App[App[cond e_true ] e_false ]]]]
+| env(++) 	= CLO[App[+ x 1 ]]
+| env(zero) 	= CLO[LAM[x]]
+| env(one) 	= CLO[LAM[App[f x ]]]
+| env(two) 	= CLO[LAM[App[f App[f x ] ]]]
+| env(three) 	= CLO[LAM[App[f App[f App[f x ] ] ]]]
+| env(a) 	= CLO[LAM[x]]
+| env(b) 	= CLO[LAM[App[f App[App[n f ] x ] ]]]
+| env(c) 	= CLO[LAM[x]]
+Code : b
+Frame: application
+| vals: CLO[App[App[cond e_true ] e_false ]] 
+| exprs: 
+=============
+===[C E K]===
+Cycle:	232
+Env: true
+| env(true) 	= CLO[LAM[x]]
+| env(false) 	= CLO[LAM[y]]
+| env(lamif) 	= CLO[LAM[LAM[App[App[cond e_true ] e_false ]]]]
+| env(++) 	= CLO[App[+ x 1 ]]
+| env(zero) 	= CLO[LAM[x]]
+| env(one) 	= CLO[LAM[App[f x ]]]
+| env(two) 	= CLO[LAM[App[f App[f x ] ]]]
+| env(three) 	= CLO[LAM[App[f App[f App[f x ] ] ]]]
+| env(a) 	= CLO[LAM[x]]
+| env(b) 	= CLO[LAM[App[f App[App[n f ] x ] ]]]
+| env(c) 	= CLO[LAM[x]]
+Code : CLO[LAM[App[f App[App[n f ] x ] ]]]
+Frame: application
+| vals: CLO[App[App[cond e_true ] e_false ]] 
+| exprs: 
+=============
+===[C E K]===
+Cycle:	233
+Env: cond
+| env(cond) 	= CLO[LAM[x]]
+| env(e_true) 	= CLO[LAM[x]]
+| env(e_false) 	= CLO[LAM[App[f App[App[n f ] x ] ]]]
+Code : App[App[cond e_true ] e_false ]
+Frame: application
+| vals: 
+| exprs: ++ 
+=============
+===[C E K]===
+Cycle:	234
+Env: cond
+| env(cond) 	= CLO[LAM[x]]
+| env(e_true) 	= CLO[LAM[x]]
+| env(e_false) 	= CLO[LAM[App[f App[App[n f ] x ] ]]]
+Code : App[cond e_true ]
+Frame: application
+| vals: 
+| exprs: e_false 
+=============
+===[C E K]===
+Cycle:	235
+Env: cond
+| env(cond) 	= CLO[LAM[x]]
+| env(e_true) 	= CLO[LAM[x]]
+| env(e_false) 	= CLO[LAM[App[f App[App[n f ] x ] ]]]
+Code : cond
+Frame: application
+| vals: 
+| exprs: e_true 
+=============
+===[C E K]===
+Cycle:	236
+Env: cond
+| env(cond) 	= CLO[LAM[x]]
+| env(e_true) 	= CLO[LAM[x]]
+| env(e_false) 	= CLO[LAM[App[f App[App[n f ] x ] ]]]
+Code : CLO[LAM[x]]
+Frame: application
+| vals: 
+| exprs: e_true 
+=============
+===[C E K]===
+Cycle:	237
+Env: cond
+| env(cond) 	= CLO[LAM[x]]
+| env(e_true) 	= CLO[LAM[x]]
+| env(e_false) 	= CLO[LAM[App[f App[App[n f ] x ] ]]]
+Code : e_true
+Frame: application
+| vals: CLO[LAM[x]] 
+| exprs: 
+=============
+===[C E K]===
+Cycle:	238
+Env: cond
+| env(cond) 	= CLO[LAM[x]]
+| env(e_true) 	= CLO[LAM[x]]
+| env(e_false) 	= CLO[LAM[App[f App[App[n f ] x ] ]]]
+Code : CLO[LAM[x]]
+Frame: application
+| vals: CLO[LAM[x]] 
+| exprs: 
+=============
+===[C E K]===
+Cycle:	239
+Env: x
+| env(x) 	= CLO[LAM[x]]
+Code : LAM[x]
+Frame: application
+| vals: 
+| exprs: e_false 
+=============
+===[C E K]===
+Cycle:	240
+Env: x
+| env(x) 	= CLO[LAM[x]]
+Code : CLO[x]
+Frame: application
+| vals: 
+| exprs: e_false 
+=============
+===[C E K]===
+Cycle:	241
+Env: cond
+| env(cond) 	= CLO[LAM[x]]
+| env(e_true) 	= CLO[LAM[x]]
+| env(e_false) 	= CLO[LAM[App[f App[App[n f ] x ] ]]]
+Code : e_false
+Frame: application
+| vals: CLO[x] 
+| exprs: 
+=============
+===[C E K]===
+Cycle:	242
+Env: cond
+| env(cond) 	= CLO[LAM[x]]
+| env(e_true) 	= CLO[LAM[x]]
+| env(e_false) 	= CLO[LAM[App[f App[App[n f ] x ] ]]]
+Code : CLO[LAM[App[f App[App[n f ] x ] ]]]
+Frame: application
+| vals: CLO[x] 
+| exprs: 
+=============
+===[C E K]===
+Cycle:	243
+Env: x
+| env(x) 	= CLO[LAM[x]]
+| env(y) 	= CLO[LAM[App[f App[App[n f ] x ] ]]]
+Code : x
+Frame: application
+| vals: 
+| exprs: ++ 
+=============
+===[C E K]===
+Cycle:	244
+Env: x
+| env(x) 	= CLO[LAM[x]]
+| env(y) 	= CLO[LAM[App[f App[App[n f ] x ] ]]]
+Code : CLO[LAM[x]]
+Frame: application
+| vals: 
+| exprs: ++ 
+=============
+===[C E K]===
+Cycle:	245
+Env: true
+| env(true) 	= CLO[LAM[x]]
+| env(false) 	= CLO[LAM[y]]
+| env(lamif) 	= CLO[LAM[LAM[App[App[cond e_true ] e_false ]]]]
+| env(++) 	= CLO[App[+ x 1 ]]
+| env(zero) 	= CLO[LAM[x]]
+| env(one) 	= CLO[LAM[App[f x ]]]
+| env(two) 	= CLO[LAM[App[f App[f x ] ]]]
+| env(three) 	= CLO[LAM[App[f App[f App[f x ] ] ]]]
+| env(pair) 	= CLO[LAM[LAM[App[App[App[lamif c ] a ] b ]]]]
+| env(1st) 	= CLO[App[pair true ]]
+| env(2nd) 	= CLO[App[pair false ]]
+| env(zero?) 	= CLO[App[App[n LAM[false] ] true ]]
+| env(add1) 	= CLO[LAM[LAM[App[f App[App[n f ] x ] ]]]]
+| env(add) 	= CLO[LAM[LAM[LAM[App[App[n f ] App[App[m f ] x ] ]]]]]
+| env(mult) 	= CLO[LAM[LAM[LAM[App[App[n App[m f ] ] x ]]]]]
+| env(exp) 	= CLO[LAM[LAM[LAM[App[App[m App[App[App[mult n ] n ] ++ ] ] x ]]]]]
+| env(four) 	= CLO[LAM[App[f App[App[n f ] x ] ]]]
+| env(five) 	= CLO[LAM[App[App[n f ] App[App[m f ] x ] ]]]
+| env(six) 	= CLO[LAM[App[App[n f ] App[App[m f ] x ] ]]]
+| env(sub1) 	= CLO[App[1st App[App[n LAM[App[App[pair App[2nd p ] ] App[add1 App[2nd p ] ] ]] ] App[App[pair zero ] zero ] ] ]]
+| env(zcomb) 	= CLO[App[LAM[App[f LAM[App[App[x x ] v ]] ]] LAM[App[f LAM[App[App[x x ] v ]] ]] ]]
+| env(mkfac) 	= CLO[LAM[App[App[App[lamif App[zero? n ] ] one ] App[App[mult n ] App[fac App[sub1 n ] ] ] ]]]
+Code : ++
+Frame: application
+| vals: CLO[LAM[x]] 
+| exprs: 
+=============
+===[C E K]===
+Cycle:	246
+Env: true
+| env(true) 	= CLO[LAM[x]]
+| env(false) 	= CLO[LAM[y]]
+| env(lamif) 	= CLO[LAM[LAM[App[App[cond e_true ] e_false ]]]]
+| env(++) 	= CLO[App[+ x 1 ]]
+| env(zero) 	= CLO[LAM[x]]
+| env(one) 	= CLO[LAM[App[f x ]]]
+| env(two) 	= CLO[LAM[App[f App[f x ] ]]]
+| env(three) 	= CLO[LAM[App[f App[f App[f x ] ] ]]]
+| env(pair) 	= CLO[LAM[LAM[App[App[App[lamif c ] a ] b ]]]]
+| env(1st) 	= CLO[App[pair true ]]
+| env(2nd) 	= CLO[App[pair false ]]
+| env(zero?) 	= CLO[App[App[n LAM[false] ] true ]]
+| env(add1) 	= CLO[LAM[LAM[App[f App[App[n f ] x ] ]]]]
+| env(add) 	= CLO[LAM[LAM[LAM[App[App[n f ] App[App[m f ] x ] ]]]]]
+| env(mult) 	= CLO[LAM[LAM[LAM[App[App[n App[m f ] ] x ]]]]]
+| env(exp) 	= CLO[LAM[LAM[LAM[App[App[m App[App[App[mult n ] n ] ++ ] ] x ]]]]]
+| env(four) 	= CLO[LAM[App[f App[App[n f ] x ] ]]]
+| env(five) 	= CLO[LAM[App[App[n f ] App[App[m f ] x ] ]]]
+| env(six) 	= CLO[LAM[App[App[n f ] App[App[m f ] x ] ]]]
+| env(sub1) 	= CLO[App[1st App[App[n LAM[App[App[pair App[2nd p ] ] App[add1 App[2nd p ] ] ]] ] App[App[pair zero ] zero ] ] ]]
+| env(zcomb) 	= CLO[App[LAM[App[f LAM[App[App[x x ] v ]] ]] LAM[App[f LAM[App[App[x x ] v ]] ]] ]]
+| env(mkfac) 	= CLO[LAM[App[App[App[lamif App[zero? n ] ] one ] App[App[mult n ] App[fac App[sub1 n ] ] ] ]]]
+Code : CLO[App[+ x 1 ]]
+Frame: application
+| vals: CLO[LAM[x]] 
+| exprs: 
+=============
+===[C E K]===
+Cycle:	247
+Env: true
+| env(true) 	= CLO[LAM[x]]
+| env(false) 	= CLO[LAM[y]]
+| env(lamif) 	= CLO[LAM[LAM[App[App[cond e_true ] e_false ]]]]
+| env(f) 	= CLO[App[+ x 1 ]]
+Code : LAM[x]
+Frame: application
+| vals: 
+| exprs: 0 
+=============
+===[C E K]===
+Cycle:	248
+Env: true
+| env(true) 	= CLO[LAM[x]]
+| env(false) 	= CLO[LAM[y]]
+| env(lamif) 	= CLO[LAM[LAM[App[App[cond e_true ] e_false ]]]]
+| env(f) 	= CLO[App[+ x 1 ]]
+Code : CLO[x]
+Frame: application
+| vals: 
+| exprs: 0 
+=============
+===[C E K]===
+Cycle:	249
+Env: true
+| env(true) 	= CLO[LAM[x]]
+| env(false) 	= CLO[LAM[y]]
+| env(lamif) 	= CLO[LAM[LAM[App[App[cond e_true ] e_false ]]]]
+| env(++) 	= CLO[App[+ x 1 ]]
+| env(zero) 	= CLO[LAM[x]]
+| env(one) 	= CLO[LAM[App[f x ]]]
+| env(two) 	= CLO[LAM[App[f App[f x ] ]]]
+| env(three) 	= CLO[LAM[App[f App[f App[f x ] ] ]]]
+| env(pair) 	= CLO[LAM[LAM[App[App[App[lamif c ] a ] b ]]]]
+| env(1st) 	= CLO[App[pair true ]]
+| env(2nd) 	= CLO[App[pair false ]]
+| env(zero?) 	= CLO[App[App[n LAM[false] ] true ]]
+| env(add1) 	= CLO[LAM[LAM[App[f App[App[n f ] x ] ]]]]
+| env(add) 	= CLO[LAM[LAM[LAM[App[App[n f ] App[App[m f ] x ] ]]]]]
+| env(mult) 	= CLO[LAM[LAM[LAM[App[App[n App[m f ] ] x ]]]]]
+| env(exp) 	= CLO[LAM[LAM[LAM[App[App[m App[App[App[mult n ] n ] ++ ] ] x ]]]]]
+| env(four) 	= CLO[LAM[App[f App[App[n f ] x ] ]]]
+| env(five) 	= CLO[LAM[App[App[n f ] App[App[m f ] x ] ]]]
+| env(six) 	= CLO[LAM[App[App[n f ] App[App[m f ] x ] ]]]
+| env(sub1) 	= CLO[App[1st App[App[n LAM[App[App[pair App[2nd p ] ] App[add1 App[2nd p ] ] ]] ] App[App[pair zero ] zero ] ] ]]
+| env(zcomb) 	= CLO[App[LAM[App[f LAM[App[App[x x ] v ]] ]] LAM[App[f LAM[App[App[x x ] v ]] ]] ]]
+| env(mkfac) 	= CLO[LAM[App[App[App[lamif App[zero? n ] ] one ] App[App[mult n ] App[fac App[sub1 n ] ] ] ]]]
+Code : 0
+Frame: application
+| vals: CLO[x] 
+| exprs: 
+=============
+===[C E K]===
+Cycle:	250
+Env: true
+| env(true) 	= CLO[LAM[x]]
+| env(false) 	= CLO[LAM[y]]
+| env(lamif) 	= CLO[LAM[LAM[App[App[cond e_true ] e_false ]]]]
+| env(f) 	= CLO[App[+ x 1 ]]
+| env(x) 	= 0
+Code : x
+Frame: return
+
+=============
+===[C E K]===
+Cycle:	251
+Env: true
+| env(true) 	= CLO[LAM[x]]
+| env(false) 	= CLO[LAM[y]]
+| env(lamif) 	= CLO[LAM[LAM[App[App[cond e_true ] e_false ]]]]
+| env(f) 	= CLO[App[+ x 1 ]]
+| env(x) 	= 0
+Code : 0
+Frame: return
+
+=============
+0

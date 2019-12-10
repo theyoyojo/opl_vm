@@ -1,0 +1,16 @@
+(let*(
+[foo ($ (A) (case A ($ (x) 4) ($ (x) 5)))]
+
+[cons ($ (data rest) (inr (pair data rest)))]
+
+[empty (inl unit)]
+[first ($ (list) (case list  ($ (x) unit) ($ (x) (fst x))))]
+[rest ($ (list) (case list  ($ (x) unit) ($ (x) (snd x))))]
+[list/len ($ len (list) (case list ($ (x) 0) ($ (x) (+ 1 (len x)))))]
+)
+
+(list/len (cons 1 (cons 2 empty))))
+
+%%
+(first (rest (cons 1 (cons 2 empty)))))
+%%
