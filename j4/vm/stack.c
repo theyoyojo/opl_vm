@@ -57,7 +57,6 @@ void gen_repr_stack(obj_t * obj) {
 	}
 
 	free(frame_reprs) ;
-	
 }
 
 void D_stack(obj_t ** stack_ptr) {
@@ -486,27 +485,30 @@ void D_env(obj_t ** env_ptr) {
 /* maximum number identifiers that can be bound at once */
 #define MAX_BIND_AT_ONCE 256UL
 /* can fail by arity mismatch */
-int env_bind(obj_t * env, olist_t * binding, olist_t * vals) {
+int env_bind(obj_t * env, obj_t ** tmp_ptr, olist_t * binding, olist_t * vals) {
 	assert(env) ;
 	size_t bindlen = olist_length(binding) ;
 	size_t vallen = olist_length(vals) - 1;
 	static unsigned char index_memo[MAX_BIND_AT_ONCE] ;
+	static char buff[255] ;
 	memset(index_memo, 0, MAX_BIND_AT_ONCE) ;
 	env_t * env_ = (env_t *)env ;
 
 	D_obj_repr(env) ;
 
 	if (bindlen > MAX_BIND_AT_ONCE) {
-		printf("Exception: Binding too long to handle in one go\n"
-				"\tlength: %lu, max: %lu\n",
+		sprintf(buff, "Exception: Binding too long to handle in one go\n"
+				"\tyour length: %lu, the limit: %lu",
 				bindlen, MAX_BIND_AT_ONCE) ;
-		return 1 ;
+		*tmp_ptr = C_str(buff) ;
+		return -1 ;
 	}
 	if (bindlen != vallen) {
-		printf("Exception: Invalid environment binding: \n"
-				"\tident count: %lu, differs from value count: %lu\n",
+		sprintf(buff,"Exception: Arity mismatch in environment extentsion: \n"
+				"\texpected/idents: %lu, got/values: %lu",
 				bindlen, vallen) ;
-		return 1 ;
+		*tmp_ptr = C_str(buff) ;
+		return -1 ;
 	}
 
 	/* FIXME wrong: Include function name for possible usage later as env name */

@@ -92,7 +92,7 @@ obj_t * C_env_copy(obj_t * old) ;
 void gen_repr_env(obj_t * obj) ;
 void D_env(obj_t ** env_ptr) ;
 /* does NOT consume the lists passed to it */
-int env_bind(obj_t * env, olist_t * binding, olist_t * vals) ;
+int env_bind(obj_t * env, obj_t ** tmp_ptr, olist_t * binding, olist_t * vals) ;
 int env_bind_direct(obj_t * env, obj_t * ident, obj_t * value) ;
 /* check if an environment maps a variable to a value */
 bool env_maps(obj_t * env, obj_t * ident) ;

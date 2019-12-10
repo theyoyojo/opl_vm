@@ -96,7 +96,8 @@ TEST_SET(simple_exprs,
 		obj_t * env = C_env() ;
 		olist_t * binding = olist_init_data(2, C_ident("x"), C_ident("y")) ;
 		olist_t * vals = olist_init_data(2, C_num(4), C_num(6)) ;
-		env_bind(env, binding, vals) ;
+		obj_t * tmp ;
+		env_bind(env, &tmp, binding, vals) ;
 
 		obj_t * expr = C_app(3, C_prim("+"), C_ident("x"), C_ident("y")) ;
 		obj_t * lam = C_lam(C_ident("rec"), binding, expr) ;
