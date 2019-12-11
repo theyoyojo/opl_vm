@@ -1,6 +1,6 @@
-This project implements J1, ..., JN where the value of N is debatable and everythig is called J4.
+This project implements J1, ..., JN where the value of N is debatable and everything is called J4.
 
-To use, source 'aliaskit.sh' into your shell environment.
+To setup, `source j4/aliaskit.sh`
 
 Use `jcc <input> <output>` to compile programs
 
