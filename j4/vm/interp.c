@@ -96,7 +96,7 @@ obj_t * exec(obj_t * program) {
 		if (stack_height(stack) > ARBITRARY_STACK_HEIGHT_LIMIT) {
 			exec_exception(&code, stack, C_str("Exception: stack overflow")) ;
 		}
-		mem_gc() ; /* g a r b a g e  c o l l e c t i o n (soon) */
+		mem_gc(code, env, stack) ; /* g a r b a g e  c o l l e c t i o n (soon) */
 		switch(obj_typeof(code)) {
 		case T_IDENT:
 			if (env_maps(env, code)) {

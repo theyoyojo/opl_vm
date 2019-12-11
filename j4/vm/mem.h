@@ -11,7 +11,7 @@ obj_t * mem_deref(obj_t * ptr) ;
 
 obj_t * mem_set(obj_t * ptr, obj_t * newval) ;
 
-int mem_gc(void) ;
+int mem_gc(obj_t * code, obj_t * env, obj_t * stack) ;
 
 int mem_system_free(void) ;
 

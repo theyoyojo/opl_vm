@@ -95,9 +95,13 @@ TEST_SET(simple_exprs,
 	TEST_CASE(clo,
 		obj_t * env = C_env() ;
 		olist_t * binding = olist_init_data(2, C_ident("x"), C_ident("y")) ;
-		olist_t * vals = olist_init_data(2, C_num(4), C_num(6)) ;
+		olist_t * vals = olist_init_data(3, C_ident("funcname"), C_num(4), C_num(6)) ;
 		obj_t * tmp ;
-		env_bind(env, &tmp, binding, vals) ;
+		if (env_bind(env, &tmp, binding, vals)) {
+			printf("%s\n", obj_repr(tmp)) ;
+			exit(1);
+		}
+
 
 		obj_t * expr = C_app(3, C_prim("+"), C_ident("x"), C_ident("y")) ;
 		obj_t * lam = C_lam(C_ident("rec"), binding, expr) ;
