@@ -17,8 +17,10 @@
 [Pair ($ (a) ($ (b) ($ (c) (((lamif c) a) b))))]
 [1st ($ (Pair) (Pair true))]
 
-[2ndbad ($ 2nd (Pair) (Pair false))]
+%%
 [2nd ($ 2nd (Pairf) (Pairf false))]
+%%
+[2nd ($ 2nd (Pair) (Pair false))]
 
 [sub1 ($ (n) (1st ((n ($ (p) ((Pair (2nd p)) (add1 (2nd p))))) ((Pair zero) zero))))]
 

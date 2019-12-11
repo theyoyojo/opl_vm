@@ -1,11 +1,9 @@
 @given<lam>
 
 
-(2ndbad ((Pair one) two))
+((zcomb mkfac) zero)
 
 %%
-
-((zcomb mkfac) zero)
 
 [exp ($ (n) ($ (m) ($ (f) ($ (x) (((m (((mult n) n) ++)) x))))))]
 ((((add three) two) ++) 0))))))
