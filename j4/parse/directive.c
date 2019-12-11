@@ -25,7 +25,7 @@ int directive_start(void) {
 	}
 	libpath_length = 1 ;
 	strncpy(libpath[0], j4_path, PATH_LIMIT) ;
-	strcat(libpath[0], "/lib") ;
+	strcat(libpath[0], "/lib") ;	/* $J4_PATH/lib is the default include location */
 
 	return 0 ;
 }
@@ -103,28 +103,56 @@ int given_exec (int argc, char * argv[], FILE * outfile) {
 
 	/* fprintf(outfile, "GIVEN(%s)\n", argv[0]) ; */
 	/* print_libpath(outfile) ; */
-
-	strcpy(given_name, libpath[0]) ;
-	strcat(given_name, "/") ;
-	strcat(given_name, argv[0]) ;
-	strcat(given_name, ".given") ;
 	/* fprintf(outfile, "%s\n", given_name) ; */
 
-	/* TODO search whole libpath */
-	if (!(given_file = fopen(given_name, "r+"))) {
-		return -1 ;
+	given_file = NULL ;
+	for (size_t i = 0; i < libpath_length; ++i) {
+
+		strcpy(given_name, libpath[i]) ;
+		strcat(given_name, "/") ;
+		strcat(given_name, argv[0]) ;
+		strcat(given_name, ".given") ;
+
+		/* printf("name: %s\n", given_name) ; */
+
+		if ((given_file = fopen(given_name, "r+"))) {
+			break ;
+		}
+	}
+
+	if (!given_file) {
+		printf("Directive Error: cannot locate %s.given in libpath", argv[0]) ;
+		return 0 ;
 	}
 
 	fprintf(outfile, "(let*(\n") ;
 	char c ;
+	int in_comment ;
+	in_comment = 0 ;
 	while ((c = fgetc(given_file)) != EOF) {
-		fputc(c, outfile) ;
+		if (!in_comment) {
+			if (c == '%') {
+				if ((c = fgetc(given_file)) == '%') {
+					in_comment = 1 ;
+				}
+				else {
+					ungetc(c, given_file) ;
+				}
+			}
+			else {
+				fputc(c, outfile) ;
+			}
+		} else {
+			if (c == '%' && (c = fgetc(given_file)) == '%') {
+				in_comment = 0 ;
+			}
+		}
 	}
 	fputc(')', outfile) ;
 
 	fclose(given_file) ;
 
-	return 1 ;
+	return 1 ; /* need to return 1 so parse0 will add a ')' */
 }
 
 typedef enum _command {

@@ -107,19 +107,6 @@ obj_t * stack_top(obj_t * stack) {
 
 void stack_trace(obj_t * stack) {
 	assert(obj_typeof(stack) == T_STACK) ;
-	/* stack_t * stack_ = (stack_t *)stack ; */
-		
-	/* obj_t * tmp ; */
-	/* printf("Stack trace:\n") ; */
-
-	/* for (size_t i = 0; i < olist_length(stack_->data); ++i) { */
-	/* 	tmp = olist_get(stack_->data, i) ; */
-	/* 	printf("\t%s %p: frame: %s env: %s\n", */
-	/* 		i == 0 ? "at" : "by", */
-	/* 		tmp, frame_get_name(tmp), frame_get_env_name(tmp)) ; */
-	/* 	frame_print(tmp) ; */
-	/* } */
-
 	printf("%s\n", obj_repr(stack)) ;
 }
 
@@ -417,14 +404,21 @@ void gen_repr_env(obj_t * obj) {
 	static char part1[] = "{" ;
 	static char part2[] = "}" ;
 	static char separator[] = ":" ;
+	static char newline_package[] = "\n  " ;
 	char 	** ident_reprs,
 		** val_reprs ;
-	size_t idents_size, vals_size, spaces, separators, i ;
+	size_t idents_size, vals_size,  separators, i, newlines ;
 	obj_t * tmp ;
 
 	obj->head.repr_size = 0 ;
 
 	idents_size = env_length(obj) ;
+	if (idents_size > 1) {
+		newlines = sizeof(newline_package) * (idents_size - 1) ;
+	}
+	else {
+		newlines = 0 ;
+	}
 	if (!(ident_reprs = (char **)malloc(sizeof(char *) * idents_size))) return ;
 	for (i = 0; i < idents_size; ++i) {
 		tmp = (obj_t *)env_get_ident(obj, i) ;
@@ -440,28 +434,25 @@ void gen_repr_env(obj_t * obj) {
 		obj->head.repr_size += obj_repr_size(tmp) ;
 	}
 
-	spaces = idents_size - 1 ;
-	
 	separators = idents_size * sizeof(separator) ;
 
 	obj->head.repr_size +=
 		  sizeof(part1)
 		+ sizeof(part2)
-		+ spaces
-		+ separators ;
+		+ separators
+		+ newlines ;
 
 	obj->head.repr = (char *)malloc(obj->head.repr_size + 1) ;
 
 	if (obj->head.repr) {
 		strcpy(obj->head.repr, part1) ;
 		for (i = 0; i < vals_size; ++i) {
+			if (newlines > 0) {
+				strcat(obj->head.repr, newline_package) ;
+			}
 			strcat(obj->head.repr, ident_reprs[i]) ;
-			/* printf("CAT REPR: %s\n", ident_reprs[i]) ; */
 			strcat(obj->head.repr, separator) ;
 			strcat(obj->head.repr, val_reprs[i]) ;
-			if (i < vals_size - 1) {
-				strcat(obj->head.repr, " ") ;
-			}
 		}
 		strcat(obj->head.repr, part2) ;
 		obj->head.repr[obj_repr_size(obj)] = '\0' ;

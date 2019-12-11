@@ -24,7 +24,7 @@ void exec_exception(obj_t ** code_ptr, obj_t * stack, obj_t * msg) {
 	printf("ERROR!\n") ;
 	printf("Code: %s\n", obj_repr(*code_ptr)) ;
 	stack_trace(stack) ;
-	D_OBJ(*code_ptr) ;
+	D_OBJ((*code_ptr)) ;
 	*code_ptr = C_abort(msg) ;
 }
 
@@ -138,7 +138,6 @@ obj_t * exec(obj_t * program) {
 			case T_FRAPP:
 			/* <v, 0, Kapp((v' ...), env, (e e'...), K> => <e, env, Kapp((v' v ...), env, (e' ...), K> */
 				frapp_push_value(stack_top(stack), code) ;
-				/* D_OBJ(code) ; */
 				D_OBJ(env) ;
 				if (frapp_has_more_exprs(stack_top(stack))) {
 					code = frapp_pop_expr(stack_top(stack)) ;
@@ -167,16 +166,19 @@ obj_t * exec(obj_t * program) {
 					/* we don't free the closure because it is free'd in stack_chop */
 					stack_chop(stack) ;
 
-				} else if ((code = delta_frapp(stack_top(stack)))) {
+				} else if ((tmp1 = delta_frapp(stack_top(stack)))) {
 					/* successfuly delta function */
+					code = tmp1 ;
 					stack_chop(stack) ;
 					env = stack_top_env(stack) ; /* restore previous env */
 				} else {
 					/* failed delta function */
+					code = C_str("<delta fault>") ;
 					exec_exception(&code, stack, C_app(3, C_prim("+"),
 							C_str("Exception: undefined delta function: "),
-							C_str(" TODO: add stringification of values and expressions"))) ;
-							
+							C_stringify(frapp_get_first_value(stack_top(stack))))) ;
+					stack_chop(stack) ;
+					env = stack_top_env(stack) ;
 				}
 				continue ;
 			default:
@@ -207,7 +209,6 @@ obj_t * exec(obj_t * program) {
 		case T_ABORT:
 			tmp1 = C_obj_copy(abort_expr(code)) ;
 			while (obj_typeof(stack_top(stack)) != T_FRRET) {
-				/* printf("asfd\n") ; */
 				stack_chop(stack) ;
 			}
 			D_OBJ(code) ;
