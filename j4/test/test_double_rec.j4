@@ -1,8 +1,8 @@
 @given<math>
-(let(
-[sum-n ($ sum-n (n) (if (1? n) 1 (+ n (sum-n (-- n)))))])
-(let(
+(let*(
+[1? ($ (n) (= n 1))]
+[sum-n ($ sum-n (n) (if (1? n) 1 (+ n (sum-n (-- n)))))]
 [addsums ($ addsums (n func) (if (1? n) 1
 			(+ (func n) (addsums (-- n) func))))])
 
-(addsums 3 sum-n)))
+(addsums 3 sum-n))

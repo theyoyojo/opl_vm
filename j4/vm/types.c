@@ -119,9 +119,10 @@ obj_t * C_ident(char * name) {
 
 void gen_repr_ident(obj_t * obj) {
 	obj->head.repr_size = ident_get_size(obj) ;
-	obj->head.repr = (char *)malloc(obj->head.repr_size) ;
+	obj->head.repr = (char *)malloc(obj->head.repr_size + 1) ;
 	if (obj->head.repr) {
 		strcpy(obj->head.repr, ident_get_name(obj)) ;
+		obj->head.repr[obj_repr_size(obj)] = '\0' ;
 	}
 }
 
@@ -689,6 +690,10 @@ obj_t * C_str(char * str) {
 	return (obj_t *)new ;
 }
 
+obj_t * C_stringify(obj_t * obj) {
+	return C_str(obj_repr(obj)) ;
+}
+
 obj_t * C_str_copy(obj_t * old) {
 	ALLOC_OR_RETNULL(new, str_t) ;
 	new->head = HEADER_INIT(T_STR, str_t, gen_repr_str, D_str, C_str_copy) ;
@@ -703,14 +708,21 @@ obj_t * C_str_copy(obj_t * old) {
 }
 
 void gen_repr_str(obj_t * obj) {
-	obj->head.repr_size = str_size(obj) ;
+	static char part1[] = "\"" ;
+	static char part2[] = "\"" ;
+	obj->head.repr_size =
+		  sizeof(part1)
+		+ str_size(obj)
+		+ sizeof(part2) ;
+
 	obj->head.repr = (char *)malloc(obj->head.repr_size + 1) ;
 	
 	if (obj->head.repr) {
-		strcpy(obj->head.repr, str_get(obj)) ;
+		strcpy(obj->head.repr, part1) ;
+		strcat(obj->head.repr, str_get(obj)) ;
+		strcat(obj->head.repr, part1) ;
 		obj->head.repr[obj_repr_size(obj)] = '\0' ;
 	}
-
 }
 
 void D_str(obj_t ** str_ptr) {

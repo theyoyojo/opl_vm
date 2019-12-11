@@ -230,6 +230,7 @@ typedef struct _str {
 } str_t ;
 
 obj_t * C_str(char * str) ;
+obj_t * C_stringify(obj_t * obj) ;
 obj_t * C_str_copy(obj_t * old) ;
 void gen_repr_str(obj_t * obj) ;
 void D_str(obj_t ** str_ptr) ;

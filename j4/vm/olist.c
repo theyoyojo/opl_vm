@@ -6,13 +6,13 @@
 
 enum dummy { DONT_CARE } ;
 
-#define OLIST_HANDLE_MASK	0xffffff0UL
+#define OLIST_HANDLE_MASK	0xfffffffffff0UL
 
 #define OLIST_HEAD(___handle) ((((olist_t *)((size_t)___handle & OLIST_HANDLE_MASK)))->head)
 
 
 
-#define OLIST_LENGTH_SHIFT 	28UL
+#define OLIST_LENGTH_SHIFT 	48UL
 #define OLIST_LENGTH_BITS	16UL
 #define OLIST_LENGTH_MASK	0xffffUL << OLIST_LENGTH_SHIFT
 

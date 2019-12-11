@@ -22,6 +22,7 @@ static inline void boolify_if_not_already_bool(obj_t ** code, obj_t ** tmp) {
 
 void exec_exception(obj_t ** code_ptr, obj_t * stack, obj_t * msg) {
 	printf("ERROR!\n") ;
+	printf("Code: %s\n", obj_repr(*code_ptr)) ;
 	stack_trace(stack) ;
 	D_OBJ(*code_ptr) ;
 	*code_ptr = C_abort(msg) ;
@@ -143,31 +144,26 @@ obj_t * exec(obj_t * program) {
 					code = frapp_pop_expr(stack_top(stack)) ;
 					env = stack_top_env(stack) ; /* get a new ref to the env */
 				} else if (obj_typeof(tmp1 = frapp_get_first_value(stack_top(stack))) == T_CLO) {
-					/* the business section */
+					/* the business section (where the money is handled (lambdas are money)) */
+
 					/* restore the closure's environment and copy it 
 					 * if I were to simply get a new reference to it,
 					 * I would have dynamic scope. */
 					env = C_obj_copy(clo_get_env_noref(tmp1)) ;
+
 					/* copying an env will copy each element,
 					 * including the closure, which increments the recfnt
 					 * of the original env */
 
 					/* the code continues in the lambda's expr */
 					code = C_obj_copy(lam_get_expr(clo_get_lam(tmp1))) ;
-					/* get the list of values in frapp */
-					/* tmplist = olist_init_copy(frapp_get_vals(stack_top(stack))) ; */
-					/* remove the closure itself from the value list */
-					/* olist_del(tmplist, 0) ; */
-					/* extend the enviroment (this may need backend work)
-					 * I don't overwrite old values, I just append I think */
-					/* this has been fixed, but not for single */
-					env_bind(env, lam_get_binding(clo_get_lam(tmp1)),
-							frapp_get_vals(stack_top(stack))) ;
+
+					/* we pass a ptr to the code ptr so we can handle exceptions */
+					if (env_bind(env, &tmp1, lam_get_binding(clo_get_lam(tmp1)),
+							frapp_get_vals(stack_top(stack))) < 0) {
+						exec_exception(&code, stack, tmp1) ;
+				     	}
 					
-					/* list is coipied so we remove the local instance */
-					/* olist_free(&tmplist) ; */
-					/* tmp1 = clo_get_env_noref(tmp1) ; */
-					/* D_OBJ(tmp1) ; */
 					/* we don't free the closure because it is free'd in stack_chop */
 					stack_chop(stack) ;
 
@@ -177,11 +173,9 @@ obj_t * exec(obj_t * program) {
 					env = stack_top_env(stack) ; /* restore previous env */
 				} else {
 					/* failed delta function */
-					exec_exception(&code, stack, C_app(3, C_prim("+"), C_str("Exception: undefined delta function: "), C_str(" TODO: add stringification of values and expressions"))) ;
-					/* printf("Exception: undefined delta function \"") ; */
-					/* value_print(frapp_get_first_value(stack_top(stack))) ; */
-					/* printf("\"\n") ; */
-					/* stack_trace(stack) ; */
+					exec_exception(&code, stack, C_app(3, C_prim("+"),
+							C_str("Exception: undefined delta function: "),
+							C_str(" TODO: add stringification of values and expressions"))) ;
 							
 				}
 				continue ;
