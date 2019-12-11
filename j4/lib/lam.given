@@ -1,0 +1,28 @@
+[true ($ (x) ($ (y) x))]
+[false ($ (x) ($ (y) y))]
+[lamif ($ (cond) ($ (e_true) ($ (e_false) ((cond e_true) e_false))))]
+
+[++ ($ (x) (+ x 1))]
+
+[zero ($ (f) ($ (x) x))]
+[one ($ (f) ($ (x) (f x)))]
+[two ($ (f) ($ (x) (f ( f x))))]
+[three ($ (f) ($ (x) (f ( f (f x)))))]
+
+[zero? ($ (n) ((n ($ (x) false)) true))]
+[add1 ($ (n) ($ (f) ($ (x) (f ((n f) x)))))]
+[add ($ (n) ($ (m) ($ (f) ($ (x) ((n f ) ((m f) x))))))]
+[mult ($ (n) ($ (m) ($ (f) ($ (x) ((n (m f)) x)))))]
+
+[Pair ($ (a) ($ (b) ($ (c) (((lamif c) a) b))))]
+[1st ($ (Pair) (Pair true))]
+[2nd ($ 2nd (Pairf) (Pairf false))]
+
+[sub1 ($ (n) (1st ((n ($ (p) ((Pair (2nd p)) (add1 (2nd p))))) ((Pair zero) zero))))]
+
+[four (add1 three)]
+[five ((add two) three)]
+[six ((add three) three)]
+
+[zcomb ($ (f) (($ (x) (f ($ (v) ((x x) v)))) ($ (x) (f ($ (v) ((x x) v))))))]
+[mkfac ($ (fac) ($ (n) (((lamif (zero? n)) one) ((mult n) (fac (sub1 n))))))]
