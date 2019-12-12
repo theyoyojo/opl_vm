@@ -1,0 +1,5 @@
+(let(
+	[while ($ (cond action) (if (cond) (action) unit) (rec cond action))]
+	[print/++ ($ (mem) (set-box! (+ 1 (unbox mem))) (print (unbox mem)))]
+	[var (box 0)])
+(while ($ () (< (unbox var) 10)) print/++))

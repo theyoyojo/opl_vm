@@ -1,0 +1,4 @@
+@search<test>
+@given<foo>
+
+(foofunc)
