@@ -104,15 +104,17 @@ void D_lam(obj_t ** lam_ptr) {
 	*lam_ptr = NULL ;
 }
 
+/* better be null terinated */
 obj_t * C_ident(char * name) {
 	assert(name) ;
 	ALLOC_OR_RETNULL(new, ident_t) ;
 	new->head = HEADER_INIT(T_IDENT, ident_t, gen_repr_ident, ident_dec_ref, ident_inc_ref) ;
-	new->size = sizeof(name) ;
-	if (!(new->value = (char *)malloc(new->size* sizeof(char)))) {
+	new->size = strlen(name) ;
+	if (!(new->value = (char *)malloc(new->size * sizeof(char) + 1))) {
 		return NULL ;
 	}
 	strncpy(new->value, name, new->size) ;
+	new->value[new->size] = '\0' ;
 	new->refcnt = 1 ;
 	return (obj_t *) new ;
 }

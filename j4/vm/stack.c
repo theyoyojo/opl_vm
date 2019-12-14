@@ -626,9 +626,7 @@ char * env_get_name(obj_t * env) {
 }
 
 void env_print(obj_t * env) {
-	(void)env ;
-	/* deprecated but I may reuse this funciton */
-	/* printf("Env: %s\n", env_get_name(env)) ; */
+	printf("%s\n", obj_repr(env)) ;
 }
 
 obj_t * C_clo(obj_t * lam, obj_t * env) {

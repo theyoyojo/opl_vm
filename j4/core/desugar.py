@@ -128,6 +128,11 @@ def desugar_case(sexpr):
             e.Application(funl, e.Application(v.Primitive("snd"), switch)),
                 e.Application(funr, e.Application(v.Primitive("snd"), switch)))
 
+# def desugar_define(sexpr):
+    
+#     sexpr = sexpr.rest()
+#     return desugar(s.Cons(s.Atom("let"), s.Cons(s.Cons(),s.Cons(
+
 def desugar_abort(sexpr):
     sexpr = sexpr.rest()
     return e.Abort(desugar(sexpr.first()))
@@ -147,6 +152,7 @@ antirecipies = { \
         "inr":      desugar_inx,
         "case":     desugar_case,
         "abort":    desugar_abort,
+        # "define":   desugar_define,
         }
 
 
