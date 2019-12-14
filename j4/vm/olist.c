@@ -168,7 +168,7 @@ bool olist_insert(olist_t ** list, obj_t * new, size_t index) {
 			olist_length_inc(&list) ;
 			return true ;
 		}
-		for (i = 0, iter = OLIST_HEAD(*list); i < index; iter = iter->next, ++i) ;
+		for (i = 0, iter = OLIST_HEAD(*list); i < index - 1; iter = iter->next, ++i) ;
 		next_tmp = iter->next ;
 		iter->next = new_tmp ;
 		iter->next->next = next_tmp ;

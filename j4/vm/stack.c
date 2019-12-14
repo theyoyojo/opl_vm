@@ -479,7 +479,7 @@ void D_env(obj_t ** env_ptr) {
 int env_bind(obj_t * env, obj_t ** tmp_ptr, olist_t * binding, olist_t * vals) {
 	assert(env) ;
 	size_t bindlen = olist_length(binding) ;
-	size_t vallen = olist_length(vals) - 1;
+	size_t vallen = olist_length(vals) - 1; /* exclude proceeding lambda */
 	static unsigned char index_memo[MAX_BIND_AT_ONCE] ;
 	static char buff[255] ;
 	memset(index_memo, 0, MAX_BIND_AT_ONCE) ;
