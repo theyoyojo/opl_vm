@@ -120,7 +120,6 @@ typedef struct _clo {
 	header_t head ;
 	obj_t * lam ;
 	obj_t * env ;
-	obj_t * env_orig ;
 	int refcnt ;
 } clo_t  ;
 
@@ -128,7 +127,6 @@ typedef struct _clo {
 	.head = HEADER_INIT(T_CLO, clo_t, gen_repr_clo, clo_dec_ref, clo_inc_ref), \
 	.lam =  _lam, \
 	.env = _env, \
-	.env_orig = _env, \
 	.refcnt = 1 }
 
 obj_t * C_clo(obj_t * lam, obj_t * env) ;

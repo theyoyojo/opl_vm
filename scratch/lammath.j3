@@ -1,7 +1,7 @@
 @given<lam>
 
 
-((((zcomb mkfac) six) ++) 0)
+((((zcomb mkfac) ((add six) one) ) ++) 0)
 
 %%
 (((sub1 four) ++) 0)

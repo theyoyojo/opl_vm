@@ -528,35 +528,33 @@ int env_bind(obj_t * env, obj_t ** tmp_ptr, olist_t * binding, olist_t * vals) {
 	return 0 ;
 }
 
+/* does not copy arguments, consumes them*/
 int env_bind_direct(obj_t * env, obj_t * ident, obj_t * value) {
+	
+	env_t * env_ ;
 
-	D_obj_repr(env) ;
+	env_ = (env_t *)env ;
 
-	assert(obj_typeof(env) == T_ENV) ;
+	/* sanity check of non-sane mechanism */
+	assert(olist_length(env_->vals) == olist_length(env_->idents)) ;
 
-	env_t * env_ = (env_t *)env ;
-
-	olist_del(&env_->idents, 0) ;
-	olist_del(&env_->vals, 0) ;
-
-	if (!olist_insert(&env_->idents, ident, 0)) {
-		return 1 ;
+	for (size_t i = 0; i < olist_length(env_->idents); ++i) {
+		if (!ident_cmp(olist_get(env_->idents, i), ident)) {
+			olist_del(&env_->vals, i) ;
+			olist_insert(&env_->vals, value, i) ;
+			D_OBJ(ident) ;
+			return 0 ;
+		}
 	}
 
-	obj_t * tmp = value ;
-
-	if (!olist_insert(&env_->vals, tmp, 0)) {
-		return 1 ;
-	}
+	olist_append(&env_->idents, ident) ;
+	olist_append(&env_->vals, value) ;
 
 	return 0 ;
 }
 
 /* check if an environment maps a variable to a value */
 bool env_maps(obj_t * env, obj_t * ident) {
-	/* if (!env) { */
-	/* 	return false ; */
-	/* } */	
 	assert(env) ;
 	if (env_empty(env)) { /* shortcut */
 		return false ;
@@ -717,6 +715,20 @@ void gen_repr_clo(obj_t * obj) {
 
 }
 
+void clo_remove_self_refs(obj_t * clo) {
+	env_t 	* env ;
+
+	env 	= (env_t *)clo_get_env_noref(clo) ;
+
+	for (size_t i = 0; i < olist_length(env->idents); ++i) {
+		if (olist_get(env->vals, i) == clo) {
+			olist_del(&env->idents, i) ;
+			olist_pop_index(&env->vals, i) ;
+		}
+	}
+
+}
+
 void D_clo(obj_t ** clo_ptr) {
 	assert(clo_ptr) ;
 	assert(*clo_ptr) ;
@@ -724,9 +736,9 @@ void D_clo(obj_t ** clo_ptr) {
 	D_obj_repr(*clo_ptr) ;
 	D_OBJ(clo->lam) ;
 	/* we remove the self-reference in the environment by removing it before freeing the env */
-	olist_pop_index(&(((env_t *)clo->env)->vals), 0) ;
+	/* olist_pop_index(&(((env_t *)clo->env)->vals), 0) ; */
+	clo_remove_self_refs(*clo_ptr) ;
 	D_OBJ(clo->env) ;
-	D_OBJ(clo->env_orig) ;
 	free(clo) ;
 	*clo_ptr = NULL ;
 }

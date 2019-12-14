@@ -116,7 +116,7 @@ obj_t * C_ident(char * name) {
 	strncpy(new->value, name, new->size) ;
 	new->value[new->size] = '\0' ;
 	new->refcnt = 1 ;
-	return (obj_t *) new ;
+	return (obj_t *)new ;
 }
 
 void gen_repr_ident(obj_t * obj) {
