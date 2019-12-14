@@ -1,4 +1,3 @@
-(HL) Write a test program that evaluates factorial using only functions, except for a final conversion to numbers.
 (HL) Write a dozen test programs in J5 using the raw extensions.
 (HL) Extend your standard library to include options and basic list functions, like map, filter, and fold.
 (HL) Write a dozen test J5 programs that use the standard library.

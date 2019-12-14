@@ -1,16 +1,16 @@
 @given<lam>
 
 
-((zcomb mkfac) zero)
+((((zcomb mkfac) six) ++) 0)
 
 %%
+(((sub1 four) ++) 0)
 
 [exp ($ (n) ($ (m) ($ (f) ($ (x) (((m (((mult n) n) ++)) x))))))]
 ((((add three) two) ++) 0))))))
 (((lamif (zero? one)) ($ () 3)) ($ () 44))
 (2nd ((pair one) two))
 (zcomb mkfac)
-(((sub1 four) ++) 0)
 
 (((2nd ((Pair three) five)) ++) 0)
 %%

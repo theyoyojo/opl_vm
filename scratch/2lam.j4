@@ -1,7 +1,8 @@
 @given<lam>
 
-(2nd ((Pair one) two))
+( (((lamif (zero? zero)) ($ () (print 33)) ) (print 44) ))
 
 %%
+(((2nd ((Pair one) two)) ++) 0)
 (((lamif true) ($ () 4) ) ($ () 5))
 %%

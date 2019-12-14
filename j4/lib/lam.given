@@ -26,4 +26,14 @@
 [six ((add three) three)]
 
 [zcomb ($ (f) (($ (x) (f ($ (v) ((x x) v)))) ($ (x) (f ($ (v) ((x x) v))))))]
-[mkfac ($ (fac) ($ (n) (((lamif (zero? n)) one) ((mult n) (fac (sub1 n))))))]
+[mkfac ($ (fac) ($ (n) ((((lamif (zero? n)) ($ (D) one) ) ($ (D) ((mult n) (fac (sub1 n)) )) ) 0)))]
+
+%%
+Notes on lambda calculus factorial:
+The problem was that the body of the false seciton of the lambda-if function was
+an application, which is an expression, and hence was being evaluated before being
+passed to the lambda-if function. To get around this, I changed both results of the branches
+to be lambdas that took a value, ignored it, and returned the branch result, then I applied
+the result of the lambda-if to an arbitrary constant value, therefore allowing for proper
+branching of control flow.
+%%
