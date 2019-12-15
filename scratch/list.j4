@@ -18,4 +18,11 @@
 (print "Range_0_to_10")
 (Print/list (Range 10))
 
+
+%%
+(print "Range_0_to_10_reduced_to_even)
+
+(Print/list (Reduce ($ (x) (x / 2 (Range 10)
+%%
+
 )
