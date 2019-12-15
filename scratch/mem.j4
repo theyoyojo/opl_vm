@@ -1,0 +1,12 @@
+@given<list>
+
+(let(
+	[foo (box (list 1 2 3))])
+
+(Print/list (unbox foo))
+(Print/list (Map ($ (x) (* x x)) (unbox foo))))
+%%
+(set-box! foo (Map ($ (x) (* x x)) (unbox foo)))
+
+(unbox foo))
+%%

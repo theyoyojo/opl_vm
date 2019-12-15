@@ -1,0 +1,7 @@
+(let(
+[foo (box (list 1 2 3))])
+
+(print (unbox foo))
+
+(set-box! foo 4)
+(unbox foo))
