@@ -161,6 +161,8 @@ def desugar_pair(sexpr):
 
     return e.Application(v.Primitive("pair"), sexpr.first(), sexpr.rest().first())
 
+def desugar_callcc(sexpr):
+    return e.CallCC(desugar(sexpr.rest().first()))
 
 antirecipies = { \
         "+":        desugar_arith,
@@ -181,6 +183,7 @@ antirecipies = { \
         "cons":     desugar_cons,
         "nil":      desugar_nil,
         "list":     desugar_list,
+        "call/cc":  desugar_callcc,
         # "define":   desugar_define,
         }
 

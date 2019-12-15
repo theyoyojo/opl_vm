@@ -723,7 +723,7 @@ void gen_repr_str(obj_t * obj) {
 	if (obj->head.repr) {
 		strcpy(obj->head.repr, part1) ;
 		strcat(obj->head.repr, str_get(obj)) ;
-		strcat(obj->head.repr, part1) ;
+		strcat(obj->head.repr, part2) ;
 		obj->head.repr[obj_repr_size(obj)] = '\0' ;
 	}
 }
@@ -795,4 +795,51 @@ obj_t * C_unit_copy(obj_t * old) {
 void D_unit(obj_t ** unit_ptr) {
 	(void)unit_ptr ;
 	_unit_dec() ;
+}
+
+obj_t * C_ccc(obj_t * expr) {
+	ALLOC_OR_RETNULL(new, ccc_t) ;
+	*new = CCC_INIT(expr) ;
+	return (obj_t *)new ;
+}
+
+obj_t * C_ccc_copy(obj_t * old) {
+	ALLOC_OR_RETNULL(new, ccc_t) ;
+	*new = CCC_INIT(C_obj_copy(ccc_get_expr(old))) ;
+	return (obj_t *)new ;
+}
+
+void gen_repr_ccc(obj_t * obj) {
+	static char part1[] = "(call/cc " ;
+	static char part2[] = ")" ;
+	char * expr_repr ;
+
+	expr_repr = obj_repr(ccc_get_expr(obj)) ;
+	obj->head.repr_size =
+		  sizeof(part1)
+		+ obj_repr_size(ccc_get_expr(obj))
+		+ sizeof(part2) ;
+
+	obj->head.repr = (char *)malloc(obj->head.repr_size + 1) ;
+	
+	if (obj->head.repr) {
+		strcpy(obj->head.repr, part1) ;
+		strcat(obj->head.repr, expr_repr) ;
+		strcat(obj->head.repr, part2) ;
+		obj->head.repr[obj_repr_size(obj)] = '\0' ;
+	}
+	
+}
+
+void D_ccc(obj_t ** ccc_ptr) {
+	assert(ccc_ptr) ;
+	assert(*ccc_ptr) ;
+	D_OBJ(((ccc_t *)*ccc_ptr)->expr) ;
+	free(*ccc_ptr) ;
+	*ccc_ptr = NULL ;
+}
+
+obj_t * ccc_get_expr(obj_t * ccc) {
+	assert(obj_typeof(ccc) == T_CCC) ;
+	return ((ccc_t *)ccc)->expr ;
 }

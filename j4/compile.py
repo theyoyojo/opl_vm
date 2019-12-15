@@ -70,6 +70,7 @@ Cs_from_type = {
         e.Application:  "C_app",
         e.If:           "C_if",
         e.Abort:        "C_abort",
+        e.CallCC:       "C_ccc"
         }
 
 def create_C_call(typeof, arglist):

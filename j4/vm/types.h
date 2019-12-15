@@ -245,4 +245,20 @@ obj_t * C_unit_copy(obj_t * old) ;
 void gen_repr_unit(obj_t * obj) ;
 void D_unit(obj_t ** unit_ptr) ;
 
+typedef struct _ccc {
+	header_t head ;
+	obj_t * expr ;
+} ccc_t ;
+
+#define CCC_INIT(_expr) (ccc_t) { \
+	.head = HEADER_INIT(T_CCC, ccc_t, gen_repr_ccc, D_ccc, C_ccc_copy), \
+	.expr = _expr }
+
+obj_t * C_ccc(obj_t * expr) ;
+obj_t * C_ccc_copy(obj_t * old) ;
+void gen_repr_ccc(obj_t * obj) ;
+void D_ccc(obj_t ** ccc_ptr) ;
+
+obj_t * ccc_get_expr(obj_t * ccc) ;
+
 #endif /* !TYPES_H */

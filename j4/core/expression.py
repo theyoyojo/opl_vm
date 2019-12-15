@@ -49,3 +49,14 @@ class Abort(Expression):
 
     def repr(self):
         return "(ABORT {})".format(self.expr().repr())
+
+class CallCC(Expression):
+    attrs = {
+            "args_expected": 1,
+            }
+
+    def expr(self):
+        return self.expressions[0]
+
+    def repr(self):
+        return "(call/cc {})".format(self.expr().repr())
