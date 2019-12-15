@@ -1,0 +1,3 @@
+@given<list>
+
+(Reduce + 0 (Map ($ (x) (* x x)) (Filter ($ (x) (= (mod x 2) 0)) (Range 20))))

@@ -78,13 +78,15 @@ void D_frret(obj_t ** frret_ptr) ;
 typedef struct _frfr {
 	header_t head ;
 	obj_t * frame ;
+	obj_t * env ;
 } frfr_t ;
 
-#define FRFR_INIT(_frame) (frfr_t) { \
+#define FRFR_INIT(_frame, _env) (frfr_t) { \
 	.head = HEADER_INIT(T_FRFR, frfr_t, gen_repr_frfr, D_frfr, C_frfr_copy), \
-	.frame = C_obj_copy(_frame) }
+	.frame = C_obj_copy(_frame), \
+	.env = env_inc_ref(_env) }
 
-obj_t * C_frfr(obj_t * frame) ;
+obj_t * C_frfr(obj_t * frame, obj_t * env) ;
 obj_t * C_frfr_copy(obj_t * old) ;
 void gen_repr_frfr(obj_t * obj) ;
 void D_frfr(obj_t ** frfr_ptr) ;

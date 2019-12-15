@@ -130,6 +130,9 @@ obj_t * stack_top_env(obj_t * stack) {
 	case T_FRRET:
 		env_ptr = &((frret_t *)stack_top(stack))->env ;
 		break ;
+	case T_FRFR:
+		env_ptr = &((frfr_t *)stack_top(stack))->env ;
+		break ;
 	default:
 		env_ptr = NULL ;
 		printf("Exception: non frame object in stack\n") ;
@@ -381,15 +384,15 @@ void gen_repr_frret(obj_t * obj) {
 	}
 }
 
-obj_t * C_frfr(obj_t * frame) {
+obj_t * C_frfr(obj_t * frame, obj_t * env) {
 	ALLOC_OR_RETNULL(new, frfr_t) ;
-	*new = FRFR_INIT(frame) ;
+	*new = FRFR_INIT(frame, env) ;
 	return (obj_t *)new ;
 }
 
 obj_t * C_frfr_copy(obj_t * old) {
 	ALLOC_OR_RETNULL(new, frfr_t) ;
-	*new = FRFR_INIT(C_obj_copy(frfr_get_fr(old))) ;
+	*new = FRFR_INIT(C_obj_copy(frfr_get_fr(old)), ((frfr_t *)old)->env) ;
 	return (obj_t *)new ;
 }
 
@@ -418,7 +421,9 @@ void gen_repr_frfr(obj_t * obj) {
 void D_frfr(obj_t ** frfr_ptr) {
 	assert(frfr_ptr) ;
 	assert(*frfr_ptr) ;
+	D_obj_repr(*frfr_ptr) ;
 	D_OBJ(((frfr_t *)*frfr_ptr)->frame) ;
+	D_OBJ(((frfr_t *)*frfr_ptr)->env) ;
 	free(*frfr_ptr) ;
 	*frfr_ptr = NULL ;
 }

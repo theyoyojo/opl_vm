@@ -47,7 +47,8 @@ bool obj_isframe(obj_t * obj) {
 	assert(obj) ;
 	return obj_typeof(obj) == T_FRIF ||
 		obj_typeof(obj) == T_FRAPP ||
-		obj_typeof(obj) == T_FRRET ;
+		obj_typeof(obj) == T_FRRET ||
+		obj_typeof(obj) == T_FRFR ;
 }
 
 void D_obj_repr(obj_t * obj) {

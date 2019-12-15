@@ -141,6 +141,13 @@ obj_t * exec(obj_t * program) {
 					env = stack_top_env(stack) ;
 				}
 				continue ;
+			case T_FRFR:
+				D_OBJ(env) ;
+				tmp1 = C_obj_copy(frfr_get_fr(stack_top(stack))) ;
+				env = stack_top_env(stack) ;
+				stack_chop(stack) ;
+				stack_push(stack, tmp1) ;
+				continue ;
 			default:
 				exec_exception(&code, stack, C_str("Excepton: illegal stack object")) ;
 				continue ;
@@ -174,10 +181,15 @@ obj_t * exec(obj_t * program) {
 			D_OBJ(code) ;
 			code = tmp1 ;
 			continue ;
+		case T_CCC:
+			tmp1 = C_obj_copy(ccc_get_expr(code)) ;
+			stack_push(stack, C_frfr(stack_top(stack), env)) ;
+			D_OBJ(code) ;
+			code = tmp1 ;
+			continue ;
 		default:
 			exec_exception(&code, stack, C_str("Exception: unidentifiable code")) ;
-			break ;
-			
+			continue ;
 		}
 	}
 

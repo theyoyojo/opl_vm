@@ -834,6 +834,7 @@ void gen_repr_ccc(obj_t * obj) {
 void D_ccc(obj_t ** ccc_ptr) {
 	assert(ccc_ptr) ;
 	assert(*ccc_ptr) ;
+	D_obj_repr(*ccc_ptr) ;
 	D_OBJ(((ccc_t *)*ccc_ptr)->expr) ;
 	free(*ccc_ptr) ;
 	*ccc_ptr = NULL ;

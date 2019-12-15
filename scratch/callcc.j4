@@ -1,0 +1,4 @@
+(let(
+[foo ($ (x) (call/cc x))])
+
+(+ 1 (foo 3)))
