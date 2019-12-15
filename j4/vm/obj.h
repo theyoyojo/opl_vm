@@ -26,6 +26,7 @@ typedef enum _type {
 	T_FRIF,
 	T_FRAPP,
 	T_FRRET,
+	T_FRFR,
 	T_ENV,
 	T_CLO,
 } type_t ;

@@ -4,6 +4,7 @@
 ((((zcomb mkfac) ((add six) one) ) ++) 0)
 
 %%
+Other things I was testing
 (((sub1 four) ++) 0)
 
 [exp ($ (n) ($ (m) ($ (f) ($ (x) (((m (((mult n) n) ++)) x))))))]

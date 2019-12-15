@@ -381,6 +381,54 @@ void gen_repr_frret(obj_t * obj) {
 	}
 }
 
+obj_t * C_frfr(obj_t * frame) {
+	ALLOC_OR_RETNULL(new, frfr_t) ;
+	*new = FRFR_INIT(frame) ;
+	return (obj_t *)new ;
+}
+
+obj_t * C_frfr_copy(obj_t * old) {
+	ALLOC_OR_RETNULL(new, frfr_t) ;
+	*new = FRFR_INIT(C_obj_copy(frfr_get_fr(old))) ;
+	return (obj_t *)new ;
+}
+
+void gen_repr_frfr(obj_t * obj) {
+	static char part1[] = "[Kcallcc " ;
+	static char part2[] = "]" ;
+
+	char * frame_repr = obj_repr(frfr_get_fr(obj)) ;
+
+	obj->head.repr_size =
+		  sizeof(part1)
+		+ obj_repr_size(frfr_get_fr(obj))
+		+ sizeof(part2) ;
+
+	obj->head.repr = (char *)malloc(obj->head.repr_size + 1) ;
+
+	if (obj->head.repr) {
+		strcpy(obj->head.repr, part1) ;
+		strcat(obj->head.repr, frame_repr) ;
+		strcat(obj->head.repr, part2) ;
+		obj->head.repr[obj_repr_size(obj)] = '\0' ;
+	}
+	
+}
+
+void D_frfr(obj_t ** frfr_ptr) {
+	assert(frfr_ptr) ;
+	assert(*frfr_ptr) ;
+	D_OBJ(((frfr_t *)*frfr_ptr)->frame) ;
+	free(*frfr_ptr) ;
+	*frfr_ptr = NULL ;
+}
+
+obj_t * frfr_get_fr(obj_t * frfr) {
+	assert(obj_typeof(frfr) == T_FRFR) ;
+	return ((frfr_t *)frfr)->frame ;
+}
+
+
 obj_t * C_env(void) {
 	ALLOC_OR_RETNULL(new, env_t) ;
 	*new = ENV_INIT() ;

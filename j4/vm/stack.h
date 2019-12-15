@@ -73,6 +73,24 @@ obj_t * C_frret_copy(obj_t * old) ;
 void gen_repr_frret(obj_t * obj) ;
 void D_frret(obj_t ** frret_ptr) ;
 
+
+/* frame for a frame (implements call/cc) */
+typedef struct _frfr {
+	header_t head ;
+	obj_t * frame ;
+} frfr_t ;
+
+#define FRFR_INIT(_frame) (frfr_t) { \
+	.head = HEADER_INIT(T_FRFR, frfr_t, gen_repr_frfr, D_frfr, C_frfr_copy), \
+	.frame = C_obj_copy(_frame) }
+
+obj_t * C_frfr(obj_t * frame) ;
+obj_t * C_frfr_copy(obj_t * old) ;
+void gen_repr_frfr(obj_t * obj) ;
+void D_frfr(obj_t ** frfr_ptr) ;
+
+obj_t * frfr_get_fr(obj_t * frfr) ;
+
 /* an enviromemnt for lazy variable substitution */
 typedef struct _env {
 	header_t head ;
