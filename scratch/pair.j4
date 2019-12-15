@@ -1,4 +1,0 @@
-(let*(
-	[Nil (inl unit)]
-	[Cons ($ (l r) (inr (pair l r)))])
-(Cons 1 Nil))

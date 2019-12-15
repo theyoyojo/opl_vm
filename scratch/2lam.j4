@@ -1,6 +1,6 @@
 @given<lam>
 
-( (((lamif (zero? zero)) ($ () (print 33)) ) (print 44) ))
+((((lamif (zero? zero)) ($ () (print 33)) ) (print 44) ))
 
 %%
 (((2nd ((Pair one) two)) ++) 0)

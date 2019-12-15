@@ -1,0 +1,21 @@
+@given<list>
+
+(let(
+[lst (Cons 1 (Cons 2 (Cons 3 Nil )))])
+
+(print "original_list:")
+(Print/list lst)
+
+(print "reduced_empty")
+(print (Reduce + 0 Nil))
+
+(print "reduced")
+(print (Reduce + 0 lst))
+
+(print "list_mapped_2x")
+(Print/list (Map ($ (x) (* 2 x)) lst))
+
+(print "Range_0_to_10")
+(Print/list (Range 10))
+
+)
