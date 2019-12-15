@@ -28,44 +28,6 @@ void exec_exception(obj_t ** code_ptr, obj_t * stack, obj_t * msg) {
 	*code_ptr = C_abort(msg) ;
 }
 
-void exec_pair_resolve(obj_t * env, obj_t * pair, obj_t * stack) {
-
-	obj_t * tmp ;		
-
-	switch(obj_typeof(pair_first(pair))) {
-	case T_IDENT:
-		if (env_maps(env, (tmp = pair_first(pair)))) {
-			pair_overwrite_first(pair, env_subst(env, tmp)) ;
-		} else {
-			exec_exception(&tmp, stack, C_app(3,
-				C_prim("+"), C_str("Exception: unbound identifier: "),
-				C_str(ident_get_name(tmp)))) ;
-		}
-		break ;
-	case T_PAIR:
-		exec_pair_resolve(env, pair_first(pair), stack) ;
-	default:
-		break ;
-
-	}
-	switch(obj_typeof(pair_second(pair))) {
-	case T_IDENT:
-		if (env_maps(env, (tmp = pair_second(pair)))) {
-			pair_overwrite_second(pair, env_subst(env, tmp)) ;
-		} else {
-			exec_exception(&tmp, stack, C_app(3,
-				C_prim("+"), C_str("Exception: unbound identifier: "),
-				C_str(ident_get_name(tmp)))) ;
-		}
-		break ;
-	case T_PAIR:
-		exec_pair_resolve(env, pair_second(pair), stack) ;
-	default:
-		break ;
-	}
-}
-
-
 #define endlessly_repeat while (++cycle_count || 1)
 #define ARBITRARY_STACK_HEIGHT_LIMIT 1000
 
@@ -75,7 +37,6 @@ obj_t * exec(obj_t * program) {
 	      * env 	= C_env(),  		/* E */
   	      * stack 	= C_stack(),   		/* K */
 	      * tmp1 	= NULL ;		/* 0 machine */
-	/* olist_t * tmplist = NULL ; */
 	mem_system_init() ;
 	size_t cycle_count = 0 ;
 
@@ -109,7 +70,6 @@ obj_t * exec(obj_t * program) {
 				continue ;
 			}
 		case T_PAIR:
-			exec_pair_resolve(env, code, stack) ;
 		case T_NUM:
 		case T_BOOL:
 		case T_PRIM:

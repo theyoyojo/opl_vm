@@ -22,7 +22,7 @@ obj_t * mem_alloc_init(obj_t * obj) {
 
 	new->size = obj_sizeof(obj) ;
 	new->mem = malloc(new->size) ;
-	memcpy(new->mem, obj, new->size) ;
+	memcpy(new->mem, C_obj_copy(obj), new->size) ;
 	new->next = head ;
 	head = new ;
 

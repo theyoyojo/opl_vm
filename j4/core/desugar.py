@@ -115,7 +115,7 @@ def desugar_inx(sexpr):
     else:
         salt()
 
-    return v.Pair(v.Bool(first), desugar(sexpr.rest().first()))
+    return e.Application(v.Primitive("pair"), v.Bool(first), desugar(sexpr.rest().first()))
 
 def desugar_case(sexpr):
     sexpr = sexpr.rest()
@@ -153,6 +153,14 @@ def desugar_list(sexpr):
         return desugar(s.Cons(s.Atom("cons"), s.Cons(sexpr.first(), s.Cons(s.Cons(s.Atom("list"), sexpr.rest()), s.Nil()))))
 
 
+def desugar_pair(sexpr):
+    sexpr = sexpr.rest()
+
+    if sexpr.length() < 2:
+        salt()
+
+    return e.Application(v.Primitive("pair"), sexpr.first(), sexpr.rest().first())
+
 
 antirecipies = { \
         "+":        desugar_arith,
@@ -165,7 +173,7 @@ antirecipies = { \
         "$":        desugar_lambda, # Lambdas are money
         "let":      desugar_let,
         "let*":     desugar_let_star,
-        "pair":     desugar_pair,
+        "pair":     desugar_generic_app,
         "inl":      desugar_inx,
         "inr":      desugar_inx,
         "case":     desugar_case,

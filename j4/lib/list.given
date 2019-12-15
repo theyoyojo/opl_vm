@@ -1,0 +1,8 @@
+[Nil (inl unit)]
+[Cons ($ (l r) (inr (pair l r)))]
+[Length ($ rlen (l) (case l ($ (x) 0) ($ (x) (+ 1 (rlen (snd x))))))]
+[Map ($ rmap (f l) (case l ($ (x) l) ($ (x) (Cons (f (fst x)) (rmap f (snd x))))))]
+[Reduce ($ rreduce (f z l) (case l ($ (x) z) ($ (x) (rreduce f (f z (fst x)) (snd x)))))]
+[Print/list ($ rprint (l) (case l ($ (x) (print "<list_end>")) ($ (x) (print (fst x)) (rprint (snd x)))))]
+[Range ($ (n) (($ (l n) (if (>= n 0) (rec (Cons n l) (- n 1)) l)) Nil (- n 1)))]
+[Filter ($ rfilter (cf l) (case l ($ (x) l) ($ (x) (if (cf (fst x)) (Cons (fst x) (rfilter cf (snd x))) (rfilter cf (snd x)) ))))]
