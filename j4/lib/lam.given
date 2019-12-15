@@ -36,4 +36,6 @@ passed to the lambda-if function. To get around this, I changed both results of 
 to be lambdas that took a value, ignored it, and returned the branch result, then I applied
 the result of the lambda-if to an arbitrary constant value, therefore allowing for proper
 branching of control flow.
+
+This task was the most challenging of the entire project and it took me the longest out of all of them.
 %%

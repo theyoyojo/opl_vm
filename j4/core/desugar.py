@@ -137,11 +137,29 @@ def desugar_abort(sexpr):
     sexpr = sexpr.rest()
     return e.Abort(desugar(sexpr.first()))
 
+def desugar_cons(sexpr):
+    sexpr = sexpr.rest()
+    return desugar(s.Cons(s.Atom("inr"), s.Cons(s.Cons(s.Atom("pair"), s.Cons(sexpr.first(), sexpr.rest())), s.Nil())))
+
+def desugar_nil(sexpr):
+    return desugar(s.Cons(s.Atom("inl"), s.Cons(s.Atom("unit"), s.Nil())))
+
+def desugar_list(sexpr):
+    sexpr = sexpr.rest()
+
+    if isinstance(sexpr, s.Nil):
+        return desugar_nil(sexpr)
+    else:
+        return desugar(s.Cons(s.Atom("cons"), s.Cons(sexpr.first(), s.Cons(s.Cons(s.Atom("list"), sexpr.rest()), s.Nil()))))
+
+
+
 antirecipies = { \
         "+":        desugar_arith,
         "-":        desugar_arith,
         "*":        desugar_arith,
         "/":        desugar_arith,
+        "mod":      desugar_arith,
         "if":       desugar_if,
         "lambda":   desugar_lambda,
         "$":        desugar_lambda, # Lambdas are money
@@ -152,6 +170,9 @@ antirecipies = { \
         "inr":      desugar_inx,
         "case":     desugar_case,
         "abort":    desugar_abort,
+        "cons":     desugar_cons,
+        "nil":      desugar_nil,
+        "list":     desugar_list,
         # "define":   desugar_define,
         }
 
@@ -180,16 +201,6 @@ def desugar_atom(sexpr):
     else:
         return v.ID(sexpr.repr())
 
-
-def desugar_cons(sexpr):
-    action = sexpr.first().repr()
-    if action in antirecipies:
-        return antirecipies[action](sexpr)
-    elif sexpr.length() == 1:
-        return desugar(sexpr.first())
-    # Might be function call or something
-    else:
-        return e.Application(*sexpr_to_tuple(sexpr))
 
 def desugar(sexpr):
     if isinstance(sexpr, s.Atom):

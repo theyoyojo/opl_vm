@@ -24,6 +24,10 @@ obj_t * delta_sub(num_t * first, num_t * second) {
 	return C_num(first->value - second->value) ;
 }
 
+obj_t * delta_mod(num_t * first, num_t * second) {
+	return C_num((double)((long long)first->value % (long long)second->value)) ;
+}
+
 obj_t * delta_lteq(num_t * first, num_t * second) {
 	return C_bool(first->value <= second->value) ;
 }
@@ -49,6 +53,7 @@ obj_t * (*dtable_binary_num_num[])(num_t *, num_t *) = {
 	[PRIM_MULT] = delta_mult,
 	[PRIM_DIV]  = delta_div,
 	[PRIM_SUB]  = delta_sub,
+	[PRIM_MOD]  = delta_mod,
 	[PRIM_LTEQ] = delta_lteq,
 	[PRIM_LT]   = delta_lt,
 	[PRIM_EQ]   = delta_eq,

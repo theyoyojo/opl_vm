@@ -537,6 +537,7 @@ char * prim_syms[] = {
 	[PRIM_MULT]	= "*",
 	[PRIM_DIV]	= "/",
 	[PRIM_SUB]	= "-",
+	[PRIM_MOD]	= "mod",
 	[PRIM_LTEQ]	= "<=",
 	[PRIM_LT]	= "<",
 	[PRIM_EQ]	= "=",

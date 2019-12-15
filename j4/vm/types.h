@@ -16,6 +16,7 @@ typedef enum {
 	PRIM_MULT,
 	PRIM_DIV,
 	PRIM_SUB,
+	PRIM_MOD,
 	PRIM_LTEQ,
 	PRIM_LT,
 	PRIM_EQ,

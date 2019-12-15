@@ -19,10 +19,10 @@
 (Print/list (Range 10))
 
 
-%%
-(print "Range_0_to_10_reduced_to_even)
+(print "Range_0_to_10_reduced_to_even")
 
-(Print/list (Reduce ($ (x) (x / 2 (Range 10)
-%%
+(Print/list (Filter ($ (x) (= (mod x 2) 0)) (Range 10)))
+
+(Length (list 1 2 3 4 5 6 7 8))
 
 )
