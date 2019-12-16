@@ -22,6 +22,7 @@ obj_t * stack_top(obj_t * stack) ;
 void stack_trace(obj_t * stack) ;
 size_t stack_height(obj_t * stack) ;
 obj_t * stack_top_env(obj_t * stack) ;
+olist_t * stack_data(obj_t * stack) ;
 
 /* frame for an if */
 typedef struct _frif {

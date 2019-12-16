@@ -8,11 +8,9 @@
 					if(!id) return NULL
 
 typedef enum _type {
-	T_EXP,
 	T_APP,
 	T_IF,
 	T_CCC,
-	T_VAL,
 	T_BOOL,
 	T_PRIM,
 	T_NUM,

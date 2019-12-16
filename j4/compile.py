@@ -26,10 +26,12 @@ OUTPUT_HEADER = \
 #include <interp.h>
 
 int main(void) {
+        mem_sys_up() ;
 """
 
 OUTPUT_FOOTER = \
-"""        return 0 ;
+"""        mem_sys_down() ;
+        return 0 ;
 }
 """
 

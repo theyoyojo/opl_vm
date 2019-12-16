@@ -144,6 +144,10 @@ obj_t * stack_top_env(obj_t * stack) {
 	
 }
 
+olist_t * stack_data(obj_t * stack) {
+	return ((stack_t *)stack)->data ;
+}
+
 obj_t * C_frif(obj_t * ifexpr, obj_t * env) {
 	assert(obj_typeof(ifexpr) == T_IF) ;
 	ALLOC_OR_RETNULL(new, frif_t) ;

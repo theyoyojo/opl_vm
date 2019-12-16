@@ -37,7 +37,6 @@ obj_t * exec(obj_t * program) {
 	      * env 	= C_env(),  		/* E */
   	      * stack 	= C_stack(),   		/* K */
 	      * tmp1 	= NULL ;		/* 0 machine */
-	mem_system_init() ;
 	size_t cycle_count = 0 ;
 
 	stack_push(stack, C_frret(env)) ;
@@ -194,7 +193,6 @@ obj_t * exec(obj_t * program) {
 	}
 
 success:
-	mem_system_free() ;
 	D_OBJ	(tmp1) 	;	/* machine 0 */
 	D_OBJ	(stack) ;		/* K */
 	D_OBJ	(env) 	;		/* E */
