@@ -51,28 +51,15 @@ do
 	next_test=`basename $next_test`
 	total=$[$total + 1]
 	
-
-	# Get compiled value
-	$J4_PATH/compile.sh "$next_test" "tmp/$next_test.exe" >/dev/null
+	# Get program value
+	$J4_PATH/compile.sh -n "$next_test" "tmp/$next_test.exe" >/dev/null
 	expected_v=`cat "$next_test.v"`
 	vm_v=`tmp/$next_test.exe`
 
-	# Get interpreted value
-	$J4_PATH/parse/parse0 < "$next_test" | $J4_PATH/parse/parse1 | $J4_PATH/parse/parse2 > "tmp/$next_test.pyraw"
-	$J4_PATH/cathead.sh "tmp/$next_test.pyraw" > "tmp/$next_test.py"
-	# py_v=`$J4_PATH/quickinterp.py tmp/$next_test.py`
-	# echo $py_v
-
-	# TODO interpreted assertion
-	# echo "Testing if $expected_v == $vm_v"
 	if [[ "0" != `bc <<<"$expected_v - $vm_v"` ]]
 	then
-		echo "Test case \"$next_test\" failed for VM!"
+		echo "Test case \"$next_test\" failed!"
 		echo "	expected: $expected_v, got: $vm_v"
-	# elif [[ "0" != `bc <<<"$expected_v - $py_v"` ]]
-	# then
-	# 	echo "Test case \"$next_test\" failed for Python!"
-	# 	echo "	expected: $expected_v, got: $py_v"
 	else
 		echo "PASS $next_test"
 		passed=$[$passed + 1]

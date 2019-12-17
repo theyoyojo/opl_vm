@@ -6,8 +6,25 @@
 static int init_success = -1 ;
 
 static obj_t ** memtab ;
-static size_t memtab_size ;
-static size_t memtab_capacity ;
+static size_t 	memtab_size ;
+static size_t 	memtab_capacity ;
+
+#undef SCGC
+#ifdef SCGC
+
+static obj_t ** memtab_to ;
+static size_t 	memtab_to_size ;
+static size_t 	memtab_to_capacity ;
+
+#endif 
+
+struct tmplist {
+	obj_t * tmp ;
+#ifdef SCCG
+	unsigned long addr ;
+#endif
+	struct tmplist * next ;
+} ;
 
 #define MEMTAB_CAPACITY_INIT 	64
 
@@ -87,6 +104,16 @@ int mem_sys_up(void) {
 
 	memtab_size  = 0 ;
 	memset(memtab, 0, memtab_capacity) ;
+
+#ifdef SCGC
+	memtab_t_capacity = MEMTAB_CAPACITY_INIT ;
+	if (!(memtab_t = (obj_t **)malloc(sizeof(obj_t *) * memtab_t_capacity))) {
+		MEM_SYS_OOPS() ;
+		return -1 ; }
+
+	memtab_t_size  = 0 ;
+	memset(memtab_t, 0, memtab_t_capacity) ;
+#endif
 
 	rq_capacity = RQ_CAPACITY_INIT ;
 	if (!(rq = (obj_t **)malloc(sizeof(obj_t *) * rq_capacity))) {
@@ -214,23 +241,24 @@ obj_t * mem_set(obj_t * ptr, obj_t * newval) {
 int mem_gc(obj_t * code, obj_t * env, obj_t * stack) {
 #ifdef NOGC
 	/* the trash heap strategy: we just pile it on until we have to get rid of it */
+	/* all allocated memory will be reported as free'd in MEM_DEBUG mode by sys_down */
 	return 0 ;
 #else 
-
 	MEM_printf("====[G C]====\n") ;
 
 #ifdef SCGC /* maybe I can do this one too... */
-	
+	MEM_printf("===[S & C]===\n") ;
 #else
-
+	MEM_printf("===[M & S]===\n") ;
 #endif
-	/* a last-ditch attempt at mark and sweep garbage collection */
-
 	obj_t 		* tmp,
 			* tmp2 ;
 	olist_t 	* tmplist ;
 	size_t 		i ;
+	struct tmplist  * head,
+			* tmplist_tmp;
 
+	head = tmplist_tmp = NULL ;
 
 	/* mark */
 	rq_push(code) ;		/*  t h e  */
@@ -273,8 +301,26 @@ int mem_gc(obj_t * code, obj_t * env, obj_t * stack) {
 			break ;
 		case T_PTR:
 			/* the money */
+#ifdef SCGC
+			
+#else
 			mem_ptr_mark(tmp) ;
 			MEM_printf("gc: MARK reachable '%s'\n", obj_repr(tmp)) ;
+#endif
+			/* we need to search at the address of the pointer for other pointers,
+			 * but doing so requires we copy the object from memory. mem_gc is
+			 * respobsible for this temporarily allocated memory.
+			 */
+			if (!(tmplist_tmp = (struct tmplist *)malloc(sizeof(struct tmplist)))) {
+				fprintf(stderr, "gc: Critical allocaiton failure\n") ;
+				exit(1) ; }
+			tmplist_tmp->tmp = mem_deref(tmp) ;
+#ifdef SGCG
+			tmplist_tmp->addr = (unsigned long)ptr_add(tmp) ;
+#endif
+			tmplist_tmp->next = head ;
+			head = tmplist_tmp ;
+			rq_push(head->tmp) ;
 			break ;
 		case T_STR:
 			/* no-op */
@@ -327,8 +373,9 @@ int mem_gc(obj_t * code, obj_t * env, obj_t * stack) {
 		}
 	}
 
-	/* sweep */
 
+#ifndef SCGC
+	/* sweep */
 	for (i = 0; i < memtab_size; ++i) {
 		if (!MEMTAB_VALID(i)) { 
 			continue ; }
@@ -340,6 +387,16 @@ int mem_gc(obj_t * code, obj_t * env, obj_t * stack) {
 		else {
 			MEM_printf("gc: SWEEP %zu/%-zu REACHABLE...\n", i, memtab_size - 1) ;
 			mem_index_unmark(i) ; } }
+#else
+	/* ?? */
+#endif
+
+
+	for (;head;) {
+		tmplist_tmp = head->next ;
+		D_OBJ(head->tmp) ;
+		free(head) ;
+		head = tmplist_tmp ; }
 
 	if (rq_size != 0) {
 		fprintf(stderr, "Error: garbage collector broke\n") ;
@@ -368,6 +425,9 @@ int mem_sys_down(void) {
 			} }
 
 	free(memtab) ;
+#ifdef SCGC
+	free(memtab_to) ;
+#endif
 	free(rq) ;
 
 	if (MEM_SYS_VALIDATE()) {

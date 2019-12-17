@@ -1,0 +1,6 @@
+@given<lam>
+
+(let(
+[fib (zcomb mkfib)]
+[ten ((add ((add ((add three) three)) three)) one)])
+(((fib ten) ++) 0))

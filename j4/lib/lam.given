@@ -22,19 +22,17 @@
 
 [sub1 ($ (n) (1st ((n ($ (p) ((Pair (2nd p)) (add1 (2nd p))))) ((Pair zero) zero))))]
 
-[one? ($ (n) (((sub1 n) ($ (x) false)) true))]
+[zero-or-one? ($ (n) (zero? (sub1 n)))]
 
 [four (add1 three)]
 [five ((add two) three)]
 [six ((add three) three)]
 
 [zcomb ($ (f) (($ (x) (f ($ (v) ((x x) v)))) ($ (x) (f ($ (v) ((x x) v))))))]
-[mkfac ($ (fac) ($ (n) ((((lamif (zero? n)) ($ (D) one) ) ($ (D) ((mult n) (fac (sub1 n)) )) ) 0)))]
+[mkfac ($ (fac) ($ (n) ((((lamif (zero? n)) ($ () one) ) ($ () ((mult n) (fac (sub1 n))))))))]
+[mkfib ($ (fib) ($ (n) ((((lamif (zero? n)) ($ () zero)) (($ () (((lamif (zero-or-one? n)) ($ () one))
+	($ () ((add (fib (sub1 n))) (fib (sub1 (sub1 n))))))))))))]
 
-%%
-[mkfib ($ (fib) ($ (n) (((( (lamif
-	lamif (zero? n)) ($ (D) one) ) ($ (D) ((mult n) (fac (sub1 n)) )) ) 0)))]
-%%
 
 %%
 Notes on lambda calculus factorial:
