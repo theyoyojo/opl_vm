@@ -178,16 +178,16 @@ obj_t * C_ptr_copy(obj_t * old) {
 }
 
 void gen_repr_ptr(obj_t * obj) {
-	static char part1[] = "##" ;
-	static char part2[] = "@@" ;
-	static char part3[] = "##" ;
+	static char part1[] = "##<" ;
+	static char part2[] = "/" ;
+	static char part3[] = ">##" ;
 	static char buff1[16] ;
 	static char buff2[16] ;
 	size_t addr_str_size,
 	       size_str_size ;
 
 	size_str_size = sprintf(buff1, "%zu", ptr_size(obj)) ;
-	addr_str_size = sprintf(buff2, "%p", ptr_addr(obj)) ;
+	addr_str_size = sprintf(buff2, "%lu", (unsigned long)ptr_addr(obj)) ;
 
 	obj->head.repr_size =
 		  sizeof(part1)
@@ -200,9 +200,9 @@ void gen_repr_ptr(obj_t * obj) {
 
 	if (obj->head.repr) {
 		strcpy(obj->head.repr, part1) ;
-		strcat(obj->head.repr, buff1) ;
-		strcat(obj->head.repr, part2) ;
 		strcat(obj->head.repr, buff2) ;
+		strcat(obj->head.repr, part2) ;
+		strcat(obj->head.repr, buff1) ;
 		strcat(obj->head.repr, part3) ;
 		obj->head.repr[obj_repr_size(obj)] = '\0' ;
 	}

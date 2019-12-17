@@ -51,7 +51,6 @@ obj_t * exec(obj_t * program) {
 		printf("Code: %s\n", obj_repr(code)) ;
 		printf("Env : %s\n", obj_repr(env)) ;
 		printf("Kont: %s\n", obj_repr(stack_top(stack))) ;
-		printf("=============\n") ;
 #endif 
 		if (stack_height(stack) > ARBITRARY_STACK_HEIGHT_LIMIT) {
 			exec_exception(&code, stack, C_str("Exception: stack overflow")) ;

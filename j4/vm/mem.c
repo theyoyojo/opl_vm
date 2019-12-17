@@ -48,7 +48,7 @@ int rq_push(obj_t * obj) {
 		rq = tmp_ptr ;
 	}
 
-	printf("writing to rq[last=%zu]\n", rq_last) ;
+	/* printf("writing to rq[last=%zu, size=%zu]\n", rq_last, rq_size) ; */
 	rq[rq_last] = obj ;
 
 	rq_last = (rq_last + 1) % rq_capacity ;
@@ -61,6 +61,7 @@ obj_t * rq_pop(void) {
 	if (rq_size <= 0) {
 		return NULL ; }
 
+	/* printf("reading from rq[first=%zu, size=%zu]\n", rq_first, rq_size) ; */
 	tmp = rq[rq_first] ;
 	rq_first = (rq_first + 1) % rq_capacity ;
 	--rq_size ;
@@ -192,14 +193,13 @@ obj_t * mem_set(obj_t * ptr, obj_t * newval) {
 		if (!(tmp = C_obj_copy(newval))) {
 			MEM_SYS_OOPS() ;
 			return C_abort(C_str("Exception: unable to allocate memory")) ; }
-		tmp2 = MEMTAB_DEREF(index) ;
-		D_OBJ(tmp2) ;
+		if (MEMTAB_VALID(index)) {
+			tmp2 = MEMTAB_DEREF(index) ;
+			D_OBJ(tmp2) ; }
 		memtab[index] = tmp ;
 		MEMTAB_SETV(index, 1) ;
 		return C_obj_copy(ptr) ; }
 }
-
-#undef NOGC
 
 int mem_gc(obj_t * code, obj_t * env, obj_t * stack) {
 #ifdef NOGC
@@ -212,6 +212,8 @@ int mem_gc(obj_t * code, obj_t * env, obj_t * stack) {
 			* tmp2 ;
 	olist_t 	* tmplist ;
 	size_t 		i ;
+
+	MEM_printf("====[G C]====\n") ;
 
 	/* mark */
 	rq_push(code) ;		/*  t h e  */
@@ -255,6 +257,7 @@ int mem_gc(obj_t * code, obj_t * env, obj_t * stack) {
 		case T_PTR:
 			/* the money */
 			mem_ptr_mark(tmp) ;
+			MEM_printf("gc: MARK reachable '%s'\n", obj_repr(tmp)) ;
 			break ;
 		case T_STR:
 			/* no-op */
@@ -310,10 +313,15 @@ int mem_gc(obj_t * code, obj_t * env, obj_t * stack) {
 	/* sweep */
 
 	for (i = 0; i < memtab_size; ++i) {
-		if (!MEMTAB_REACH(i)) {
+		if (!MEMTAB_VALID(i)) { 
+			continue ; }
+		else if (!MEMTAB_REACH(i)) {
+			MEM_printf("gc: SWEEP %zu/%-zu unreachable: deleting...", i, memtab_size - 1) ;
 			tmp = MEMTAB_DEREF(i) ;
-			D_OBJ(tmp) ;  }
+			D_OBJ(tmp) ;
+			MEMTAB_SETV(i, 0) ; }
 		else {
+			MEM_printf("gc: SWEEP %zu/%-zu REACHABLE...", i, memtab_size - 1) ;
 			mem_index_unmark(i) ; } }
 
 	return 0 ;
@@ -328,12 +336,20 @@ int mem_sys_down(void) {
 
 	for (size_t i = 0; i < memtab_size; ++i) {
 		if (MEMTAB_VALID(i)) {
+			MEM_printf("sys_down: free remaining valid address '%lu'\n", i) ;
 			tmp = MEMTAB_DEREF(i) ;
-			D_OBJ(tmp) ; } }
+			D_OBJ(tmp) ; }
+		else if (MEMTAB_REACH(i)) {
+			MEM_printf("sys_down: error: reachable but invalid memory exists at sys_down\n") ;
+			MEM_SYS_OOPS() ;
+			} }
 
 	free(memtab) ;
 	free(rq) ;
 
-	MEM_SYS_DOWN() ;
-	return 0 ;
+	if (MEM_SYS_VALIDATE()) {
+		MEM_SYS_DOWN() ;
+		return 0 ; }
+	else {
+		return -1 ; }
 }

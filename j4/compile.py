@@ -24,6 +24,7 @@ OUTPUT_HEADER = \
 """#include <stdio.h>
 #include <types.h>
 #include <interp.h>
+#include <mem.h>
 
 int main(void) {
         mem_sys_up() ;

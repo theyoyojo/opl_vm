@@ -1,0 +1,15 @@
+gc'ed memusage.j4:
+==10970==   total heap usage: 318,376 allocs, 318,376 frees, 9,564,896 bytes allocated
+
+nogc'ed memusage.j4
+==11646==   total heap usage: 318,376 allocs, 318,376 frees, 9,564,896 bytes allocated
+
+good :)
+
+lammmath.j4:
+	gc:
+real	0m0.513s
+user	0m0.510s
+sys	0m0.003s
+	nogc:
+

@@ -19,6 +19,7 @@ usage() {
 	echo "		a) emit formatted ast and quit"
 	echo "		c) emit the C listing and quit"
 	echo "		d) enable debug output in binary"
+	echo "		n) disable garbage collection"
 	echo "		h) display this message"
 	echo ""
 	echo "	Combination of flags may will produce the"
@@ -40,9 +41,10 @@ PARSE2=""
 export SEMIT=""		# Exported to trigger behavior in compile.py
 export ASTEMIT=""
 CEMIT=""
+NOGC=""
 DEBUG=""
 
-while getopts "012sacdh" OPTION; do
+while getopts "012sacdnh" OPTION; do
 	case $OPTION in
 		0)
 			PARSE0=yes
@@ -70,6 +72,10 @@ while getopts "012sacdh" OPTION; do
 			;;
 		d)
 			DEBUG=yes
+			shift
+			;;
+		n)
+			NOGC=yes
 			shift
 			;;
 		h)
@@ -106,22 +112,40 @@ TMPDIR="/tmp/j4compile_tmp_`basename $INFILE`"
 mkdir $TMPDIR
 
 REMAKE=""
+mkdir -p $J4_PATH/flags
 # -d option will define debug symbol to one in preprocessor
 # this needs to be passed to earlier make
 if [ ! -z "$DEBUG" ]
 then
 	echo "=====[DEBUG OUTPUT ON]====="
-	export EXTRA_CFLAGS="-DDEBUG"
-	if [ ! -f "$J4_PATH/DEBUG_BINARY" ]
+	export EXTRA_CFLAGS="$EXTRA_CFLAGS -DDEBUG"
+	if [ ! -f "$J4_PATH/flags/DEBUG_BINARY" ]
 	then
 		REMAKE="make clean"
 	fi
-	touch "$J4_PATH/DEBUG_BINARY"
+	touch "$J4_PATH/flags/DEBUG_BINARY"
 else
-	if [ -f "$J4_PATH/DEBUG_BINARY" ]
+	if [ -f "$J4_PATH/flags/DEBUG_BINARY" ]
 	then
 		REMAKE="make clean"
-		rm "$J4_PATH/DEBUG_BINARY"
+		rm "$J4_PATH/flags/DEBUG_BINARY"
+	fi
+fi
+if [ ! -z "$NOGC" ]
+then
+	echo "=======[GC DISABLED]======="
+	export EXTRA_CFLAGS="$EXTRA_CFLAGS -DNOGC"
+	if [ ! -f "$J4_PATH/flags/NOGC_BINARY" ]
+	then
+		REMAKE="make clean"
+	fi
+	touch "$J4_PATH/flags/NOGC_BINRARY"
+else
+	echo "==========[GC ON]=========="
+	if [ -f "$J4_PATH/flags/NOGC_BINARY" ]
+	then
+		REMAKE="make clean"
+		rm "$J4_PATH/flags/NOGC_BINARY"
 	fi
 fi
 (cd $J4_PATH ; $REMAKE ; make) >/dev/null
@@ -211,17 +235,25 @@ fi
 # Compile the bytecode
 gcc -c -o "$TMPDIR/$INFILE.o" "$TMPDIR/$INFILE.byte.c" -I$J4_PATH/vm
 
+if [ "$?" = "1" ]
+then
+	echo "ERROR[COMPILE FAILURE]ERROR"
+	rm -rf $TMPDIR
+	exit $E_COMPILATION
+fi
+
+
 # Link the bytecode with the J4 virtual machine interpreter, produce the executable
 gcc "$TMPDIR/$INFILE.o" $OBJS -o $OUTFILE
 
 if [ "$?" = "1" ]
 then
-	echo "Compilation error"
+	echo "ERROR[COMPILE FAILURE]ERROR"
 	rm -rf $TMPDIR
 	exit $E_COMPILATION
 fi
 
-echo "===[Compilation Success]==="
+echo "=====[COMPILE SUCCESS]====="
 
 # clean up
 rm -rf $TMPDIR
