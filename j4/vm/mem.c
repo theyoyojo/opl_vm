@@ -40,15 +40,25 @@ static size_t rq_capacity ;
 
 int rq_push(obj_t * obj) {
 	obj_t ** tmp_ptr ;
+	size_t i, j, old_capacity ;
 	if (rq_size >= rq_capacity - 10) {
-		rq_capacity *= 2 ;
-		if (!(tmp_ptr = (obj_t **)realloc(rq, rq_capacity))) {
-			rq_capacity /= 2 ;
+		old_capacity = rq_capacity ;
+		rq_capacity *= rq_capacity ;
+		if (!(tmp_ptr = (obj_t **)malloc(sizeof(obj_t *) * rq_capacity))) {
+			rq_capacity = old_capacity ;
 			return -1 ; }
+		MEM_printf("rq_push: rootqueue capacity enlarged: %zu -> %zu\n", old_capacity, rq_capacity) ;
+		MEM_printf("rq_push: move rq %p -> %p\n", rq, tmp_ptr) ;
+		/* copy queue into new mem so it starts from zero */
+		for (i = rq_first, j = 0; j < rq_size; i = (i + 1) % old_capacity, ++j) {
+			tmp_ptr[j] = rq[i] ; }
+		rq_first = 0 ;
+		rq_last = rq_size - 1 ;
+		free(rq) ;
 		rq = tmp_ptr ;
 	}
 
-	/* printf("writing to rq[last=%zu, size=%zu]\n", rq_last, rq_size) ; */
+	/* printf("writing to rq[%p, last=%zu, size=%zu]\n", rq + rq_last, rq_last, rq_size) ; */
 	rq[rq_last] = obj ;
 
 	rq_last = (rq_last + 1) % rq_capacity ;
@@ -61,7 +71,7 @@ obj_t * rq_pop(void) {
 	if (rq_size <= 0) {
 		return NULL ; }
 
-	/* printf("reading from rq[first=%zu, size=%zu]\n", rq_first, rq_size) ; */
+	/* printf("reading from rq[%p, first=%zu, size=%zu]\n", rq + rq_first, rq_first, rq_size) ; */
 	tmp = rq[rq_first] ;
 	rq_first = (rq_first + 1) % rq_capacity ;
 	--rq_size ;
@@ -206,6 +216,14 @@ int mem_gc(obj_t * code, obj_t * env, obj_t * stack) {
 	/* the trash heap strategy: we just pile it on until we have to get rid of it */
 	return 0 ;
 #else 
+
+	MEM_printf("====[G C]====\n") ;
+
+#ifdef SCGC /* maybe I can do this one too... */
+	
+#else
+
+#endif
 	/* a last-ditch attempt at mark and sweep garbage collection */
 
 	obj_t 		* tmp,
@@ -213,7 +231,6 @@ int mem_gc(obj_t * code, obj_t * env, obj_t * stack) {
 	olist_t 	* tmplist ;
 	size_t 		i ;
 
-	MEM_printf("====[G C]====\n") ;
 
 	/* mark */
 	rq_push(code) ;		/*  t h e  */
@@ -316,13 +333,19 @@ int mem_gc(obj_t * code, obj_t * env, obj_t * stack) {
 		if (!MEMTAB_VALID(i)) { 
 			continue ; }
 		else if (!MEMTAB_REACH(i)) {
-			MEM_printf("gc: SWEEP %zu/%-zu unreachable: deleting...", i, memtab_size - 1) ;
+			MEM_printf("gc: SWEEP %zu/%-zu unreachable: deleting...\n", i, memtab_size - 1) ;
 			tmp = MEMTAB_DEREF(i) ;
 			D_OBJ(tmp) ;
 			MEMTAB_SETV(i, 0) ; }
 		else {
-			MEM_printf("gc: SWEEP %zu/%-zu REACHABLE...", i, memtab_size - 1) ;
+			MEM_printf("gc: SWEEP %zu/%-zu REACHABLE...\n", i, memtab_size - 1) ;
 			mem_index_unmark(i) ; } }
+
+	if (rq_size != 0) {
+		fprintf(stderr, "Error: garbage collector broke\n") ;
+		exit(1) ;
+	}
+
 
 	return 0 ;
 #endif

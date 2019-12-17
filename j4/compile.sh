@@ -20,6 +20,7 @@ usage() {
 	echo "		c) emit the C listing and quit"
 	echo "		d) enable debug output in binary"
 	echo "		n) disable garbage collection"
+	echo "		m) enable mem debug output in binary"
 	echo "		h) display this message"
 	echo ""
 	echo "	Combination of flags may will produce the"
@@ -43,8 +44,9 @@ export ASTEMIT=""
 CEMIT=""
 NOGC=""
 DEBUG=""
+MEM_DEBUG=""
 
-while getopts "012sacdnh" OPTION; do
+while getopts "012sacdnmh" OPTION; do
 	case ${OPTION} in
 		0)
 			PARSE0=yes
@@ -69,6 +71,9 @@ while getopts "012sacdnh" OPTION; do
 			;;
 		n)
 			NOGC=yes
+			;;
+		m)
+			MEM_DEBUG=yes
 			;;
 		h)
 			usage
@@ -140,6 +145,22 @@ else
 	then
 		REMAKE="make clean"
 		rm "$J4_PATH/flags/NOGC_BINARY"
+	fi
+fi
+if [ ! -z "$MEM_DEBUG" ]
+then
+	echo "===[MEM DEBUG OUTPUT ON]==="
+	export EXTRA_CFLAGS="$EXTRA_CFLAGS -DMEM_DEBUG"
+	if [ ! -f "$J4_PATH/flags/MEM_DEBUG_BINARY" ]
+	then
+		REMAKE="make clean"
+	fi
+	touch "$J4_PATH/flags/MEM_DEBUG_BINARY"
+else
+	if [ -f "$J4_PATH/flags/MEM_DEBUG_BINARY" ]
+	then
+		REMAKE="make clean"
+		rm "$J4_PATH/flags/MEM_DEBUG_BINARY"
 	fi
 fi
 (cd $J4_PATH ; $REMAKE ; make) >/dev/null
