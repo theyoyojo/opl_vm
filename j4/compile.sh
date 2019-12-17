@@ -45,38 +45,30 @@ NOGC=""
 DEBUG=""
 
 while getopts "012sacdnh" OPTION; do
-	case $OPTION in
+	case ${OPTION} in
 		0)
 			PARSE0=yes
-			shift
 			;;
 		1)
 			PARSE1=yes
-			shift
 			;;
 		2)
 			PARSE2=yes
-			shift
 			;;
 		s)
 			SEMIT=yes
-			shift
 			;;
 		a)
 			ASTEMIT=yes
-			shift
 			;;
 		c)
 			CEMIT=yes
-			shift
 			;;
 		d)
 			DEBUG=yes
-			shift
 			;;
 		n)
 			NOGC=yes
-			shift
 			;;
 		h)
 			usage
@@ -84,9 +76,9 @@ while getopts "012sacdnh" OPTION; do
 		*)
 			echo "Unknown option $OPTION, ignoring"
 			shift
-			;;
-	esac
+			;; esac
 done
+shift $((OPTIND -1))
 
 if [ -z "$J4_PATH" ]
 then
@@ -100,13 +92,15 @@ then
 	REQUIRED_ARGC=1
 fi
 
-if [ $# -ne "$REQUIRED_ARGC" ]
-then
-	usage
-fi
 
 INFILE="$1"
 OUTFILE="$2"
+
+if [ $# -ne "$REQUIRED_ARGC" ]
+then
+	echo $# ?= $REQUIRED_ARGC
+	usage
+fi
 
 TMPDIR="/tmp/j4compile_tmp_`basename $INFILE`"
 mkdir $TMPDIR
@@ -139,7 +133,7 @@ then
 	then
 		REMAKE="make clean"
 	fi
-	touch "$J4_PATH/flags/NOGC_BINRARY"
+	touch "$J4_PATH/flags/NOGC_BINARY"
 else
 	echo "==========[GC ON]=========="
 	if [ -f "$J4_PATH/flags/NOGC_BINARY" ]
