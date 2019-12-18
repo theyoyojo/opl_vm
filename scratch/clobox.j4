@@ -1,0 +1,3 @@
+(let*(
+	[foo ($ toprec (x) (box toprec))])
+((unbox (foo 1)) 1))

@@ -1,0 +1,6 @@
+(let*(
+	[x 6]
+	[foo ($ (x) 666)]
+	[bar ($ (x) 777)])
+(print (foo 4))
+(print (bar 4)))

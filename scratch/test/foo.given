@@ -1,0 +1,6 @@
+[foofunc ($ () (print "foofunc executed"))]
+
+%% hello
+asdf
+asdf
+%%
