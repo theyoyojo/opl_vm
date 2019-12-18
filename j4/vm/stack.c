@@ -559,7 +559,6 @@ int env_bind(obj_t * env, obj_t ** tmp_ptr, olist_t * binding, olist_t * vals) {
 		return -1 ;
 	}
 
-	/* FIXME wrong: Include function name for possible usage later as env name */
 
 	/* first iterate through existing identifiers and replace matching */
 	/* keep trace of indexes in arglists that ovewrite, these wont be appended */

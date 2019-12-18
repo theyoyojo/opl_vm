@@ -1,4 +1,5 @@
 #include "interp.h"
+#include "interpinfo.h"
 
 #include <string.h>
 
@@ -6,6 +7,70 @@
 #include "types.h"
 #include "delta.h"
 #include "mem.h"
+
+static obj_t ** code_ptr ;
+static obj_t ** env_ptr ;
+static obj_t ** stack_ptr ;
+
+obj_t * interp_get_code(void) {
+	if (!interp_running()) {
+		return NULL ;
+	}
+	return *code_ptr ;
+}
+
+obj_t * interp_get_env(void) {
+	if (!interp_running()) {
+		return NULL ;
+	}
+	return *env_ptr ;
+}
+
+obj_t * interp_get_kont(void) {
+	if (!interp_running()) {
+		return NULL ;
+	}
+	return stack_top(*stack_ptr) ;
+}
+
+obj_t * interp_get_stack(void) {
+	if (!interp_running()) {
+		return NULL ;
+	}
+	return *stack_ptr ;
+}
+
+interp_objtab_setup_entry_t interp_objtab_configtab[] = {
+	{ I_CODE, interp_get_code, },
+	{ I_ENV, interp_get_code, },
+	{ I_KONT, interp_get_kont, },
+	{ I_STACK, interp_get_stack },
+	{ 0, NULL },
+} ;
+
+size_t interp_objtab_configtab_size = sizeof(interp_objtab_configtab) / sizeof(interp_objtab_setup_entry_t) ;
+
+int interp_sys_up(obj_t ** _code_ptr, obj_t ** _env_ptr, obj_t ** _stack_ptr) {
+	code_ptr 	= _code_ptr ;	
+	env_ptr 	= _env_ptr ;	
+	stack_ptr 	= _stack_ptr ;	
+
+	interp_objtab_setup(interp_objtab_configtab, interp_objtab_configtab_size) ;
+
+	interp_set_state(IST_RUNNING) ;
+
+	return 0 ;
+}
+
+int interp_sys_down(void) {
+	code_ptr 	= NULL ;
+	env_ptr 	= NULL ;
+	stack_ptr 	= NULL ;
+
+	interp_set_state(IST_OFF) ;
+
+	return 0 ;
+}
 
 static inline void boolify_if_not_already_bool(obj_t ** code, obj_t ** tmp) {
 	if (obj_typeof(*code) != T_BOOL) {
@@ -40,6 +105,8 @@ obj_t * exec(obj_t * program) {
 	size_t cycle_count = 0 ;
 
 	stack_push(stack, C_frret(env)) ;
+
+	interp_sys_up(&code, &env, &stack) ;
 
 	endlessly_repeat {			
 		if (!code) {
@@ -192,6 +259,7 @@ obj_t * exec(obj_t * program) {
 	}
 
 success:
+	interp_sys_down() ;
 	D_OBJ	(tmp1) 	;	/* machine 0 */
 	D_OBJ	(stack) ;		/* K */
 	D_OBJ	(env) 	;		/* E */

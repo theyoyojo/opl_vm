@@ -186,8 +186,8 @@ void gen_repr_ptr(obj_t * obj) {
 	size_t addr_str_size,
 	       size_str_size ;
 
-	size_str_size = sprintf(buff1, "%zu", ptr_size(obj)) ;
-	addr_str_size = sprintf(buff2, "%lu", (unsigned long)ptr_addr(obj)) ;
+	size_str_size = sprintf(buff1, "%zx", ptr_size(obj)) ;
+	addr_str_size = sprintf(buff2, "%lx", (unsigned long)ptr_addr(obj)) ;
 
 	obj->head.repr_size =
 		  sizeof(part1)

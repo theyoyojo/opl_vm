@@ -7,7 +7,10 @@
 #define MEM_printf(...) printf( __VA_ARGS__)
 #else
 #define MEM_printf(...) (void)0
-#endif
+#endif /* ifdef MEM_DEBUG */
+
+enum mem_mode { MM_NOGC, MM_MSGC, MM_SCGC } ;
+
 
 
 int mem_sys_up(void) ;

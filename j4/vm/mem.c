@@ -1,7 +1,19 @@
 #include "mem.h"
 #include "types.h"
 #include "stack.h"
+#include "interpinfo.h"
 #include <string.h>
+
+/* #ifdef NOGC */
+/* static enum mem_mode mem_mode = MM_NOGC ; */
+/* #else */
+/* #ifdef SCGC */
+/* static enum mem_mode mem_mode = MM_SCGC ; */
+/* #else */
+/* static enum mem_mode mem_mode = MM_MSGC ; */
+/* #endif /1* ifdef SCGC *1/ */
+
+/* #endif /1* ifdef NOGC *1/ */
 
 static int init_success = -1 ;
 
@@ -9,24 +21,40 @@ static obj_t ** memtab ;
 static size_t 	memtab_size ;
 static size_t 	memtab_capacity ;
 
+#ifndef NOGC
+/* #define SCGC */
 #undef SCGC
+#endif 
+
 #ifdef SCGC
 
-static obj_t ** memtab_to ;
-static size_t 	memtab_to_size ;
-static size_t 	memtab_to_capacity ;
+static obj_t ** memtab_1 ;
+static size_t 	memtab_1_size ;
+static size_t 	memtab_1_capacity ;
+
+static obj_t ** memtab_2 ;
+static size_t 	memtab_2_size ;
+static size_t 	memtab_2_capacity ;
+
+static size_t 	memtab_current = 0 ;
 
 #endif 
 
 struct tmplist {
 	obj_t * tmp ;
-#ifdef SCCG
+#ifdef SCGC
 	unsigned long addr ;
+	unsigned long new_addr ;
 #endif
 	struct tmplist * next ;
 } ;
 
+
+#ifdef SCGC
+#define MEMTAB_CAPACITY_INIT 	16	/* low to trigger gc to demonstrate */
+#else
 #define MEMTAB_CAPACITY_INIT 	64
+#endif
 
 #define MEMTAB_ADDR_MASK	0xfffffffffff0UL
 #define MEMTAB_VALID_BITS	1UL
@@ -95,8 +123,53 @@ obj_t * rq_pop(void) {
 	return tmp ;
 }
 
+#ifdef SCGC
+static inline void mem_switch_memtab(void) {
+	switch(memtab_current) {
+	case 1:
+		memtab_1_size 		= memtab_size ;
+		memtab_1_capacity 	= memtab_capacity ;
+		memtab 			= memtab_2 ;
+		memtab_size 		= memtab_2_size ;
+		memtab_capacity 	= memtab_2_capacity ;
+		memtab_current 		= 2 ;
+	case 2:
+		memtab_2_size 		= memtab_size ;
+		memtab_2_capacity 	= memtab_capacity ;
+		memtab 			= memtab_1 ;
+		memtab_size 		= memtab_1_size ;
+		memtab_capacity 	= memtab_1_capacity ;
+		memtab_current 		= 1 ;
+	case 0:
+	default:
+		return ;
+	}
+}
+#endif
+
 int mem_sys_up(void) {
-	
+#ifdef SCGC
+	memtab_1_capacity = MEMTAB_CAPACITY_INIT ;
+	if (!(memtab_1 = (obj_t **)malloc(sizeof(obj_t *) * memtab_1_capacity))) {
+		MEM_SYS_OOPS() ;
+		return -1 ; }
+	memtab_1_size  = 0 ;
+
+	memtab_2_capacity = MEMTAB_CAPACITY_INIT ;
+	if (!(memtab_2 = (obj_t **)malloc(sizeof(obj_t *) * memtab_2_capacity))) {
+		MEM_SYS_OOPS() ;
+		return -1 ; }
+	memtab_2_size  = 0 ;
+
+	memset(memtab_1, 0, memtab_1_capacity) ;
+	memset(memtab_2, 0, memtab_2_capacity) ;
+
+	memtab 		= memtab_1 ;
+	memtab_size 	= memtab_1_size ;
+	memtab_capacity = memtab_1_capacity ;
+	memtab_current = 1 ;
+#else
+
 	memtab_capacity = MEMTAB_CAPACITY_INIT ;
 	if (!(memtab = (obj_t **)malloc(sizeof(obj_t *) * memtab_capacity))) {
 		MEM_SYS_OOPS() ;
@@ -104,15 +177,6 @@ int mem_sys_up(void) {
 
 	memtab_size  = 0 ;
 	memset(memtab, 0, memtab_capacity) ;
-
-#ifdef SCGC
-	memtab_t_capacity = MEMTAB_CAPACITY_INIT ;
-	if (!(memtab_t = (obj_t **)malloc(sizeof(obj_t *) * memtab_t_capacity))) {
-		MEM_SYS_OOPS() ;
-		return -1 ; }
-
-	memtab_t_size  = 0 ;
-	memset(memtab_t, 0, memtab_t_capacity) ;
 #endif
 
 	rq_capacity = RQ_CAPACITY_INIT ;
@@ -127,6 +191,7 @@ int mem_sys_up(void) {
 	return 0 ;
 	
 }
+
 
 void mem_ptr_set_reachable(obj_t * ptr, int reachable) {
 	size_t index ;
@@ -169,16 +234,62 @@ obj_t * mem_alloc_init(obj_t * obj) {
 		MEM_SYS_OOPS() ;
 		return C_abort(C_str("Exception: memory system in invalid state")) ; }
 
+#ifdef SCGC
+	if (memtab_size >= memtab_capacity) {
+		if (interp_running()) {
+			mem_gc(interp_get(I_CODE), interp_get(I_ENV), interp_get(I_KONT)) ;
+			if (memtab_size >= memtab_capacity) {
+				goto gc_did_not_help_just_run_realloc ; }
+			else {
+				goto gc_did_a_great_job_and_made_some_space ; } }
+gc_did_not_help_just_run_realloc:
+
+#else
 	/* if we get close to the limit, square it */
 	if (memtab_size >= memtab_capacity - 10) {
+#endif
 		/* printf("RESIZE: %zu --> %zu\n", memtab_capacity, memtab_capacity * memtab_capacity) ; */
 		memtab_capacity *= memtab_capacity ;
+#ifndef SCGC
 		tmp_ptr = (obj_t **)realloc(memtab, sizeof(obj_t *) * memtab_capacity) ;
+#else
+		obj_t ** tmp_ptr_1, ** tmp_ptr_2 ;
+		
+		tmp_ptr_1 = (obj_t **)realloc(memtab_1, sizeof(obj_t *) * memtab_capacity) ;
+		
+		if (tmp_ptr_1) {	
+			tmp_ptr_2 = (obj_t **)realloc(memtab_2, sizeof(obj_t *) * memtab_capacity) ;
+			if (tmp_ptr_2) {
+				memtab_1 		= tmp_ptr_1 ;
+				memtab_1_capacity 	= memtab_capacity ;
+				memtab_2 		= tmp_ptr_2 ;
+				memtab_2_capacity 	= memtab_capacity ;
+				switch(memtab_current) {
+				case 1:
+					memtab = tmp_ptr = memtab_1 ;
+					break ;
+				case 2:
+					memtab = tmp_ptr = memtab_2 ;
+					break ;
+				}
+
+			} else {
+				free(tmp_ptr_1) ;
+				tmp_ptr = NULL ;
+			}
+		} else {
+			tmp_ptr = NULL ;
+		}
+#endif
 		if (!tmp_ptr) {
 			MEM_SYS_OOPS() ;
-			memtab_capacity /= memtab_capacity ;
+			if (memtab_capacity) {
+				memtab_capacity /= memtab_capacity ; }
 			return C_abort(C_str("Exception: memory system in invalid state")) ; }
 		memtab = tmp_ptr ; }
+#ifdef SCGC
+gc_did_a_great_job_and_made_some_space:
+#endif
 
 	tmp = C_obj_copy(obj) ;
 	if (!tmp) {
@@ -187,8 +298,17 @@ obj_t * mem_alloc_init(obj_t * obj) {
 	else {
 		memtab[memtab_size++] = tmp ;
 		MEMTAB_SETV(memtab_size - 1, 1) ;
-		return C_ptr((void *)(memtab_size - 1), obj_sizeof(MEMTAB_DEREF(memtab_size - 1))) ; }
-}
+#ifdef SCGC
+		return C_ptr((void *)(memtab_size - 1), 0x4) ; }
+#else
+#ifndef NOGC
+		return C_ptr((void *)(memtab_size - 1), 0x2) ; }
+		/* honestly the ptr size field is pretty meaningless */
+#else
+		return C_ptr((void *)(memtab_size - 1), 0x1) ; }
+#endif /* ifndef NOGC */
+#endif /* ifdef SCGC */
+} 
 
 
 obj_t * mem_deref(obj_t * ptr) {
@@ -246,11 +366,6 @@ int mem_gc(obj_t * code, obj_t * env, obj_t * stack) {
 #else 
 	MEM_printf("====[G C]====\n") ;
 
-#ifdef SCGC /* maybe I can do this one too... */
-	MEM_printf("===[S & C]===\n") ;
-#else
-	MEM_printf("===[M & S]===\n") ;
-#endif
 	obj_t 		* tmp,
 			* tmp2 ;
 	olist_t 	* tmplist ;
@@ -260,12 +375,24 @@ int mem_gc(obj_t * code, obj_t * env, obj_t * stack) {
 
 	head = tmplist_tmp = NULL ;
 
+#ifdef SCGC /* maybe I can do this one too... */
+	MEM_printf("===[S & C]===\n") ;
+	unsigned long addr_current ;
+	if (memtab_size >= memtab_capacity/2) { /* artificially low to see effect */
+		
+#else
+	MEM_printf("===[M & S]===\n") ;
 	/* mark */
+#endif
+
+
 	rq_push(code) ;		/*  t h e  */
 	rq_push(env) ;  	/* r o o t */
 	rq_push(stack) ;    	/*  s e t  */
 
+	MEM_printf("Searching roots") ;
 	while ((tmp = rq_pop())) {
+		MEM_printf(".") ;
 		switch (obj_typeof(tmp)) {
 		case T_APP:
 			tmplist = app_get_expr_list(tmp) ;
@@ -302,7 +429,7 @@ int mem_gc(obj_t * code, obj_t * env, obj_t * stack) {
 		case T_PTR:
 			/* the money */
 #ifdef SCGC
-			
+
 #else
 			mem_ptr_mark(tmp) ;
 			MEM_printf("gc: MARK reachable '%s'\n", obj_repr(tmp)) ;
@@ -311,12 +438,33 @@ int mem_gc(obj_t * code, obj_t * env, obj_t * stack) {
 			 * but doing so requires we copy the object from memory. mem_gc is
 			 * respobsible for this temporarily allocated memory.
 			 */
+#ifdef SCGC
+			addr_current = (unsigned long)ptr_addr(tmp) ;
+			for (tmplist_tmp = head; tmplist_tmp; tmplist_tmp = tmplist_tmp->next) {
+				if (tmplist_tmp->addr == addr_current) {
+					goto fwd_ptr_installed; } }
+			goto first_ptr_visit ;
+fwd_ptr_installed:
+			MEM_printf("gc: FWD addr from[%lx] -> to[%lx]\n",
+					(unsigned long)ptr_addr(tmp), tmplist_tmp->new_addr) ;
+			((ptr_t *)tmp)->addr = (void *)tmplist_tmp->new_addr ;
+			break ;
+first_ptr_visit:
+
+#endif
 			if (!(tmplist_tmp = (struct tmplist *)malloc(sizeof(struct tmplist)))) {
 				fprintf(stderr, "gc: Critical allocaiton failure\n") ;
 				exit(1) ; }
 			tmplist_tmp->tmp = mem_deref(tmp) ;
 #ifdef SGCG
-			tmplist_tmp->addr = (unsigned long)ptr_add(tmp) ;
+			tmplist_tmp->addr = (unsigned long)ptr_addr(tmp) ;
+			mem_switch_memtab() ; /* now in tospace */
+			tmp2 = mem_alloc_init(tmplist_tmp->tmp) ;
+			MEM_printf("gc: COPY from[%lx] -> to[%lx]\n", tmplist_tmp->addr,
+					(unsigned long)ptr_addr(tmp2)) ;
+			tmplist_tmp->new_addr = (unsigned long)ptr_addr(tmp2) ;
+			D_OBJ(tmp2) ;
+			mem_switch_memtab() ; /* back in fromspace */
 #endif
 			tmplist_tmp->next = head ;
 			head = tmplist_tmp ;
@@ -372,6 +520,7 @@ int mem_gc(obj_t * code, obj_t * env, obj_t * stack) {
 			break ;
 		}
 	}
+	MEM_printf("\n") ;
 
 
 #ifndef SCGC
@@ -388,8 +537,14 @@ int mem_gc(obj_t * code, obj_t * env, obj_t * stack) {
 			MEM_printf("gc: SWEEP %zu/%-zu REACHABLE...\n", i, memtab_size - 1) ;
 			mem_index_unmark(i) ; } }
 #else
-	/* ?? */
-#endif
+	for (i = 0; i < memtab_size; ++i) {
+		if (MEMTAB_VALID(i)) {
+			tmp = MEMTAB_DEREF(i) ;
+			D_OBJ(tmp) ;
+			MEMTAB_SETV(i, 0) ; } }	/* invalidate entire fromspace */
+	mem_switch_memtab() ; /* finish in tospace which becomes new fromspace */
+	}
+#endif /* ifndef SCGC */
 
 
 	for (;head;) {
@@ -400,12 +555,11 @@ int mem_gc(obj_t * code, obj_t * env, obj_t * stack) {
 
 	if (rq_size != 0) {
 		fprintf(stderr, "Error: garbage collector broke\n") ;
-		exit(1) ;
-	}
+		exit(1) ; }
 
 
 	return 0 ;
-#endif
+#endif /* ifdef NOGC */
 }
 
 int mem_sys_down(void) {
@@ -424,9 +578,13 @@ int mem_sys_down(void) {
 			MEM_SYS_OOPS() ;
 			} }
 
-	free(memtab) ;
 #ifdef SCGC
-	free(memtab_to) ;
+	free(memtab_1) ;
+	free(memtab_2) ;
+	memtab = NULL ;
+	memtab_current = 0 ;
+#else
+	free(memtab) ;
 #endif
 	free(rq) ;
 
